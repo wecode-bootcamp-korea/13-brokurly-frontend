@@ -1,0 +1,82 @@
+{
+  "specialProductsItems": [
+    {
+      "id": 1,
+      "isOnSale": true,
+      "saleType": "SAVE",
+      "saleAmount": "20%",
+      "mainImage": "https://img-cf.kurly.com/shop/data/goods/1602482402986l0.jpg",
+      "hasBrandName": true,
+      "brandName": "Kurly's",
+      "productName": "국산콩 콩나물 250g",
+      "price": "1,200",
+      "hasOriginalPrice": true,
+      "originalPrice": "1,500"
+    },
+    {
+      "id": 2,
+      "isOnSale": false,
+      "saleType": null,
+      "saleAmount": null,
+      "mainImage": "https://img-cf.kurly.com/shop/data/goods/1517208922508l0.jpg",
+      "hasBrandName": false,
+      "brandName": null,
+      "productName": "MY FIRST 처음 만나는 진짜 모닝롤",
+      "price": "4,300",
+      "hasOriginalPrice": false,
+      "originalPrice": null
+    },
+    {
+      "id": 3,
+      "isOnSale": false,
+      "saleType": null,
+      "saleAmount": null,
+      "mainImage": "https://img-cf.kurly.com/shop/data/goods/1475633955339l0.jpg",
+      "hasBrandName": false,
+      "brandName": null,
+      "productName": "MY FIRST 처음 만나는 진짜 식빵",
+      "price": "4,900",
+      "hasOriginalPrice": false,
+      "originalPrice": null
+    },
+    {
+      "id": 4,
+      "isOnSale": true,
+      "saleType": "SAVE",
+      "saleAmount": "5%",
+      "mainImage": "https://img-cf.kurly.com/shop/data/goods/1600829342493l0.jpg",
+      "hasBrandName": true,
+      "brandName": "Kurly's",
+      "productName": "무농약 국산 숙주나물 250g",
+      "price": "1,710",
+      "hasOriginalPrice": true,
+      "originalPrice": "1,800"
+    },
+    {
+      "id": 5,
+      "isOnSale": false,
+      "saleType": null,
+      "saleAmount": null,
+      "mainImage": "https://img-cf.kurly.com/shop/data/goods/1573110742211l0.jpg",
+      "hasBrandName": true,
+      "brandName": "PPUL",
+      "productName": "1++ 한우 로스 등심 150g(냉장)",
+      "price": "35,000",
+      "hasOriginalPrice": false,
+      "originalPrice": null
+    },
+    {
+      "id": 6,
+      "isOnSale": false,
+      "saleType": null,
+      "saleAmount": null,
+      "mainImage": "https://img-cf.kurly.com/shop/data/goods/1602491854521l0.jpg",
+      "hasBrandName": true,
+      "brandName": "Kurly's",
+      "productName": "간편하게 바삭, 치즈 롤까스",
+      "price": "8,900",
+      "hasOriginalPrice": false,
+      "originalPrice": null
+    }
+  ]
+}
