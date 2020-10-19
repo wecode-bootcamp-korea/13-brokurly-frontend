@@ -1,3 +1,25 @@
 .Login {
-  margin: 0;
+  .login-container {
+    margin: 0 auto;
+    padding-top: 90px;
+    width: 340px;
+    height: 442px;
+    .login-title {
+      font-weight: 800;
+      font-size: 20px;
+      text-align: center;
+    }
+    .login-form {
+      width: 100%;
+      input {
+        height: 54px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        background-color: #fff;
+        font-size: 14px;
+        line-height: 20px;
+        outline: none;
+      }
+    }
+  }
 }
