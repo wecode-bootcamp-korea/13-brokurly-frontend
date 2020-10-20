@@ -1,16 +1,19 @@
 import React, { Component } from "react";
-import IdSearch from "../Login/IdSearch/IdSearch.component";
+
 import Login from "../Login/Login.component";
-import PwdSearch from "../Login/pwdSearch/PwdSearch.component";
+import SearchPwd from "../Login/SearchPwd/SearchPwd.component";
+import SearchId from "../Login/SearchId/SearchId.component";
+import Signup from "../Signup/Signup.component";
 
 import "./Main.styles.scss";
 
 class Main extends Component {
   render() {
     return (
-      <Login />
-      // <IdSearch />
-      // <PwdSearch />
+      // <Login />
+      // <SearchId />
+      // <SearchPwd />
+      <Signup />
     );
   }
 }
