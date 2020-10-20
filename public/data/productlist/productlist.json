@@ -1,0 +1,56 @@
+{
+  "categories": [
+    { "id": 0, "name": "전체보기" },
+    { "id": 1, "name": "기본채소" },
+    { "id": 2, "name": "쌈 · 샐러드 · 간편채소" },
+    { "id": 3, "name": "브로콜리 · 특수채소" },
+    { "id": 4, "name": "콩나물 · 버섯류" },
+    { "id": 5, "name": "시금치 · 부추 · 나물" },
+    { "id": 6, "name": "양파 · 마늘 · 생강 · 파" },
+    { "id": 7, "name": "파프리카 · 피망 · 고추" }
+  ],
+  "products": [
+    {
+      "id": 0,
+      "name": "시금치 100g",
+      "price": 3000,
+      "content": "싱싱한 시금치",
+      "image_url": "https://images.unsplash.com/photo-1574316071802-0d684efa7bf5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1875&q=80"
+    },
+    {
+      "id": 1,
+      "name": "부추 200g",
+      "price": 2300,
+      "content": "영양 가득 채소의 대명사",
+      "image_url": "https://images.unsplash.com/photo-1558070510-504a0db43997?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+    },
+    {
+      "id": 2,
+      "name": "베이비 시금치 150g",
+      "price": 5000,
+      "content": "작은 잎에 영양 가득",
+      "image_url": "https://images.unsplash.com/photo-1578367622663-5b44691c3493?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80"
+    },
+    {
+      "id": 3,
+      "name": "유기농 쑥갓 100g",
+      "price": 3040,
+      "content": "향긋한 채소",
+      "image_url": "https://images.unsplash.com/photo-1547058606-7eb25508e7e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 4,
+      "name": "고사리 300g",
+      "price": 2110,
+      "content": "맛있는 채소",
+      "image_url": "https://images.unsplash.com/photo-1543056295-d585ba290712?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80"
+    },
+    {
+      "id": 5,
+      "name": "취나물 100g",
+      "price": 2320,
+      "content": "씁쓸한 채소",
+      "image_url": "https://images.unsplash.com/photo-1566929462727-4a89889acb31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=713&q=80"
+    }
+  ]
+}

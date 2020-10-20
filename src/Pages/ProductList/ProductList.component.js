@@ -2,19 +2,36 @@ import React, { Component } from "react";
 
 import "./ProductList.styles.scss";
 import ProductCard from "./ProductCard/ProductCard.component";
+
+const API = "http://localhost:3000/data/productlist/productlist.json";
+
 class ProductList extends Component {
   state = {
     isCategoryClick: false,
     isSortingClick: false,
+    categories: "",
+    products: "",
   };
 
   handleSorting = () => {
     const { isSortingClick } = this.state;
-    this.setState({ isSortingClick: !isSortingClick });
+    this.setState({
+      isSortingClick: !isSortingClick,
+    });
+  };
+
+  componentDidMount = async () => {
+    const response = await fetch(API);
+    // custom error handler
+    if (response.status !== 200) {
+      throw new Error("cannot fetch the data");
+    }
+    const data = await response.json();
+    this.setState({ categories: data.categories, products: data.products });
   };
 
   render() {
-    const { isCategoryClick, isSortingClick } = this.state;
+    const { isSortingClick, categories, products } = this.state;
     return (
       <section className="ProductList">
         <div className="category-nav">
@@ -24,14 +41,10 @@ class ProductList extends Component {
           </div>
           <div className="category-list">
             <ul>
-              <li>전체보기</li>
-              <li>기본채소</li>
-              <li>쌈*샐러드</li>
-              <li>브로콜리*특수채소</li>
-              <li>콩나물*버섯류</li>
-              <li>시금치*부추*나물</li>
-              <li>양파*마늘*생강*파</li>
-              <li>파프리카*피망*고추</li>
+              {categories.length &&
+                categories.map((category) => (
+                  <li key={category.id}>{category.name}</li>
+                ))}
             </ul>
             <div
               className={
@@ -40,9 +53,18 @@ class ProductList extends Component {
               onClick={this.handleSorting}
             >
               <span>추천순</span>
-              <i className="fas fa-chevron-down"></i>
+              <i
+                className={
+                  isSortingClick ? "fas fa-chevron-up" : "fas fa-chevron-down"
+                }
+              ></i>
             </div>
-            <div className="sort-list">
+            <div
+              className={
+                isSortingClick ? "sort-list" : "sort-list display-none"
+              }
+              onClick={this.handleSorting}
+            >
               <ul>
                 <li>추천순</li>
                 <li>신상품순</li>
@@ -55,7 +77,10 @@ class ProductList extends Component {
         </div>
         <div className="card-list">
           <ul>
-            <ProductCard />
+            {products.length &&
+              products.map((product) => {
+                return <ProductCard product={product} key={product.id} />;
+              })}
           </ul>
         </div>
       </section>
