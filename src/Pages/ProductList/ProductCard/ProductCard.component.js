@@ -1,27 +1,66 @@
 import React from "react";
 
 import "./ProductCard.styles.scss";
-import Team from "../../../Images/teamBrokurly.jpg";
 
 const ProductCard = () => {
   return (
-    <div className="ProductCard card">
-      <div className="card-image">
-        <div className="thumbnail"></div>
-        {/* <img src={Team} alt="" /> */}
-        <span className="card-title">Card Title</span>
-        <div className="btn-floating halfway-fab waves-effect waves-light red">
-          <i className="material-icons">add</i>
+    <>
+      <li className="ProductCard">
+        <div className="card-thumbnail">
+          <div className="card-event">
+            <span>SAVE</span>
+            <div>
+              <span>10</span>
+              <span>%</span>
+            </div>
+          </div>
+          <img
+            src="https://img-cf.kurly.com/shop/data/goods/1567574126435l0.jpg"
+            alt=""
+          />
+          <div className="card-shopping">
+            <i className="far fa-shopping-cart"></i>
+          </div>
         </div>
-      </div>
-      <div className="card-content">
-        <p>
-          I am a very simple card. I am good at containing small bits of
-          information. I am convenient because I require little markup to use
-          effectively.
-        </p>
-      </div>
-    </div>
+        <div className="card-content">
+          <span className="card-title">
+            [김구원 선생] 무농약 콩나물 200g 헬로 월드
+          </span>
+          <span className="card-price">1,170원</span>
+          <span className="card-description">
+            무농약 콩으로 재배한 콩나물(1봉/200g)
+          </span>
+        </div>
+      </li>
+      <li className="ProductCard">
+        <div className="card-thumbnail">
+          <div className="card-event">
+            <span>SAVE</span>
+            <div>
+              <span>10</span>
+              <span>%</span>
+            </div>
+          </div>
+          <img
+            src="https://img-cf.kurly.com/shop/data/goods/1567574126435l0.jpg"
+            alt=""
+          />
+          <div className="card-shopping">
+            <i className="far fa-shopping-cart"></i>
+          </div>
+        </div>
+        <div className="card-content">
+          <span className="card-title">fjkdlfsdklfjs</span>
+          <span className="card-price">1700 won</span>
+          <span className="card-description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+            blanditiis sit odio alias. Hic provident labore quis dignissimos
+            tempore, asperiores necessitatibus iste iure! Amet, esse cumque
+            earum eaque dolorum voluptatibus.
+          </span>
+        </div>
+      </li>
+    </>
   );
 };
 

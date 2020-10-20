@@ -1,9 +1,93 @@
 .ProductCard {
-  .card-image {
+  cursor: pointer;
+  padding: 25px 28px 0 0;
+  .card-thumbnail {
+    display: flex;
+    width: 306px;
+    height: 396px;
     margin: 1px;
-    .thumbnail {
-      background-image: "../../../Images/teamBrokurly.jpg";
-      background-size: 306px 394px;
+    overflow: hidden;
+    img {
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      transform: translateX(-66px);
+      // &:hover {
+      //   width: 105%;
+      //   height: 105%;
+      // }
+    }
+    .card-event {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 66px;
+      max-height: 58px;
+      background-color: #53405e;
+      color: #fff;
+      font-size: 14px;
+      opacity: 80%;
+      z-index: 1;
+      div {
+        font-size: 20px;
+        span:last-child {
+          font-size: 15px;
+        }
+      }
+    }
+    .card-shopping {
+      position: relative;
+      top: 83%;
+      right: 43%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 45px;
+      height: 45px;
+      background-color: #53405e;
+      border-radius: 50%;
+      opacity: 80%;
+      z-index: 1;
+      i {
+        color: #fff;
+        font-size: 18px;
+      }
+    }
+  }
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    width: 308px;
+    height: 109px;
+    padding: 10px;
+    .card-title {
+      display: flex;
+      color: #333;
+      line-height: 25px;
+      font-size: 20px;
+      font-weight: 700;
+      min-height: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-price {
+      display: flex;
+      align-items: center;
+      padding: 9px 0;
+      color: #5f0080;
+      line-height: 24px;
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .card-description {
+      padding-bottom: 8px;
+      color: #666;
+      text-overflow: ellipsis;
+      line-height: 19px;
+      font-size: 13px;
+      overflow: hidden;
     }
   }
 }
