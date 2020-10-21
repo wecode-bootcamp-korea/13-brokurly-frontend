@@ -1,13 +1,10 @@
 .ProductList {
-  position: absolute;
-  top: 200px;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0 auto;
-  padding: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .category-nav {
-    padding: 26px 0 0 29px;
+    padding: 26px 69px 0 29px;
 
     .category-title {
       padding-bottom: 10px;
