@@ -1,3 +1,26 @@
 .Signup {
-  margin: 0;
+  .signup-container {
+    width: 640px;
+    height: 1370px;
+    margin: 0 auto;
+    border: 1px solid red;
+    .signup-header {
+      border-bottom: 1px solid black;
+      .signup-title {
+        padding-top: 64px;
+        font-weight: 900;
+        font-size: 30px;
+        color: #333;
+        text-align: center;
+        letter-spacing: -0.5px;
+      }
+      .signup-guide {
+        padding: 23px 0 10px;
+        font-size: 12px;
+        color: #666;
+        line-height: 17px;
+        text-align: right;
+      }
+    }
+  }
 }
