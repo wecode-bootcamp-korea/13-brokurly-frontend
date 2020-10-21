@@ -28,7 +28,7 @@
     line-height: 20px;
     border-radius: 3px;
     background: #fff;
-    outline: none;
+    outline-color: gray;
   }
   .signup-input-off {
     display: none;
@@ -235,4 +235,5 @@
   border: 1px solid var(--primary-color);
   background-color: var(--primary-color);
   color: #fff;
+  outline: none;
 }
