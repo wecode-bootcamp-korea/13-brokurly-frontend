@@ -4,6 +4,7 @@ import "./ProductList.styles.scss";
 import ProductCard from "./ProductCard/ProductCard.component";
 
 const API = "http://localhost:3000/data/productlist/productlist.json";
+// const API = "http://10.58.2.8:8000/category?main=1";
 
 class ProductList extends Component {
   state = {

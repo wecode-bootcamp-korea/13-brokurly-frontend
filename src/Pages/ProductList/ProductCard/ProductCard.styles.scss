@@ -1,6 +1,6 @@
 .ProductCard {
-  cursor: pointer;
   padding: 25px 28px 0 0;
+  cursor: pointer;
 
   .card-thumbnail {
     display: flex;
@@ -42,12 +42,12 @@
   .card-shopping {
     position: relative;
     top: -65px;
-    margin-left: 240px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 45px;
     height: 45px;
+    margin-left: 240px;
     background-color: var(--primary-color);
     border-radius: 50%;
     opacity: 80%;
@@ -60,6 +60,8 @@
   }
 
   .card-content {
+    position: relative;
+    top: -40px;
     display: flex;
     flex-direction: column;
     width: 308px;
@@ -68,11 +70,11 @@
 
     .card-title {
       display: flex;
+      min-height: 20px;
       color: #333;
       line-height: 25px;
       font-size: 20px;
       font-weight: 700;
-      min-height: 20px;
     }
 
     .card-price {
