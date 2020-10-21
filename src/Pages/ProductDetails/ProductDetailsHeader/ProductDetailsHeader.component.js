@@ -5,12 +5,12 @@ import "./ProductDetailsHeader.styles.scss";
 const ProductDetailsHeader = () => {
   return (
     <div className="ProductDetailsHeader">
-      <div className="product-image">
+      <figure className="product-image">
         <img
           src="https://images.unsplash.com/photo-1574316071802-0d684efa7bf5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1875&q=80"
           alt=""
         />
-      </div>
+      </figure>
       <div className="orderinfo">
         <div className="order-header">
           <div>
