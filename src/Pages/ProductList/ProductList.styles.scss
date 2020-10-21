@@ -1,29 +1,37 @@
 .ProductList {
-  position: absolute;
-  top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   .category-nav {
-    padding: 26px 0 0 29px;
+    padding: 26px 69px 0 29px;
+
     .category-title {
       padding-bottom: 10px;
+
       i {
         color: var(--primary-color);
         font-size: 40px;
       }
+
       span {
         line-height: 18px;
         font-size: 14px;
         font-weight: 700;
       }
     }
+
     .category-list {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       width: 970px;
       overflow: hidden;
+
       & > ul {
         display: flex;
         flex-direction: row;
+
         li {
           padding: 0 13px 7px 12px;
           line-height: 20px;
@@ -31,6 +39,7 @@
           cursor: pointer;
           border-bottom: 1px solid #ddd;
           transition: ease 0.3s;
+
           &:hover {
             color: var(--primary-color);
             font-weight: 700;
@@ -38,15 +47,18 @@
           }
         }
       }
+
       .sort-trigger {
         line-height: 20px;
         font-size: 12px;
         cursor: pointer;
         transition: ease 0.3s;
+
         i {
           padding-left: 8px;
         }
       }
+
       .sort-list {
         position: absolute;
         width: 106px;
@@ -58,9 +70,11 @@
         user-select: none;
         cursor: pointer;
         z-index: 1;
+
         & > ul {
           display: flex;
           flex-direction: column;
+
           li {
             display: flex;
             justify-content: flex-end;
@@ -69,6 +83,7 @@
             padding-right: 13px;
             font-size: 12px;
             transition: ease 0.3s;
+
             &:hover {
               color: var(--primary-color);
             }
@@ -77,13 +92,15 @@
       }
     }
   }
+
   .card-list {
     padding: 0 29px;
+
     & ul {
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
       width: 1010px;
+      flex-wrap: wrap;
     }
   }
 }

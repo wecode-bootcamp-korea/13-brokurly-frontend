@@ -13,16 +13,8 @@ class ProductCard extends Component {
     this.setState({ isWidthBiggerThanHeight: sizeCheck });
   };
 
-  emphasizeImage = (e) => {
-    // hover effect 처리하기
-    // console.log(e.target.naturalWidth);
-    // console.log(e.target.naturalHeight);
-  };
-
   render() {
-    // console.log(this.state);
     const { product, isWidthBiggerThanHeight } = this.state;
-    // console.log(product);
     return (
       <li className="ProductCard">
         <div className="card-thumbnail">
@@ -38,7 +30,6 @@ class ProductCard extends Component {
             alt={product.id}
             className={isWidthBiggerThanHeight ? "full-height" : "full-width"}
             onLoad={this.resizeImage}
-            onMouseEnter={this.emphasizeImage}
           />
         </div>
         <div className="card-shopping">
