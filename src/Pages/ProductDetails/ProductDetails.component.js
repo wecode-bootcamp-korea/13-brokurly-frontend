@@ -50,7 +50,7 @@ class ProductDetails extends Component {
                   <div className="checkpoint-info">
                     <div className="checkpoint-ingredients">
                       <div>
-                        <i class="far fa-utensils"></i>
+                        <i className="far fa-utensils"></i>
                         <span>재료와 성분</span>
                         <span>Ingredients</span>
                       </div>
@@ -61,7 +61,7 @@ class ProductDetails extends Component {
                     </div>
                     <div className="checkpoint-recommend">
                       <div>
-                        <i class="far fa-thumbs-up"></i>
+                        <i className="far fa-thumbs-up"></i>
                         <span>활용법</span>
                         <span>Recommendation</span>
                       </div>
