@@ -30,8 +30,8 @@ class Signup extends Component {
       // (위)백에 전달해야하는 데이터들
       recommendInputContent: "",
       recommendCheck: "",
-      allChecks: "",
-      eventAllCheck: "",
+      allChecks: "n",
+      eventAllCheck: "n",
     };
   }
 
@@ -115,6 +115,17 @@ class Signup extends Component {
     }
     this.setState(obj);
   };
+
+  handleAllCheck = () => {
+    const checkBox = ["first", "second", "third", "four", "five", "six"];
+    const isAllCheck = checkBox.every((check) => this.state[check] === "y");
+    if (isAllCheck) {
+      return "y";
+    } else {
+      return "n";
+    }
+  };
+
   receiveAllCheck = (e) => {
     const checkBox = ["four", "five"];
     const isAllCheck = checkBox.every((check) => this.state[check] === "y");
@@ -133,20 +144,21 @@ class Signup extends Component {
     this.setState(obj);
   };
 
+  handleReceiveAllCheck = () => {
+    const checkBox = ["four", "five"];
+    const isAllCheck = checkBox.every((check) => this.state[check] === "y");
+    if (isAllCheck) {
+      return "y";
+    } else {
+      return "n";
+    }
+  };
+
   singleCheck = (e) => {
     if (this.state[e.target.name] === "y") {
-      if (e.target.name === ("four" || "five")) {
-        this.setState({
-          [e.target.name]: "n",
-          allChecks: "n",
-          eventAllCheck: "n",
-        });
-      } else {
-        this.setState({
-          [e.target.name]: "n",
-          allChecks: "n",
-        });
-      }
+      this.setState({
+        [e.target.name]: "n",
+      });
     } else {
       this.setState({ [e.target.name]: "y" });
     }
@@ -167,6 +179,7 @@ class Signup extends Component {
   };
 
   render() {
+    console.log(this.state.eventAllCheck);
     return (
       <div className="Signup">
         <div className="signup-container">
@@ -327,7 +340,7 @@ class Signup extends Component {
                 <div className="check-agree-all">
                   <label className="check-agree-list all-check">
                     <input type="checkbox" name="all" onClick={this.allCheck} />
-                    <span className={`checkmark-2 ${this.state.allChecks}`}>
+                    <span className={`checkmark-2 ${this.handleAllCheck()}`}>
                       <i class="fas fa-check"></i>
                     </span>
                     <span className="all-check-text">전체 동의합니다.</span>
@@ -380,7 +393,9 @@ class Signup extends Component {
                       name="eventAll"
                       onClick={this.receiveAllCheck}
                     />
-                    <span className={`checkmark-2 ${this.state.eventAllCheck}`}>
+                    <span
+                      className={`checkmark-2 ${this.handleReceiveAllCheck()}`}
+                    >
                       <i class="fas fa-check"></i>
                     </span>
                     <span>무료배송,할인쿠폰 등 혜택/정보 수신 동의</span>
