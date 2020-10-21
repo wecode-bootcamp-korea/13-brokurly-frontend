@@ -46,7 +46,6 @@
 
     .relation-card {
       width: 940px;
-      height: 320px;
       overflow: hidden;
 
       & ul {
@@ -69,7 +68,7 @@
           }
 
           .relation-card-desc {
-            height: 120px;
+            height: 100px;
             min-height: 75px;
             padding: 10px;
             line-height: 18px;
