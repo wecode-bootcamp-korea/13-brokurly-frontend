@@ -173,10 +173,6 @@
       align-items: center;
       input {
         display: none;
-        &:checked ~ .checkmark-2 {
-          background-color: var(--primary-color);
-          color: white;
-        }
       }
       .checkmark-2 {
         display: inline-block;
@@ -185,6 +181,10 @@
         margin-right: 12px;
         padding: 4px;
         color: #ccc;
+      }
+      .y {
+        background-color: var(--primary-color);
+        color: white;
       }
     }
     .all-check {
