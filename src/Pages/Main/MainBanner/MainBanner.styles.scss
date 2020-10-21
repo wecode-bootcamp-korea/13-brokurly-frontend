@@ -1,12 +1,66 @@
-.MainBanner {
-  .bannerImgDiv {
-    width: 100%;
-    height: 350px;
-    overflow: hidden;
-    // border: 1px solid yellow;
+$bannerImgItemWidth: 1800px;
+$bannerImgItemCount: 5;
 
-    .bannerImg {
+.MainBanner {
+  width: 100%;
+  height: 370px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+
+  &:hover .banner-button-arrow {
+    opacity: 0.2;
+  }
+
+  .banner-button-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #fff;
+    overflow: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 40%;
+    z-index: 3;
+    cursor: pointer;
+    transition: opacity 600ms;
+
+    .banner-button-arrow-img {
+      width: 150%;
+      height: 150%;
+    }
+  }
+
+  .banner-button-arrow.left {
+    left: 7%;
+  }
+
+  .banner-button-arrow.right {
+    right: 7%;
+  }
+
+  .banner-img-container {
+    display: flex;
+    align-items: center;
+    width: $bannerImgItemWidth * $bannerImgItemCount;
+    height: 100%;
+    overflow: hidden;
+    transform: translate(0, 0);
+    transition-delay: 0.5s;
+    transition: transform 0.5s;
+
+    .banner-img-item {
+      width: 100%;
       height: 100%;
+      overflow: hidden;
+
+      .banner-img {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }

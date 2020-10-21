@@ -2,10 +2,11 @@ $special-products-item-width: 260px;
 $special-products-item-count: 6;
 
 .SpecialProductsSet {
-  width: $special-products-item-width * 4 + 10px;
+  width: $special-products-item-width * 4;
   height: 440px;
   margin: 25px auto;
   position: relative;
+  // border: 1px solid red;
 
   div.button-arrow {
     display: flex;
@@ -28,7 +29,7 @@ $special-products-item-count: 6;
   }
 
   div.button-arrow.left {
-    left: -0.8%;
+    left: -1.3%;
   }
 
   div.button-arrow.left.hide {
@@ -36,7 +37,7 @@ $special-products-item-count: 6;
   }
 
   div.button-arrow.right {
-    right: -1%;
+    right: -1.5%;
   }
 
   div.bugtton-arrow.right.hide {
@@ -48,7 +49,7 @@ $special-products-item-count: 6;
   }
 
   .special-products-set-container {
-    width: $special-products-item-width * 4;
+    width: 100%;
     height: 430px;
     overflow: hidden;
     padding: 5px 0;
