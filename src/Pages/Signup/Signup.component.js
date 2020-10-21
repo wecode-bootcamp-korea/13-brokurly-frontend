@@ -166,15 +166,27 @@ class Signup extends Component {
 
   checkUserInfo = (e) => {
     e.preventDefault();
+    //필요한 데이터는 내일 slice로 넣어주면 된다.
     const userNecessaryinfo = Object.keys(this.state).slice(0, 5);
-    console.log(userNecessaryinfo);
+    const userNecessaryinfo2 = Object.keys(this.state).slice(5, 8);
     const isFull = userNecessaryinfo.every((info) => this.state[info] !== "");
-    if (isFull) {
-      console.log("다 채우셨군요!");
+    const isFull2 = userNecessaryinfo2.every(
+      (info) => this.state[info] !== "n"
+    );
+    if (isFull && isFull2) {
+      console.log("백만 하면 됩니다.");
+      fetch("API", {
+        method: "POST",
+        body: JSON.stringify({
+          //백으로 넘겨줄 데이터
+        }),
+      })
+        .then((response) => response.json())
+        .then((result) => console.log("결과", result));
       // 여기는 백으로 가입한 정보를 보내주고
       // (프론트)저는 다른 페이지로 이동합니다.
     } else {
-      console.log("다 채워오세요");
+      console.log("필수사항을 다시 살펴보세요");
     }
   };
 
@@ -303,7 +315,7 @@ class Signup extends Component {
                       type="radio"
                       value="recommendId"
                       checked={this.state.recommendCheck === "recommendId"}
-                      onClick={this.handleRecommendCheck}
+                      onChange={this.handleRecommendCheck}
                     ></input>
                     <span className="checkmark"></span>
                     <span className="checkmark-content">추천인 아이디</span>
@@ -313,7 +325,7 @@ class Signup extends Component {
                       type="radio"
                       value="recommendEvent"
                       checked={this.state.recommendCheck === "recommendEvent"}
-                      onClick={this.handleRecommendCheck}
+                      onChange={this.handleRecommendCheck}
                     ></input>
                     <span className="checkmark"></span>
                     <span className="checkmark-content">참여 이벤트명</span>
@@ -339,9 +351,13 @@ class Signup extends Component {
               <div className="singup-input special-check-agree">
                 <div className="check-agree-all">
                   <label className="check-agree-list all-check">
-                    <input type="checkbox" name="all" onClick={this.allCheck} />
+                    <input
+                      type="checkbox"
+                      name="all"
+                      onChange={this.allCheck}
+                    />
                     <span className={`checkmark-2 ${this.handleAllCheck()}`}>
-                      <i class="fas fa-check"></i>
+                      <i className="fas fa-check"></i>
                     </span>
                     <span className="all-check-text">전체 동의합니다.</span>
                     <p className="proviso-all">
@@ -355,10 +371,10 @@ class Signup extends Component {
                     <input
                       type="checkbox"
                       name="first"
-                      onClick={this.singleCheck}
+                      onChange={this.singleCheck}
                     />
                     <span className={`checkmark-2 ${this.state.first}`}>
-                      <i class="fas fa-check"></i>
+                      <i className="fas fa-check"></i>
                     </span>
                     <span>이용약관 동의</span>
                     <span className="proviso">(필수)</span>
@@ -367,10 +383,10 @@ class Signup extends Component {
                     <input
                       type="checkbox"
                       name="second"
-                      onClick={this.singleCheck}
+                      onChange={this.singleCheck}
                     />
                     <span className={`checkmark-2 ${this.state.second}`}>
-                      <i class="fas fa-check"></i>
+                      <i className="fas fa-check"></i>
                     </span>
                     <span>개인정보처리방침 동의</span>
                     <span className="proviso">(필수)</span>
@@ -379,10 +395,10 @@ class Signup extends Component {
                     <input
                       type="checkbox"
                       name="third"
-                      onClick={this.singleCheck}
+                      onChange={this.singleCheck}
                     />
                     <span className={`checkmark-2 ${this.state.third}`}>
-                      <i class="fas fa-check"></i>
+                      <i className="fas fa-check"></i>
                     </span>
                     <span>개인정보처리방침 동의</span>
                     <span className="proviso">(선택)</span>
@@ -391,12 +407,12 @@ class Signup extends Component {
                     <input
                       type="checkbox"
                       name="eventAll"
-                      onClick={this.receiveAllCheck}
+                      onChange={this.receiveAllCheck}
                     />
                     <span
                       className={`checkmark-2 ${this.handleReceiveAllCheck()}`}
                     >
-                      <i class="fas fa-check"></i>
+                      <i className="fas fa-check"></i>
                     </span>
                     <span>무료배송,할인쿠폰 등 혜택/정보 수신 동의</span>
                     <span className="proviso">(선택)</span>
@@ -406,10 +422,10 @@ class Signup extends Component {
                       <input
                         type="checkbox"
                         name="four"
-                        onClick={this.singleCheck}
+                        onChange={this.singleCheck}
                       />
                       <span className={`checkmark-2 ${this.state.four}`}>
-                        <i class="fas fa-check"></i>
+                        <i className="fas fa-check"></i>
                       </span>
                       <span>SMS</span>
                     </label>
@@ -417,10 +433,10 @@ class Signup extends Component {
                       <input
                         type="checkbox"
                         name="five"
-                        onClick={this.singleCheck}
+                        onChange={this.singleCheck}
                       />
                       <span className={`checkmark-2 ${this.state.five}`}>
-                        <i class="fas fa-check"></i>
+                        <i className="fas fa-check"></i>
                       </span>
                       <span>이메일</span>
                     </label>
@@ -434,10 +450,10 @@ class Signup extends Component {
                     <input
                       type="checkbox"
                       name="six"
-                      onClick={this.singleCheck}
+                      onChange={this.singleCheck}
                     />
                     <span className={`checkmark-2 ${this.state.six}`}>
-                      <i class="fas fa-check"></i>
+                      <i className="fas fa-check"></i>
                     </span>
                     <span>본인은 만 14세 이상입니다</span>
                     <span className="proviso">(필수)</span>
