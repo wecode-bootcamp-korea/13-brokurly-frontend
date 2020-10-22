@@ -1,12 +1,12 @@
 .Signup {
-  .signup-container {
+  .container {
     width: 640px;
     height: 1370px;
     margin: 0 auto;
     border: 1px solid red;
-    .signup-header {
+    .header {
       border-bottom: 1px solid black;
-      .signup-title {
+      .title {
         padding-top: 64px;
         font-weight: 900;
         font-size: 30px;
@@ -14,12 +14,107 @@
         text-align: center;
         letter-spacing: -0.5px;
       }
-      .signup-guide {
+      .guide {
         padding: 23px 0 10px;
         font-size: 12px;
         color: #666;
         line-height: 17px;
         text-align: right;
+      }
+    }
+    .forms {
+      .complete {
+        display: block;
+        margin: 40px auto 0 auto;
+        width: 240px;
+        height: 56px;
+        font-size: 16px;
+        line-height: 54px;
+        border: 1px solid var(--primary-color);
+        background-color: var(--primary-color);
+        color: #fff;
+        outline: none;
+      }
+    }
+
+    .check-agree {
+      padding: 12px 0;
+      border-bottom: 1px solid #ccc;
+      border-top: 1px solid black;
+
+      .input-content {
+        position: relative;
+        top: -138px;
+        vertical-align: text-top;
+      }
+
+      .special-check-agree {
+        .check-agree-list {
+          margin: 10px 0;
+          display: flex;
+          font-size: 14px;
+          align-items: center;
+
+          input {
+            display: none;
+          }
+
+          .checkmark-2 {
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            margin-right: 12px;
+            padding: 4px;
+            color: #ccc;
+          }
+
+          .y {
+            background-color: var(--primary-color);
+            color: white;
+          }
+        }
+
+        .all-check {
+          display: block;
+
+          .proviso-all {
+            padding: 4px 0 0 39px;
+            font-size: 12px;
+            color: #666;
+            line-height: 17px;
+          }
+
+          .all-check-text {
+            font-size: 18px;
+          }
+        }
+
+        .check-email-sms {
+          display: flex;
+          width: 75%;
+          justify-content: space-around;
+        }
+
+        .proviso {
+          padding-left: 4px;
+          color: #ccc;
+        }
+
+        .sms-info {
+          padding-left: 102px;
+
+          span {
+            font-size: 12px;
+            color: var(--primary-color);
+            line-height: 18px;
+            &:first-child {
+              color: #ccc;
+            }
+            &:last-child {
+              color: gray;
+            }
+          }
+        }
       }
     }
   }

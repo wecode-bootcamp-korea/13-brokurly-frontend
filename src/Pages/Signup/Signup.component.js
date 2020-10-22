@@ -50,7 +50,7 @@ class Signup extends Component {
       recommender: "",
       event: "",
     });
-    this.recommendInputRef.current.className = "signup-input";
+    this.recommendInputRef.current.className = "input";
     this.recommendInputRef.current.value = "";
   };
 
@@ -263,14 +263,14 @@ class Signup extends Component {
     } = this.state;
     return (
       <div className="Signup">
-        <div className="signup-container">
-          <div className="signup-header">
-            <h3 className="signup-title">회원가입</h3>
-            <div className="signup-guide">
-              <span className="signup-ico">*</span>필수입력사항
+        <div className="container">
+          <div className="header">
+            <h3 className="title">회원가입</h3>
+            <div className="guide">
+              <span className="ico">*</span>필수입력사항
             </div>
           </div>
-          <form className="signup-forms">
+          <form className="forms">
             <SignupInputForm
               inputContent="아이디"
               textType="text"
@@ -321,16 +321,16 @@ class Signup extends Component {
             <div className="SignupInputForm address">
               <div className="input-content">
                 주소
-                <span className="signup-ico">*</span>
+                <span className="ico">*</span>
               </div>
               <input
-                className="signup-input"
+                className="input"
                 placeholder="카카오 주소검색 넣을거에요"
               ></input>
             </div>
             <div className="SignupInputForm gender-check-container">
               <div className="input-content">성별</div>
-              <div className="signup-input special-gender">
+              <div className="input special-gender">
                 <div className="gender-check-lists">
                   <label className="gender-check-list man">
                     <input
@@ -367,7 +367,7 @@ class Signup extends Component {
             </div>
             <div className="SignupInputForm birth-write-container">
               <div className="input-content">생년월일</div>
-              <div className="signup-input special-birth">
+              <div className="input special-birth">
                 <input
                   className="birthday birth-year"
                   name="birthdayYYYY"
@@ -395,7 +395,7 @@ class Signup extends Component {
             </div>
             <div className="SignupInputForm recommender">
               <div className="input-content">추가입력 사항</div>
-              <div className="signup-input special-recommender">
+              <div className="input special-recommender">
                 <div className="recommender-check-lists">
                   <label className="recommender-check-list recommender-id">
                     <input
@@ -423,7 +423,7 @@ class Signup extends Component {
             <div className="SignupInputForm recommend-input-container">
               <div className="input-content"></div>
               <input
-                className="signup-input-off"
+                className="input-off"
                 name={`${recommendCheck}`}
                 placeholder={this.changeRecommendInput()}
                 ref={this.recommendInputRef}
@@ -433,9 +433,9 @@ class Signup extends Component {
             <div className="SignupInputForm check-agree">
               <div className="input-content check-agree-content">
                 이용약관동의
-                <span className="signup-ico">*</span>
+                <span className="ico">*</span>
               </div>
-              <div className="singup-input special-check-agree">
+              <div className="special-check-agree">
                 <div className="check-agree-all">
                   <label className="check-agree-list all-check">
                     <input
@@ -548,7 +548,7 @@ class Signup extends Component {
                 </div>
               </div>
             </div>
-            <button className="signup-complete" onClick={this.checkUserInfo}>
+            <button className="complete" onClick={this.checkUserInfo}>
               가입하기
             </button>
           </form>
