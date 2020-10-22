@@ -30,8 +30,8 @@ class SignupInputForm extends Component {
           type={textType}
           onChange={this.handleWriteData}
         />
-        {onOffCount === 1 && <OverlapCheck onCheckOverlap={onCheckId} />}
-        {onOffCount === 2 && <OverlapCheck onCheckOverlap={onCheckEmail} />}
+        {onOffCount === "1" && <OverlapCheck onCheckOverlap={onCheckId} />}
+        {onOffCount === "2" && <OverlapCheck onCheckOverlap={onCheckEmail} />}
       </div>
     );
   }

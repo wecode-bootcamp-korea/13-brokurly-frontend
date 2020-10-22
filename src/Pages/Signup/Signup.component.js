@@ -235,10 +235,10 @@ class Signup extends Component {
           gender: gender,
           recommender: recommender,
           event: event,
-          date_of_birth: `${birthdayYYYY}${birthdayMM}${birthdayDD}`,
-          is_privacy_policy: "False",
-          is_sms_agreed: "true",
-          is_email_agreed: "true",
+          date_of_birth: `${birthdayYYYY}-${birthdayMM}-${birthdayDD}`,
+          is_privacy_policy: false,
+          is_sms_agreed: true,
+          is_email_agreed: true,
         }),
       })
         .then((response) => response.json())
