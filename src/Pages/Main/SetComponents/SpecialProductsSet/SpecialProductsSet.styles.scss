@@ -1,12 +1,13 @@
 $special-products-item-width: 260px;
-$special-products-item-count: 6;
+$special-products-item-count: 19;
+$container-count: 5;
 
 .SpecialProductsSet {
-  width: $special-products-item-width * 4;
+  width: $special-products-item-width * $container-count;
   height: 440px;
   margin: 25px auto;
   position: relative;
-  // border: 1px solid red;
+  border: 1px solid red;
 
   div.button-arrow {
     display: flex;
@@ -40,7 +41,7 @@ $special-products-item-count: 6;
     right: -1.5%;
   }
 
-  div.bugtton-arrow.right.hide {
+  div.button-arrow.right.hide {
     display: none;
   }
 

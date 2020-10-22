@@ -3,12 +3,12 @@
 }
 
 .SpecialProductsItem {
-  width: 245px;
+  width: 260px;
   height: 420px;
   padding: 0 10px;
   overflow: hidden;
   color: #000;
-  // border: 1px solid purple;
+  border: 1px solid purple;
 
   .Link {
     color: #000;
@@ -52,6 +52,10 @@
         font-size: 20px;
         color: white;
       }
+    }
+
+    .sale-box.hide {
+      display: none;
     }
 
     .item-img-main {

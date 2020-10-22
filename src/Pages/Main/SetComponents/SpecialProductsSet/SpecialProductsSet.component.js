@@ -66,9 +66,10 @@ class SpecialProductsSet extends Component {
 
   slideList = (e) => {
     const { itemsCount, listXcoordinate } = this.state;
-    const plusMinus = e.target.className.includes("right") ? -1 : 1;
+    const isClickLeft = e.target.className.includes("left");
+    const plusMinus = !isClickLeft ? -1 : 1;
     const itemWidth = 260;
-    const containerCountLimit = 4;
+    const containerCountLimit = 5;
     const containerWidth = itemWidth * containerCountLimit;
     const divisionCount = itemsCount / containerCountLimit;
     const itemsCountModulo = itemsCount % containerCountLimit;
@@ -79,11 +80,13 @@ class SpecialProductsSet extends Component {
     const xIncrementCount =
       numClickable <= 1 && Math.abs(listXcoordinate) > 0
         ? 1
-        : Math.abs(listXcoordinate / containerWidth);
+        : Math.ceil(Math.abs(listXcoordinate) / containerWidth);
     const numRightClickRemaining = numClickable - xIncrementCount;
-    const isFinalRightClickConditionReached = numRightClickRemaining === 1;
-    const isFirstLeftClick = numRightClickRemaining === 0;
-    const isFinalLeftClickConditionReached = xIncrementCount === 1;
+    const isFinalRightClickConditionReached =
+      !isClickLeft && numRightClickRemaining === 1;
+    const isFirstLeftClick = isClickLeft && numRightClickRemaining === 0;
+    const isFinalLeftClickConditionReached =
+      isClickLeft && xIncrementCount === 1;
     const xIncrementPercentage =
       itemsCountModulo === 0 ? 1 : itemsCountModulo / containerCountLimit;
     const xIncrement =
