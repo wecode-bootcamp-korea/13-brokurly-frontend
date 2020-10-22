@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import ProductDetailsHeader from "./ProductDetailsHeader/ProductDetailsHeader.component";
 import ProductDetailsRelated from "./ProductDetailsRelated/ProductDetailsRelated.component";
+import ProductDetailsReview from "./ProductDetailsReview/ProductDetailsReview.component";
 
 import carrots from "../../Images/ProductDetails/carrots.svg";
 import pepper from "../../Images/ProductDetails/pepper.svg";
@@ -74,7 +75,7 @@ class ProductDetails extends Component {
                 </div>
               </div>
             </main>
-            <div className="product-feedback"></div>
+            <ProductDetailsReview />
             <div className="product-qna"></div>
           </article>
         </div>

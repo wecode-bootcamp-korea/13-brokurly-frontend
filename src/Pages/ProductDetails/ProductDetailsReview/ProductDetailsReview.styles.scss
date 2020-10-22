@@ -1,0 +1,99 @@
+@mixin tableTemplate($arg...) {
+  tr {
+    #{nth($arg, 1)} {
+      font-weight: 400;
+      padding: 25px 0;
+      &:first-child {
+        width: 76px;
+      }
+      &:nth-child(2) {
+        width: 592px;
+      }
+      &:nth-child(3) {
+        width: 51px;
+        color: #fff;
+        background-color: var(--primary-color);
+        min-width: 38px;
+        padding: 0 4px;
+        border-radius: 30px;
+        font-size: 9px;
+      }
+      &:nth-child(4) {
+        width: 77px;
+      }
+      &:nth-child(5) {
+        width: 100px;
+      }
+      &:nth-child(6) {
+        width: 40px;
+      }
+      &:last-child {
+        width: 80px;
+      }
+    }
+  }
+}
+
+.ProductDetailsReview {
+  padding: 60px 0 50px 0;
+  .review-header {
+    h5 {
+      text-transform: uppercase;
+      padding-bottom: 5px;
+      font-size: 13px;
+    }
+    .review-caution {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      ul {
+        list-style-type: disc;
+        li {
+          font-size: 12px;
+          color: #666;
+          line-height: 18px;
+          text-indent: 15px;
+        }
+      }
+      select {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .review-board {
+    margin-top: 15px;
+    font-size: 12px;
+
+    .review-thead {
+      border-top: 2px solid var(--primary-color);
+      table-layout: fixed;
+      line-height: 140%;
+      width: 100%;
+
+      thead {
+        @include tableTemplate(th);
+      }
+    }
+    .review-list {
+      border-bottom: 2px solid var(--primary-color);
+      .review-tbody {
+        text-align: center;
+        border-top: 1px solid #e3e3e3;
+        table-layout: fixed;
+        line-height: 140%;
+        width: 100%;
+
+        tbody {
+          @include tableTemplate(td);
+        }
+      }
+      .review-content {
+        line-height: 25px;
+        padding: 20px 9px 9px 9px;
+        font-weight: 400;
+        border-top: 1px solid #e3e3e3;
+      }
+    }
+  }
+}
