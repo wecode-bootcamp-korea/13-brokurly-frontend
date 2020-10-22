@@ -19,19 +19,24 @@ class Signup extends Component {
       second: "n",
       six: "n",
       // 이상 필수 사항
-      third: "n",
-      four: "n",
-      five: "n",
+      privacyPolicy: "n",
+      agreeSMS: "n",
+      agreeEmail: "n",
       userPwdRepeat: "",
       userAddress: "",
-      gender: "",
-      recommendIdName: "",
-      recommendEventName: "",
+      gender: "3",
+      recommender: "",
+      event: "",
       // (위)백에 전달해야하는 데이터들
       recommendInputContent: "",
       recommendCheck: "",
+      userIdCheck: "n",
+      userEmailCheck: "n",
       allChecks: "n",
       eventAllCheck: "n",
+      birthdayYYYY: "",
+      birthdayMM: "",
+      birthdayDD: "",
     };
   }
 
@@ -42,8 +47,8 @@ class Signup extends Component {
   handleRecommendCheck = (e) => {
     this.setState({
       recommendCheck: e.target.value,
-      recommendIdName: "",
-      recommendEventName: "",
+      recommender: "",
+      event: "",
     });
     this.recommendInputRef.current.className = "signup-input";
     this.recommendInputRef.current.value = "";
@@ -54,10 +59,11 @@ class Signup extends Component {
   };
 
   changeRecommendInput = () => {
-    if (this.state.recommendCheck === "recommendId") {
+    const { recommendCheck } = this.state;
+    if (recommendCheck === "recommender") {
       return "추천인 아이디를 입력해주세요.";
     }
-    if (this.state.recommendCheck === "recommendEvent") {
+    if (recommendCheck === "event") {
       return "참여 이벤트명을 입력해주세요.";
     }
   };
@@ -67,37 +73,58 @@ class Signup extends Component {
   };
 
   checkId = () => {
-    if (this.state.userId.length >= 5) {
+    const { userId } = this.state;
+    if (userId.length >= 5) {
       fetch("http://10.58.6.216:8000/user/checkid", {
         method: "POST",
         body: JSON.stringify({
-          user_id: this.state.userId,
+          user_id: userId,
         }),
       })
         .then((response) => response.json())
-        .then((result) => console.log("결과: ", result));
+        .then((result) => {
+          if (result.message === "SUCCESS") {
+            this.setState({ userIdCheck: "y" });
+          } else {
+            this.setState({ userIdCheck: "n" });
+          }
+        });
     } else {
       console.log("망했다 이 친구야");
     }
   };
 
   checkEmail = () => {
-    if (this.state.userEmail.length >= 5) {
+    const { userEmail } = this.state;
+    if (userEmail.length >= 5) {
       fetch("http://10.58.6.216:8000/user/checkemail", {
         method: "POST",
         body: JSON.stringify({
-          email: this.state.userEmail,
+          email: userEmail,
         }),
       })
         .then((response) => response.json())
-        .then((result) => console.log("결과: ", result));
+        .then((result) => {
+          if (result.message === "SUCCESS") {
+            this.setState({ userEmailCheck: "y" });
+          } else {
+            this.setState({ userEmailCheck: "n" });
+          }
+        });
     } else {
       console.log("망했다 이 친구야");
     }
   };
 
   allCheck = (e) => {
-    const checkBox = ["first", "second", "third", "four", "five", "six"];
+    const checkBox = [
+      "first",
+      "second",
+      "privacyPolicy",
+      "agreeSMS",
+      "agreeEmail",
+      "six",
+    ];
     const isAllCheck = checkBox.every((check) => this.state[check] === "y");
     const obj = {};
     if (isAllCheck) {
@@ -117,7 +144,14 @@ class Signup extends Component {
   };
 
   handleAllCheck = () => {
-    const checkBox = ["first", "second", "third", "four", "five", "six"];
+    const checkBox = [
+      "first",
+      "second",
+      "privacyPolicy",
+      "agreeSMS",
+      "agreeEmail",
+      "six",
+    ];
     const isAllCheck = checkBox.every((check) => this.state[check] === "y");
     if (isAllCheck) {
       return "y";
@@ -127,7 +161,7 @@ class Signup extends Component {
   };
 
   receiveAllCheck = (e) => {
-    const checkBox = ["four", "five"];
+    const checkBox = ["agreeSMS", "agreeEmail"];
     const isAllCheck = checkBox.every((check) => this.state[check] === "y");
     const obj = {};
     if (isAllCheck) {
@@ -145,7 +179,7 @@ class Signup extends Component {
   };
 
   handleReceiveAllCheck = () => {
-    const checkBox = ["four", "five"];
+    const checkBox = ["agreeSMS", "agreeEmail"];
     const isAllCheck = checkBox.every((check) => this.state[check] === "y");
     if (isAllCheck) {
       return "y";
@@ -165,8 +199,23 @@ class Signup extends Component {
   };
 
   checkUserInfo = (e) => {
+    const {
+      userId,
+      userPwd,
+      userName,
+      userEmail,
+      userPhone,
+      gender,
+      recommender,
+      event,
+      birthdayYYYY,
+      birthdayMM,
+      birthdayDD,
+      // privacyPolicy,
+      // agreeSMS,
+      // agreeEmail,
+    } = this.state;
     e.preventDefault();
-    //필요한 데이터는 내일 slice로 넣어주면 된다.
     const userNecessaryinfo = Object.keys(this.state).slice(0, 5);
     const userNecessaryinfo2 = Object.keys(this.state).slice(5, 8);
     const isFull = userNecessaryinfo.every((info) => this.state[info] !== "");
@@ -174,16 +223,26 @@ class Signup extends Component {
       (info) => this.state[info] !== "n"
     );
     if (isFull && isFull2) {
-      console.log("백만 하면 됩니다.");
-      fetch("API", {
+      fetch("http://10.58.6.216:8000/user/signup", {
         method: "POST",
         body: JSON.stringify({
-          //백으로 넘겨줄 데이터
+          user_id: userId,
+          password: userPwd,
+          user_name: userName,
+          email: userEmail,
+          phone: userPhone,
+          address: "강서구",
+          gender: gender,
+          recommender: recommender,
+          event: event,
+          date_of_birth: `${birthdayYYYY}${birthdayMM}${birthdayDD}`,
+          is_privacy_policy: "False",
+          is_sms_agreed: "true",
+          is_email_agreed: "true",
         }),
       })
         .then((response) => response.json())
         .then((result) => console.log("결과", result));
-      // 여기는 백으로 가입한 정보를 보내주고
       // (프론트)저는 다른 페이지로 이동합니다.
     } else {
       console.log("필수사항을 다시 살펴보세요");
@@ -191,7 +250,17 @@ class Signup extends Component {
   };
 
   render() {
-    console.log(this.state.eventAllCheck);
+    console.log(this.state);
+    const {
+      gender,
+      recommendCheck,
+      first,
+      second,
+      privacyPolicy,
+      agreeSMS,
+      agreeEmail,
+      six,
+    } = this.state;
     return (
       <div className="Signup">
         <div className="signup-container">
@@ -266,8 +335,8 @@ class Signup extends Component {
                   <label className="gender-check-list man">
                     <input
                       type="radio"
-                      value="man"
-                      checked={this.state.gender === "man"}
+                      value="1"
+                      checked={gender === "1"}
                       onChange={this.handleGenderCheck}
                     ></input>
                     <span className="checkmark"></span>
@@ -276,8 +345,8 @@ class Signup extends Component {
                   <label className="gender-check-list woman">
                     <input
                       type="radio"
-                      value="woman"
-                      checked={this.state.gender === "woman"}
+                      value="2"
+                      checked={gender === "2"}
                       onChange={this.handleGenderCheck}
                     ></input>
                     <span className="checkmark"></span>
@@ -286,8 +355,8 @@ class Signup extends Component {
                   <label className="gender-check-list normal">
                     <input
                       type="radio"
-                      value="normal"
-                      checked={this.state.gender === "normal"}
+                      value="3"
+                      checked={gender === "3"}
                       onChange={this.handleGenderCheck}
                     ></input>
                     <span className="checkmark"></span>
@@ -299,11 +368,29 @@ class Signup extends Component {
             <div className="SignupInputForm birth-write-container">
               <div className="input-content">생년월일</div>
               <div className="signup-input special-birth">
-                <input className="birth year" placeholder="YYYY" />
+                <input
+                  className="birthday birth-year"
+                  name="birthdayYYYY"
+                  type="number"
+                  placeholder="YYYY"
+                  onChange={this.handleWriteData}
+                />
                 <span className="bar">/</span>
-                <input className="birth month" placeholder="MM" />
+                <input
+                  className="birthday birth-month"
+                  name="birthdayMM"
+                  type="number"
+                  placeholder="MM"
+                  onChange={this.handleWriteData}
+                />
                 <span className="bar">/</span>
-                <input className="birth day" placeholder="DD" />
+                <input
+                  className="birthday birth-day"
+                  name="birthdayDD"
+                  type="number"
+                  placeholder="DD"
+                  onChange={this.handleWriteData}
+                />
               </div>
             </div>
             <div className="SignupInputForm recommender">
@@ -313,8 +400,8 @@ class Signup extends Component {
                   <label className="recommender-check-list recommender-id">
                     <input
                       type="radio"
-                      value="recommendId"
-                      checked={this.state.recommendCheck === "recommendId"}
+                      value="recommender"
+                      checked={recommendCheck === "recommender"}
                       onChange={this.handleRecommendCheck}
                     ></input>
                     <span className="checkmark"></span>
@@ -323,8 +410,8 @@ class Signup extends Component {
                   <label className="recommender-check-list recommend-event-name">
                     <input
                       type="radio"
-                      value="recommendEvent"
-                      checked={this.state.recommendCheck === "recommendEvent"}
+                      value="event"
+                      checked={recommendCheck === "event"}
                       onChange={this.handleRecommendCheck}
                     ></input>
                     <span className="checkmark"></span>
@@ -337,7 +424,7 @@ class Signup extends Component {
               <div className="input-content"></div>
               <input
                 className="signup-input-off"
-                name={`${this.state.recommendCheck}Name`}
+                name={`${recommendCheck}`}
                 placeholder={this.changeRecommendInput()}
                 ref={this.recommendInputRef}
                 onChange={this.handleWriteData}
@@ -373,7 +460,7 @@ class Signup extends Component {
                       name="first"
                       onChange={this.singleCheck}
                     />
-                    <span className={`checkmark-2 ${this.state.first}`}>
+                    <span className={`checkmark-2 ${first}`}>
                       <i className="fas fa-check"></i>
                     </span>
                     <span>이용약관 동의</span>
@@ -385,7 +472,7 @@ class Signup extends Component {
                       name="second"
                       onChange={this.singleCheck}
                     />
-                    <span className={`checkmark-2 ${this.state.second}`}>
+                    <span className={`checkmark-2 ${second}`}>
                       <i className="fas fa-check"></i>
                     </span>
                     <span>개인정보처리방침 동의</span>
@@ -394,10 +481,10 @@ class Signup extends Component {
                   <label className="check-agree-list">
                     <input
                       type="checkbox"
-                      name="third"
+                      name="privacyPolicy"
                       onChange={this.singleCheck}
                     />
-                    <span className={`checkmark-2 ${this.state.third}`}>
+                    <span className={`checkmark-2 ${privacyPolicy}`}>
                       <i className="fas fa-check"></i>
                     </span>
                     <span>개인정보처리방침 동의</span>
@@ -421,10 +508,10 @@ class Signup extends Component {
                     <label className="check-agree-list">
                       <input
                         type="checkbox"
-                        name="four"
+                        name="agreeSMS"
                         onChange={this.singleCheck}
                       />
-                      <span className={`checkmark-2 ${this.state.four}`}>
+                      <span className={`checkmark-2 ${agreeSMS}`}>
                         <i className="fas fa-check"></i>
                       </span>
                       <span>SMS</span>
@@ -432,10 +519,10 @@ class Signup extends Component {
                     <label className="check-agree-list">
                       <input
                         type="checkbox"
-                        name="five"
+                        name="agreeEmail"
                         onChange={this.singleCheck}
                       />
-                      <span className={`checkmark-2 ${this.state.five}`}>
+                      <span className={`checkmark-2 ${agreeEmail}`}>
                         <i className="fas fa-check"></i>
                       </span>
                       <span>이메일</span>
@@ -452,7 +539,7 @@ class Signup extends Component {
                       name="six"
                       onChange={this.singleCheck}
                     />
-                    <span className={`checkmark-2 ${this.state.six}`}>
+                    <span className={`checkmark-2 ${six}`}>
                       <i className="fas fa-check"></i>
                     </span>
                     <span>본인은 만 14세 이상입니다</span>
