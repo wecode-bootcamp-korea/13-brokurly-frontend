@@ -69,7 +69,6 @@
     display: flex;
     flex-direction: column;
     width: 308px;
-    height: 109px;
     padding: 10px;
 
     .card-title {
@@ -83,12 +82,38 @@
 
     .card-price {
       display: flex;
+      flex-direction: row;
       align-items: center;
-      padding: 9px 0;
-      color: var(--primary-color);
-      line-height: 24px;
-      font-size: 17px;
-      font-weight: 700;
+
+      div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        span {
+          padding-right: 5px;
+          text-decoration: line-through;
+          color: rgb(189, 189, 189);
+        }
+
+        i {
+          color: var(--primary-color);
+        }
+      }
+
+      span {
+        display: flex;
+        align-items: center;
+        padding: 9px 0;
+        line-height: 24px;
+        font-size: 17px;
+        font-weight: 500;
+
+        &:last-child {
+          padding-left: 5px;
+          color: var(--primary-color);
+        }
+      }
     }
 
     .card-description {

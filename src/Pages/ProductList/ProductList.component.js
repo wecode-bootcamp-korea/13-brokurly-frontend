@@ -3,21 +3,41 @@ import React, { Component } from "react";
 import "./ProductList.styles.scss";
 import ProductCard from "./ProductCard/ProductCard.component";
 
-const API = "http://localhost:3000/data/productlist/productlist.json";
-// const API = "http://10.58.4.20:8000/category?main=1"; //Backend API
+const API = "http://localhost:3000/data/productlist/productlist_0.json";
+// const API = "http://10.58.4.20:8000/product?productList=1&sort_type=0"; //Backend API
 
 class ProductList extends Component {
   state = {
     isCategoryClick: false,
     isSortingClick: false,
-    categories: "",
-    products: "",
+    categories: [],
+    products: [],
+    sortings: [],
+    activeSorting: 0,
   };
 
   handleSorting = () => {
     const { isSortingClick } = this.state;
     this.setState({
       isSortingClick: !isSortingClick,
+    });
+  };
+
+  sortingList = async (e) => {
+    const { id } = e.target;
+    // this is for local test
+    const response = await fetch(
+      `http://localhost:3000/data/productlist/productlist_${id}.json`
+    );
+    //this is for backend
+    // const response = await fetch(
+    //   `http://10.58.4.20:8000/product?productList=1&sort_type=${id}`
+    // );
+
+    const data = await response.json();
+    this.setState({
+      products: data.products,
+      activeSorting: id,
     });
   };
 
@@ -28,11 +48,22 @@ class ProductList extends Component {
       throw new Error("cannot fetch the data");
     }
     const data = await response.json();
-    this.setState({ categories: data.categories, products: data.products });
+    this.setState({
+      categories: data.categories,
+      products: data.products,
+      sortings: data.available_sort,
+    });
   };
 
   render() {
-    const { isSortingClick, categories, products } = this.state;
+    const {
+      isSortingClick,
+      categories,
+      products,
+      sortings,
+      activeSorting,
+    } = this.state;
+
     return (
       <section className="ProductList">
         <div className="category-nav">
@@ -53,7 +84,7 @@ class ProductList extends Component {
               }
               onClick={this.handleSorting}
             >
-              <span>추천순</span>
+              <span>{sortings[activeSorting]}</span>
               <i
                 className={
                   isSortingClick ? "fas fa-chevron-up" : "fas fa-chevron-down"
@@ -67,11 +98,11 @@ class ProductList extends Component {
               onClick={this.handleSorting}
             >
               <ul>
-                <li>추천순</li>
-                <li>신상품순</li>
-                <li>인기상품순</li>
-                <li>낮은 가격순</li>
-                <li>높은 가격순</li>
+                {sortings.map((sortName, sortId) => (
+                  <li key={sortId} id={sortId} onClick={this.sortingList}>
+                    {sortName}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

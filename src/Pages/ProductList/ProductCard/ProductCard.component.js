@@ -4,7 +4,8 @@ import "./ProductCard.styles.scss";
 
 class ProductCard extends Component {
   state = {
-    product: this.props.product,
+    // product: this.props.product,
+    product: [],
     isWidthBiggerThanHeight: false,
   };
 
@@ -13,8 +14,20 @@ class ProductCard extends Component {
     this.setState({ isWidthBiggerThanHeight: sizeCheck });
   };
 
+  getNumberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  componentDidMount = () => {
+    this.setState({
+      product: this.props.product,
+    });
+  };
+
   render() {
-    const { product, isWidthBiggerThanHeight } = this.state;
+    // const { product, isWidthBiggerThanHeight } = this.state;
+    const { isWidthBiggerThanHeight } = this.state;
+    const { product } = this.props;
     return (
       <li className="ProductCard">
         <div className="card-thumbnail">
@@ -40,7 +53,13 @@ class ProductCard extends Component {
         </div>
         <div className="card-content">
           <span className="card-title">{product.name}</span>
-          <span className="card-price">{product.price}원</span>
+          <div className="card-price">
+            <div className={`${!product.discountPrice && "display-none"}`}>
+              <span>{this.getNumberWithCommas(product.discountPrice)}원 </span>
+              <i className="fas fa-long-arrow-alt-right"></i>
+            </div>
+            <span>{this.getNumberWithCommas(product.originalPrice)}원</span>
+          </div>
           <span className="card-description">{product.content}</span>
         </div>
       </li>
