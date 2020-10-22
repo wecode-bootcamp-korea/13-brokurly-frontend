@@ -11,8 +11,8 @@ class Main extends Component {
   render() {
     return (
       // <Login />
-      // <SearchId />
-      <SearchPwd />
+      <SearchId />
+      // <SearchPwd />
       // <Signup />
     );
   }
