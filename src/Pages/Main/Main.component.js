@@ -4,7 +4,7 @@ import "./Main.styles.scss";
 
 class Main extends Component {
   render() {
-    return <div>Hello BroKurly</div>;
+    return <div></div>;
   }
 }
 

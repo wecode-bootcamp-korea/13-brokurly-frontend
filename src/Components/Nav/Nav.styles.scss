@@ -1,3 +1,18 @@
 .Nav {
-  margin: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-shadow: 0 0 3px #fcfcfc;
+  z-index: 1;
+  background-color: #fff;
+
+  .logo {
+    display: flex;
+    justify-content: center;
+
+    img {
+      height: 100%;
+      width: 103px;
+    }
+  }
 }
