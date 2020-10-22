@@ -18,15 +18,18 @@ class ProductCard extends Component {
     return (
       <li className="ProductCard">
         <div className="card-thumbnail">
-          <div className="card-event">
-            <span>SAVE</span>
+          <div
+            className={`card-event ${
+              !product.discountName && "visibility-hidden"
+            }`}
+          >
+            <span>{product.discountName}</span>
             <div>
-              <span>10</span>
-              <span>%</span>
+              <span>{product.discountContent}</span>
             </div>
           </div>
           <img
-            src={product.image_url}
+            src={product.imageUrl}
             alt={product.id}
             className={isWidthBiggerThanHeight ? "full-height" : "full-width"}
             onLoad={this.resizeImage}
