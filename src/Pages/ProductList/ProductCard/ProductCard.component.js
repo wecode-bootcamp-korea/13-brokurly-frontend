@@ -4,8 +4,7 @@ import "./ProductCard.styles.scss";
 
 class ProductCard extends Component {
   state = {
-    // product: this.props.product,
-    product: [],
+    product: this.props.product,
     isWidthBiggerThanHeight: false,
   };
 
@@ -18,14 +17,7 @@ class ProductCard extends Component {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  componentDidMount = () => {
-    this.setState({
-      product: this.props.product,
-    });
-  };
-
   render() {
-    // const { product, isWidthBiggerThanHeight } = this.state;
     const { isWidthBiggerThanHeight } = this.state;
     const { product } = this.props;
     return (
@@ -49,16 +41,21 @@ class ProductCard extends Component {
           />
         </div>
         <div className="card-shopping">
-          <i className="far fa-shopping-cart"></i>
+          <i className="far fa-shopping-cart" />
         </div>
         <div className="card-content">
           <span className="card-title">{product.name}</span>
           <div className="card-price">
             <div className={`${!product.discountPrice && "display-none"}`}>
-              <span>{this.getNumberWithCommas(product.discountPrice)}원 </span>
-              <i className="fas fa-long-arrow-alt-right"></i>
+              <span>{this.getNumberWithCommas(product.originalPrice)}원 </span>
+              <i className="fas fa-long-arrow-alt-right" />
             </div>
-            <span>{this.getNumberWithCommas(product.originalPrice)}원</span>
+            <span>
+              {product.discountPrice
+                ? this.getNumberWithCommas(product.discountPrice)
+                : this.getNumberWithCommas(product.originalPrice)}
+              원
+            </span>
           </div>
           <span className="card-description">{product.content}</span>
         </div>
