@@ -1,29 +1,51 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
+import {
+  addItem,
+  removeItem,
+  clearItemFromCart,
+  toggleSelectedItemCheckBox,
+  checkStatusAllSelectCheckBox,
+  selectedItemsTotalPrice,
+} from "../../redux/cart/cart.actions";
 import "./CartItem.styles.scss";
 
 class CartItem extends Component {
-  constructor() {
-    super();
-    this.state = {
-      topName: "[레디어스] 유아 칫솔 3종",
-      bottomName: "[래디어스] 퓨어 베이비 화이트",
-      price: "3,700",
-      quantity: 2,
-    };
-  }
-
   render() {
-    const { topName, bottomName, price, quantity } = this.state;
-    const { checkGroupCheckBox } = this.props;
+    const {
+      cartItemInfo,
+      addItem,
+      removeItem,
+      clearItemFromCart,
+      toggleSelectedItemCheckBox,
+      checkStatusAllSelectCheckBox,
+      selectedItemsTotalPrice,
+    } = this.props;
+    const {
+      id,
+      headerName,
+      mainName,
+      productPrice,
+      quantity,
+      checked,
+    } = cartItemInfo;
     return (
       <div className="Cart-item">
         <div className="cart-item-select">
-          <input type="checkbox" onChange={checkGroupCheckBox} />
+          <input
+            type="checkbox"
+            onChange={() => {
+              toggleSelectedItemCheckBox(id);
+              checkStatusAllSelectCheckBox();
+              selectedItemsTotalPrice();
+            }}
+            checked={checked}
+          />
         </div>
         <div className="cart-item-info">
           <div className="cart-item-info-top">
-            <span>{topName}</span>
+            <span>{headerName}</span>
           </div>
           <div className="cart-item-info-bottom">
             <div className="cart-item-photo">
@@ -32,29 +54,48 @@ class CartItem extends Component {
             <div className="cart-item-specific-info-container">
               <div className="cart-item-name-and-price">
                 <div className="cart-item-name">
-                  <span>{bottomName}</span>
+                  <span>{mainName}</span>
                 </div>
                 <div className="cart-item-price">
-                  <span>{price}원</span>
+                  <span>{productPrice}원</span>
                 </div>
               </div>
               <div className="cart-item-quantity">
                 <div className="quantity-container">
-                  <div className="left">
+                  <div
+                    className="left"
+                    onClick={() => {
+                      removeItem(cartItemInfo);
+                      selectedItemsTotalPrice();
+                    }}
+                  >
                     <p className="left-element">&#8722;</p>
                   </div>
                   <div className="quantity">
                     <span>{quantity}</span>
                   </div>
-                  <div className="right">
+                  <div
+                    className="right"
+                    onClick={() => {
+                      addItem(cartItemInfo);
+                      selectedItemsTotalPrice();
+                    }}
+                  >
                     <p className="right-element">&#43;</p>
                   </div>
                 </div>
               </div>
               <div className="cart-item-total">
-                <span>7,400원</span>
+                <span>{productPrice * quantity}원</span>
               </div>
-              <div className="cart-item-delete">
+              <div
+                className="cart-item-delete"
+                onClick={() => {
+                  clearItemFromCart(cartItemInfo);
+                  selectedItemsTotalPrice();
+                  checkStatusAllSelectCheckBox();
+                }}
+              >
                 <span>&#10005;</span>
               </div>
             </div>
@@ -65,4 +106,18 @@ class CartItem extends Component {
   }
 }
 
-export default CartItem;
+const mapStateToProps = ({ cart }) => ({
+  cartItems: cart.cartItems,
+  allSelect: cart.allSelect,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (item) => dispatch(addItem(item)),
+  removeItem: (item) => dispatch(removeItem(item)),
+  clearItemFromCart: (item) => dispatch(clearItemFromCart(item)),
+  toggleSelectedItemCheckBox: (id) => dispatch(toggleSelectedItemCheckBox(id)),
+  checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
+  selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

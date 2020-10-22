@@ -33,6 +33,7 @@
   .cart-items-content {
     margin-top: 40px;
     width: 55%;
+    min-width: 800px;
   }
 
   .price-result-container {
@@ -42,6 +43,7 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
+    min-width: 800px;
 
     span {
       width: 86px;
@@ -143,6 +145,7 @@
       }
 
       .price-result-text {
+        margin-top: 15px;
         height: 15%;
         font-size: 13px;
       }
@@ -150,13 +153,13 @@
       .price-result-number {
         height: 25%;
         font-size: 23px;
-        color: purple;
+        color: var(--primary-color);
       }
 
       .mileage-point-info {
         height: 10%;
         font-size: 11px;
-        color: purple;
+        color: var(--primary-color);
       }
     }
 
@@ -192,7 +195,7 @@
     .goto-order-page-button {
       width: 200px;
       height: 48px;
-      background-color: purple;
+      background-color: var(--primary-color);
       color: white;
       font-weight: bold;
       border: none;
@@ -208,6 +211,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-width: 900px;
 
     .warning-text-top {
       height: 40%;

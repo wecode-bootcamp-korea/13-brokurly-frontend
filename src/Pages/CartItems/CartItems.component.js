@@ -1,11 +1,19 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import ViewCart from "../../Components/ViewCart/ViewCart.component";
+
+import { selectedItemsTotalPrice } from "../../redux/cart/cart.actions";
 
 import "./CartItems.styles.scss";
 
 class CartItems extends Component {
+  componentDidMount() {
+    this.props.selectedItemsTotalPrice();
+  }
+
   render() {
+    const { totalPrice } = this.props;
     return (
       <div className="Cart-items">
         <div className="cart-items-header">
@@ -18,7 +26,7 @@ class CartItems extends Component {
         <div className="price-result-container">
           <div className="initial-price">
             <span className="initial-price-text">상품금액</span>
-            <span className="initial-price-number">63,700 원</span>
+            <span className="initial-price-number">{totalPrice} 원</span>
           </div>
           <span>&#8722;</span>
           <div className="discount-amount">
@@ -33,7 +41,7 @@ class CartItems extends Component {
           <span>&#61;</span>
           <div className="price-result">
             <span className="price-result-text">결제예정금액</span>
-            <span className="price-result-number">45,700 원</span>
+            <span className="price-result-number">{totalPrice - 18000} 원</span>
             <span className="mileage-point-info">구매시 2,285원 적립</span>
           </div>
           <div className="price-result-additonal-info">
@@ -57,4 +65,12 @@ class CartItems extends Component {
   }
 }
 
-export default CartItems;
+const mapStateToProps = ({ cart }) => ({
+  totalPrice: cart.selectedItemsTotalPrice,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartItems);

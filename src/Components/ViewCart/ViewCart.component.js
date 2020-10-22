@@ -1,47 +1,27 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import CartItem from "../CartItem/CartItem.component";
+
+import {
+  toggleAllSelectCheckBox,
+  deleteSelectedItems,
+  selectedItemsTotalPrice,
+  checkStatusAllSelectCheckBox,
+} from "../../redux/cart/cart.actions";
 
 import "./ViewCart.styles.scss";
 
 class ViewCart extends Component {
-  constructor() {
-    super();
-    this.state = {
-      cartItems: [],
-      allSelect: false,
-    };
-  }
-
-  componentDidMount() {
-    this.toggleGroupCheckBox();
-  }
-
-  toggleGroupCheckBox = async () => {
-    const cartItemElementCheckbox = document.querySelectorAll(
-      ".cart-item-select input"
-    );
-    await this.setState({ allSelect: !this.state.allSelect });
-    const { allSelect } = this.state;
-    for (let i = 0; i < cartItemElementCheckbox.length; i++)
-      cartItemElementCheckbox[i].checked = allSelect;
-  };
-
-  checkGroupCheckBox = () => {
-    const cartItemElementCheckbox = document.querySelectorAll(
-      ".cart-item-select input"
-    );
-    for (let i = 0; i < cartItemElementCheckbox.length; i++) {
-      if (!cartItemElementCheckbox[i].checked) {
-        this.setState({ allSelect: false });
-        return;
-      }
-    }
-    this.setState({ allSelect: true });
-  };
-
   render() {
-    const { allSelect } = this.state;
+    const {
+      cartItems,
+      allSelect,
+      toggleAllSelectCheckBox,
+      deleteSelectedItems,
+      selectedItemsTotalPrice,
+      checkStatusAllSelectCheckBox,
+    } = this.props;
     return (
       <div className="View-cart">
         <div className="selected-items">
@@ -50,8 +30,11 @@ class ViewCart extends Component {
               <label>
                 <input
                   type="checkbox"
-                  onChange={this.toggleGroupCheckBox}
-                  checked={allSelect ? "checked" : ""}
+                  onChange={() => {
+                    toggleAllSelectCheckBox();
+                    selectedItemsTotalPrice();
+                  }}
+                  checked={allSelect ? true : false}
                 />
               </label>
               <span className="select-all">
@@ -70,11 +53,9 @@ class ViewCart extends Component {
             </div>
           </div>
           <div className="selected-items-info">
-            <CartItem checkGroupCheckBox={this.checkGroupCheckBox} />
-            <CartItem checkGroupCheckBox={this.checkGroupCheckBox} />
-            <CartItem checkGroupCheckBox={this.checkGroupCheckBox} />
-            <CartItem checkGroupCheckBox={this.checkGroupCheckBox} />
-            <CartItem checkGroupCheckBox={this.checkGroupCheckBox} />
+            {cartItems.map((cartItem, idx) => (
+              <CartItem key={idx} cartItemInfo={cartItem} />
+            ))}
           </div>
         </div>
         <div className="selected-options-container">
@@ -83,13 +64,25 @@ class ViewCart extends Component {
               <div>
                 <input
                   type="checkbox"
-                  onChange={this.toggleGroupCheckBox}
+                  onChange={() => {
+                    toggleAllSelectCheckBox();
+                    selectedItemsTotalPrice();
+                  }}
                   checked={allSelect ? "checked" : ""}
                 />
               </div>
               <span>전체선택 (2/2)</span>
             </div>
-            <button className="select-delete">선택 삭제</button>
+            <button
+              className="select-delete"
+              onClick={() => {
+                deleteSelectedItems();
+                selectedItemsTotalPrice();
+                checkStatusAllSelectCheckBox();
+              }}
+            >
+              선택 삭제
+            </button>
             <button className="sold-out-delete">품절 상품 삭제</button>
           </div>
         </div>
@@ -98,4 +91,16 @@ class ViewCart extends Component {
   }
 }
 
-export default ViewCart;
+const mapStateToProps = ({ cart }) => ({
+  cartItems: cart.cartItems,
+  allSelect: cart.allSelect,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleAllSelectCheckBox: () => dispatch(toggleAllSelectCheckBox()),
+  deleteSelectedItems: () => dispatch(deleteSelectedItems()),
+  selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
+  checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewCart);
