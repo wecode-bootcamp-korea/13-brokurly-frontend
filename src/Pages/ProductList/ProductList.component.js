@@ -10,12 +10,20 @@ const API = "http://localhost:3000/data/productlist/productlist_0.json";
 
 class ProductList extends Component {
   state = {
-    isCategoryClick: false,
+    isCategoryClick: true,
     isSortingClick: false,
     categories: [],
     products: [],
     sortings: [],
     activeSorting: 0,
+    activeCategory: 0,
+  };
+
+  handleCategory = (e) => {
+    const { id } = e.target;
+    const { isCategoryClick } = this.state;
+    console.log(id);
+    this.setState({ isCategoryClick: !isCategoryClick, activeCategory: id });
   };
 
   handleSorting = () => {
@@ -46,10 +54,6 @@ class ProductList extends Component {
     }
   };
 
-  componentDidMount = () => {
-    this.getProductList();
-  };
-
   getProductList = async () => {
     try {
       const response = await fetch(API);
@@ -63,13 +67,19 @@ class ProductList extends Component {
     }
   };
 
+  componentDidMount = () => {
+    this.getProductList();
+  };
+
   render() {
     const {
+      isCategoryClick,
       isSortingClick,
       categories,
       products,
       sortings,
       activeSorting,
+      activeCategory,
     } = this.state;
 
     return (
@@ -82,7 +92,20 @@ class ProductList extends Component {
           <div className="category-list">
             <ul>
               {categories.length &&
-                categories.map(({ id, name }) => <li key={id}>{name}</li>)}
+                categories.map(({ id, name }) => (
+                  <li
+                    key={id}
+                    id={id}
+                    onClick={this.handleCategory}
+                    className={`${
+                      isCategoryClick & (id === activeCategory)
+                        ? "active-category"
+                        : ""
+                    }`}
+                  >
+                    {name}
+                  </li>
+                ))}
             </ul>
             <div
               className={`sort-trigger ${isSortingClick && "active-color"}`}

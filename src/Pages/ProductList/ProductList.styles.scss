@@ -46,7 +46,6 @@
 
           &:hover {
             color: var(--primary-color);
-            font-weight: 700;
             border-bottom: 1px solid var(--primary-color);
           }
         }
@@ -105,10 +104,18 @@
   }
 }
 
+// for dynamic class usage
+
 .active-color {
   color: var(--primary-color) !important;
 }
 
 .display-none {
   display: none !important;
+}
+
+.active-category {
+  color: var(--primary-color);
+  font-weight: 700;
+  border-bottom: 1px solid var(--primary-color);
 }
