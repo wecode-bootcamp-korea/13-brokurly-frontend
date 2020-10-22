@@ -12,8 +12,8 @@ class Main extends Component {
     return (
       // <Login />
       // <SearchId />
-      // <SearchPwd />
-      <Signup />
+      <SearchPwd />
+      // <Signup />
     );
   }
 }

@@ -38,8 +38,8 @@ class Login extends Component {
             />
             <div className="check-and-search">
               <div className="check">
-                <label htmlFor="connect-type">
-                  <input type="checkbox" name="connect" id="connect-type" />
+                <label>
+                  <input type="checkbox" name="connect" />
                   <span>보안접속</span>
                 </label>
               </div>
