@@ -1,9 +1,139 @@
+@mixin flexSet($arg...) {
+  display: flex;
+  justify-content: #{nth($arg, 1)};
+  align-items: #{nth($arg, 2)};
+  @if length($arg) == 3 {
+    flex-direction: #{nth($arg, 3)};
+  }
+}
+
 .ProductCard {
-  .card-image {
+  margin: 25px 28px 0 0;
+  cursor: pointer;
+
+  .card-thumbnail {
+    display: flex;
+    width: 306px;
+    height: 396px;
     margin: 1px;
-    .thumbnail {
-      background-image: "../../../Images/teamBrokurly.jpg";
-      background-size: 306px 394px;
+    overflow: hidden;
+
+    img {
+      left: 50%;
+      transform: translateX(-66px);
+      object-fit: fill;
+      transition: ease 0.5s;
+      &:hover {
+        transform: scale(1.05) translateX(-66px);
+      }
+    }
+
+    .card-event {
+      position: relative;
+      min-width: 66px;
+      max-height: 58px;
+      background-color: var(--primary-color);
+      color: #fff;
+      font-size: 14px;
+      opacity: 80%;
+      z-index: 1;
+      @include flexSet(center, center, column);
+
+      div {
+        font-size: 20px;
+
+        span:last-child {
+          font-size: 15px;
+        }
+      }
     }
   }
+
+  .card-shopping {
+    position: relative;
+    top: -65px;
+    width: 45px;
+    height: 45px;
+    margin-left: 240px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    opacity: 80%;
+    z-index: 1;
+    @include flexSet(center, center);
+
+    i {
+      color: #fff;
+      font-size: 18px;
+    }
+  }
+
+  .card-content {
+    position: relative;
+    top: -40px;
+    width: 308px;
+    padding: 10px;
+    @include flexSet(null, null, column);
+
+    .card-title {
+      display: flex;
+      min-height: 20px;
+      color: #333;
+      line-height: 25px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .card-price {
+      @include flexSet(null, center, row);
+
+      div {
+        @include flexSet(null, center, row);
+
+        span {
+          padding-right: 5px;
+          color: rgb(189, 189, 189);
+          text-decoration: line-through;
+        }
+
+        i {
+          padding-right: 5px;
+          color: var(--primary-color);
+        }
+      }
+
+      span {
+        padding: 9px 0;
+        line-height: 24px;
+        font-size: 17px;
+        font-weight: 500;
+        @include flexSet(null, center);
+
+        &:last-child {
+          color: var(--primary-color);
+        }
+      }
+    }
+
+    .card-description {
+      padding-bottom: 8px;
+      color: #666;
+      text-overflow: ellipsis;
+      line-height: 19px;
+      font-size: 13px;
+    }
+  }
+}
+
+// for dinamic class usage
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100% !important;
+}
+
+.visibility-hidden {
+  visibility: hidden;
 }
