@@ -1,0 +1,131 @@
+{
+  "message": "SUCCESS",
+  "categories": [
+    "기본채소",
+    "쌈·샐러드·간편채소",
+    "브로콜리·특수채소",
+    "콩나물·버섯류",
+    "시금치·부추·나물",
+    "양파·마늘·생강·파",
+    "파프리카·피망·고추"
+  ],
+  "sortings": [
+    "추천순",
+    "신상품순",
+    "인기상품순",
+    "낮은 가격순",
+    "높은 가격순"
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "감자 1kg",
+      "content": "믿고 먹을 수 있는 상품을 합리적인 가격에",
+      "imageUrl": "https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      "discountPercent": 0,
+      "discountName": 0,
+      "discountContent": "",
+      "discountPrice": 0,
+      "originalPrice": 3180
+    },
+    {
+      "id": 2,
+      "name": "한끼 당근 1개",
+      "content": "딱 하나만 필요할 때 한끼 당근",
+      "imageUrl": "https://images.unsplash.com/photo-1582515073490-39981397c445?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+      "discountPercent": 0,
+      "discountName": 0,
+      "discountContent": "",
+      "discountPrice": 0,
+      "originalPrice": 1300
+    },
+    {
+      "id": 3,
+      "name": "GAP 오이 2입",
+      "content": "수분이 가득한 여름 채소",
+      "imageUrl": "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+      "discountPercent": 0,
+      "discountName": 0,
+      "discountContent": "",
+      "discountPrice": 0,
+      "originalPrice": 3490
+    },
+    {
+      "id": 4,
+      "name": "애호박 1개",
+      "content": "믿고 먹을 수 있는 상품을 합리적인 가격에",
+      "imageUrl": "https://images.unsplash.com/photo-1570586437263-ab629fccc818?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80",
+      "discountPercent": 0,
+      "discountName": 0,
+      "discountContent": "",
+      "discountPrice": 0,
+      "originalPrice": 1000
+    },
+    {
+      "id": 5,
+      "name": "친환경 당근 500g",
+      "content": "껍질째 먹을 수 있는 친환경 흙당근",
+      "imageUrl": "https://images.unsplash.com/photo-1579584828095-494884160804?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+      "discountPercent": 0,
+      "discountName": 0,
+      "discountContent": "",
+      "discountPrice": 0,
+      "originalPrice": 4500
+    },
+    {
+      "id": 6,
+      "name": "무농약 양배추 1/2통",
+      "content": "남기지 않고 다 먹을 수 있는 양배추 반통",
+      "imageUrl": "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=632&q=80",
+      "discountPercent": 0,
+      "discountName": 0,
+      "discountContent": "",
+      "discountPrice": 0,
+      "originalPrice": 2900
+    },
+    {
+      "id": 7,
+      "name": "양배추 2종",
+      "content": "달큰 아삭 하게 즐기는 양배추",
+      "imageUrl": "https://images.unsplash.com/photo-1510627498534-cf7e9002facc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+      "discountPercent": 15,
+      "discountName": "SAVE",
+      "discountContent": "15%",
+      "discountPrice": 2533,
+      "originalPrice": 2980
+    },
+    {
+      "id": 8,
+      "name": "무 1통",
+      "content": "시원한 무 한 통",
+      "imageUrl": "https://images.unsplash.com/photo-1592526065621-d3b2d2f49a31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=633&q=80",
+      "discountPercent": 0,
+      "discountName": 0,
+      "discountContent": "",
+      "discountPrice": 0,
+      "originalPrice": 2980
+    },
+    {
+      "id": 9,
+      "name": "가지 2입",
+      "content": "믿고 먹을 수 있는 상품을 합리적인 가격에",
+      "imageUrl": "https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/2xMI/image/3UsuJyueeNW67kRgvKeERwT-o4s.jpg",
+      "discountPercent": 0,
+      "discountName": 0,
+      "discountContent": "",
+      "discountPrice": 0,
+      "originalPrice": 1380
+    },
+    {
+      "id": 10,
+      "name": "다다기오이 3입",
+      "content": "믿고 먹을 수 있는 상품을 합리적인 가격에",
+      "imageUrl": "https://images.unsplash.com/photo-1508910238952-0dfebf373ecf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=676&q=80",
+      "discountPercent": 0,
+      "discountName": 0,
+      "discountContent": "",
+      "discountPrice": 0,
+      "originalPrice": 2000
+    }
+  ]
+}
