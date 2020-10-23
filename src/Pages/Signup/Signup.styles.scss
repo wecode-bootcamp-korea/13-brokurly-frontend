@@ -38,14 +38,14 @@
     }
 
     .check-agree {
+      display: flex;
       padding: 12px 0;
       border-bottom: 1px solid #ccc;
       border-top: 1px solid black;
 
       .input-content {
         position: relative;
-        top: -134px;
-        vertical-align: text-top;
+        top: 10px;
       }
 
       .special-check-agree {
@@ -117,5 +117,9 @@
         }
       }
     }
+  }
+  .otherSinupform {
+    display: flex;
+    align-items: center;
   }
 }

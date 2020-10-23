@@ -1,0 +1,42 @@
+.OverlapCheckText {
+  margin-top: 8px;
+  .initial {
+    display: none;
+  }
+  .on {
+    display: block;
+    width: 332px;
+    margin: 0 auto;
+    font-size: 12px;
+    padding-bottom: 4px;
+    &:before {
+      content: "•";
+      padding: 0 4px 0 12px;
+    }
+  }
+
+  .correct {
+    display: block;
+    width: 332px;
+    margin: 0 auto;
+    font-size: 12px;
+    padding-bottom: 4px;
+    color: red;
+    &:before {
+      content: "✕";
+      padding: 0 4px 0 12px;
+    }
+  }
+  .incorrect {
+    display: block;
+    width: 332px;
+    margin: 0 auto;
+    font-size: 12px;
+    padding-bottom: 4px;
+    color: green;
+    &:before {
+      content: "✔︎";
+      padding: 0 4px 0 12px;
+    }
+  }
+}

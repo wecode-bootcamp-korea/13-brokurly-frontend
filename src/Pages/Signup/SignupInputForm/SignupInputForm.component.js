@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import OverlapCheck from "./OverlapCheck/OverlapCheck.component";
+import OverlapCheckText from "./OverlapCheckText/OverlapCheckText.component";
 
 class SignupInputForm extends Component {
   handleWriteData = (e) => {
@@ -18,21 +19,29 @@ class SignupInputForm extends Component {
       onCheckEmail,
     } = this.props;
     return (
-      <div className="SignupInputForm">
-        <div className="input-content">
-          {inputContent}
-          <span className="ico">*</span>
+      <>
+        <div className="SignupInputForm">
+          <div className="input-content">
+            {inputContent}
+            <span className="ico">*</span>
+          </div>
+          <input
+            className="input"
+            name={name}
+            placeholder={writeHolder}
+            type={textType}
+            onChange={this.handleWriteData}
+          />
+          {onOffCount === "one" && <OverlapCheck onCheckOverlap={onCheckId} />}
+          {onOffCount === "two" && (
+            <OverlapCheck onCheckOverlap={onCheckEmail} />
+          )}
         </div>
-        <input
-          className="input"
-          name={name}
-          placeholder={writeHolder}
-          type={textType}
-          onChange={this.handleWriteData}
+        <OverlapCheckText
+          onOffCount={onOffCount}
+          onData={this.props.checkData}
         />
-        {onOffCount === "1" && <OverlapCheck onCheckOverlap={onCheckId} />}
-        {onOffCount === "2" && <OverlapCheck onCheckOverlap={onCheckEmail} />}
-      </div>
+      </>
     );
   }
 }

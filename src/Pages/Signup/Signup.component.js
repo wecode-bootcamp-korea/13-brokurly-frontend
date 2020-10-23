@@ -10,28 +10,28 @@ class Signup extends Component {
     super();
     this.recommendInputRef = React.createRef();
     this.state = {
-      userId: "",
-      userPwd: "",
-      userName: "",
-      userEmail: "",
-      userPhone: "",
-      first: "n",
-      second: "n",
-      six: "n",
+      user_id: "",
+      password: "",
+      user_name: "",
+      email: "",
+      phone: "",
+      first: false,
+      second: false,
+      six: false,
+      userIdCheck: false,
+      userEmailCheck: false,
+      is_privacy_policy: false,
+      is_sms_agreed: false,
+      is_email_agreed: false,
       // 이상 필수 사항
-      privacyPolicy: "n",
-      agreeSMS: "n",
-      agreeEmail: "n",
-      userPwdRepeat: "",
-      userAddress: "",
-      gender: "3",
+      passwordRepeatCheck: "",
+      address: "",
+      gender: "",
       recommender: "",
       event: "",
       // (위)백에 전달해야하는 데이터들
       recommendInputContent: "",
       recommendCheck: "",
-      userIdCheck: "n",
-      userEmailCheck: "n",
       allChecks: "n",
       eventAllCheck: "n",
       birthdayYYYY: "",
@@ -73,20 +73,20 @@ class Signup extends Component {
   };
 
   checkId = () => {
-    const { userId } = this.state;
-    if (userId.length >= 5) {
+    const { user_id } = this.state;
+    if (user_id.length >= 5) {
       fetch("http://10.58.6.216:8000/user/checkid", {
         method: "POST",
         body: JSON.stringify({
-          user_id: userId,
+          user_id,
         }),
       })
         .then((response) => response.json())
         .then((result) => {
           if (result.message === "SUCCESS") {
-            this.setState({ userIdCheck: "y" });
+            this.setState({ userIdCheck: true });
           } else {
-            this.setState({ userIdCheck: "n" });
+            this.setState({ userIdCheck: false });
           }
         });
     } else {
@@ -95,20 +95,20 @@ class Signup extends Component {
   };
 
   checkEmail = () => {
-    const { userEmail } = this.state;
-    if (userEmail.length >= 5) {
+    const { email } = this.state;
+    if (email.length >= 5) {
       fetch("http://10.58.6.216:8000/user/checkemail", {
         method: "POST",
         body: JSON.stringify({
-          email: userEmail,
+          email,
         }),
       })
         .then((response) => response.json())
         .then((result) => {
           if (result.message === "SUCCESS") {
-            this.setState({ userEmailCheck: "y" });
+            this.setState({ userEmailCheck: true });
           } else {
-            this.setState({ userEmailCheck: "n" });
+            this.setState({ userEmailCheck: false });
           }
         });
     } else {
@@ -120,22 +120,22 @@ class Signup extends Component {
     const checkBox = [
       "first",
       "second",
-      "privacyPolicy",
-      "agreeSMS",
-      "agreeEmail",
+      "is_privacy_policy",
+      "is_sms_agreed",
+      "is_email_agreed",
       "six",
     ];
-    const isAllCheck = checkBox.every((check) => this.state[check] === "y");
+    const isAllCheck = checkBox.every((check) => this.state[check]);
     const obj = {};
     if (isAllCheck) {
       for (let check of checkBox) {
-        obj[check] = "n";
+        obj[check] = false;
       }
       obj.allChecks = "n";
       obj.eventAllCheck = "n";
     } else {
       for (let check of checkBox) {
-        obj[check] = "y";
+        obj[check] = true;
       }
       obj.allChecks = "y";
       obj.eventAllCheck = "y";
@@ -147,12 +147,12 @@ class Signup extends Component {
     const checkBox = [
       "first",
       "second",
-      "privacyPolicy",
-      "agreeSMS",
-      "agreeEmail",
+      "is_privacy_policy",
+      "is_sms_agreed",
+      "is_email_agreed",
       "six",
     ];
-    const isAllCheck = checkBox.every((check) => this.state[check] === "y");
+    const isAllCheck = checkBox.every((check) => this.state[check]);
     if (isAllCheck) {
       return "y";
     } else {
@@ -161,17 +161,17 @@ class Signup extends Component {
   };
 
   receiveAllCheck = (e) => {
-    const checkBox = ["agreeSMS", "agreeEmail"];
-    const isAllCheck = checkBox.every((check) => this.state[check] === "y");
+    const checkBox = ["is_sms_agreed", "is_email_agreed"];
+    const isAllCheck = checkBox.every((check) => this.state[check]);
     const obj = {};
     if (isAllCheck) {
       for (let check of checkBox) {
-        obj[check] = "n";
+        obj[check] = false;
       }
       obj.eventAllCheck = "n";
     } else {
       for (let check of checkBox) {
-        obj[check] = "y";
+        obj[check] = true;
       }
       obj.eventAllCheck = "y";
     }
@@ -179,8 +179,8 @@ class Signup extends Component {
   };
 
   handleReceiveAllCheck = () => {
-    const checkBox = ["agreeSMS", "agreeEmail"];
-    const isAllCheck = checkBox.every((check) => this.state[check] === "y");
+    const checkBox = ["is_sms_agreed", "is_email_agreed"];
+    const isAllCheck = checkBox.every((check) => this.state[check]);
     if (isAllCheck) {
       return "y";
     } else {
@@ -189,56 +189,55 @@ class Signup extends Component {
   };
 
   singleCheck = (e) => {
-    if (this.state[e.target.name] === "y") {
+    if (this.state[e.target.name]) {
       this.setState({
-        [e.target.name]: "n",
+        [e.target.name]: false,
       });
     } else {
-      this.setState({ [e.target.name]: "y" });
+      this.setState({ [e.target.name]: true });
     }
   };
 
-  checkUserInfo = (e) => {
+  postBackUserInfo = (e) => {
     const {
-      userId,
-      userPwd,
-      userName,
-      userEmail,
-      userPhone,
+      user_id,
+      password,
+      user_name,
+      email,
+      phone,
       gender,
       recommender,
       event,
       birthdayYYYY,
       birthdayMM,
       birthdayDD,
-      // privacyPolicy,
-      // agreeSMS,
-      // agreeEmail,
+      is_privacy_policy,
+      is_sms_agreed,
+      is_email_agreed,
     } = this.state;
     e.preventDefault();
-    const userNecessaryinfo = Object.keys(this.state).slice(0, 5);
-    const userNecessaryinfo2 = Object.keys(this.state).slice(5, 8);
-    const isFull = userNecessaryinfo.every((info) => this.state[info] !== "");
-    const isFull2 = userNecessaryinfo2.every(
-      (info) => this.state[info] !== "n"
+    console.log(Object.keys(this.state));
+    const userNecessaryinfo = Object.keys(this.state).slice(0, 10);
+    const isFull = userNecessaryinfo.every(
+      (info) => this.state[info] !== false
     );
-    if (isFull && isFull2) {
+    if (isFull) {
       fetch("http://10.58.6.216:8000/user/signup", {
         method: "POST",
         body: JSON.stringify({
-          user_id: userId,
-          password: userPwd,
-          user_name: userName,
-          email: userEmail,
-          phone: userPhone,
+          user_id,
+          password,
+          user_name,
+          email,
+          phone,
           address: "강서구",
-          gender: gender,
-          recommender: recommender,
-          event: event,
+          gender,
+          recommender,
+          event,
           date_of_birth: `${birthdayYYYY}-${birthdayMM}-${birthdayDD}`,
-          is_privacy_policy: false,
-          is_sms_agreed: true,
-          is_email_agreed: true,
+          is_privacy_policy,
+          is_sms_agreed,
+          is_email_agreed,
         }),
       })
         .then((response) => response.json())
@@ -256,9 +255,9 @@ class Signup extends Component {
       recommendCheck,
       first,
       second,
-      privacyPolicy,
-      agreeSMS,
-      agreeEmail,
+      is_privacy_policy,
+      is_sms_agreed,
+      is_email_agreed,
       six,
     } = this.state;
     return (
@@ -274,18 +273,20 @@ class Signup extends Component {
             <SignupInputForm
               inputContent="아이디"
               textType="text"
-              name="userId"
-              onOffCount="1"
+              name="user_id"
+              onOffCount="one"
               writeHolder="6자 이상의 영문 혹은 영문과 숫자를 조합"
               onCheckId={this.checkId}
               onWriteData={this.handleWriteData}
+              checkDate={this.state}
             />
             <SignupInputForm
               inputContent="비밀번호"
               textType="password"
-              name="userPwd"
+              name="password"
               writeHolder="비밀번호를 입력해주세요"
               onWriteData={this.handleWriteData}
+              checkDate={this.state}
             />
             <SignupInputForm
               inputContent="비밀번호확인"
@@ -293,32 +294,34 @@ class Signup extends Component {
               name="userPwdRepeat"
               writeHolder="비밀번호를 한번 더 입력해주세요"
               onWriteData={this.handleWriteData}
+              checkDate={this.state}
             />
             <SignupInputForm
               inputContent="이름"
               textType="text"
-              name="userName"
+              name="user_name"
               writeHolder="이름을 입력해주세요"
               onWriteData={this.handleWriteData}
             />
             <SignupInputForm
               inputContent="이메일"
               textType="text"
-              name="userEmail"
-              onOffCount="2"
+              name="email"
+              onOffCount="two"
               writeHolder="예: deokjjang@gmail.com"
               checkName="중복확인"
               onCheckEmail={this.checkEmail}
               onWriteData={this.handleWriteData}
+              checkDate={this.state}
             />
             <SignupInputForm
               inputContent="휴대폰"
               textType="text"
-              name="userPhone"
+              name="phone"
               writeHolder="숫자만 입력해주세요"
               onWriteData={this.handleWriteData}
             />
-            <div className="SignupInputForm address">
+            <div className="SignupInputForm otherSinupform">
               <div className="input-content">
                 주소
                 <span className="ico">*</span>
@@ -328,7 +331,7 @@ class Signup extends Component {
                 placeholder="카카오 주소검색 넣을거에요"
               ></input>
             </div>
-            <div className="SignupInputForm gender-check-container">
+            <div className="SignupInputForm otherSinupform">
               <div className="input-content">성별</div>
               <div className="input special-gender">
                 <div className="gender-check-lists">
@@ -365,7 +368,7 @@ class Signup extends Component {
                 </div>
               </div>
             </div>
-            <div className="SignupInputForm birth-write-container">
+            <div className="SignupInputForm otherSinupform">
               <div className="input-content">생년월일</div>
               <div className="input special-birth">
                 <input
@@ -393,7 +396,7 @@ class Signup extends Component {
                 />
               </div>
             </div>
-            <div className="SignupInputForm recommender">
+            <div className="SignupInputForm otherSinupform">
               <div className="input-content">추가입력 사항</div>
               <div className="input special-recommender">
                 <div className="recommender-check-lists">
@@ -420,7 +423,7 @@ class Signup extends Component {
                 </div>
               </div>
             </div>
-            <div className="SignupInputForm recommend-input-container">
+            <div className="SignupInputForm otherSinupform">
               <div className="input-content"></div>
               <input
                 className="input-off"
@@ -460,7 +463,7 @@ class Signup extends Component {
                       name="first"
                       onChange={this.singleCheck}
                     />
-                    <span className={`checkmark-2 ${first}`}>
+                    <span className={`checkmark-2 ${first && "y"}`}>
                       <i className="fas fa-check"></i>
                     </span>
                     <span>이용약관 동의</span>
@@ -472,7 +475,7 @@ class Signup extends Component {
                       name="second"
                       onChange={this.singleCheck}
                     />
-                    <span className={`checkmark-2 ${second}`}>
+                    <span className={`checkmark-2 ${second && "y"}`}>
                       <i className="fas fa-check"></i>
                     </span>
                     <span>개인정보처리방침 동의</span>
@@ -481,10 +484,10 @@ class Signup extends Component {
                   <label className="check-agree-list">
                     <input
                       type="checkbox"
-                      name="privacyPolicy"
+                      name="is_privacy_policy"
                       onChange={this.singleCheck}
                     />
-                    <span className={`checkmark-2 ${privacyPolicy}`}>
+                    <span className={`checkmark-2 ${is_privacy_policy && "y"}`}>
                       <i className="fas fa-check"></i>
                     </span>
                     <span>개인정보처리방침 동의</span>
@@ -508,10 +511,10 @@ class Signup extends Component {
                     <label className="check-agree-list">
                       <input
                         type="checkbox"
-                        name="agreeSMS"
+                        name="is_sms_agreed"
                         onChange={this.singleCheck}
                       />
-                      <span className={`checkmark-2 ${agreeSMS}`}>
+                      <span className={`checkmark-2 ${is_sms_agreed && "y"}`}>
                         <i className="fas fa-check"></i>
                       </span>
                       <span>SMS</span>
@@ -519,10 +522,10 @@ class Signup extends Component {
                     <label className="check-agree-list">
                       <input
                         type="checkbox"
-                        name="agreeEmail"
+                        name="is_email_agreed"
                         onChange={this.singleCheck}
                       />
-                      <span className={`checkmark-2 ${agreeEmail}`}>
+                      <span className={`checkmark-2 ${is_email_agreed && "y"}`}>
                         <i className="fas fa-check"></i>
                       </span>
                       <span>이메일</span>
@@ -539,7 +542,7 @@ class Signup extends Component {
                       name="six"
                       onChange={this.singleCheck}
                     />
-                    <span className={`checkmark-2 ${six}`}>
+                    <span className={`checkmark-2 ${six && "y"}`}>
                       <i className="fas fa-check"></i>
                     </span>
                     <span>본인은 만 14세 이상입니다</span>
@@ -548,7 +551,7 @@ class Signup extends Component {
                 </div>
               </div>
             </div>
-            <button className="complete" onClick={this.checkUserInfo}>
+            <button className="complete" onClick={this.postBackUserInfo}>
               가입하기
             </button>
           </form>

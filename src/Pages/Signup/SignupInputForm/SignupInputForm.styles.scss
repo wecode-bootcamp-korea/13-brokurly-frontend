@@ -1,7 +1,6 @@
 .SignupInputForm {
+  display: inline-block;
   margin-top: 19px;
-  display: flex;
-  align-items: center;
 
   .input-content {
     display: inline-block;
@@ -11,7 +10,7 @@
     font-size: 14px;
     color: #333;
     line-height: 20px;
-    vertical-align: top;
+    vertical-align: center;
     text-align: left;
 
     .ico {
