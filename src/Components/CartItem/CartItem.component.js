@@ -8,6 +8,7 @@ import {
   toggleSelectedItemCheckBox,
   checkStatusAllSelectCheckBox,
   selectedItemsTotalPrice,
+  getSelectedItemsAmount,
 } from "../../redux/cart/cart.actions";
 import "./CartItem.styles.scss";
 
@@ -21,14 +22,22 @@ class CartItem extends Component {
       toggleSelectedItemCheckBox,
       checkStatusAllSelectCheckBox,
       selectedItemsTotalPrice,
+      getSelectedItemsAmount,
     } = this.props;
     const {
       id,
-      headerName,
-      mainName,
-      productPrice,
       quantity,
-      checked,
+      user_id,
+      product_id,
+      option,
+      name,
+      price,
+      sold_out,
+      sales,
+      option_name,
+      option_price,
+      option_sold_out,
+      option_sales,
     } = cartItemInfo;
     return (
       <div className="Cart-item">
@@ -39,6 +48,7 @@ class CartItem extends Component {
               toggleSelectedItemCheckBox(id);
               checkStatusAllSelectCheckBox();
               selectedItemsTotalPrice();
+              getSelectedItemsAmount();
             }}
             checked={checked}
           />
@@ -94,6 +104,7 @@ class CartItem extends Component {
                   clearItemFromCart(cartItemInfo);
                   selectedItemsTotalPrice();
                   checkStatusAllSelectCheckBox();
+                  getSelectedItemsAmount();
                 }}
               >
                 <span>&#10005;</span>
@@ -118,6 +129,7 @@ const mapDispatchToProps = (dispatch) => ({
   toggleSelectedItemCheckBox: (id) => dispatch(toggleSelectedItemCheckBox(id)),
   checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
   selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
+  getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

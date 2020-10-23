@@ -8,6 +8,7 @@ import {
   deleteSelectedItems,
   selectedItemsTotalPrice,
   checkStatusAllSelectCheckBox,
+  getSelectedItemsAmount,
 } from "../../redux/cart/cart.actions";
 
 import "./ViewCart.styles.scss";
@@ -21,6 +22,8 @@ class ViewCart extends Component {
       deleteSelectedItems,
       selectedItemsTotalPrice,
       checkStatusAllSelectCheckBox,
+      seletectedItemsAmount,
+      getSelectedItemsAmount,
     } = this.props;
     return (
       <div className="View-cart">
@@ -33,13 +36,14 @@ class ViewCart extends Component {
                   onChange={() => {
                     toggleAllSelectCheckBox();
                     selectedItemsTotalPrice();
+                    getSelectedItemsAmount();
                   }}
                   checked={allSelect ? true : false}
                 />
               </label>
               <span className="select-all">
-                전체선택 (<span className="count">0</span>/
-                <span className="total">0</span>)
+                전체선택 (<span className="count">{seletectedItemsAmount}</span>
+                /<span className="total">{cartItems.length}</span>)
               </span>
             </div>
             <div className="selected-items-header-info">
@@ -67,11 +71,14 @@ class ViewCart extends Component {
                   onChange={() => {
                     toggleAllSelectCheckBox();
                     selectedItemsTotalPrice();
+                    getSelectedItemsAmount();
                   }}
                   checked={allSelect ? "checked" : ""}
                 />
               </div>
-              <span>전체선택 (2/2)</span>
+              <span>
+                전체선택 {`(${seletectedItemsAmount}/${cartItems.length})`}
+              </span>
             </div>
             <button
               className="select-delete"
@@ -79,6 +86,7 @@ class ViewCart extends Component {
                 deleteSelectedItems();
                 selectedItemsTotalPrice();
                 checkStatusAllSelectCheckBox();
+                getSelectedItemsAmount();
               }}
             >
               선택 삭제
@@ -94,6 +102,7 @@ class ViewCart extends Component {
 const mapStateToProps = ({ cart }) => ({
   cartItems: cart.cartItems,
   allSelect: cart.allSelect,
+  seletectedItemsAmount: cart.seletectedItemsAmount,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -101,6 +110,7 @@ const mapDispatchToProps = (dispatch) => ({
   deleteSelectedItems: () => dispatch(deleteSelectedItems()),
   selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
   checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
+  getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewCart);

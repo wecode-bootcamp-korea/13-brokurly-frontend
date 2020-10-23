@@ -3,13 +3,18 @@ import { connect } from "react-redux";
 
 import ViewCart from "../../Components/ViewCart/ViewCart.component";
 
-import { selectedItemsTotalPrice } from "../../redux/cart/cart.actions";
+import {
+  selectedItemsTotalPrice,
+  getSelectedItemsAmount,
+} from "../../redux/cart/cart.actions";
 
 import "./CartItems.styles.scss";
 
 class CartItems extends Component {
   componentDidMount() {
-    this.props.selectedItemsTotalPrice();
+    const { selectedItemsTotalPrice, getSelectedItemsAmount } = this.props;
+    selectedItemsTotalPrice();
+    getSelectedItemsAmount();
   }
 
   render() {
@@ -71,6 +76,7 @@ const mapStateToProps = ({ cart }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
+  getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItems);

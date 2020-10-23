@@ -35,3 +35,7 @@ export const deleteSelectedItems = () => ({
 export const selectedItemsTotalPrice = () => ({
   type: CartActionTypes.SELECTED_ITEMS_TOTAL_PRICE,
 });
+
+export const getSelectedItemsAmount = () => ({
+  type: CartActionTypes.GET_SELECTED_ITEMS_AMOUNT,
+});
