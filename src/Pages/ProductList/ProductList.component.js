@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 
 import "./ProductList.styles.scss";
 import ProductCard from "./ProductCard/ProductCard.component";
@@ -12,7 +13,16 @@ class ProductList extends Component {
   state = {
     isCategoryClick: true,
     isSortingClick: false,
-    categories: [],
+    categories: [
+      "전체보기",
+      "기본채소",
+      "쌈·샐러드·간편채소",
+      "브로콜리·특수채소",
+      "콩나물·버섯류",
+      "시금치·부추·나물",
+      "양파·마늘·생강·파",
+      "파프리카·피망·고추",
+    ],
     products: [],
     sortings: [],
     activeSorting: 0,
@@ -60,8 +70,8 @@ class ProductList extends Component {
       if (response.status !== 200) {
         throw new Error("cannot fetch the data");
       }
-      const { categories, products, available_sort } = await response.json();
-      this.setState({ categories, products, sortings: available_sort });
+      const { products, available_sort } = await response.json();
+      this.setState({ products, sortings: available_sort });
     } catch (err) {
       console.log("!!error alert!!");
     }
@@ -92,18 +102,9 @@ class ProductList extends Component {
           <div className="category-list">
             <ul>
               {categories.length &&
-                categories.map(({ id, name }) => (
-                  <li
-                    key={id}
-                    id={id}
-                    onClick={this.handleCategory}
-                    className={`${
-                      isCategoryClick & (id === activeCategory)
-                        ? "active-category"
-                        : ""
-                    }`}
-                  >
-                    {name}
+                categories.map((category, id) => (
+                  <li key={id} id={id}>
+                    {category}{" "}
                   </li>
                 ))}
             </ul>
