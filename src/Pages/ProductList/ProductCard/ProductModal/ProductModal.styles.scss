@@ -8,30 +8,33 @@
 }
 
 .ProductModal {
+  //   display: none;
   position: fixed;
+  top: 50%;
+  left: 50%;
   width: 440px;
   height: 516px;
   background-color: #fff;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+
   border-radius: 6px;
+  box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.28);
+  transform: translate(-50%, -50%);
   z-index: 2;
 
   .modal-title {
     padding: 25px 30px 17px 30px;
-    font-weight: 500;
-    font-size: 24px;
     line-height: 40px;
+    font-size: 24px;
+    font-weight: 500;
     @include flexSet(space-between, center);
     button {
       background-color: transparent;
       border: 0px;
 
       i {
+        color: #bdbdbd;
         font-size: 32px;
         font-weight: 300;
-        color: #bdbdbd;
       }
     }
   }
@@ -41,39 +44,145 @@
 
     .modal-cart {
       padding-bottom: 12px;
+      line-height: 24px;
       font-size: 16px;
       border-bottom: 2px solid #333;
-      line-height: 24px;
     }
 
     .modal-list {
       ul {
-        overflow: hidden;
-        overflow-y: auto;
         width: 400px;
         height: 220px;
         padding-bottom: 1px;
+        overflow: hidden;
+        overflow-y: auto;
         list-style-type: none;
 
         li {
-          width: 100%;
+          width: 380px;
           padding: 11px 0 12px;
           color: #333;
 
           .product-name {
-            font-size: 14px;
             line-height: 20px;
+            font-size: 14px;
           }
 
           .product-price {
             padding-top: 9px;
             overflow: hidden;
+            @include flexSet(space-between, center, row);
+
             & span {
-              font-size: 14px;
               padding-top: 4px;
+              font-size: 14px;
               font-weight: 500;
             }
+
+            div {
+              @include flexSet(null, center);
+
+              &:focus {
+                outline: 0;
+              }
+
+              & button {
+                width: 22px;
+                height: 22px;
+                background-color: #f6f7f7;
+                border: 1px solid #ddd;
+                text-align: center;
+                line-height: 17px;
+                font-size: 22px;
+                @include flexSet(center, center);
+              }
+
+              & input {
+                width: 41px;
+                height: 22px;
+                padding: 2px auto;
+                padding-left: 10px;
+                border: 0;
+                border-top: 1px solid #ddd;
+                text-align: center;
+                border-bottom: 1px solid #ddd;
+              }
+            }
           }
+        }
+      }
+    }
+
+    .modal-total-price {
+      padding-top: 20px;
+      @include flexSet(space-between, center);
+
+      & span {
+        line-height: 24px;
+        font-size: 16px;
+      }
+
+      & div {
+        @include flexSet(null, center);
+
+        & span {
+          line-height: 24px;
+          &:first-child {
+            font-size: 24px;
+            font-weight: 500;
+          }
+          &:last-child {
+            padding-left: 2px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .modal-discount {
+      @include flexSet(flex-end, center);
+
+      span {
+        &:first-child {
+          width: 38px;
+          height: 20px;
+          margin-right: 2px;
+          background-color: #ffbf00;
+          color: #fff;
+          border: 1px solid #e8a828;
+          border-radius: 10px;
+          line-height: 18px;
+          font-size: 11px;
+          font-weight: 500;
+
+          @include flexSet(center, center);
+        }
+
+        &:last-child {
+          line-height: 20px;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .modal-button {
+      padding: 21px 0 30px;
+      @include flexSet(space-between, center);
+
+      button {
+        width: 186px;
+        height: 54px;
+        border-radius: 3px;
+        &:first-child {
+          background-color: #fff;
+          color: var(--primary-color);
+          border: 1px solid var(--primary-color);
+        }
+        &:last-child {
+          background-color: var(--primary-color);
+
+          color: #fff;
+          border: 1px solid var(--primary-color);
         }
       }
     }

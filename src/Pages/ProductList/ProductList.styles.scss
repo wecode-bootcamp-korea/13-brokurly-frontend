@@ -15,10 +15,10 @@
 
     .category-title {
       padding-bottom: 10px;
+      @include flexSet(null, flex-end);
 
-      i {
-        color: var(--primary-color);
-        font-size: 40px;
+      img {
+        width: 40px;
       }
 
       span {

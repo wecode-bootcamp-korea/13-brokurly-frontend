@@ -20,21 +20,26 @@ const ProductModal = () => {
               <div className="product-price">
                 <span>3180원</span>
                 <div>
-                  <span></span>
+                  <button>-</button>
+                  <input type="number" name="" defaultValue="1" />
+                  <button>+</button>
                 </div>
               </div>
             </li>
           </ul>
         </div>
-        <div>
+        <div className="modal-total-price">
           <span>합계</span>
-          <span>3180원</span>
+          <div>
+            <span>3180</span>
+            <span>원</span>
+          </div>
         </div>
-        <div>
+        <div className="modal-discount">
           <span>적립</span>
           <span>로그인 후, 적립혜택 제공</span>
         </div>
-        <div>
+        <div className="modal-button">
           <button>취소</button>
           <button>장바구니 담기</button>
         </div>
