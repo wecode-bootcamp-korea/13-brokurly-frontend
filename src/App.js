@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import ProductList from "./Pages/ProductList/ProductList.component";
 import Nav from "./Components/Nav/Nav.component";
 import Main from "./Pages/Main/Main.component";
 import Footer from "./Components/Footer/Footer.component";
@@ -38,11 +39,11 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Main} />
           <Route exact path="/cartItems" component={CartItems} />
+          <Route exact path="/productlist" component={ProductList} />
         </Switch>
         <Footer />
       </Router>
     );
   }
 }
-
 export default App;
