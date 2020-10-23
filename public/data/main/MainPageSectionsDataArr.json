@@ -1,0 +1,76 @@
+{
+  "specialProductsSections": [
+    {
+      "id": 1,
+      "title": "이 상품 어때요?",
+      "subtitle": "",
+      "componentType": "products",
+      "isLinkToAvailable": false,
+      "linkTo": "",
+      "description": "hottest-now"
+    },
+    {
+      "id": 2,
+      "title": "이벤트 소식",
+      "subtitle": "",
+      "componentType": "events",
+      "isLinkToAvailable": true,
+      "linkTo": "/event-news",
+      "description": "event news"
+    },
+    {
+      "id": 3,
+      "title": "알뜰 상품",
+      "subtitle": "",
+      "componentType": "products",
+      "isLinkToAvailable": true,
+      "linkTo": "/thrifty-products",
+      "description": "thrifty-products"
+    },
+    {
+      "id": 4,
+      "title": "MD의 추천",
+      "subtitle": "",
+      "componentType": "md",
+      "isLinkToAvailable": false,
+      "linkTo": "",
+      "description": ""
+    },
+    {
+      "id": 5,
+      "title": "오늘의 신상품",
+      "subtitle": "매일 정오, 컬리의 새로운 상품을 만나보세요",
+      "componentType": "products",
+      "isLinkToAvailable": true,
+      "linkTo": "/fresh-in-today",
+      "description": "fresh-in-today"
+    },
+    {
+      "id": 6,
+      "title": "지금 가장 핫한 상품",
+      "subtitle": "",
+      "componentType": "products",
+      "isLinkToAvailable": true,
+      "linkTo": "/hottest-now",
+      "description": "hottest-now"
+    },
+    {
+      "id": 7,
+      "title": "브로가 만든 상품",
+      "subtitle": "",
+      "componentType": "products",
+      "isLinkToAvailable": true,
+      "linkTo": "/bros-made",
+      "description": "bros-made"
+    },
+    {
+      "id": 8,
+      "title": "브로의 레시피",
+      "subtitle": "",
+      "componentType": "recipe",
+      "isLinkToAvailable": true,
+      "linkTo": "/bros-recipe",
+      "description": "bros-recipe"
+    }
+  ]
+}

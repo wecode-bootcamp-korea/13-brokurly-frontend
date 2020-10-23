@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
-
 import SpecialProductsSet from "../SpecialProductsSet/SpecialProductsSet.component";
-
 import "./MDRecommend.styles.scss";
 
 class MDRecommend extends Component {
@@ -16,16 +13,18 @@ class MDRecommend extends Component {
   }
 
   componentDidMount = () => {
-    fetch("http://localhost:3000/Data/MainCategoriesData.json")
+    fetch("http://localhost:3000/data/main/MainCategoriesData.json")
       .then((res) => res.json())
       .then((res) => {
-        const randomInitialIdx = Math.floor(
-          Math.random() * res.categoriesItems.length
-        );
+        // const randomInitialIdx = Math.floor(
+        //   Math.random() * res.categories.length);
         this.setState({
-          categoriesList: res.categoriesItems,
-          selectedCategoryName: res.categoriesItems[randomInitialIdx].category,
-          selectedCategoryId: res.categoriesItems[randomInitialIdx].id,
+          categoriesList: res.categories,
+          selectedCategoryName: res.categories[1].name,
+          selectedCategoryId: res.categories[1].id,
+          // categoriesList: res.categories,
+          // selectedCategoryName: res.categories[randomInitialIdx].name,
+          // selectedCategoryId: res.categories[randomInitialIdx].id,
         });
       })
       .catch((error) => console.log(error.message));
@@ -38,11 +37,6 @@ class MDRecommend extends Component {
     });
   };
 
-  seeSelectedCategory = () => {
-    const { selectedCategoryName } = this.state;
-    return selectedCategoryName;
-  };
-
   render() {
     const {
       categoriesList,
@@ -53,8 +47,7 @@ class MDRecommend extends Component {
       <div className="MDRecommend">
         <ul className="categories">
           {categoriesList.map((category) => {
-            const isCategorySelected =
-              category.category === selectedCategoryName;
+            const isCategorySelected = category.name === selectedCategoryName;
             return (
               <li
                 className={
@@ -63,19 +56,20 @@ class MDRecommend extends Component {
                     : "categories-item"
                 }
                 key={category.id}
-                onClick={() =>
-                  this.selectCategory(category.category, category.id)
-                }
+                onClick={() => this.selectCategory(category.name, category.id)}
               >
-                <p className="category">{category.category}</p>
+                <p className="category">{category.name}</p>
               </li>
             );
           })}
         </ul>
-        <SpecialProductsSet categoryId={selectedCategoryId} />
+        <SpecialProductsSet
+          categoryId={selectedCategoryId}
+          key={selectedCategoryId}
+        />
         <button className="see-all-of-category-button">
           <p>
-            {this.seeSelectedCategory()}
+            {selectedCategoryName}
             <span>{" 전체보기"}</span>
           </p>
           <div className="right-angle-icon"></div>

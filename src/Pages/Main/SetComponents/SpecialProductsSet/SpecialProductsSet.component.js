@@ -1,20 +1,10 @@
 import React, { Component } from "react";
-
-import "./SpecialProductsSet.styles.scss";
 import SpecialProductsItem from "./SpecialProductItem/SpecialProductsItem.component";
+import "./SpecialProductsSet.styles.scss";
 
 class SpecialProductsSet extends Component {
-  constructor() {
-    super();
-    // this.state = {
-    //   specialProductsList: [],
-    //   productsItemWidth: 260,
-    //   productsItemsCount: 0,
-    //   productsItemsCountRemainder: 0,
-    //   listXcoordinate: 0,
-    //   isLeftButtonClicked: true,
-    //   isRightButtonClicked: false,
-    // };
+  constructor(props) {
+    super(props);
     this.state = {
       itemsList: [],
       itemsCount: 0,
@@ -25,43 +15,37 @@ class SpecialProductsSet extends Component {
   }
 
   componentDidMount = () => {
-    fetch("http://localhost:3000/Data/MainSpecialProductsData.json")
+    const { categoryId } = this.props;
+    const productAPI = `http://10.58.4.20:8000/home/md_choice?category=${categoryId}`;
+    fetch(productAPI)
       .then((res) => res.json())
       .then((res) => {
-        this.setState({
-          itemsList: res.specialProductsItems,
-          itemsCount: res.specialProductsItems.length,
-        });
-      })
-      .catch((error) => console.log(error.message));
+        if (res.message === "SUCCESS") {
+          this.setState({
+            itemsList: res.products,
+            itemsCount: res.products.length,
+          });
+        } else {
+          console.log("error");
+        }
+      });
   };
 
-  // slideLeft = () => {
-  //   const {
-  //     productsItemWidth,
-  //     productsItemsCount,
-  //     listXcoordinate,
-  //   } = this.state;
-  //   const xIncrement = (productsItemsCount - 4) * productsItemWidth * -1;
-  //   this.setState({
-  //     listXcoordinate: listXcoordinate + xIncrement,
-  //     isRightButtonClicked: true,
-  //     isLeftButtonClicked: false,
-  //   });
-  // };
-
-  // slideRight = () => {
-  //   const {
-  //     productsItemWidth,
-  //     productsItemsCount,
-  //     listXcoordinate,
-  //   } = this.state;
-  //   const xIncrement = (productsItemsCount - 4) * productsItemWidth;
-  //   this.setState({
-  //     listXcoordinate: listXcoordinate + xIncrement,
-  //     isRightButtonClicked: false,
-  //     isLeftButtonClicked: true,
-  //   });
+  // 백 API 접근불가시 아래 mock data 활용:
+  // componentDidMount = () => {
+  //   fetch("http://localhost:3000/data/main/MainSpecialProductsData.json")
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log(res.specialProductsItems[0]);
+  //       if (res.specialProductsItems) {
+  //         this.setState({
+  //           itemsList: res.specialProductsItems,
+  //           itemsCount: res.specialProductsItems,
+  //         });
+  //       } else {
+  //         console.log("error");
+  //       }
+  //     });
   // };
 
   slideList = (e) => {
@@ -69,7 +53,7 @@ class SpecialProductsSet extends Component {
     const isClickLeft = e.target.className.includes("left");
     const plusMinus = !isClickLeft ? -1 : 1;
     const itemWidth = 260;
-    const containerCountLimit = 5;
+    const containerCountLimit = 4;
     const containerWidth = itemWidth * containerCountLimit;
     const divisionCount = itemsCount / containerCountLimit;
     const itemsCountModulo = itemsCount % containerCountLimit;
@@ -107,7 +91,6 @@ class SpecialProductsSet extends Component {
       isLeftButtonVisible,
       isRightButtonVisible,
     } = this.state;
-    const { categoryId } = this.props;
     let itemsTranslation = {
       transform: `translate(${listXcoordinate}px, 0)`,
       transition: `transform 600ms`,
@@ -148,15 +131,12 @@ class SpecialProductsSet extends Component {
                   return (
                     <SpecialProductsItem
                       id={item.id}
-                      isOnSale={item.isOnSale}
-                      saleType={item.saleType}
-                      saleAmount={item.saleAmount}
-                      mainImage={item.mainImage}
-                      hasBrandName={item.hasBrandName}
-                      brandName={item.brandName}
-                      productName={item.productName}
-                      price={item.price}
-                      hasOriginalPrice={item.hasOriginalPrice}
+                      name={item.name}
+                      imageUrl={item.imageUrl}
+                      discountPercent={item.discountPercent}
+                      discountName={item.discountName}
+                      discountContent={item.discountContent}
+                      discountPrice={item.discountPrice}
                       originalPrice={item.originalPrice}
                     />
                   );

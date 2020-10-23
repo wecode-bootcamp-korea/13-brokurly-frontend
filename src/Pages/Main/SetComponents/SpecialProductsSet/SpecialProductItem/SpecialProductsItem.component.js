@@ -1,47 +1,74 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
 import "./SpecialProductsItem.styles.scss";
 
+function insertCommasToNum(num) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 class SpecialProductsItem extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isImgVertical: true,
+    };
+  }
+
+  resizeImage = (e) => {
+    this.setState({
+      isImgVertical: e.target.naturalHeight > e.target.naturalWidth,
+    });
+  };
+
   render() {
+    const { isImgVertical } = this.state;
+    const {
+      id,
+      name,
+      imageUrl,
+      discountPercent,
+      discountName,
+      discountPrice,
+      originalPrice,
+    } = this.props;
     return (
-      <li className="SpecialProductsItem" key={this.props.id}>
+      <li className="SpecialProductsItem" key={id}>
         <Link className="Link" to="/product-page">
           <div className="special-products-item-img">
-            <div className={this.props.isOnSale ? "sale-box" : "sale-box hide"}>
-              <p className="sale-type">{this.props.saleType}</p>
-              <p className="sale-amount">{this.props.saleAmount}</p>
+            <div className={discountPercent ? "sale-box" : "sale-box hide"}>
+              <p className="sale-type">{discountName}</p>
+              <p className="sale-amount">{`${discountPercent}%`}</p>
             </div>
             <img
-              className="item-img-main"
-              src={this.props.mainImage}
+              className={
+                isImgVertical
+                  ? "item-img-main full-width"
+                  : "item-img-main full-height"
+              }
+              src={imageUrl}
               alt="product item"
+              onLoad={this.resizeImage}
             />
           </div>
         </Link>
         <div className="special-products-item-info">
           <Link className="Link" to="/product-page">
             <p className="product-name">
-              <span
-                className={
-                  this.props.hasBrandName ? "brand-name" : "brand-name hide"
-                }
-              >
+              <span className={0 ? "brand-name" : "brand-name hide"}>
                 {`[${this.props.brandName}] `}
               </span>
-              {this.props.productName}
+              {name}
             </p>
           </Link>
-          <p className="price">{`${this.props.price}원`}</p>
+          <p className="price">
+            {discountPrice
+              ? `${insertCommasToNum(discountPrice)}원`
+              : `${insertCommasToNum(originalPrice)}원`}
+          </p>
           <p
-            className={
-              this.props.hasOriginalPrice
-                ? "original-price"
-                : "original-price hide"
-            }
+            className={discountPrice ? "original-price" : "original-price hide"}
           >
-            {`${this.props.originalPrice}원`}
+            {`${insertCommasToNum(originalPrice)}원`}
           </p>
         </div>
       </li>

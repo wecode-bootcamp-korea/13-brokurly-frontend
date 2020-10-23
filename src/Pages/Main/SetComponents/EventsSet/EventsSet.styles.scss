@@ -13,28 +13,63 @@
     width: 340px;
     padding: 0 5px;
 
-    .event-image {
+    .image {
       width: 100%;
       height: 330px;
       overflow: hidden;
     }
 
-    .event-img {
+    .img {
       width: 100%;
     }
 
-    .event-info {
+    .info {
       display: flex;
       flex-direction: column;
       align-items: center;
 
-      .event-title {
+      .title {
         padding: 10px 0;
         font-size: 20px;
         font-weight: 700;
       }
 
-      .event-subtitle {
+      .subtitle {
+        color: #a1a1a1;
+      }
+    }
+  }
+
+  .recipe-set-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 340px;
+    padding: 0 5px;
+
+    .image {
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+    }
+
+    .img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .title {
+        padding: 10px 0;
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .subtitle {
         color: #a1a1a1;
       }
     }

@@ -1,13 +1,11 @@
 $special-products-item-width: 260px;
-$special-products-item-count: 19;
-$container-count: 5;
+$container-count: 4;
 
 .SpecialProductsSet {
   width: $special-products-item-width * $container-count;
   height: 440px;
   margin: 25px auto;
   position: relative;
-  border: 1px solid red;
 
   div.button-arrow {
     display: flex;
@@ -49,20 +47,17 @@ $container-count: 5;
     width: 150%;
   }
 
-  .special-products-set-container {
+  div.special-products-set-container {
     width: 100%;
     height: 430px;
     overflow: hidden;
     padding: 5px 0;
-    margin: 0 auto;
     position: relative;
     z-index: 1;
 
-    .special-products-set-items {
+    ul.special-products-set-items {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      width: $special-products-item-width * $special-products-item-count;
+      position: absolute;
     }
   }
 }

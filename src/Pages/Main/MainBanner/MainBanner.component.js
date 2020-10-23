@@ -3,144 +3,98 @@ import { Link } from "react-router-dom";
 
 import "./MainBanner.styles.scss";
 
-const bannerImages = [
-  {
-    id: 1,
-    src: "./Images/Main/Banner/banner-img-1.png",
-    alt: "banner main",
-  },
-  {
-    id: 2,
-    src: "./Images/Main/Banner/banner-img-2.png",
-    alt: "banner 2",
-  },
-  {
-    id: 3,
-    src: "./Images/Main/Banner/banner-img-3.png",
-    alt: "banner 3",
-  },
-  {
-    id: 4,
-    src: "./Images/Main/Banner/banner-img-4.png",
-    alt: "banner 4",
-  },
-  {
-    id: 5,
-    src: "./Images/Main/Banner/banner-img-5.png",
-    alt: "banner 5",
-  },
-  {
-    id: 1,
-    src: "./Images/Main/Banner/banner-img-1.png",
-    alt: "banner main",
-  },
-];
-
 class MainBanner extends Component {
   constructor() {
     super();
     this.state = {
-      bannerImgItemWidth: window.innerWidth,
-      bannerImgItemCount: 0,
-      bannerImgItemsTotalWidth: 0,
-      bannerImgItemsXcoordinate: 0,
+      bannerImages: [],
+      bannerImgWidth: window.innerWidth,
+      bannerImgCount: 0,
+      bannerImgsXcoordinate: 0,
+      currentBannerId: 1,
     };
   }
 
   componentDidMount = () => {
-    const {
-      bannerImgItemWidth,
-      // bannerImgItemCount,
-      // bannerImgItemsTotalWidth,
-      // bannerImgItemsXcoordinate,
-    } = this.state;
-    this.setState({
-      bannerImgItemCount: bannerImages.length,
-      bannerImgItemsTotalWidth: bannerImgItemWidth * bannerImages.length,
-    });
+    fetch("http://localhost:3000/data/main/MainBannerImagesData.json")
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+          bannerImages: res.bannerImages,
+          bannerImgCount: res.bannerImages.length,
+        });
+      });
 
-    // const autoslide = () => {
-    //   this.setState(
-    //     bannerImgItemsXcoordinate > bannerImgItemsTotalWidth
-    //       ? {
-    //           bannerImgItemsXcoordinate:
-    //             bannerImgItemsXcoordinate - bannerImgItemWidth,
-    //         }
-    //       : { bannerImgItemsXcoordinate: 0 }
-    //   );
-    // };
-    // setInterval(autoslide, 500);
+    const bannerSlideAuto = () => {
+      const {
+        bannerImages,
+        bannerImgWidth,
+        bannerImgsXcoordinate,
+        currentBannerId,
+      } = this.state;
+      const xIncrement = bannerImgWidth * -1;
+      this.setState(
+        currentBannerId === bannerImages.length
+          ? {
+              currentBannerId: 1,
+              bannerImgsXcoordinate: 0,
+            }
+          : {
+              currentBannerId: currentBannerId + 1,
+              bannerImgsXcoordinate: bannerImgsXcoordinate + xIncrement,
+            }
+      );
+    };
+    setInterval(bannerSlideAuto, 4000);
   };
-
-  // bannerSlideAuto = () => {
-  //   const {
-  //     bannerImgItemWidth,
-  //     bannerImgItemsTotalWidth,
-  //     bannerImgItemsXcoordinate,
-  //   } = this.state;
-  //   const autoslide = () => {
-  //     this.setState(
-  //       bannerImgItemsXcoordinate > bannerImgItemsTotalWidth
-  //         ? {
-  //             bannerImgItemsXcoordinate:
-  //               bannerImgItemsXcoordinate - bannerImgItemWidth,
-  //           }
-  //         : { bannerImgItemsXcoordinate: 0 }
-  //     );
-  //   };
-  //   setInterval(autoslide, 500);
-  // };
 
   bannerSlideLeft = () => {
     const {
-      bannerImgItemWidth,
-      bannerImgItemsTotalWidth,
-      bannerImgItemsXcoordinate,
+      bannerImages,
+      bannerImgWidth,
+      bannerImgsXcoordinate,
+      currentBannerId,
     } = this.state;
-    const xIncrement = bannerImgItemWidth * -1;
+    const xIncrement = bannerImgWidth * -1;
     this.setState(
-      bannerImgItemsXcoordinate > bannerImgItemsTotalWidth - bannerImgItemWidth
+      currentBannerId === bannerImages.length
         ? {
-            bannerImgItemsXcoordinate: bannerImgItemsXcoordinate + xIncrement,
+            currentBannerId: 1,
+            bannerImgsXcoordinate: 0,
           }
-        : { bannerImgContainerXcoordinate: 0 }
+        : {
+            currentBannerId: currentBannerId + 1,
+            bannerImgsXcoordinate: bannerImgsXcoordinate + xIncrement,
+          }
     );
   };
 
   bannerSlideRight = () => {
     const {
-      bannerImgItemWidth,
-      bannerImgItemsTotalWidth,
-      bannerImgItemsXcoordinate,
+      bannerImages,
+      bannerImgWidth,
+      bannerImgsXcoordinate,
+      currentBannerId,
     } = this.state;
-    const xIncrement = bannerImgItemWidth;
+    const xIncrement = bannerImgWidth;
     this.setState(
-      bannerImgItemsXcoordinate < bannerImgItemsTotalWidth - bannerImgItemWidth
+      currentBannerId === 1
         ? {
-            bannerImgItemsXcoordinate: bannerImgItemsXcoordinate + xIncrement,
+            currentBannerId: 0,
+            bannerImgsXcoordinate: xIncrement * -1 * (bannerImages.length - 1),
           }
-        : { bannerImgItemsXcoordinate: 0 }
+        : {
+            currentBannerId: currentBannerId - 1,
+            bannerImgsXcoordinate: bannerImgsXcoordinate + xIncrement,
+          }
     );
   };
 
-  // bannerSlideLeft = () => {
-  //   const { bannerImgItemWidth, bannerImgContainerXcoordinate } = this.state;
-  //   const xIncrement = bannerImgItemWidth * -1;
-  //   this.setState({
-  //     bannerImgContainerXcoordinate: bannerImgContainerXcoordinate + xIncrement,
-  //   });
-  // };
-
   render() {
-    const {
-      bannerImgItemWidth,
-      bannerImgItemCount,
-      bannerImgItemsTotalWidth,
-      bannerImgItemsXcoordinate,
-    } = this.state;
+    const { bannerImages, bannerImgsXcoordinate } = this.state;
     let bannerTranslateStyle = {
-      transform: `translate(${bannerImgItemsXcoordinate}px, 0)`,
-      transition: `transform 600ms`,
+      transform: `translate(${bannerImgsXcoordinate}px, 0)`,
+      transition: `transform 800ms`,
     };
     return (
       <header className="MainBanner">

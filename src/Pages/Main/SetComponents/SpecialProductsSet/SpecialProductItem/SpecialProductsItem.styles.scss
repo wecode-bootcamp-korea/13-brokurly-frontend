@@ -1,15 +1,8 @@
-* {
-  box-sizing: border-box;
-}
-
-.SpecialProductsItem {
+li.SpecialProductsItem {
   width: 260px;
-  height: 420px;
   padding: 0 10px;
   overflow: hidden;
   color: #000;
-  border: 1px solid purple;
-
   .Link {
     color: #000;
   }
@@ -24,8 +17,7 @@
     position: relative;
 
     &:hover .item-img-main {
-      width: 105%;
-      height: 105%;
+      transform: scale(1.03);
     }
 
     .sale-box {
@@ -58,9 +50,13 @@
       display: none;
     }
 
-    .item-img-main {
-      width: 100%;
-      height: 100%;
+    .item-img-main.full-width {
+      width: 108%;
+      transition: all 300ms ease-out;
+    }
+
+    .item-img-main.full-height {
+      height: 108%;
       transition: all 300ms ease-out;
     }
   }
@@ -83,6 +79,7 @@
     }
 
     p.original-price {
+      padding-bottom: 10px;
       font-size: 14px;
       color: #ccc;
       text-decoration: line-through;
