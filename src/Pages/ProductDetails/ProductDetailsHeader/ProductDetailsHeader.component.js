@@ -35,7 +35,6 @@ const ProductDetailsHeader = () => {
           </div>
           <div>로그인 후, 회원할인가와 적립혜택이 제공됩니다.</div>
         </div>
-        {/* <hr /> */}
         <div className="order-info">
           <dl>
             <dt>판매단위</dt>
