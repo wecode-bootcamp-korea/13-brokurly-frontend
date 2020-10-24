@@ -74,7 +74,13 @@ class Signup extends Component {
   };
 
   handleWriteData = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    if (e.target.name === "user_id") {
+      this.setState({ [e.target.name]: e.target.value, userIdCheck: false });
+    } else if (e.target.name === "email") {
+      this.setState({ [e.target.name]: e.target.value, userEmailCheck: false });
+    } else {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   };
 
   checkId = () => {
