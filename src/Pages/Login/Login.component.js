@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import "./Login.styles.scss";
 
@@ -11,6 +11,10 @@ class Login extends Component {
       password: "",
     };
   }
+
+  goToMain = () => {
+    this.props.history.push(/)
+  };
 
   handleIdPwd = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -80,4 +84,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);
