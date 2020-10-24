@@ -28,11 +28,14 @@
       border-bottom: 2px solid #dbdbdb;
       flex: 2;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      justify-content: center;
 
       span {
         font-size: 12px;
-        font-weight: 500;
+        font-weight: 700;
+        width: 12%;
+        text-align: end;
       }
     }
 
@@ -47,6 +50,11 @@
         max-width: 100px;
         display: flex;
         align-items: center;
+
+        img {
+          width: 60px;
+          height: 77px;
+        }
       }
 
       .cart-item-specific-info-container {
@@ -65,9 +73,23 @@
             display: flex;
             align-items: flex-end;
 
-            span {
+            span:first-child {
               font-size: 14px;
               font-weight: 700;
+            }
+
+            .sold-out {
+              margin-left: 10px;
+              border: 1px solid black;
+              color: var(--primary-color);
+              height: 22px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 40px;
+              font-size: 14px;
+              font-weight: 700;
+              border-radius: 10px;
             }
           }
 

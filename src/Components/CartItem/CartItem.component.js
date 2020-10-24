@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import {
+  GET_SHOPPINGBASKET_API,
+  SEND_RECENT_ITEM_SELECTED_API,
+} from "../../config";
+
+import {
   addItem,
   removeItem,
   clearItemFromCart,
@@ -10,6 +15,9 @@ import {
   selectedItemsTotalPrice,
   getSelectedItemsAmount,
 } from "../../redux/cart/cart.actions";
+
+import { numberWithCommas } from "../../redux/cart/cart.utils";
+
 import "./CartItem.styles.scss";
 
 class CartItem extends Component {
@@ -27,21 +35,19 @@ class CartItem extends Component {
     const {
       id,
       quantity,
-      // user_id,
-      // product_id,
-      // option,
-      // name,
-      // price,
-      // sold_out,
-      // sales,
-      // option_name,
-      // option_price,
-      // option_sold_out,
-      // option_sales,
-      headerName,
-      mainName,
-      productPrice,
+      user_id,
+      product_id,
+      option,
+      name,
+      price,
+      sold_out,
+      sales,
+      option_name,
+      option_price,
+      option_sold_out,
+      option_sales,
       checked,
+      image_url,
     } = cartItemInfo;
     return (
       <div className="Cart-item">
@@ -53,25 +59,49 @@ class CartItem extends Component {
               checkStatusAllSelectCheckBox();
               selectedItemsTotalPrice();
               getSelectedItemsAmount();
+              fetch(SEND_RECENT_ITEM_SELECTED_API, {
+                method: "PUT",
+                headers: {
+                  "content-type": "application/json",
+                  Authorization:
+                    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+                },
+                body: JSON.stringify({
+                  shopbasket_id: id,
+                  selected: "single",
+                }),
+              })
+                .then((response) => response.json())
+                .catch((error) => console.log(error));
             }}
             checked={checked}
           />
         </div>
         <div className="cart-item-info">
-          <div className="cart-item-info-top">
-            <span>{headerName}</span>
-          </div>
+          {option_name ? (
+            <div className="cart-item-info-top">
+              <span>{name}</span>
+              <span>{numberWithCommas(price)}원</span>
+            </div>
+          ) : (
+            ""
+          )}
           <div className="cart-item-info-bottom">
             <div className="cart-item-photo">
-              <img src="http://placehold.it/60x77" alt="item" />
+              <img src={image_url} alt="item" />
             </div>
             <div className="cart-item-specific-info-container">
               <div className="cart-item-name-and-price">
                 <div className="cart-item-name">
-                  <span>{mainName}</span>
+                  {option_name ? (
+                    <span>{option_name}</span>
+                  ) : (
+                    <span>{name}</span>
+                  )}
+                  {sold_out ? <span className="sold-out">품절</span> : ""}
                 </div>
                 <div className="cart-item-price">
-                  <span>{productPrice}원</span>
+                  <span>{numberWithCommas(option_price)}원</span>
                 </div>
               </div>
               <div className="cart-item-quantity">
@@ -80,6 +110,20 @@ class CartItem extends Component {
                     className="left"
                     onClick={() => {
                       removeItem(cartItemInfo);
+                      fetch(GET_SHOPPINGBASKET_API, {
+                        method: "PUT",
+                        headers: {
+                          "content-type": "application/json",
+                          Authorization:
+                            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+                        },
+                        body: JSON.stringify({
+                          increase_or_decrease: "minus",
+                          shopbasket_id: id,
+                        }),
+                      })
+                        .then((response) => console.log(response))
+                        .catch((error) => console.log(error.message));
                       selectedItemsTotalPrice();
                     }}
                   >
@@ -92,6 +136,21 @@ class CartItem extends Component {
                     className="right"
                     onClick={() => {
                       addItem(cartItemInfo);
+                      console.log(id);
+                      fetch(GET_SHOPPINGBASKET_API, {
+                        method: "PUT",
+                        headers: {
+                          "content-type": "application/json",
+                          Authorization:
+                            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+                        },
+                        body: JSON.stringify({
+                          increase_or_decrease: "plus",
+                          shopbasket_id: id,
+                        }),
+                      })
+                        .then((response) => console.log(response))
+                        .catch((error) => console.log(error.message));
                       selectedItemsTotalPrice();
                     }}
                   >
@@ -100,7 +159,7 @@ class CartItem extends Component {
                 </div>
               </div>
               <div className="cart-item-total">
-                <span>{productPrice * quantity}원</span>
+                <span>{numberWithCommas(price * quantity)}원</span>
               </div>
               <div
                 className="cart-item-delete"
@@ -109,6 +168,17 @@ class CartItem extends Component {
                   selectedItemsTotalPrice();
                   checkStatusAllSelectCheckBox();
                   getSelectedItemsAmount();
+                  fetch(GET_SHOPPINGBASKET_API, {
+                    method: "DELETE",
+                    headers: {
+                      "content-type": "application/json",
+                      Authorization:
+                        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+                    },
+                    body: JSON.stringify({
+                      shopbasket_id: id,
+                    }),
+                  }).then((response) => console.log(response));
                 }}
               >
                 <span>&#10005;</span>

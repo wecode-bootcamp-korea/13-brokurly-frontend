@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import NavCategoryAllBarSub from "../NavCategoryAllBar/NavCategoryAllBarSub.component";
 
@@ -7,6 +8,7 @@ import "./NavCategoryBar.styles.scss";
 
 class NavCategoryBar extends Component {
   render() {
+    const { cartItems } = this.props;
     return (
       <div className="Nav-category-bar">
         <div>
@@ -33,6 +35,7 @@ class NavCategoryBar extends Component {
                 src="https://res.kurly.com/pc/ico/1908/ico_cart_x2_v2.png"
                 alt="cart-icon"
               />
+              {!cartItems.length ? "" : <span>{cartItems.length}</span>}
             </Link>
           </div>
         </div>
@@ -41,4 +44,8 @@ class NavCategoryBar extends Component {
   }
 }
 
-export default NavCategoryBar;
+const mapStateToProps = ({ cart }) => ({
+  cartItems: cart.cartItems,
+});
+
+export default connect(mapStateToProps)(NavCategoryBar);

@@ -6,15 +6,23 @@ import ViewCart from "../../Components/ViewCart/ViewCart.component";
 import {
   selectedItemsTotalPrice,
   getSelectedItemsAmount,
+  checkStatusAllSelectCheckBox,
 } from "../../redux/cart/cart.actions";
+
+import { numberWithCommas } from "../../redux/cart/cart.utils";
 
 import "./CartItems.styles.scss";
 
 class CartItems extends Component {
   componentDidMount() {
-    const { selectedItemsTotalPrice, getSelectedItemsAmount } = this.props;
+    const {
+      selectedItemsTotalPrice,
+      getSelectedItemsAmount,
+      checkStatusAllSelectCheckBox,
+    } = this.props;
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
+    checkStatusAllSelectCheckBox();
   }
 
   render() {
@@ -31,7 +39,9 @@ class CartItems extends Component {
         <div className="price-result-container">
           <div className="initial-price">
             <span className="initial-price-text">상품금액</span>
-            <span className="initial-price-number">{totalPrice} 원</span>
+            <span className="initial-price-number">
+              {numberWithCommas(totalPrice)} 원
+            </span>
           </div>
           <span>&#8722;</span>
           <div className="discount-amount">
@@ -46,7 +56,9 @@ class CartItems extends Component {
           <span>&#61;</span>
           <div className="price-result">
             <span className="price-result-text">결제예정금액</span>
-            <span className="price-result-number">{totalPrice - 18000} 원</span>
+            <span className="price-result-number">
+              {numberWithCommas(totalPrice - 18000)} 원
+            </span>
             <span className="mileage-point-info">구매시 2,285원 적립</span>
           </div>
           <div className="price-result-additonal-info">
@@ -72,11 +84,13 @@ class CartItems extends Component {
 
 const mapStateToProps = ({ cart }) => ({
   totalPrice: cart.selectedItemsTotalPrice,
+  cartItems: cart.cartItems,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
   getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
+  checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItems);

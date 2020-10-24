@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { filterOutSoldoutItems } from "../../redux/cart/cart.actions";
+
 import CartItem from "../CartItem/CartItem.component";
+
+import { SEND_RECENT_ITEM_SELECTED_API } from "../../config";
 
 import {
   toggleAllSelectCheckBox,
@@ -14,6 +18,12 @@ import {
 import "./ViewCart.styles.scss";
 
 class ViewCart extends Component {
+  componentDidMount() {
+    const { checkStatusAllSelectCheckBox, getSelectedItemsAmount } = this.props;
+    checkStatusAllSelectCheckBox();
+    getSelectedItemsAmount();
+  }
+
   render() {
     const {
       cartItems,
@@ -24,6 +34,7 @@ class ViewCart extends Component {
       checkStatusAllSelectCheckBox,
       seletectedItemsAmount,
       getSelectedItemsAmount,
+      filterOutSoldoutItems,
     } = this.props;
     return (
       <div className="View-cart">
@@ -37,6 +48,19 @@ class ViewCart extends Component {
                     toggleAllSelectCheckBox();
                     selectedItemsTotalPrice();
                     getSelectedItemsAmount();
+                    fetch(SEND_RECENT_ITEM_SELECTED_API, {
+                      method: "PUT",
+                      headers: {
+                        "content-type": "application/json",
+                        Authorization:
+                          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+                      },
+                      body: JSON.stringify({
+                        selected: "all",
+                      }),
+                    })
+                      .then((response) => response.json())
+                      .catch((error) => console.log(error));
                   }}
                   checked={allSelect ? true : false}
                 />
@@ -58,7 +82,7 @@ class ViewCart extends Component {
           </div>
           <div className="selected-items-info">
             {cartItems.map((cartItem, idx) => (
-              <CartItem key={idx} cartItemInfo={cartItem} />
+              <CartItem key={idx} cartItemInfo={cartItem} productOrder={idx} />
             ))}
           </div>
         </div>
@@ -87,11 +111,50 @@ class ViewCart extends Component {
                 selectedItemsTotalPrice();
                 checkStatusAllSelectCheckBox();
                 getSelectedItemsAmount();
+                fetch(SEND_RECENT_ITEM_SELECTED_API, {
+                  method: "DELETE",
+                  headers: {
+                    "content-type": "application/json",
+                    Authorization:
+                      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+                  },
+                  body: JSON.stringify({
+                    delete: "selected",
+                  }),
+                })
+                  .then((response) => response.json())
+                  .catch((error) => console.log(error));
               }}
             >
               선택 삭제
             </button>
-            <button className="sold-out-delete">품절 상품 삭제</button>
+            <button
+              className="sold-out-delete"
+              onClick={() => {
+                filterOutSoldoutItems();
+                selectedItemsTotalPrice();
+                checkStatusAllSelectCheckBox();
+                getSelectedItemsAmount();
+                fetch(SEND_RECENT_ITEM_SELECTED_API, {
+                  method: "DELETE",
+                  headers: {
+                    "content-type": "application/json",
+                    Authorization:
+                      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+                  },
+                  body: JSON.stringify({
+                    delete: "soldout",
+                  }),
+                })
+                  .then((response) => {
+                    console.log(response);
+                    response.json();
+                  })
+                  .catch((error) => console.log(error));
+              }}
+            >
+              품절 상품 삭제
+            </button>
           </div>
         </div>
       </div>
@@ -111,6 +174,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
   checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
   getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
+  filterOutSoldoutItems: () => dispatch(filterOutSoldoutItems()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewCart);

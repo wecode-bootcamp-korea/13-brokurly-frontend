@@ -1,7 +1,7 @@
 import CartActionTypes from "./cart.types";
 
 export const addItem = (item) => ({
-  type: CartActionTypes.ADD_ITEM,
+  type: CartActionTypes.INCREASE_ITEM_AMOUNT,
   payload: item,
 });
 
@@ -39,3 +39,14 @@ export const selectedItemsTotalPrice = () => ({
 export const getSelectedItemsAmount = () => ({
   type: CartActionTypes.GET_SELECTED_ITEMS_AMOUNT,
 });
+
+export const getCartItems = (cartItems) => ({
+  type: CartActionTypes.GET_CART_ITEMS,
+  payload: cartItems,
+});
+
+export const filterOutSoldoutItems = () => ({
+  type: CartActionTypes.DELETE_SOLDOUT_ITEMS,
+});
+
+// export const addItemFromProductPage = ()

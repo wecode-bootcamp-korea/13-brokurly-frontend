@@ -5,6 +5,7 @@ import {
   toggleItemCheckBox,
   checkAllSelectCheckBox,
   filterOutSelectedItems,
+  filterOutSoldoutItems,
 } from "./cart.utils";
 // shopping_list_json
 // shopping_list_element = {
@@ -25,36 +26,58 @@ import {
 const INITIAL_STATE = {
   cartItems: [
     // {
-    //   id: 0,
-    //   headerName: "[레디어스] 유아 칫솔 3종",
-    //   mainName: "[레디어스] 퓨어 베이비 화이트",
-    //   productPrice: "3700",
-    //   quantity: 2,
     //   checked: true,
-    // },
-    // {
-    //   id: 1,
-    //   headerName: "[레디어] 유아 칫솔 3종",
-    //   mainName: "[레디어] 퓨어 베이비 화이트",
-    //   productPrice: "3600",
+    //   id: 4,
+    //   image_url:
+    //     "https://images.unsplash.com/photo-1582515073490-39981397c445?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+    //   name: "한끼 당근 1개",
+    //   option: 0,
+    //   option_name: "",
+    //   option_price: 1300,
+    //   option_sales: "",
+    //   option_sold_out: "",
+    //   price: 1300,
+    //   product_id: 2,
     //   quantity: 3,
-    //   checked: true,
+    //   sales: 1,
+    //   sold_out: true,
+    //   user_id: 19,
     // },
     // {
-    //   id: 2579,
-    //   headerName: "[레디] 유아 칫솔 3종",
-    //   mainName: "[레디] 퓨어 베이비 화이트",
-    //   productPrice: "3500",
-    //   quantity: 4,
-    //   checked: true,
+    //   checked: false,
+    //   id: 8,
+    //   image_url:
+    //     "https://images.unsplash.com/photo-1598806243937-2072d39bc11d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=633&q=80",
+    //   name: "간편 간식 브리또 8종",
+    //   option: 2,
+    //   option_name: "불고기 브리또",
+    //   option_price: 2800,
+    //   option_sales: 1,
+    //   option_sold_out: false,
+    //   price: 2800,
+    //   product_id: 5,
+    //   quantity: 1,
+    //   sales: 1,
+    //   sold_out: true,
+    //   user_id: 19,
     // },
     // {
-    //   id: 3,
-    //   headerName: "[레] 유아 칫솔 3종",
-    //   mainName: "[레] 퓨어 베이비 화이트",
-    //   productPrice: "3600",
-    //   quantity: 5,
-    //   checked: true,
+    //   checked: false,
+    //   id: 9,
+    //   image_url:
+    //     "https://images.unsplash.com/photo-1598806243937-2072d39bc11d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=633&q=80",
+    //   name: "간편 간식 브리또 8종",
+    //   option: 3,
+    //   option_name: "야채 브리또",
+    //   option_price: 2800,
+    //   option_sales: 1,
+    //   option_sold_out: false,
+    //   price: 2800,
+    //   product_id: 5,
+    //   quantity: 1,
+    //   sales: 1,
+    //   sold_out: false,
+    //   user_id: 19,
     // },
   ],
   allSelect: true,
@@ -64,7 +87,7 @@ const INITIAL_STATE = {
 
 const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case CartActionTypes.ADD_ITEM:
+    case CartActionTypes.INCREASE_ITEM_AMOUNT:
       return {
         ...state,
         cartItems: addItemToCart(state.cartItems, action.payload),
@@ -111,7 +134,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         selectedItemsTotalPrice: state.cartItems.reduce(
           (accumulator, cartItem) =>
             cartItem.checked
-              ? accumulator + cartItem.productPrice * cartItem.quantity
+              ? accumulator + cartItem.price * cartItem.quantity
               : accumulator,
           0
         ),
@@ -120,11 +143,20 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         seletectedItemsAmount: state.cartItems.reduce(
-          (accumulator, cartItem) => {
-            return cartItem.checked ? accumulator + 1 : accumulator;
-          },
+          (accumulator, cartItem) =>
+            cartItem.checked ? accumulator + 1 : accumulator,
           0
         ),
+      };
+    case CartActionTypes.GET_CART_ITEMS:
+      return {
+        ...state,
+        cartItems: [...action.payload],
+      };
+    case CartActionTypes.DELETE_SOLDOUT_ITEMS:
+      return {
+        ...state,
+        cartItems: filterOutSoldoutItems(state.cartItems),
       };
     default:
       return state;
