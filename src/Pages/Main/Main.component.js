@@ -10,8 +10,8 @@ import "./Main.styles.scss";
 class Main extends Component {
   render() {
     return (
-      // <Login />
-      <SearchId />
+      <Login />
+      // <SearchId />
       // <SearchPwd />
       // <Signup />
     );

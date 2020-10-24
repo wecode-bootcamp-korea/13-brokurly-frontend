@@ -7,8 +7,8 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      userId: "",
-      userPwd: "",
+      user_id: "",
+      password: "",
     };
   }
 
@@ -16,22 +16,44 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleLoginButton = (e) => {
+    e.preventDefalult();
+    const { user_id, password } = this.state;
+    if (user_id !== "" && password !== "") {
+      fetch("API", {
+        method: "POST",
+        body: JSON.stringify({
+          user_id,
+          password,
+        }),
+      })
+        .then((response) => response.json)
+        .then((result) => {
+          if (result === "SUCCESS") {
+            localStorage.setItem("wtw-token", result.token);
+          }
+        });
+    } else {
+      alert("값을 입력해주세요.");
+    }
+  };
+
   render() {
     return (
       <div className="Login">
         <div className="login-container">
           <h3 className="login-title">로그인</h3>
-          <form className="login-form">
+          <form className="login-form" onSubmit={this.handleLoginButton}>
             <input
               className="login-input id"
-              name="userId"
+              name="user_id"
               type="text"
               placeholder="아이디를 입력해주세요"
               onChange={this.handleIdPwd}
             />
             <input
               className="login-input pwd"
-              name="userPwd"
+              name="password"
               type="text"
               placeholder="비밀번호를 입력해주세요"
               onChange={this.handleIdPwd}
