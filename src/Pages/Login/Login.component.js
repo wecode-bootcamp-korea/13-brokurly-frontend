@@ -13,7 +13,7 @@ class Login extends Component {
   }
 
   goToMain = () => {
-    this.props.history.push(/)
+    this.props.history.push("/");
   };
 
   handleIdPwd = (e) => {
@@ -35,6 +35,7 @@ class Login extends Component {
         .then((result) => {
           if (result === "SUCCESS") {
             localStorage.setItem("wtw-token", result.token);
+            this.goToMain();
           }
         });
     } else {
@@ -70,9 +71,13 @@ class Login extends Component {
                 </label>
               </div>
               <div className="search">
-                <Link className="search-text id">아이디 찾기</Link>
+                <Link className="search-text id" to="/searchid">
+                  아이디 찾기
+                </Link>
                 <span className="bar">|</span>
-                <Link className="search-text pwd">비밀번호 찾기</Link>
+                <Link className="search-text pwd" to="/searchpwd">
+                  비밀번호 찾기
+                </Link>
               </div>
             </div>
             <button className="login-button">로그인</button>
