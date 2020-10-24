@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 
 import SignupInputForm from "./SignupInputForm/SignupInputForm.component";
 
@@ -210,6 +211,10 @@ class Signup extends Component {
     }
   };
 
+  goToMain = () => {
+    this.props.history.push("/");
+  };
+
   postBackUserInfo = (e) => {
     const {
       user_id,
@@ -261,6 +266,7 @@ class Signup extends Component {
         .then((response) => response.json())
         .then((result) => console.log("결과", result));
       alert("가입이 완료되었습니다.");
+      this.goToMain();
     } else {
       alert("필수사항을 다시 살펴보세요");
     }
@@ -585,4 +591,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);
