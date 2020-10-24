@@ -4,6 +4,9 @@ import SignupInputForm from "./SignupInputForm/SignupInputForm.component";
 
 import "./Signup.styles.scss";
 import "./SignupInputForm/SignupInputForm.styles.scss";
+import "./SignupInputForm/OverlapCheckText/OverlapCheckText.styles.scss";
+
+import OverlapCheckText from "./SignupInputForm/OverlapCheckText/OverlapCheckText.component";
 
 class Signup extends Component {
   constructor() {
@@ -24,12 +27,13 @@ class Signup extends Component {
       is_sms_agreed: false,
       is_email_agreed: false,
       // 이상 필수 사항
-      passwordRepeatCheck: "",
+      passwordCheck: false,
       address: "",
       gender: "",
       recommender: "",
       event: "",
       // (위)백에 전달해야하는 데이터들
+      userPwdCheck: "",
       recommendInputContent: "",
       recommendCheck: "",
       allChecks: "n",
@@ -74,7 +78,7 @@ class Signup extends Component {
 
   checkId = () => {
     const { user_id } = this.state;
-    if (user_id.length >= 5) {
+    if (user_id.match(/[A-Za-z0-9]\w{6,}/)) {
       fetch("http://10.58.6.216:8000/user/checkid", {
         method: "POST",
         body: JSON.stringify({
@@ -85,18 +89,24 @@ class Signup extends Component {
         .then((result) => {
           if (result.message === "SUCCESS") {
             this.setState({ userIdCheck: true });
+            alert("중복확인이 완료되었습니다.");
           } else {
             this.setState({ userIdCheck: false });
+            alert("아이디가 중복되었습니다. 다시 확인해주세요.");
           }
         });
     } else {
-      console.log("망했다 이 친구야");
+      alert("조건에 맞게 아이디를 작성해주세요.");
     }
   };
 
   checkEmail = () => {
     const { email } = this.state;
-    if (email.length >= 5) {
+    if (
+      email.match(
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+      )
+    ) {
       fetch("http://10.58.6.216:8000/user/checkemail", {
         method: "POST",
         body: JSON.stringify({
@@ -106,13 +116,15 @@ class Signup extends Component {
         .then((response) => response.json())
         .then((result) => {
           if (result.message === "SUCCESS") {
+            alert("중복확인이 완료되었습니다.");
             this.setState({ userEmailCheck: true });
           } else {
+            alert("중복된 이메일 주소입니다.");
             this.setState({ userEmailCheck: false });
           }
         });
     } else {
-      console.log("망했다 이 친구야");
+      alert("올바른 이메일 주소를 작성해주시기 바랍니다.");
     }
   };
 
@@ -204,6 +216,7 @@ class Signup extends Component {
       password,
       user_name,
       email,
+      address,
       phone,
       gender,
       recommender,
@@ -214,12 +227,17 @@ class Signup extends Component {
       is_privacy_policy,
       is_sms_agreed,
       is_email_agreed,
+      userPwdCheck,
     } = this.state;
     e.preventDefault();
-    console.log(Object.keys(this.state));
     const userNecessaryinfo = Object.keys(this.state).slice(0, 10);
     const isFull = userNecessaryinfo.every(
-      (info) => this.state[info] !== false
+      (info) =>
+        password.match(
+          /(?=.*[a-z!])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,}/
+        ) &&
+        password === userPwdCheck &&
+        this.state[info] !== false
     );
     if (isFull) {
       fetch("http://10.58.6.216:8000/user/signup", {
@@ -230,7 +248,7 @@ class Signup extends Component {
           user_name,
           email,
           phone,
-          address: "강서구",
+          address,
           gender,
           recommender,
           event,
@@ -242,14 +260,13 @@ class Signup extends Component {
       })
         .then((response) => response.json())
         .then((result) => console.log("결과", result));
-      // (프론트)저는 다른 페이지로 이동합니다.
+      alert("가입이 완료되었습니다.");
     } else {
-      console.log("필수사항을 다시 살펴보세요");
+      alert("필수사항을 다시 살펴보세요");
     }
   };
 
   render() {
-    console.log(this.state);
     const {
       gender,
       recommendCheck,
@@ -274,27 +291,29 @@ class Signup extends Component {
               inputContent="아이디"
               textType="text"
               name="user_id"
-              onOffCount="one"
+              onOffCount="idCheck"
               writeHolder="6자 이상의 영문 혹은 영문과 숫자를 조합"
               onCheckId={this.checkId}
               onWriteData={this.handleWriteData}
-              checkDate={this.state}
+              checkData={this.state}
             />
             <SignupInputForm
               inputContent="비밀번호"
               textType="password"
               name="password"
+              onOffCount="pwdCheck"
               writeHolder="비밀번호를 입력해주세요"
               onWriteData={this.handleWriteData}
-              checkDate={this.state}
+              checkData={this.state}
             />
             <SignupInputForm
               inputContent="비밀번호확인"
               textType="password"
-              name="userPwdRepeat"
+              name="userPwdCheck"
+              onOffCount="pwdDubleCheck"
               writeHolder="비밀번호를 한번 더 입력해주세요"
               onWriteData={this.handleWriteData}
-              checkDate={this.state}
+              checkData={this.state}
             />
             <SignupInputForm
               inputContent="이름"
@@ -302,17 +321,18 @@ class Signup extends Component {
               name="user_name"
               writeHolder="이름을 입력해주세요"
               onWriteData={this.handleWriteData}
+              checkData={this.state}
             />
             <SignupInputForm
               inputContent="이메일"
               textType="text"
               name="email"
-              onOffCount="two"
+              onOffCount="emailCheck"
               writeHolder="예: deokjjang@gmail.com"
               checkName="중복확인"
               onCheckEmail={this.checkEmail}
               onWriteData={this.handleWriteData}
-              checkDate={this.state}
+              checkData={this.state}
             />
             <SignupInputForm
               inputContent="휴대폰"
@@ -320,6 +340,7 @@ class Signup extends Component {
               name="phone"
               writeHolder="숫자만 입력해주세요"
               onWriteData={this.handleWriteData}
+              checkData={this.state}
             />
             <div className="SignupInputForm otherSinupform">
               <div className="input-content">
@@ -328,7 +349,9 @@ class Signup extends Component {
               </div>
               <input
                 className="input"
+                name="address"
                 placeholder="카카오 주소검색 넣을거에요"
+                onChange={this.handleWriteData}
               ></input>
             </div>
             <div className="SignupInputForm otherSinupform">
@@ -423,7 +446,7 @@ class Signup extends Component {
                 </div>
               </div>
             </div>
-            <div className="SignupInputForm otherSinupform">
+            <div className="SignupInputForm otherSignupform">
               <div className="input-content"></div>
               <input
                 className="input-off"
@@ -432,6 +455,7 @@ class Signup extends Component {
                 ref={this.recommendInputRef}
                 onChange={this.handleWriteData}
               ></input>
+              <OverlapCheckText onData={this.state} onOffCount="addInfo" />
             </div>
             <div className="SignupInputForm check-agree">
               <div className="input-content check-agree-content">
