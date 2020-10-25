@@ -1,0 +1,200 @@
+.MyPage {
+  border: 1px solid #000;
+
+  .user-info-big-container {
+    height: 296px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+
+    .user-info-small-container {
+      height: 60%;
+      width: 55%;
+      display: flex;
+
+      > div {
+        margin: 0 5px;
+        background-color: #fff;
+
+        &:first-child {
+          margin-left: 0px;
+        }
+
+        &:last-child {
+          margin-right: 0px;
+        }
+      }
+
+      .user-ranking {
+        flex: 2.2;
+
+        .top {
+          height: 60%;
+          display: flex;
+
+          .current-ranking {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            span {
+              border-radius: 4px;
+              height: 60px;
+              width: 60px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #929b96;
+            }
+          }
+
+          .ranking-information {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            p {
+              font-size: 11px;
+            }
+
+            .name {
+              font-weight: bold;
+              font-size: 20px;
+              margin-bottom: 10px;
+
+              span {
+                font-weight: normal;
+                font-size: 14px;
+              }
+            }
+
+            .mileage-rating {
+              margin-bottom: 5px;
+            }
+          }
+        }
+
+        .bottom {
+          height: 40%;
+          display: flex;
+          justify-content: flex-end;
+          padding-right: 10px;
+
+          button {
+            height: 50%;
+            border: none;
+            border-radius: 20px;
+            padding: 0px 6px;
+            outline: none;
+            cursor: pointer;
+          }
+
+          button:last-child {
+            margin-left: 10px;
+          }
+        }
+      }
+
+      .user-point {
+        flex: 1;
+        > div {
+          height: calc(100% / 3);
+          padding-left: 15px;
+          &:first-child {
+            display: flex;
+            align-items: center;
+            span {
+              font-size: 14px;
+            }
+          }
+
+          &:last-child {
+            p {
+              cursor: pointer;
+            }
+
+            p:first-child {
+              font-size: 20px;
+              font-weight: 700;
+              margin-bottom: 10px;
+
+              span {
+                margin-left: 5px;
+                color: #dbdbdb;
+              }
+            }
+
+            p:last-child {
+              font-size: 11px;
+              font-weight: 700;
+              color: #929b96;
+            }
+          }
+        }
+      }
+
+      .user-coupon {
+        flex: 1;
+
+        > div {
+          height: calc(100% / 3);
+          padding-left: 15px;
+          &:first-child {
+            display: flex;
+            align-items: center;
+            span {
+              font-size: 14px;
+            }
+          }
+
+          &:last-child {
+
+            p {
+              font-size: 20px;
+              font-weight: 700;
+              margin-bottom: 10px;
+              cursor: pointer;
+
+              span {
+                margin-left: 5px;
+                color: #dbdbdb;
+              }
+            }
+          }
+        }
+      }
+
+      .user-pass {
+        flex: 1;
+
+        > div {
+          height: calc(100% / 3);
+          padding-left: 15px;
+          &:first-child {
+            display: flex;
+            align-items: center;
+            span {
+              font-size: 14px;
+            }
+          }
+
+          &:last-child {
+            p {
+              font-size: 20px;
+              font-weight: 700;
+              margin-bottom: 10px;
+              cursor: pointer;
+
+              span {
+                margin-left: 5px;
+                color: #dbdbdb;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

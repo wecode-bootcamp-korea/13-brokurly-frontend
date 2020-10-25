@@ -7,9 +7,10 @@ import Nav from "./Components/Nav/Nav.component";
 import Main from "./Pages/Main/Main.component";
 import Footer from "./Components/Footer/Footer.component";
 import CartItems from "./Pages/CartItems/CartItems.component";
+import MyPage from "./Pages/MyPage/MyPage.component";
 
 // For Testing Some Functions Before Launching
-import Test from "./Pages/Test/Test.component";
+// import Test from "./Pages/Test/Test.component";
 
 import { getCartItems } from "./redux/cart/cart.actions";
 
@@ -60,7 +61,8 @@ class App extends Component {
             <Route exact path="/" component={Main} />
             <Route exact path="/cartItems" component={CartItems} />
             <Route exact path="/productlist" component={ProductList} />
-            <Route exact path="/test" component={Test} />
+            <Route exact path="/mypage" component={MyPage} />
+            {/* <Route exact path="/test" component={Test} /> */}
           </Switch>
         </div>
         <Footer />
