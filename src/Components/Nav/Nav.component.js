@@ -11,9 +11,7 @@ class Nav extends Component {
     const { hidden } = this.props;
     return (
       <div className="Nav">
-        {hidden ? (
-          ""
-        ) : (
+        {!hidden && (
           <>
             <NavUserMenu />
             <div className="logo">
