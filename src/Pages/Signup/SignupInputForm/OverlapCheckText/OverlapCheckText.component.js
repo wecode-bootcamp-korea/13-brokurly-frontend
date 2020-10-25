@@ -38,7 +38,7 @@ class OverlapCheckText extends Component {
           <>
             <span
               className={`initial ${
-                user_id.match(/[A-Za-z0-9]\w{6,}/) ? "correct" : "incorrect"
+                user_id.match(/[A-Za-z0-9]\w{5,}/) ? "correct" : "incorrect"
               }`}
             >
               {idCheck[0]}

@@ -85,7 +85,7 @@ class Signup extends Component {
 
   checkId = () => {
     const { user_id } = this.state;
-    if (user_id.match(/[A-Za-z0-9]\w{6,}/)) {
+    if (user_id.match(/[A-Za-z0-9]\w{5,}/)) {
       fetch("http://10.58.6.216:8000/user/checkid", {
         method: "POST",
         body: JSON.stringify({
@@ -362,7 +362,7 @@ class Signup extends Component {
               <input
                 className="input"
                 name="address"
-                placeholder="카카오 주소검색 넣을거에요"
+                placeholder="서울특별시 방화동"
                 onChange={this.handleWriteData}
               ></input>
             </div>
