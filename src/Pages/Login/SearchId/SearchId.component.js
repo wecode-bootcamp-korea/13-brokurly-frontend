@@ -30,6 +30,7 @@ class SearchId extends Component {
       })
         .then((response) => response.json())
         .then((result) => console.log("결과 =>", result));
+      // alert()를 사용해서 보여줄 예정
     }
   };
 

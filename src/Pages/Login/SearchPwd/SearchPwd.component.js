@@ -32,6 +32,7 @@ class SearchPwd extends Component {
       })
         .then((response) => response.json())
         .then((result) => console.log("결과 =>", result));
+      // 결과 값이 어떻게 올지 몰라서 일단 오면 alert()를 사용해서 pwd를 보여줄 예정
     }
   };
 
