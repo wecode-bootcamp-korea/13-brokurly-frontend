@@ -1,11 +1,12 @@
 import CartActionTypes from "./cart.types";
 import {
-  addItemToCart,
+  increaseItemAmount,
   removeItemFromCart,
   toggleItemCheckBox,
   checkAllSelectCheckBox,
   filterOutSelectedItems,
   filterOutSoldoutItems,
+  checkAddItemToCart,
 } from "./cart.utils";
 // shopping_list_json
 // shopping_list_element = {
@@ -90,9 +91,9 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     case CartActionTypes.INCREASE_ITEM_AMOUNT:
       return {
         ...state,
-        cartItems: addItemToCart(state.cartItems, action.payload),
+        cartItems: increaseItemAmount(state.cartItems, action.payload),
       };
-    case CartActionTypes.REMOVE_ITEM:
+    case CartActionTypes.DECREASE_ITEM_AMOUNT:
       return {
         ...state,
         cartItems: removeItemFromCart(state.cartItems, action.payload),
@@ -157,6 +158,11 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cartItems: filterOutSoldoutItems(state.cartItems),
+      };
+    case CartActionTypes.ADD_ITEM_TO_CART:
+      return {
+        ...state,
+        cartItems: checkAddItemToCart(state.cartItems, action.payload),
       };
     default:
       return state;

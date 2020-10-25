@@ -1,4 +1,4 @@
-.Nav-category-bar {
+.NavCategoryBar {
   height: 56px;
   display: flex;
   justify-content: center;
@@ -45,7 +45,7 @@
         position: relative;
 
         &:hover {
-          .Nav-category-all-bar-sub {
+          .NavCategoryAllBarSub {
             display: flex;
             &:hover .all-bar-sub-right {
               left: 100%;

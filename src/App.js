@@ -8,10 +8,16 @@ import Main from "./Pages/Main/Main.component";
 import Footer from "./Components/Footer/Footer.component";
 import CartItems from "./Pages/CartItems/CartItems.component";
 
+// For Testing Some Functions Before Launching
+import Test from "./Pages/Test/Test.component";
+
 import { getCartItems } from "./redux/cart/cart.actions";
+import { userLogout } from "./redux/user/user.actions";
+
+import { GET_SHOPPINGBASKET_API } from "./config";
+import { USER_TOKEN } from "./config";
 
 import "./App.scss";
-import { GET_SHOPPINGBASKET_API } from "./config";
 
 class App extends Component {
   constructor() {
@@ -28,8 +34,7 @@ class App extends Component {
       method: "GET",
       headers: {
         "content-type": "application/json",
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+        Authorization: USER_TOKEN,
       },
     })
       .then((res) => res.json())
@@ -39,6 +44,8 @@ class App extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.scrollNavBarChange);
+    const { userLogout } = this.props;
+    userLogout();
   }
 
   scrollNavBarChange = () => {
@@ -56,6 +63,7 @@ class App extends Component {
             <Route exact path="/" component={Main} />
             <Route exact path="/cartItems" component={CartItems} />
             <Route exact path="/productlist" component={ProductList} />
+            <Route exact path="/test" component={Test} />
           </Switch>
         </div>
         <Footer />
@@ -64,8 +72,13 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
 });
 
-export default connect(null, mapDispatchToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
+  userLogout: () => dispatch(userLogout()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

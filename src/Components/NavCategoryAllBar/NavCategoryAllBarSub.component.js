@@ -24,7 +24,11 @@ class NavCategoryAllBarSub extends Component {
           this.setState({
             categoryList: [
               ...this.state.categoryList,
-              [specificData.name, specificData.imageUrl],
+              [
+                specificData.name,
+                specificData.imageUrl,
+                specificData.imageActiveUrl,
+              ],
             ],
             subCategoryList: [
               ...this.state.subCategoryList,
@@ -37,19 +41,34 @@ class NavCategoryAllBarSub extends Component {
   }
 
   showRightSubMenu = (idx) => {
-    const { subCategoryList } = this.state;
-    this.setState({ showSubCategoryList: subCategoryList[idx] });
+    const { subCategoryList, categoryList } = this.state;
+    this.setState({
+      showSubCategoryList: subCategoryList[idx],
+    });
+    let elementImage = document.querySelectorAll(
+      ".all-bar-sub-left-element img"
+    );
+    elementImage[idx].src = categoryList[idx][2];
+  };
+
+  leaveCurrentElement = (idx) => {
+    const { categoryList } = this.state;
+    let elementImage = document.querySelectorAll(
+      ".all-bar-sub-left-element img"
+    );
+    elementImage[idx].src = categoryList[idx][1];
   };
 
   render() {
     const { categoryList, showSubCategoryList } = this.state;
     return (
-      <div className="Nav-category-all-bar-sub">
+      <div className="NavCategoryAllBarSub">
         {categoryList.map((category, idx) => (
           <div
             className="all-bar-sub-left-element"
             key={idx}
             onMouseEnter={() => this.showRightSubMenu(idx)}
+            onMouseLeave={() => this.leaveCurrentElement(idx)}
           >
             <img src={category[1]} alt="category" />
             <span>{category[0]}</span>

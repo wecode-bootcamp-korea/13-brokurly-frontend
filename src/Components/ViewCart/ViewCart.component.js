@@ -5,7 +5,7 @@ import { filterOutSoldoutItems } from "../../redux/cart/cart.actions";
 
 import CartItem from "../CartItem/CartItem.component";
 
-import { SEND_RECENT_ITEM_SELECTED_API } from "../../config";
+import { SEND_RECENT_ITEM_SELECTED_API, USER_TOKEN } from "../../config";
 
 import {
   toggleAllSelectCheckBox,
@@ -24,44 +24,90 @@ class ViewCart extends Component {
     getSelectedItemsAmount();
   }
 
-  render() {
+  AllSelectCheckboxClick = () => {
     const {
-      cartItems,
-      allSelect,
       toggleAllSelectCheckBox,
+      selectedItemsTotalPrice,
+      getSelectedItemsAmount,
+    } = this.props;
+    toggleAllSelectCheckBox();
+    selectedItemsTotalPrice();
+    getSelectedItemsAmount();
+    fetch(SEND_RECENT_ITEM_SELECTED_API, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        Authorization: USER_TOKEN,
+      },
+      body: JSON.stringify({
+        selected: "all",
+      }),
+    })
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  };
+
+  selectedItemDeleteCheckboxCLick = () => {
+    const {
       deleteSelectedItems,
       selectedItemsTotalPrice,
       checkStatusAllSelectCheckBox,
-      seletectedItemsAmount,
       getSelectedItemsAmount,
-      filterOutSoldoutItems,
     } = this.props;
+    deleteSelectedItems();
+    selectedItemsTotalPrice();
+    checkStatusAllSelectCheckBox();
+    getSelectedItemsAmount();
+    fetch(SEND_RECENT_ITEM_SELECTED_API, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        Authorization: USER_TOKEN,
+      },
+      body: JSON.stringify({
+        delete: "selected",
+      }),
+    })
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  };
+
+  soldOutItemDeleteButtonClick = () => {
+    const {
+      filterOutSoldoutItems,
+      selectedItemsTotalPrice,
+      checkStatusAllSelectCheckBox,
+      getSelectedItemsAmount,
+    } = this.props;
+    filterOutSoldoutItems();
+    selectedItemsTotalPrice();
+    checkStatusAllSelectCheckBox();
+    getSelectedItemsAmount();
+    fetch(SEND_RECENT_ITEM_SELECTED_API, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        Authorization: USER_TOKEN,
+      },
+      body: JSON.stringify({
+        delete: "soldout",
+      }),
+    })
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  };
+
+  render() {
+    const { cartItems, allSelect, seletectedItemsAmount } = this.props;
     return (
-      <div className="View-cart">
+      <div className="ViewCart">
         <div className="selected-items">
           <div className="selected-items-header">
             <div className="selected-items-header-select">
               <label>
                 <input
                   type="checkbox"
-                  onChange={() => {
-                    toggleAllSelectCheckBox();
-                    selectedItemsTotalPrice();
-                    getSelectedItemsAmount();
-                    fetch(SEND_RECENT_ITEM_SELECTED_API, {
-                      method: "PUT",
-                      headers: {
-                        "content-type": "application/json",
-                        Authorization:
-                          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
-                      },
-                      body: JSON.stringify({
-                        selected: "all",
-                      }),
-                    })
-                      .then((response) => response.json())
-                      .catch((error) => console.log(error));
-                  }}
+                  onChange={this.AllSelectCheckboxClick}
                   checked={allSelect ? true : false}
                 />
               </label>
@@ -92,11 +138,7 @@ class ViewCart extends Component {
               <div>
                 <input
                   type="checkbox"
-                  onChange={() => {
-                    toggleAllSelectCheckBox();
-                    selectedItemsTotalPrice();
-                    getSelectedItemsAmount();
-                  }}
+                  onChange={this.AllSelectCheckboxClick}
                   checked={allSelect ? "checked" : ""}
                 />
               </div>
@@ -106,52 +148,13 @@ class ViewCart extends Component {
             </div>
             <button
               className="select-delete"
-              onClick={() => {
-                deleteSelectedItems();
-                selectedItemsTotalPrice();
-                checkStatusAllSelectCheckBox();
-                getSelectedItemsAmount();
-                fetch(SEND_RECENT_ITEM_SELECTED_API, {
-                  method: "DELETE",
-                  headers: {
-                    "content-type": "application/json",
-                    Authorization:
-                      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
-                  },
-                  body: JSON.stringify({
-                    delete: "selected",
-                  }),
-                })
-                  .then((response) => response.json())
-                  .catch((error) => console.log(error));
-              }}
+              onClick={this.selectedItemDeleteCheckboxCLick}
             >
               선택 삭제
             </button>
             <button
               className="sold-out-delete"
-              onClick={() => {
-                filterOutSoldoutItems();
-                selectedItemsTotalPrice();
-                checkStatusAllSelectCheckBox();
-                getSelectedItemsAmount();
-                fetch(SEND_RECENT_ITEM_SELECTED_API, {
-                  method: "DELETE",
-                  headers: {
-                    "content-type": "application/json",
-                    Authorization:
-                      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
-                  },
-                  body: JSON.stringify({
-                    delete: "soldout",
-                  }),
-                })
-                  .then((response) => {
-                    console.log(response);
-                    response.json();
-                  })
-                  .catch((error) => console.log(error));
-              }}
+              onClick={this.soldOutItemDeleteButtonClick}
             >
               품절 상품 삭제
             </button>

@@ -1,19 +1,17 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { EARLY_DELIVERY_INFO } from "../../config";
 
 import "./NavUserMenu.styles.scss";
 
 class NavUserMenu extends Component {
-  constructor() {
-    super();
-    this.state = {
-      currentUserName: "김제형",
-    };
-  }
-
   render() {
-    const { currentUserName } = this.state;
+    const { currentUser } = this.props;
+    console.log(currentUser);
+    const { user_name, user_rank } = currentUser;
     return (
-      <div className="Nav-user-menu">
+      <div className="NavUserMenu">
         <div>
           <div>
             <img
@@ -22,15 +20,16 @@ class NavUserMenu extends Component {
             />
           </div>
           <div>
-            {currentUserName ? (
+            {user_name ? (
               <div className="current-user">
-                <span>웰컴</span>
+                <span>{user_rank}</span>
                 <span className="user-name">
-                  {currentUserName}님
-                  <img
-                    src="https://res.kurly.com/pc/service/common/1904/ico_new_20x20.png"
-                    alt="new"
-                  />
+                  {user_name}님
+                  {user_rank === "웰컴" ? (
+                    <img src={EARLY_DELIVERY_INFO} alt="delivery-ad" />
+                  ) : (
+                    ""
+                  )}
                   <i className="fas fa-caret-down"></i>
                 </span>
                 <div className="current-user-sub">
@@ -68,4 +67,8 @@ class NavUserMenu extends Component {
   }
 }
 
-export default NavUserMenu;
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
+export default connect(mapStateToProps)(NavUserMenu);

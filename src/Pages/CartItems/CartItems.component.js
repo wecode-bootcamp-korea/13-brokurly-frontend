@@ -28,7 +28,7 @@ class CartItems extends Component {
   render() {
     const { totalPrice } = this.props;
     return (
-      <div className="Cart-items">
+      <div className="CartItems">
         <div className="cart-items-header">
           <h1>장바구니</h1>
           <p>주문하실 상품명 및 수량을 정확하게 확인해 주세요.</p>
@@ -59,7 +59,9 @@ class CartItems extends Component {
             <span className="price-result-number">
               {numberWithCommas(totalPrice - 18000)} 원
             </span>
-            <span className="mileage-point-info">구매시 2,285원 적립</span>
+            <span className="mileage-point-info">
+              구매시 {numberWithCommas((totalPrice - 18000) / 10)}원 적립
+            </span>
           </div>
           <div className="price-result-additonal-info">
             <span>*쿠폰, 적립금은 다음화면인 '주문서'에서 확인가능합니다.</span>

@@ -4,11 +4,12 @@ import { connect } from "react-redux";
 import {
   GET_SHOPPINGBASKET_API,
   SEND_RECENT_ITEM_SELECTED_API,
+  USER_TOKEN,
 } from "../../config";
 
 import {
-  addItem,
-  removeItem,
+  increaseItemAmount,
+  decreaseItemAmount,
   clearItemFromCart,
   toggleSelectedItemCheckBox,
   checkStatusAllSelectCheckBox,
@@ -21,17 +22,106 @@ import { numberWithCommas } from "../../redux/cart/cart.utils";
 import "./CartItem.styles.scss";
 
 class CartItem extends Component {
-  render() {
+  toggleCheckBox = () => {
     const {
       cartItemInfo,
-      addItem,
-      removeItem,
-      clearItemFromCart,
       toggleSelectedItemCheckBox,
       checkStatusAllSelectCheckBox,
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
     } = this.props;
+    const { id } = cartItemInfo;
+    toggleSelectedItemCheckBox(id);
+    checkStatusAllSelectCheckBox();
+    selectedItemsTotalPrice();
+    getSelectedItemsAmount();
+    fetch(SEND_RECENT_ITEM_SELECTED_API, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        Authorization: USER_TOKEN,
+      },
+      body: JSON.stringify({
+        shopbasket_id: id,
+        selected: "single",
+      }),
+    })
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  };
+
+  decreaseButtonClick = () => {
+    const {
+      cartItemInfo,
+      decreaseItemAmount,
+      selectedItemsTotalPrice,
+    } = this.props;
+    decreaseItemAmount(cartItemInfo);
+    fetch(GET_SHOPPINGBASKET_API, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        Authorization: USER_TOKEN,
+      },
+      body: JSON.stringify({
+        increase_or_decrease: "minus",
+        shopbasket_id: cartItemInfo.id,
+      }),
+    })
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error.message));
+    selectedItemsTotalPrice();
+  };
+
+  increaseButtonClick = () => {
+    const {
+      cartItemInfo,
+      increaseItemAmount,
+      selectedItemsTotalPrice,
+    } = this.props;
+    increaseItemAmount(cartItemInfo);
+    fetch(GET_SHOPPINGBASKET_API, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        Authorization: USER_TOKEN,
+      },
+      body: JSON.stringify({
+        increase_or_decrease: "plus",
+        shopbasket_id: cartItemInfo.id,
+      }),
+    })
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error.message));
+    selectedItemsTotalPrice();
+  };
+
+  clearItemButtonClick = () => {
+    const {
+      cartItemInfo,
+      clearItemFromCart,
+      selectedItemsTotalPrice,
+      checkStatusAllSelectCheckBox,
+      getSelectedItemsAmount,
+    } = this.props;
+    clearItemFromCart(cartItemInfo);
+    selectedItemsTotalPrice();
+    checkStatusAllSelectCheckBox();
+    getSelectedItemsAmount();
+    fetch(GET_SHOPPINGBASKET_API, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        Authorization: USER_TOKEN,
+      },
+      body: JSON.stringify({
+        shopbasket_id: cartItemInfo.id,
+      }),
+    }).then((response) => console.log(response));
+  };
+
+  render() {
+    const { cartItemInfo } = this.props;
     const {
       id,
       quantity,
@@ -50,30 +140,11 @@ class CartItem extends Component {
       image_url,
     } = cartItemInfo;
     return (
-      <div className="Cart-item">
+      <div className="CartItem">
         <div className="cart-item-select">
           <input
             type="checkbox"
-            onChange={() => {
-              toggleSelectedItemCheckBox(id);
-              checkStatusAllSelectCheckBox();
-              selectedItemsTotalPrice();
-              getSelectedItemsAmount();
-              fetch(SEND_RECENT_ITEM_SELECTED_API, {
-                method: "PUT",
-                headers: {
-                  "content-type": "application/json",
-                  Authorization:
-                    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
-                },
-                body: JSON.stringify({
-                  shopbasket_id: id,
-                  selected: "single",
-                }),
-              })
-                .then((response) => response.json())
-                .catch((error) => console.log(error));
-            }}
+            onChange={this.toggleCheckBox}
             checked={checked}
           />
         </div>
@@ -106,54 +177,13 @@ class CartItem extends Component {
               </div>
               <div className="cart-item-quantity">
                 <div className="quantity-container">
-                  <div
-                    className="left"
-                    onClick={() => {
-                      removeItem(cartItemInfo);
-                      fetch(GET_SHOPPINGBASKET_API, {
-                        method: "PUT",
-                        headers: {
-                          "content-type": "application/json",
-                          Authorization:
-                            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
-                        },
-                        body: JSON.stringify({
-                          increase_or_decrease: "minus",
-                          shopbasket_id: id,
-                        }),
-                      })
-                        .then((response) => console.log(response))
-                        .catch((error) => console.log(error.message));
-                      selectedItemsTotalPrice();
-                    }}
-                  >
+                  <div className="left" onClick={this.decreaseButtonClick}>
                     <p className="left-element">&#8722;</p>
                   </div>
                   <div className="quantity">
                     <span>{quantity}</span>
                   </div>
-                  <div
-                    className="right"
-                    onClick={() => {
-                      addItem(cartItemInfo);
-                      console.log(id);
-                      fetch(GET_SHOPPINGBASKET_API, {
-                        method: "PUT",
-                        headers: {
-                          "content-type": "application/json",
-                          Authorization:
-                            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
-                        },
-                        body: JSON.stringify({
-                          increase_or_decrease: "plus",
-                          shopbasket_id: id,
-                        }),
-                      })
-                        .then((response) => console.log(response))
-                        .catch((error) => console.log(error.message));
-                      selectedItemsTotalPrice();
-                    }}
-                  >
+                  <div className="right" onClick={this.increaseButtonClick}>
                     <p className="right-element">&#43;</p>
                   </div>
                 </div>
@@ -163,23 +193,7 @@ class CartItem extends Component {
               </div>
               <div
                 className="cart-item-delete"
-                onClick={() => {
-                  clearItemFromCart(cartItemInfo);
-                  selectedItemsTotalPrice();
-                  checkStatusAllSelectCheckBox();
-                  getSelectedItemsAmount();
-                  fetch(GET_SHOPPINGBASKET_API, {
-                    method: "DELETE",
-                    headers: {
-                      "content-type": "application/json",
-                      Authorization:
-                        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
-                    },
-                    body: JSON.stringify({
-                      shopbasket_id: id,
-                    }),
-                  }).then((response) => console.log(response));
-                }}
+                onClick={this.clearItemButtonClick}
               >
                 <span>&#10005;</span>
               </div>
@@ -197,8 +211,8 @@ const mapStateToProps = ({ cart }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addItem: (item) => dispatch(addItem(item)),
-  removeItem: (item) => dispatch(removeItem(item)),
+  increaseItemAmount: (item) => dispatch(increaseItemAmount(item)),
+  decreaseItemAmount: (item) => dispatch(decreaseItemAmount(item)),
   clearItemFromCart: (item) => dispatch(clearItemFromCart(item)),
   toggleSelectedItemCheckBox: (id) => dispatch(toggleSelectedItemCheckBox(id)),
   checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),

@@ -10,7 +10,7 @@ class NavCategoryBar extends Component {
   render() {
     const { cartItems } = this.props;
     return (
-      <div className="Nav-category-bar">
+      <div className="NavCategoryBar">
         <div>
           <div className="all">
             <div className="hamburger">
