@@ -60,10 +60,19 @@
     opacity: 80%;
     z-index: 1;
     @include flexSet(center, center);
+    button {
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
 
-    i {
-      color: #fff;
-      font-size: 18px;
+      &:focus {
+        outline: 0;
+      }
+
+      i {
+        color: #fff;
+        font-size: 18px;
+      }
     }
   }
 
