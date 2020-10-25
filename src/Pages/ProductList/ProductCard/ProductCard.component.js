@@ -6,8 +6,8 @@ import "./ProductCard.styles.scss";
 
 class ProductCard extends Component {
   state = {
-    product: this.props.product,
     isWidthBiggerThanHeight: false,
+    isShoppingBasketClicked: false,
   };
 
   resizeImage = (e) => {
@@ -15,12 +15,19 @@ class ProductCard extends Component {
     this.setState({ isWidthBiggerThanHeight: sizeCheck });
   };
 
-  getNumberWithCommas = (x) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  getNumberWithCommas = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  toggleBaksetModal = (e) => {
+    const { isShoppingBasketClicked } = this.state;
+    this.setState({
+      isShoppingBasketClicked: !isShoppingBasketClicked,
+    });
   };
 
   render() {
-    const { isWidthBiggerThanHeight } = this.state;
+    const { isWidthBiggerThanHeight, isShoppingBasketClicked } = this.state;
     const { product } = this.props;
     return (
       <>
@@ -44,7 +51,9 @@ class ProductCard extends Component {
             />
           </div>
           <div className="card-shopping">
-            <i className="far fa-shopping-cart" />
+            <button onClick={this.toggleBaksetModal}>
+              <i className="far fa-shopping-cart" />
+            </button>
           </div>
           <div className="card-content">
             <span className="card-title">{product.name}</span>
@@ -65,7 +74,11 @@ class ProductCard extends Component {
             <span className="card-description">{product.content}</span>
           </div>
         </li>
-        <ProductModal />
+        <ProductModal
+          product={product}
+          isShoppingBasketClicked={isShoppingBasketClicked}
+          closeModal={() => this.toggleBaksetModal()}
+        />
       </>
     );
   }

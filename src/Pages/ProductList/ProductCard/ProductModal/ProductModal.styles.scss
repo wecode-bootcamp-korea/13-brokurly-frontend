@@ -8,7 +8,6 @@
 }
 
 .ProductModal {
-  //   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -17,7 +16,6 @@
   background-color: #fff;
 
   border-radius: 6px;
-  box-shadow: 1px 1px 5px -1px rgba(0, 0, 0, 0.28);
   transform: translate(-50%, -50%);
   z-index: 2;
 
@@ -101,9 +99,9 @@
                 width: 41px;
                 height: 22px;
                 padding: 2px auto;
-                padding-left: 10px;
                 border: 0;
                 border-top: 1px solid #ddd;
+                text-align: center;
                 text-align: center;
                 border-bottom: 1px solid #ddd;
               }
@@ -114,7 +112,7 @@
     }
 
     .modal-total-price {
-      padding-top: 20px;
+      padding: 20px 0 10px 0;
       @include flexSet(space-between, center);
 
       & span {
@@ -187,4 +185,16 @@
       }
     }
   }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
