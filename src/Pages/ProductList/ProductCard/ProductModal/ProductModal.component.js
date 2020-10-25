@@ -29,15 +29,21 @@ class ProductModal extends Component {
 
   handleAmount = async (e) => {
     const { name } = e.target;
+    // declare issue!
     const { totalAmount } = this.state;
 
     await this.setState({
       totalAmount:
         (name === "plus" && totalAmount + 1) ||
         (name === "minus" && totalAmount - 1),
-      isMinusAmount: totalAmount <= 1,
     });
 
+    // NOTE reason using this.state.totalAmount not totalAmount upper is both two things is different.
+    await this.setState({
+      isMinusAmount: this.state.totalAmount < 1,
+    });
+
+    console.log(this.state.totalAmount, this.state.isMinusAmount);
     this.getTotalPrice();
   };
 
@@ -102,7 +108,7 @@ class ProductModal extends Component {
                     <button
                       onClick={this.handleAmount}
                       name="minus"
-                      disabled={isMinusAmount && isMinusAmount}
+                      disabled={isMinusAmount}
                     >
                       -
                     </button>
