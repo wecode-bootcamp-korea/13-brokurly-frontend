@@ -54,11 +54,13 @@ class ProductCard extends Component {
                 onLoad={this.resizeImage}
               />
             </div>
-            <div className="card-shopping">
-              <button onClick={this.toggleBaksetModal}>
-                <i className="far fa-shopping-cart" />
-              </button>
-            </div>
+          </Link>
+          <div className="card-shopping">
+            <button onClick={this.toggleBaksetModal}>
+              <i className="far fa-shopping-cart" />
+            </button>
+          </div>
+          <Link to={`/productdetails/${product.id}`}>
             <div className="card-content">
               <span className="card-title">{product.name}</span>
               <div className="card-price">
