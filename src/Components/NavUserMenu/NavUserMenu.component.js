@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { userLogout } from "../../redux/user/user.actions";
+
 import { EARLY_DELIVERY_INFO, NEW_USER } from "../../config";
 
 import "./NavUserMenu.styles.scss";
 
 class NavUserMenu extends Component {
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, logout } = this.props;
     const { user_name, user_rank } = currentUser;
     return (
       <div className="NavUserMenu">
@@ -31,7 +33,7 @@ class NavUserMenu extends Component {
                   <span>적립금</span>
                   <span>쿠폰</span>
                   <span>개인 정보 수정</span>
-                  <span>로그아웃</span>
+                  <span onClick={logout}>로그아웃</span>
                 </div>
               </div>
             ) : (
@@ -63,4 +65,8 @@ const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });
 
-export default connect(mapStateToProps)(NavUserMenu);
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(userLogout()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavUserMenu);

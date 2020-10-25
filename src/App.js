@@ -12,7 +12,6 @@ import CartItems from "./Pages/CartItems/CartItems.component";
 import Test from "./Pages/Test/Test.component";
 
 import { getCartItems } from "./redux/cart/cart.actions";
-import { userLogout } from "./redux/user/user.actions";
 
 import { GET_SHOPPINGBASKET_API } from "./config";
 import { USER_TOKEN } from "./config";
@@ -44,8 +43,6 @@ class App extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.scrollNavBarChange);
-    const { userLogout } = this.props;
-    userLogout();
   }
 
   scrollNavBarChange = () => {
@@ -78,7 +75,6 @@ const mapStateToProps = ({ user }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
-  userLogout: () => dispatch(userLogout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
