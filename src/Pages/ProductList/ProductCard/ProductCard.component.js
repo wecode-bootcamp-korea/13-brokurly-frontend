@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import ProductModal from "./ProductModal/ProductModal.component";
 
@@ -32,47 +33,51 @@ class ProductCard extends Component {
     return (
       <>
         <li className="ProductCard">
-          <div className="card-thumbnail">
-            <div
-              className={`card-event ${
-                !product.discountName && "visibility-hidden"
-              }`}
-            >
-              <span>{product.discountName}</span>
-              <div>
-                <span>{product.discountContent}</span>
+          <Link to={`/productdetails/${product.id}`}>
+            <div className="card-thumbnail">
+              <div
+                className={`card-event ${
+                  !product.discountName && "visibility-hidden"
+                }`}
+              >
+                <span>{product.discountName}</span>
+                <div>
+                  <span>{product.discountContent}</span>
+                </div>
               </div>
+              <img
+                src={product.imageUrl}
+                alt={product.id}
+                className={
+                  isWidthBiggerThanHeight ? "full-height" : "full-width"
+                }
+                onLoad={this.resizeImage}
+              />
             </div>
-            <img
-              src={product.imageUrl}
-              alt={product.id}
-              className={isWidthBiggerThanHeight ? "full-height" : "full-width"}
-              onLoad={this.resizeImage}
-            />
-          </div>
-          <div className="card-shopping">
-            <button onClick={this.toggleBaksetModal}>
-              <i className="far fa-shopping-cart" />
-            </button>
-          </div>
-          <div className="card-content">
-            <span className="card-title">{product.name}</span>
-            <div className="card-price">
-              <div className={`${!product.discountPrice && "display-none"}`}>
+            <div className="card-shopping">
+              <button onClick={this.toggleBaksetModal}>
+                <i className="far fa-shopping-cart" />
+              </button>
+            </div>
+            <div className="card-content">
+              <span className="card-title">{product.name}</span>
+              <div className="card-price">
+                <div className={`${!product.discountPrice && "display-none"}`}>
+                  <span>
+                    {this.getNumberWithCommas(product.originalPrice)}원{" "}
+                  </span>
+                  <i className="fas fa-long-arrow-alt-right" />
+                </div>
                 <span>
-                  {this.getNumberWithCommas(product.originalPrice)}원{" "}
+                  {product.discountPrice
+                    ? this.getNumberWithCommas(product.discountPrice)
+                    : this.getNumberWithCommas(product.originalPrice)}
+                  원
                 </span>
-                <i className="fas fa-long-arrow-alt-right" />
               </div>
-              <span>
-                {product.discountPrice
-                  ? this.getNumberWithCommas(product.discountPrice)
-                  : this.getNumberWithCommas(product.originalPrice)}
-                원
-              </span>
+              <span className="card-description">{product.content}</span>
             </div>
-            <span className="card-description">{product.content}</span>
-          </div>
+          </Link>
         </li>
         <ProductModal
           product={product}
