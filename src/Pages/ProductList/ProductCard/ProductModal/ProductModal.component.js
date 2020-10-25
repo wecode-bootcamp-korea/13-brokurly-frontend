@@ -6,7 +6,7 @@ const API = "http://10.58.6.216:8000/user/shoppingbasket";
 
 class ProductModal extends Component {
   state = {
-    isMinusAmount: false,
+    isMinusAmount: true,
   };
 
   getNumberWithCommas = (price) => {
@@ -102,7 +102,7 @@ class ProductModal extends Component {
                     <button
                       onClick={this.handleAmount}
                       name="minus"
-                      disabled={isMinusAmount}
+                      disabled={isMinusAmount && isMinusAmount}
                     >
                       -
                     </button>
