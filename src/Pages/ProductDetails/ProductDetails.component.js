@@ -8,7 +8,25 @@ import carrots from "../../Images/ProductDetails/carrots.svg";
 import pepper from "../../Images/ProductDetails/pepper.svg";
 import "./ProductDetails.styles.scss";
 
+const API = "http://10.58.4.20:8000/product/product_detail?product_item=12";
+
 class ProductDetails extends Component {
+  getProductDetails = async () => {
+    try {
+      //backend API
+      const response = await fetch(API);
+      if (response.status !== 200) {
+        throw new Error("cannot fetch the data");
+      }
+      // const { products } = await response.json();
+      // this.setState({ products, activeSorting: id });
+    } catch (err) {
+      console.log("!!error alert!!");
+    }
+  };
+
+  componentDidMount = () => {};
+
   render() {
     return (
       <section className="ProductDetails">

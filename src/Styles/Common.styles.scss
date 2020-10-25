@@ -1,5 +1,7 @@
 $primary-color: #25d366;
 
+// use this with var()
+// e.g) color: var(--primary-color)
 :root {
   --primary-color: #{$primary-color};
 }

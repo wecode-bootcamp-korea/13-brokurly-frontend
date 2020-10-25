@@ -13,40 +13,50 @@ class ProductCard extends Component {
     this.setState({ isWidthBiggerThanHeight: sizeCheck });
   };
 
-  emphasizeImage = (e) => {
-    // hover effect 처리하기
-    // console.log(e.target.naturalWidth);
-    // console.log(e.target.naturalHeight);
+  getNumberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   render() {
-    // console.log(this.state);
-    const { product, isWidthBiggerThanHeight } = this.state;
-    // console.log(product);
+    const { isWidthBiggerThanHeight } = this.state;
+    const { product } = this.props;
     return (
       <li className="ProductCard">
         <div className="card-thumbnail">
-          <div className="card-event">
-            <span>SAVE</span>
+          <div
+            className={`card-event ${
+              !product.discountName && "visibility-hidden"
+            }`}
+          >
+            <span>{product.discountName}</span>
             <div>
-              <span>10</span>
-              <span>%</span>
+              <span>{product.discountContent}</span>
             </div>
           </div>
           <img
-            src={product.image_url}
+            src={product.imageUrl}
             alt={product.id}
             className={isWidthBiggerThanHeight ? "full-height" : "full-width"}
             onLoad={this.resizeImage}
-            onMouseEnter={this.emphasizeImage}
           />
         </div>
         <div className="card-shopping">
-          <i className="far fa-shopping-cart"></i>
+          <i className="far fa-shopping-cart" />
         </div>
         <div className="card-content">
           <span className="card-title">{product.name}</span>
-          <span className="card-price">{product.price}원</span>
+          <div className="card-price">
+            <div className={`${!product.discountPrice && "display-none"}`}>
+              <span>{this.getNumberWithCommas(product.originalPrice)}원 </span>
+              <i className="fas fa-long-arrow-alt-right" />
+            </div>
+            <span>
+              {product.discountPrice
+                ? this.getNumberWithCommas(product.discountPrice)
+                : this.getNumberWithCommas(product.originalPrice)}
+              원
+            </span>
+          </div>
           <span className="card-description">{product.content}</span>
         </div>
       </li>
