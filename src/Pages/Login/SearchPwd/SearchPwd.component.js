@@ -36,6 +36,9 @@ class SearchPwd extends Component {
   };
 
   render() {
+    console.log(`this.props.location => ${this.props.location}`);
+    console.log(`this.props.history => ${this.props.history}`);
+    console.log(`this.props.match => ${this.props.match}`);
     return (
       <div className="SearchPwd">
         <div className="search-pwd-container">
