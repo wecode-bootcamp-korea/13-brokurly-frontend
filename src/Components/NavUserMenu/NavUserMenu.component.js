@@ -1,23 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { EARLY_DELIVERY_INFO } from "../../config";
+import { EARLY_DELIVERY_INFO, NEW_USER } from "../../config";
 
 import "./NavUserMenu.styles.scss";
 
 class NavUserMenu extends Component {
   render() {
     const { currentUser } = this.props;
-    console.log(currentUser);
     const { user_name, user_rank } = currentUser;
     return (
       <div className="NavUserMenu">
         <div>
           <div>
-            <img
-              src="https://res.kurly.com/pc/service/common/1908/delivery_190819.gif"
-              alt="delivery"
-            />
+            <img src={EARLY_DELIVERY_INFO} alt="delivery" />
           </div>
           <div>
             {user_name ? (
@@ -25,11 +21,7 @@ class NavUserMenu extends Component {
                 <span>{user_rank}</span>
                 <span className="user-name">
                   {user_name}님
-                  {user_rank === "웰컴" ? (
-                    <img src={EARLY_DELIVERY_INFO} alt="delivery-ad" />
-                  ) : (
-                    ""
-                  )}
+                  {user_rank === "웰컴" ? <img src={NEW_USER} alt="new" /> : ""}
                   <i className="fas fa-caret-down"></i>
                 </span>
                 <div className="current-user-sub">

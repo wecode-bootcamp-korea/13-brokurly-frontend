@@ -67,9 +67,7 @@ class CartItem extends Component {
         increase_or_decrease: "minus",
         shopbasket_id: cartItemInfo.id,
       }),
-    })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error.message));
+    }).catch((error) => console.log(error.message));
     selectedItemsTotalPrice();
   };
 
@@ -90,9 +88,7 @@ class CartItem extends Component {
         increase_or_decrease: "plus",
         shopbasket_id: cartItemInfo.id,
       }),
-    })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error.message));
+    }).catch((error) => console.log(error.message));
     selectedItemsTotalPrice();
   };
 
@@ -117,7 +113,7 @@ class CartItem extends Component {
       body: JSON.stringify({
         shopbasket_id: cartItemInfo.id,
       }),
-    }).then((response) => console.log(response));
+    });
   };
 
   render() {

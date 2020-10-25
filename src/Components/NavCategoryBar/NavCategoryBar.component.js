@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import NavCategoryAllBarSub from "../NavCategoryAllBar/NavCategoryAllBarSub.component";
 
+import { CART } from "../../config";
+
 import "./NavCategoryBar.styles.scss";
 
 class NavCategoryBar extends Component {
@@ -31,10 +33,7 @@ class NavCategoryBar extends Component {
               <i className="fa fa-search"></i>
             </div>
             <Link to="/cartItems">
-              <img
-                src="https://res.kurly.com/pc/ico/1908/ico_cart_x2_v2.png"
-                alt="cart-icon"
-              />
+              <img src={CART} alt="cart-icon" />
               {!cartItems.length ? "" : <span>{cartItems.length}</span>}
             </Link>
           </div>

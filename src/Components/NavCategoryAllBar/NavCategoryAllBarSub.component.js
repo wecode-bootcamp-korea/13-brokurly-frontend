@@ -19,7 +19,6 @@ class NavCategoryAllBarSub extends Component {
       .then((res) => res.json())
       .then((data) => data["categories"])
       .then((specificDataList) => {
-        console.log(specificDataList);
         specificDataList.map((specificData) =>
           this.setState({
             categoryList: [
