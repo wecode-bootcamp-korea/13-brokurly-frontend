@@ -31,20 +31,23 @@ class SearchPwd extends Component {
         }),
       })
         .then((response) => response.json())
-        .then((result) => console.log("결과 =>", result));
-      // 결과 값이 어떻게 올지 몰라서 일단 오면 alert()를 사용해서 pwd를 보여줄 예정
+        .then((result) => {
+          if (result.message === "SUCCESS") {
+            alert("아직 작업중이에요");
+            //여기 뭔가 추가할까?
+          }
+        });
+    } else {
+      alert("빈칸을 채워주세요");
     }
   };
 
   render() {
-    console.log(`this.props.location => ${this.props.location}`);
-    console.log(`this.props.history => ${this.props.history}`);
-    console.log(`this.props.match => ${this.props.match}`);
     return (
       <div className="SearchPwd">
         <div className="search-pwd-container">
           <h3 className="search-pwd-title">비밀번호 찾기</h3>
-          <form className="search-pwd-form" onSubmit={this.handleSubmit}>
+          <form className="search-pwd-form">
             <strong>이름</strong>
             <input
               className="search-pwd-input user-name"
@@ -66,7 +69,9 @@ class SearchPwd extends Component {
               type="text"
               onChange={this.handleNameIdEmail}
             />
-            <button className="search-pwd-button">찾기</button>
+            <button className="search-pwd-button" onClick={this.handleSubmit}>
+              찾기
+            </button>
           </form>
         </div>
       </div>

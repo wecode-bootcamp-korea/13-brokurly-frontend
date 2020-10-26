@@ -21,7 +21,7 @@ class SearchId extends Component {
     if (
       Object.keys(this.state).every((element) => this.state[element] !== "")
     ) {
-      fetch("API", {
+      fetch("http://10.58.6.216:8000/user/findid", {
         method: "POST",
         body: JSON.stringify({
           user_name,
@@ -29,8 +29,15 @@ class SearchId extends Component {
         }),
       })
         .then((response) => response.json())
-        .then((result) => console.log("결과 =>", result));
-      // alert()를 사용해서 보여줄 예정
+        .then((result) => {
+          if (result.message === "SUCCESS") {
+            alert(`아이디 찾아가라 ${result.user_id}`);
+          } else {
+            alert(`정보를 다시 확인해주세요`);
+          }
+        });
+    } else {
+      alert(`빈칸을 남겨두지마세요!`);
     }
   };
 
@@ -39,7 +46,7 @@ class SearchId extends Component {
       <div className="SearchId">
         <div className="search-id-container">
           <h3 className="search-id-title">아이디 찾기</h3>
-          <form className="search-id-form" onSubmit={this.handleSubmit}>
+          <form className="search-id-form">
             <strong>이름</strong>
             <input
               className="search-id-input"
@@ -56,7 +63,9 @@ class SearchId extends Component {
               placeholder="가입 시 등록하신 이메일 주소를 입력해주세요"
               onChange={this.handleNameEmail}
             />
-            <button className="search-id-button">확인</button>
+            <button className="search-id-button" onClick={this.handleSubmit}>
+              확인
+            </button>
           </form>
         </div>
       </div>

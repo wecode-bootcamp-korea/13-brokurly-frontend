@@ -21,25 +21,27 @@ class Login extends Component {
   };
 
   handleLoginButton = (e) => {
-    e.preventDefalult();
+    e.preventDefault();
     const { user_id, password } = this.state;
     if (user_id !== "" && password !== "") {
-      fetch("API", {
+      console.log(`${user_id} // ${password}`);
+      fetch("http://10.58.6.216:8000/user/signin", {
         method: "POST",
         body: JSON.stringify({
           user_id,
           password,
         }),
       })
-        .then((response) => response.json)
+        .then((response) => response.json())
         .then((result) => {
-          if (result === "SUCCESS") {
-            localStorage.setItem("wtw-token", result.token);
+          if (result.message === "SUCCESS") {
+            alert("쓸거면 팍팍써라, 많이 먹는다고 안 죽는다.");
+            localStorage.setItem("authorization", result.authorization);
             this.goToMain();
           }
         });
     } else {
-      alert("값을 입력해주세요.");
+      alert("밥먹고 싶으면 제대로 써라!");
     }
   };
 
@@ -48,7 +50,7 @@ class Login extends Component {
       <div className="Login">
         <div className="login-container">
           <h3 className="login-title">로그인</h3>
-          <form className="login-form" onSubmit={this.handleLoginButton}>
+          <form className="login-form">
             <input
               className="login-input id"
               name="user_id"
@@ -59,7 +61,7 @@ class Login extends Component {
             <input
               className="login-input pwd"
               name="password"
-              type="text"
+              type="password"
               placeholder="비밀번호를 입력해주세요"
               onChange={this.handleIdPwd}
             />
@@ -80,8 +82,16 @@ class Login extends Component {
                 </Link>
               </div>
             </div>
-            <button className="login-button">로그인</button>
-            <Link className="move-signup">회원가입</Link>
+            <button
+              className="login-button"
+              onClick={this.handleLoginButton}
+              target="_self"
+            >
+              로그인
+            </button>
+            <Link to="/signup" className="move-signup">
+              회원가입
+            </Link>
           </form>
         </div>
       </div>
