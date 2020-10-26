@@ -31,7 +31,6 @@ class OverlapCheckText extends Component {
       userPwdCheck,
       recommendCheck,
     } = this.props.onData;
-    console.log(this.props.onData);
     return (
       <div className="OverlapCheckText">
         {this.props.onOffCount === "idCheck" && (

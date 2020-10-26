@@ -289,6 +289,7 @@ class Signup extends Component {
       is_email_agreed,
       six,
     } = this.state;
+    console.log(this.state);
     return (
       <div className="Signup">
         <div className="container">
