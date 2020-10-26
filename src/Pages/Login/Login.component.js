@@ -17,7 +17,8 @@ class Login extends Component {
   };
 
   handleIdPwd = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   };
 
   handleLoginButton = (e) => {
@@ -38,6 +39,8 @@ class Login extends Component {
             alert("쓸거면 팍팍써라, 많이 먹는다고 안 죽는다.");
             localStorage.setItem("authorization", result.authorization);
             this.goToMain();
+          } else {
+            alert("잘못된 아이디 혹은 비밀번호입니다.");
           }
         });
     } else {

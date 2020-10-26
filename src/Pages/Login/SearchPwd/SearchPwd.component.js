@@ -13,7 +13,8 @@ class SearchPwd extends Component {
   }
 
   handleNameIdEmail = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   };
 
   handleSubmit = (e) => {
