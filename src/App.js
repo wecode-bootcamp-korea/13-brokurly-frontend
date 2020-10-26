@@ -3,13 +3,15 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 import ProductList from "./Pages/ProductList/ProductList.component";
+import SignupComponent from "./Pages/Signup/Signup.component";
+
 import Nav from "./Components/Nav/Nav.component";
 import Main from "./Pages/Main/Main.component";
 import Footer from "./Components/Footer/Footer.component";
 import CartItems from "./Pages/CartItems/CartItems.component";
 
 // For Testing Some Functions Before Launching
-import Test from "./Pages/Test/Test.component";
+// import Test from "./Pages/Test/Test.component";
 
 import { getCartItems } from "./redux/cart/cart.actions";
 
@@ -60,7 +62,9 @@ class App extends Component {
             <Route exact path="/" component={Main} />
             <Route exact path="/cartItems" component={CartItems} />
             <Route exact path="/productlist" component={ProductList} />
-            <Route exact path="/test" component={Test} />
+            <Route exact path="/signup" component={SignupComponent} />
+
+            {/* <Route exact path="/test" component={Test} /> */}
           </Switch>
         </div>
         <Footer />
@@ -68,7 +72,6 @@ class App extends Component {
     );
   }
 }
-
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });

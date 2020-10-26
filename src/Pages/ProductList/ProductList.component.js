@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 
 import "./ProductList.styles.scss";
 import ProductCard from "./ProductCard/ProductCard.component";
@@ -83,13 +83,13 @@ class ProductList extends Component {
 
   render() {
     const {
-      isCategoryClick,
+      // isCategoryClick,
       isSortingClick,
       categories,
       products,
       sortings,
       activeSorting,
-      activeCategory,
+      // activeCategory,
     } = this.state;
 
     return (
