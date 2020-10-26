@@ -1,7 +1,6 @@
 .Signup {
   .container {
     width: 640px;
-    height: 1370px;
     margin: 0 auto;
     .header {
       border-bottom: 1px solid black;
@@ -9,7 +8,7 @@
         padding-top: 64px;
         font-weight: 900;
         font-size: 30px;
-        color: #333;
+        color: rgb(85, 76, 76);
         text-align: center;
         letter-spacing: -0.5px;
       }
@@ -43,8 +42,7 @@
       border-top: 1px solid black;
 
       .input-content {
-        position: relative;
-        top: 10px;
+        margin-top: 10px;
       }
 
       .special-check-agree {
