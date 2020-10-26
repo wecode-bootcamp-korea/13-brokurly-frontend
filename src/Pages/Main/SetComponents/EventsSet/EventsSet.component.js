@@ -19,8 +19,9 @@ class EventsSet extends Component {
 
   componentDidMount = () => {
     const { type } = this.props;
-    console.log(type);
-    fetch(`http://localhost:3000/data/main/Main${type}Data.json`)
+    const eventsAPI = fetch(
+      `http://localhost:3000/data/main/Main${type}Data.json`
+    )
       .then((res) => res.json())
       .then((res) => {
         this.setState({

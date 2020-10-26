@@ -11,8 +11,15 @@ class SideMenu extends Component {
       listYcoordinate: 0,
       isTopButtonVisible: false,
       isBottomButtonVisible: true,
+      scrollY: window.scrollY,
     };
   }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    const { scrollY } = this.state;
+    if (scrollY >= prevState.scrollY + 100) {
+    }
+  };
 
   slideList = (e) => {
     const { itemsCount, listYcoordinate } = this.state;
@@ -55,13 +62,14 @@ class SideMenu extends Component {
       listYcoordinate,
       isTopButtonVisible,
       isBottomButtonVisible,
+      scrollY,
     } = this.state;
     let itemsTranslation = {
       transform: `translate(0, ${listYcoordinate}px)`,
       transition: `transform 600ms`,
     };
     return (
-      <div className="SideMenu">
+      <div className={scrollY < 250 ? "SideMenu" : "SideMenu onScroll"}>
         <div className="delivery-info">
           <p>
             샛별 택배
@@ -90,6 +98,7 @@ class SideMenu extends Component {
             className={
               isTopButtonVisible ? "button-arrow top" : "button-arrow top hide"
             }
+            disabled={!isTopButtonVisible}
             onClick={this.slideList}
           >
             <img
@@ -104,6 +113,7 @@ class SideMenu extends Component {
                 ? "button-arrow bottom"
                 : "button-arrow bottom hide"
             }
+            disabled={isBottomButtonVisible}
             onClick={this.slideList}
           >
             <img

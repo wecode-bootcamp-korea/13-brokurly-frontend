@@ -1,140 +1,148 @@
+@import url(../../Pages/Main/Main.styles.scss);
+
 $recent-item-height: 80px;
 $container-count: 3;
 
-.SideMenu {
-  display: flex;
-  flex-direction: column;
-  // justify-content: center;
-  align-items: center;
-  width: 80px;
-  overflow: hidden;
-  position: absolute;
-  top: 35%;
-  right: 2%;
-  z-index: 2;
-
-  .delivery-info {
+.Main {
+  .SideMenu {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 120px;
+    width: 80px;
     overflow: hidden;
-    position: relative;
-    text-align: center;
+    position: fixed;
+    top: 55%;
+    right: 2%;
+    z-index: 2;
 
-    p {
-      font-size: 14px;
-      color: #fff;
-      position: absolute;
-      top: 12%;
-      line-height: 1.3em;
-    }
-
-    img {
-      height: 100%;
-    }
-  }
-
-  .Link {
-    color: #000;
-  }
-
-  .menus {
-    text-align: center;
-    width: 100%;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-
-    li {
-      padding: 8px 0;
-      font-size: 12px;
-      border-bottom: 1px solid #ddd;
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-  }
-
-  .recently-seen-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 310px;
-    position: relative;
-    border: 1px solid #ddd;
-
-    .button-arrow {
+    .delivery-info {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
+      width: 100%;
+      height: 120px;
       overflow: hidden;
-      position: absolute;
-      z-index: 3;
-      cursor: pointer;
+      position: relative;
+      text-align: center;
 
-      .button-arrow-img {
-        width: 120%;
-        height: 120%;
+      p {
+        font-size: 14px;
+        color: #fff;
+        position: absolute;
+        top: 12%;
+        line-height: 1.3em;
+      }
+
+      img {
+        height: 100%;
       }
     }
 
-    .button-arrow.top {
-      top: 1%;
-      transform: rotate(90deg);
+    .Link {
+      color: #000;
     }
 
-    .button-arrow.bottom {
-      bottom: 0.5%;
-      transform: rotate(-90deg);
+    .menus {
+      text-align: center;
+      width: 100%;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+
+      li {
+        padding: 8px 0;
+        font-size: 12px;
+        border-bottom: 1px solid #ddd;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
     }
 
-    .button-arrow.hide {
-      display: none;
-    }
-
-    p {
-      font-size: 12px;
-      font-weight: 700;
-      position: absolute;
-      top: 8%;
-    }
-
-    .recently-seen-container {
+    .recently-seen-div {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 80%;
-      height: $recent-item-height * $container-count;
-      overflow: hidden;
-      position: absolute;
-      top: 15%;
+      width: 100%;
+      height: 310px;
+      position: relative;
+      border: 1px solid #ddd;
 
-      ul {
+      .button-arrow {
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 100%;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        overflow: hidden;
+        position: absolute;
+        z-index: 3;
+        cursor: pointer;
 
-        li {
+        .button-arrow-img {
+          width: 120%;
+          height: 120%;
+        }
+      }
+
+      .button-arrow.top {
+        top: 1%;
+        transform: rotate(90deg);
+      }
+
+      .button-arrow.bottom {
+        bottom: 0.5%;
+        transform: rotate(-90deg);
+      }
+
+      .button-arrow.hide {
+        opacity: 0.2;
+      }
+
+      p {
+        font-size: 12px;
+        font-weight: 700;
+        position: absolute;
+        top: 8%;
+      }
+
+      .recently-seen-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        height: $recent-item-height * $container-count;
+        overflow: hidden;
+        position: absolute;
+        top: 15%;
+
+        ul {
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
           width: 100%;
-          height: 76px;
-          margin: 2px 0;
-          text-align: center;
-          background-color: #e3e3e3;
+
+          li {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 76px;
+            margin: 2px 0;
+            text-align: center;
+            background-color: #e3e3e3;
+          }
         }
       }
     }
+  }
+
+  .SideMenu.onScroll {
+    top: 35%;
   }
 }

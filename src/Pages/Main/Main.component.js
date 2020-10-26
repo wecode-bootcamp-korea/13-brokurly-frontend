@@ -9,6 +9,7 @@ class Main extends Component {
     super();
     this.state = {
       specialSections: [],
+      scrollY: 0,
     };
   }
 
@@ -23,10 +24,19 @@ class Main extends Component {
       .catch((error) => console.log(error.message));
   };
 
+  updateScrollY = () => {
+    const scrollYRealTime = window.scrollY;
+    if (scrollYRealTime > 250) {
+      this.setState({
+        scrollY: scrollYRealTime,
+      });
+    }
+  };
+
   render() {
     const { specialSections } = this.state;
     return (
-      <div className="Main">
+      <div className="Main" onScroll={this.updateScrollY}>
         <MainBanner />
         <SideMenu />
         {specialSections.map((section) => (
