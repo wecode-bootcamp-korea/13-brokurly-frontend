@@ -27,6 +27,10 @@ class SpecialProductsSet extends Component {
       .then((res) => res.json())
       .then((res) => {
         if (res.message === "SUCCESS") {
+          categoryId !== undefined
+            ? console.log(res.products.length)
+            : console.log(res.section_list[sectionId]["products"]);
+          // console.log(res.section_list[sectionId].length);
           this.setState({
             itemsList:
               categoryId !== undefined
@@ -35,7 +39,7 @@ class SpecialProductsSet extends Component {
             itemsCount:
               categoryId !== undefined
                 ? res.products.length
-                : res.section_list[sectionId].length,
+                : res.section_list[sectionId]["products"].length,
           });
         } else {
           console.log("error");
@@ -94,6 +98,8 @@ class SpecialProductsSet extends Component {
       isRightButtonVisible: isFinalRightClickConditionReached ? false : true,
       isLeftButtonVisible: isFinalLeftClickConditionReached ? false : true,
     });
+    console.log(this.props.sectionId);
+    console.log(this.state.itemsCount);
   };
 
   render() {
@@ -107,7 +113,6 @@ class SpecialProductsSet extends Component {
       transform: `translate(${listXcoordinate}px, 0)`,
       transition: `transform 600ms`,
     };
-    console.log(this.props.categoryId);
     return (
       <div className="SpecialProductsSet">
         <div

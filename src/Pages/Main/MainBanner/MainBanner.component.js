@@ -52,8 +52,6 @@ class MainBanner extends Component {
       leftClickedOnMainBanner,
     } = this.state;
     const xIncrement = bannerImgWidth * -1;
-    console.log(leftClickedOnMainBanner);
-    console.log(bannerImgsXcoordinate);
     this.setState({
       currentBannerId:
         leftClickedOnMainBanner && currentBannerId === bannerImages.length
@@ -106,9 +104,7 @@ class MainBanner extends Component {
       bannerImgWidth,
       bannerImgsXcoordinate,
       currentBannerId,
-      leftClickedOnMainBanner,
     } = this.state;
-    console.log(leftClickedOnMainBanner);
     const xIncrement = bannerImgWidth;
     this.setState({
       currentBannerId:
