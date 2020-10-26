@@ -10,8 +10,10 @@ class Main extends Component {
     this.state = {
       specialSections: [],
       scrollTop: 0,
+      lastScrollTop: 0,
+      position: -2,
     };
-    this.myRef = React.createRef();
+    this.main = React.createRef();
   }
 
   componentDidMount = () => {
@@ -23,28 +25,83 @@ class Main extends Component {
         });
       })
       .catch((error) => console.log(error.message));
-  };
-
-  updateScrollTop = () => {
-    const scrollYRealTime = window.scrollY;
-    const scrollTop = this.myRef.current.scrollTop;
-    console.log(scrollYRealTime);
+    const scrollTop = this.main.current.scrollTop;
     this.setState({
-      scrollTop: scrollTop,
+      scrollTop,
     });
   };
 
+  onScrollDown = () => {
+    this.setState(
+      {
+        position: -1,
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({ position: 0 });
+        }, 500);
+      }
+    );
+  };
+
+  onScrollUp = () => {
+    this.setState(
+      {
+        position: 1,
+      },
+      () => {
+        setTimeout(() => {
+          const scrollTop = this.main.current.scrollTop;
+          this.setState({ position: scrollTop === 0 ? -2 : 0 });
+          setTimeout(() => {
+            this.setState({ scrollTop });
+          }, 500);
+        }, 500);
+      }
+    );
+  };
+
+  toggleSideMenuPosition = () => {
+    const { lastScrollTop } = this.state;
+    const scrollTop = this.main.current.scrollTop;
+    this.setState({
+      scrollTop,
+    });
+    if (lastScrollTop === 0 && scrollTop >= 240) {
+      this.setState({
+        lastScrollTop: 240,
+        position: 0,
+      });
+    } else if (scrollTop < 240) {
+      this.setState({
+        lastScrollTop: 0,
+        position: -2,
+      });
+    } else if (
+      lastScrollTop > 0 &&
+      scrollTop >= 240 &&
+      scrollTop > this.state.scrollTop
+    ) {
+      this.onScrollDown();
+    } else if (
+      lastScrollTop > 0 &&
+      scrollTop >= 240 &&
+      scrollTop < this.state.scrollTop
+    ) {
+      this.onScrollUp();
+    }
+  };
+
   render() {
-    const { specialSections, scrollTop } = this.state;
+    const { specialSections, position } = this.state;
     return (
       <div
         className="Main"
-        ref={this.myRef}
-        onScroll={this.updateScrollTop}
-        scrollTop={scrollTop}
+        ref={this.main}
+        onScroll={this.toggleSideMenuPosition}
       >
         <MainBanner />
-        <SideMenu />
+        <SideMenu position={position} />
         {specialSections.map((section) => (
           <SectionRender section={section} key={section.id} />
         ))}

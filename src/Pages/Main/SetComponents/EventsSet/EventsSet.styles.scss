@@ -48,14 +48,26 @@
     padding: 0 5px;
 
     .image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 100%;
       height: 250px;
       overflow: hidden;
+
+      &:hover .img {
+        transform: scale(0.9);
+      }
     }
 
-    .img {
-      width: 100%;
-      height: 100%;
+    .img.full-width {
+      width: 108%;
+      transition: all 300ms ease-out;
+    }
+
+    .img.full-height {
+      height: 108%;
+      transition: all 300ms ease-out;
     }
 
     .info {
@@ -67,10 +79,6 @@
         padding: 10px 0;
         font-size: 20px;
         font-weight: 700;
-      }
-
-      .subtitle {
-        color: #a1a1a1;
       }
     }
   }

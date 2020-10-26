@@ -16,22 +16,23 @@ class SpecialProductsSet extends Component {
 
   componentDidMount = () => {
     const { sectionId, categoryId } = this.props;
-    const productAPI = !!categoryId
-      ? `http://10.58.4.20:8000/products/home/md_choice?category=${categoryId}`
-      : "http://10.58.4.20:8000/products/main/section";
-
-    console.log(categoryId);
+    const productAPI =
+      sectionId === 1000
+        ? `http://10.58.4.20:8000/products/home/md_choice?category=${categoryId}`
+        : "http://10.58.4.20:8000/products/main/section";
     fetch(productAPI)
       .then((res) => res.json())
       .then((res) => {
         if (res.message === "SUCCESS") {
           this.setState({
-            itemsList: !!categoryId
-              ? res.products
-              : res.section_list[sectionId]["products"],
-            itemsCount: !!categoryId
-              ? res.products.length
-              : res.section_list[sectionId]["products"].length,
+            itemsList:
+              sectionId === 1000
+                ? res.products
+                : res.section_list[sectionId]["products"],
+            itemsCount:
+              sectionId === 1000
+                ? res.products.length
+                : res.section_list[sectionId]["products"].length,
           });
         } else {
           console.log("error");
@@ -70,8 +71,8 @@ class SpecialProductsSet extends Component {
         : containerWidth * plusMinus;
     this.setState({
       listXcoordinate: listXcoordinate + xIncrement,
-      isRightButtonVisible: isFinalRightClickConditionReached ? false : true,
-      isLeftButtonVisible: isFinalLeftClickConditionReached ? false : true,
+      isRightButtonVisible: !isFinalRightClickConditionReached,
+      isLeftButtonVisible: !isFinalLeftClickConditionReached,
     });
   };
 
@@ -129,6 +130,7 @@ class SpecialProductsSet extends Component {
                       discountContent={item.discountContent}
                       discountPrice={item.discountPrice}
                       originalPrice={item.originalPrice}
+                      key={item.id}
                     />
                   );
                 })}

@@ -1,4 +1,6 @@
 .Main {
   position: relative;
-  overflow: scroll;
+  overflow: overlay;
+  width: 100vw;
+  height: 100vh;
 }

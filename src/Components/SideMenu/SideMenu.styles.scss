@@ -1,148 +1,162 @@
-@import url(../../Pages/Main/Main.styles.scss);
-
 $recent-item-height: 80px;
 $container-count: 3;
 
-.Main {
-  .SideMenu {
+.SideMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  overflow: hidden;
+  position: fixed;
+  top: 75%;
+  right: 2%;
+  z-index: 10;
+  transition: all 1000ms ease-in;
+
+  .delivery-info {
     display: flex;
     flex-direction: column;
-    // justify-content: center;
+    justify-content: center;
     align-items: center;
-    width: 80px;
+    width: 100%;
+    height: 120px;
     overflow: hidden;
-    position: fixed;
-    top: 55%;
-    right: 2%;
-    z-index: 2;
+    position: relative;
+    text-align: center;
 
-    .delivery-info {
+    p {
+      font-size: 14px;
+      color: #fff;
+      position: absolute;
+      top: 12%;
+      line-height: 1.3em;
+    }
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .Link {
+    color: #000;
+  }
+
+  .menus {
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    background-color: #fff;
+
+    li {
+      padding: 8px 0;
+      font-size: 12px;
+      border-bottom: 1px solid #ddd;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .recently-seen-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 310px;
+    position: relative;
+    border: 1px solid #ddd;
+    background-color: #fff;
+
+    .button-arrow {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 100%;
-      height: 120px;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
       overflow: hidden;
-      position: relative;
-      text-align: center;
+      position: absolute;
+      border: none;
+      outline: none;
+      background-color: #fff;
+      z-index: 3;
+      cursor: pointer;
 
-      p {
-        font-size: 14px;
-        color: #fff;
-        position: absolute;
-        top: 12%;
-        line-height: 1.3em;
-      }
-
-      img {
+      .button-arrow-img {
+        width: 100%;
         height: 100%;
       }
     }
 
-    .Link {
-      color: #000;
+    .button-arrow.top {
+      top: 1%;
+      transform: rotate(90deg);
     }
 
-    .menus {
-      text-align: center;
-      width: 100%;
-      margin: 10px 0;
-      border: 1px solid #ddd;
-
-      li {
-        padding: 8px 0;
-        font-size: 12px;
-        border-bottom: 1px solid #ddd;
-
-        &:last-child {
-          border-bottom: none;
-        }
-      }
+    .button-arrow.bottom {
+      bottom: 0.5%;
+      transform: rotate(-90deg);
     }
 
-    .recently-seen-div {
+    .button-arrow.hide {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    p {
+      font-size: 12px;
+      font-weight: 700;
+      position: absolute;
+      top: 8%;
+    }
+
+    .recently-seen-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 100%;
-      height: 310px;
-      position: relative;
-      border: 1px solid #ddd;
+      width: 80%;
+      height: $recent-item-height * $container-count;
+      overflow: hidden;
+      position: absolute;
+      top: 15%;
 
-      .button-arrow {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        width: 18px;
-        height: 18px;
-        overflow: hidden;
-        position: absolute;
-        z-index: 3;
-        cursor: pointer;
-
-        .button-arrow-img {
-          width: 120%;
-          height: 120%;
-        }
-      }
-
-      .button-arrow.top {
-        top: 1%;
-        transform: rotate(90deg);
-      }
-
-      .button-arrow.bottom {
-        bottom: 0.5%;
-        transform: rotate(-90deg);
-      }
-
-      .button-arrow.hide {
-        opacity: 0.2;
-      }
-
-      p {
-        font-size: 12px;
-        font-weight: 700;
-        position: absolute;
-        top: 8%;
-      }
-
-      .recently-seen-container {
+      ul {
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
-        width: 80%;
-        height: $recent-item-height * $container-count;
-        overflow: hidden;
-        position: absolute;
-        top: 15%;
+        width: 100%;
 
-        ul {
+        li {
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
           width: 100%;
-
-          li {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 76px;
-            margin: 2px 0;
-            text-align: center;
-            background-color: #e3e3e3;
-          }
+          height: 76px;
+          margin: 2px 0;
+          text-align: center;
+          background-color: #e3e3e3;
         }
       }
     }
   }
+}
 
-  .SideMenu.onScroll {
-    top: 45%;
-  }
+.SideMenu.default {
+  top: 15%;
+  transition: all 600ms ease-in;
+}
+
+.SideMenu.on-scroll-down {
+  top: 30%;
+  transition: all 200ms;
+}
+
+.SideMenu.on-scroll-up {
+  top: 3%;
+  transition: all 200ms;
 }

@@ -16,15 +16,11 @@ class MDRecommend extends Component {
     fetch("http://localhost:3000/data/main/MainCategoriesData.json")
       .then((res) => res.json())
       .then((res) => {
-        // const randomInitialIdx = Math.floor(
-        //   Math.random() * res.categories.length);
+        const randomInitialIdx = Math.floor(Math.random() * 4);
         this.setState({
           categoriesList: res.categories,
-          selectedCategoryName: res.categories[1].name,
-          selectedCategoryId: res.categories[1].id,
-          // categoriesList: res.categories,
-          // selectedCategoryName: res.categories[randomInitialIdx].name,
-          // selectedCategoryId: res.categories[randomInitialIdx].id,
+          selectedCategoryName: res.categories[randomInitialIdx].name,
+          selectedCategoryId: res.categories[randomInitialIdx].id,
         });
       })
       .catch((error) => console.log(error.message));

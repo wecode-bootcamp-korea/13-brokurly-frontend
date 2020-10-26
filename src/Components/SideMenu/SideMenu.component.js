@@ -14,12 +14,6 @@ class SideMenu extends Component {
     };
   }
 
-  componentDidUpdate = (prevProps) => {
-    const { scrollY } = this.props;
-    if (scrollY >= prevProps.scrollY + 100) {
-    }
-  };
-
   slideList = (e) => {
     const { itemsCount, listYcoordinate } = this.state;
     const isClickTop = e.target.className.includes("top");
@@ -62,13 +56,19 @@ class SideMenu extends Component {
       isTopButtonVisible,
       isBottomButtonVisible,
     } = this.state;
-    const { scrollTop } = this.props;
+    const { position } = this.props;
     let itemsTranslation = {
       transform: `translate(0, ${listYcoordinate}px)`,
       transition: `transform 600ms`,
     };
+    const positionToClassName = {
+      "-2": "SideMenu",
+      "-1": "SideMenu on-scroll-down",
+      0: "SideMenu default",
+      1: "SideMenu on-scroll-up",
+    };
     return (
-      <div className={scrollTop < 250 ? "SideMenu" : "SideMenu onScroll"}>
+      <div className={positionToClassName[position]}>
         <div className="delivery-info">
           <p>
             샛별 택배
@@ -93,7 +93,7 @@ class SideMenu extends Component {
           </li>
         </ul>
         <div className="recently-seen-div">
-          <div
+          <button
             className={
               isTopButtonVisible ? "button-arrow top" : "button-arrow top hide"
             }
@@ -105,14 +105,14 @@ class SideMenu extends Component {
               src="./Images/SideMenu/button_arrow.png"
               alt="recent list top button"
             />
-          </div>
-          <div
+          </button>
+          <button
             className={
               isBottomButtonVisible
                 ? "button-arrow bottom"
                 : "button-arrow bottom hide"
             }
-            disabled={isBottomButtonVisible}
+            disabled={!isBottomButtonVisible}
             onClick={this.slideList}
           >
             <img
@@ -120,12 +120,12 @@ class SideMenu extends Component {
               src="./Images/SideMenu/button_arrow.png"
               alt="recent list bottom button"
             />
-          </div>
+          </button>
           <p>최근 본 상품</p>
           <div className="recently-seen-container">
             <ul style={itemsTranslation}>
               {itemsList.map((item) => (
-                <li>{item}</li>
+                <li key={item}>{item}</li>
               ))}
             </ul>
           </div>

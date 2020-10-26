@@ -145,7 +145,7 @@ class MainBanner extends Component {
         <ul className="banner-img-container" style={bannerTranslateStyle}>
           {bannerImages.map((image) => {
             return (
-              <Link className="Link" to="">
+              <Link className="Link" to="" key={image.id}>
                 <li className="banner-img-item" key={image.id}>
                   <img className="banner-img" src={image.src} alt={image.alt} />
                 </li>

@@ -4,7 +4,12 @@ import "./Footer.styles.scss";
 
 class Footer extends Component {
   render() {
-    return <div></div>;
+    return (
+      <footer className="Footer">
+        <div className="LeftSide"></div>
+        <div className="RightSide"></div>
+      </footer>
+    );
   }
 }
 
