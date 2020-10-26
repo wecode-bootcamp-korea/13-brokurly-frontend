@@ -11,13 +11,12 @@ class SideMenu extends Component {
       listYcoordinate: 0,
       isTopButtonVisible: false,
       isBottomButtonVisible: true,
-      scrollY: window.scrollY,
     };
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    const { scrollY } = this.state;
-    if (scrollY >= prevState.scrollY + 100) {
+  componentDidUpdate = (prevProps) => {
+    const { scrollY } = this.props;
+    if (scrollY >= prevProps.scrollY + 100) {
     }
   };
 
@@ -51,8 +50,8 @@ class SideMenu extends Component {
         : containerWidth * plusMinus;
     this.setState({
       listYcoordinate: listYcoordinate + yIncrement,
-      isBottomButtonVisible: isFinalBottomClickConditionReached ? false : true,
-      isTopButtonVisible: isFinalTopClickConditionReached ? false : true,
+      isBottomButtonVisible: !isFinalBottomClickConditionReached,
+      isTopButtonVisible: !isFinalTopClickConditionReached,
     });
   };
 
@@ -62,14 +61,14 @@ class SideMenu extends Component {
       listYcoordinate,
       isTopButtonVisible,
       isBottomButtonVisible,
-      scrollY,
     } = this.state;
+    const { scrollTop } = this.props;
     let itemsTranslation = {
       transform: `translate(0, ${listYcoordinate}px)`,
       transition: `transform 600ms`,
     };
     return (
-      <div className={scrollY < 250 ? "SideMenu" : "SideMenu onScroll"}>
+      <div className={scrollTop < 250 ? "SideMenu" : "SideMenu onScroll"}>
         <div className="delivery-info">
           <p>
             샛별 택배

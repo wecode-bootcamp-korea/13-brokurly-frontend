@@ -40,7 +40,6 @@ class EventsSet extends Component {
     const { eventsList } = this.state;
     const { type } = this.props;
     const eventsToShow = eventsList.slice(0, 3);
-    console.log(eventsToShow);
     return (
       <ul className="EventsSet">
         {eventsToShow.map((item) => (

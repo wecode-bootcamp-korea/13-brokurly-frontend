@@ -9,8 +9,9 @@ class Main extends Component {
     super();
     this.state = {
       specialSections: [],
-      scrollY: 0,
+      scrollTop: 0,
     };
+    this.myRef = React.createRef();
   }
 
   componentDidMount = () => {
@@ -24,23 +25,28 @@ class Main extends Component {
       .catch((error) => console.log(error.message));
   };
 
-  updateScrollY = () => {
+  updateScrollTop = () => {
     const scrollYRealTime = window.scrollY;
-    if (scrollYRealTime > 250) {
-      this.setState({
-        scrollY: scrollYRealTime,
-      });
-    }
+    const scrollTop = this.myRef.current.scrollTop;
+    console.log(scrollYRealTime);
+    this.setState({
+      scrollTop: scrollTop,
+    });
   };
 
   render() {
-    const { specialSections } = this.state;
+    const { specialSections, scrollTop } = this.state;
     return (
-      <div className="Main" onScroll={this.updateScrollY}>
+      <div
+        className="Main"
+        ref={this.myRef}
+        onScroll={this.updateScrollTop}
+        scrollTop={scrollTop}
+      >
         <MainBanner />
         <SideMenu />
         {specialSections.map((section) => (
-          <SectionRender section={section} />
+          <SectionRender section={section} key={section.id} />
         ))}
       </div>
     );

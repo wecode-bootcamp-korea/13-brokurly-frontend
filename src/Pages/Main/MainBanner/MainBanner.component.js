@@ -52,27 +52,23 @@ class MainBanner extends Component {
       leftClickedOnMainBanner,
     } = this.state;
     const xIncrement = bannerImgWidth * -1;
+    const isLastImgAfterLeftClick =
+      leftClickedOnMainBanner && currentBannerId === bannerImages.length;
+    const isLastImgNaturally =
+      !leftClickedOnMainBanner && currentBannerId === bannerImages.length;
     this.setState({
-      currentBannerId:
-        leftClickedOnMainBanner && currentBannerId === bannerImages.length
-          ? currentBannerId - 1
-          : !leftClickedOnMainBanner && currentBannerId === bannerImages.length
-          ? 1
-          : currentBannerId + 1,
-      bannerImgsXcoordinate:
-        leftClickedOnMainBanner && currentBannerId === bannerImages.length
-          ? bannerImgsXcoordinate - xIncrement
-          : !leftClickedOnMainBanner && currentBannerId === bannerImages.length
-          ? 0
-          : bannerImgsXcoordinate + xIncrement,
-      bannerImgsTransitionDelay:
-        !leftClickedOnMainBanner && currentBannerId === bannerImages.length
-          ? 0
-          : 800,
-      slideIntervalDelay:
-        !leftClickedOnMainBanner && currentBannerId === bannerImages.length
-          ? 0
-          : 4000,
+      currentBannerId: isLastImgAfterLeftClick
+        ? currentBannerId - 1
+        : isLastImgNaturally
+        ? 1
+        : currentBannerId + 1,
+      bannerImgsXcoordinate: isLastImgAfterLeftClick
+        ? bannerImgsXcoordinate - xIncrement
+        : isLastImgNaturally
+        ? 0
+        : bannerImgsXcoordinate + xIncrement,
+      bannerImgsTransitionDelay: isLastImgNaturally ? 0 : 800,
+      slideIntervalDelay: isLastImgNaturally ? 0 : 4000,
       leftClickedOnMainBanner: false,
     });
   };
@@ -85,16 +81,12 @@ class MainBanner extends Component {
       currentBannerId,
     } = this.state;
     const xIncrement = bannerImgWidth * -1;
+    const isLastImg = currentBannerId === bannerImages.length;
     this.setState({
-      currentBannerId:
-        currentBannerId === bannerImages.length ? 1 : currentBannerId + 1,
-      bannerImgsXcoordinate:
-        currentBannerId === bannerImages.length
-          ? 0
-          : bannerImgsXcoordinate + xIncrement,
-      bannerImgsTransitionDelay:
-        currentBannerId === bannerImages.length ? 0 : 800,
-      slideIntervalDelay: currentBannerId === bannerImages.length ? 0 : 4000,
+      currentBannerId: isLastImg ? 1 : currentBannerId + 1,
+      bannerImgsXcoordinate: isLastImg ? 0 : bannerImgsXcoordinate + xIncrement,
+      bannerImgsTransitionDelay: isLastImg ? 0 : 800,
+      slideIntervalDelay: isLastImg ? 0 : 4000,
     });
   };
 
@@ -106,16 +98,15 @@ class MainBanner extends Component {
       currentBannerId,
     } = this.state;
     const xIncrement = bannerImgWidth;
+    const isFirstImg = currentBannerId === 1;
     this.setState({
-      currentBannerId:
-        currentBannerId === 1 ? bannerImages.length : currentBannerId - 1,
-      bannerImgsXcoordinate:
-        currentBannerId === 1
-          ? xIncrement * -1 * (bannerImages.length - 1)
-          : bannerImgsXcoordinate + xIncrement,
-      bannerImgsTransitionDelay: currentBannerId === 1 ? 0 : 800,
-      leftClickedOnMainBanner: currentBannerId === 1 ? true : false,
-      slideIntervalDelay: currentBannerId === 1 ? 0 : 4000,
+      currentBannerId: isFirstImg ? bannerImages.length : currentBannerId - 1,
+      bannerImgsXcoordinate: isFirstImg
+        ? xIncrement * -1 * (bannerImages.length - 1)
+        : bannerImgsXcoordinate + xIncrement,
+      bannerImgsTransitionDelay: isFirstImg ? 0 : 800,
+      leftClickedOnMainBanner: isFirstImg ? true : false,
+      slideIntervalDelay: isFirstImg ? 0 : 4000,
     });
   };
 

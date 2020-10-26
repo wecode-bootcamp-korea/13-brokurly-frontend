@@ -16,21 +16,14 @@ class SpecialProductsSet extends Component {
 
   componentDidMount = () => {
     const { sectionId, categoryId } = this.props;
-    console.log(sectionId);
-    console.log(categoryId);
     const productAPI =
       categoryId !== undefined
         ? `http://10.58.4.20:8000/home/md_choice?category=${categoryId}`
         : "http://10.58.4.20:8000/main/section";
-    console.log(productAPI);
     fetch(productAPI)
       .then((res) => res.json())
       .then((res) => {
         if (res.message === "SUCCESS") {
-          categoryId !== undefined
-            ? console.log(res.products.length)
-            : console.log(res.section_list[sectionId]["products"]);
-          // console.log(res.section_list[sectionId].length);
           this.setState({
             itemsList:
               categoryId !== undefined
@@ -98,8 +91,6 @@ class SpecialProductsSet extends Component {
       isRightButtonVisible: isFinalRightClickConditionReached ? false : true,
       isLeftButtonVisible: isFinalLeftClickConditionReached ? false : true,
     });
-    console.log(this.props.sectionId);
-    console.log(this.state.itemsCount);
   };
 
   render() {
