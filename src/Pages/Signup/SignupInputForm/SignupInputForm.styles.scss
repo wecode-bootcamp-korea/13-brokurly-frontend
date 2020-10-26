@@ -1,0 +1,174 @@
+.SignupInputForm {
+  margin-top: 19px;
+
+  .input-content {
+    display: inline-block;
+    width: 159px;
+    padding-left: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #333;
+    line-height: 20px;
+    vertical-align: center;
+    text-align: left;
+
+    .ico {
+      padding-right: 2px;
+      text-align: left;
+      color: #ee6a7b;
+    }
+  }
+
+  .input {
+    width: 332px;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #333;
+    line-height: 20px;
+    border-radius: 3px;
+    background: #fff;
+    outline-color: gray;
+  }
+
+  .input-off {
+    display: none;
+  }
+
+  .special-birth {
+    display: flex;
+    width: 332px;
+    padding-left: 18px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+
+    .birthday {
+      width: 84px;
+      height: 40px;
+      border: 0;
+      text-align: center;
+      outline: none;
+    }
+
+    .bar {
+      font-size: 14px;
+      padding: 0 9px;
+      color: #ccc;
+      line-height: 42px;
+      text-align: center;
+    }
+  }
+
+  .special-gender {
+    border: none;
+    padding: 0;
+    line-height: 44px;
+
+    .gender-check-lists {
+      display: flex;
+      justify-content: space-between;
+
+      .gender-check-list {
+        display: flex;
+        position: relative;
+        font-size: 14px;
+        user-select: none;
+
+        input {
+          position: absolute;
+          margin-right: 12px;
+          opacity: 0;
+          cursor: pointer;
+          &:checked ~ .checkmark {
+            background-color: var(--primary-color);
+          }
+          &:checked ~ .checkmark::after {
+            display: block;
+          }
+        }
+
+        .checkmark {
+          position: relative;
+          top: 10px;
+          height: 25px;
+          width: 25px;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          border-radius: 50%;
+          &::after {
+            content: "";
+            position: relative;
+            display: none;
+            top: 6px;
+            left: 6px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: white;
+          }
+        }
+
+        .checkmark-content {
+          padding-left: 8px;
+        }
+      }
+    }
+  }
+
+  .special-recommender {
+    border: none;
+    padding: 0;
+    line-height: 44px;
+
+    .recommender-check-lists {
+      display: flex;
+      justify-content: space-around;
+
+      .recommender-check-list {
+        display: flex;
+        position: relative;
+        font-size: 14px;
+        user-select: none;
+
+        input {
+          position: absolute;
+          margin-right: 12px;
+          opacity: 0;
+          cursor: pointer;
+          &:checked ~ .checkmark {
+            background-color: var(--primary-color);
+          }
+          &:checked ~ .checkmark::after {
+            display: block;
+          }
+        }
+
+        .checkmark {
+          position: relative;
+          top: 10px;
+          height: 25px;
+          width: 25px;
+          background-color: #fff;
+          border: 1px solid #ccc;
+          border-radius: 50%;
+          &::after {
+            content: "";
+            position: relative;
+            display: none;
+            top: 6px;
+            left: 6px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: white;
+          }
+        }
+
+        .checkmark-content {
+          padding: 0 8px;
+        }
+      }
+    }
+  }
+}
