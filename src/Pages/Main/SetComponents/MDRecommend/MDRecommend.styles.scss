@@ -21,21 +21,22 @@
       cursor: pointer;
 
       &:hover {
-        background-color: #f7f3f8;
+        background-color: #f1f9ea;
       }
 
       &:hover p.category {
-        color: #5e027d;
+        color: var(--primary-color);
       }
 
       p.category {
         font-size: 15px;
         color: #000;
+        transition: 300ms;
       }
     }
 
     .categories-item.selected {
-      background-color: #5e027d;
+      background-color: var(--primary-color);
 
       p.category {
         color: #fff;
