@@ -15,15 +15,27 @@ class SpecialProductsSet extends Component {
   }
 
   componentDidMount = () => {
-    const { categoryId } = this.props;
-    const productAPI = `http://10.58.4.20:8000/home/md_choice?category=${categoryId}`;
+    const { sectionId, categoryId } = this.props;
+    console.log(sectionId);
+    console.log(categoryId);
+    const productAPI =
+      categoryId !== undefined
+        ? `http://10.58.4.20:8000/home/md_choice?category=${categoryId}`
+        : "http://10.58.4.20:8000/main/section";
+    console.log(productAPI);
     fetch(productAPI)
       .then((res) => res.json())
       .then((res) => {
         if (res.message === "SUCCESS") {
           this.setState({
-            itemsList: res.products,
-            itemsCount: res.products.length,
+            itemsList:
+              categoryId !== undefined
+                ? res.products
+                : res.section_list[sectionId]["products"],
+            itemsCount:
+              categoryId !== undefined
+                ? res.products.length
+                : res.section_list[sectionId].length,
           });
         } else {
           console.log("error");
@@ -95,6 +107,7 @@ class SpecialProductsSet extends Component {
       transform: `translate(${listXcoordinate}px, 0)`,
       transition: `transform 600ms`,
     };
+    console.log(this.props.categoryId);
     return (
       <div className="SpecialProductsSet">
         <div

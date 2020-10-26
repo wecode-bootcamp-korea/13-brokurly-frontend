@@ -1,7 +1,7 @@
 {
   "specialProductsSections": [
     {
-      "id": 1,
+      "id": 0,
       "title": "이 상품 어때요?",
       "subtitle": "",
       "componentType": "products",
@@ -10,7 +10,7 @@
       "description": "hottest-now"
     },
     {
-      "id": 2,
+      "id": 100,
       "title": "이벤트 소식",
       "subtitle": "",
       "componentType": "events",
@@ -19,7 +19,7 @@
       "description": "event news"
     },
     {
-      "id": 3,
+      "id": 1,
       "title": "알뜰 상품",
       "subtitle": "",
       "componentType": "products",
@@ -28,7 +28,7 @@
       "description": "thrifty-products"
     },
     {
-      "id": 4,
+      "id": 1000,
       "title": "MD의 추천",
       "subtitle": "",
       "componentType": "md",
@@ -37,7 +37,7 @@
       "description": ""
     },
     {
-      "id": 5,
+      "id": 2,
       "title": "오늘의 신상품",
       "subtitle": "매일 정오, 컬리의 새로운 상품을 만나보세요",
       "componentType": "products",
@@ -46,7 +46,7 @@
       "description": "fresh-in-today"
     },
     {
-      "id": 6,
+      "id": 3,
       "title": "지금 가장 핫한 상품",
       "subtitle": "",
       "componentType": "products",
@@ -55,7 +55,7 @@
       "description": "hottest-now"
     },
     {
-      "id": 7,
+      "id": 4,
       "title": "브로가 만든 상품",
       "subtitle": "",
       "componentType": "products",
@@ -64,7 +64,7 @@
       "description": "bros-made"
     },
     {
-      "id": 8,
+      "id": 101,
       "title": "브로의 레시피",
       "subtitle": "",
       "componentType": "recipe",

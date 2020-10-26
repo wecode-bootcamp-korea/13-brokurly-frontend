@@ -29,6 +29,11 @@
       "id": 6,
       "src": "./Images/Main/Banner/banner-img-6.png",
       "alt": "banner 5"
+    },
+    {
+      "id": 7,
+      "src": "./Images/Main/Banner/banner-img-1.png",
+      "alt": "banner main"
     }
   ]
 }

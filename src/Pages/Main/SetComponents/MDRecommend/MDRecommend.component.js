@@ -43,6 +43,7 @@ class MDRecommend extends Component {
       selectedCategoryName,
       selectedCategoryId,
     } = this.state;
+    const { sectionId } = this.props;
     return (
       <div className="MDRecommend">
         <ul className="categories">
@@ -64,6 +65,7 @@ class MDRecommend extends Component {
           })}
         </ul>
         <SpecialProductsSet
+          sectionId={sectionId}
           categoryId={selectedCategoryId}
           key={selectedCategoryId}
         />

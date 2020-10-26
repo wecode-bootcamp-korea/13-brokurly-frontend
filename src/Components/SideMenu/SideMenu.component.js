@@ -6,7 +6,8 @@ class SideMenu extends Component {
   constructor() {
     super();
     this.state = {
-      itemsList: [1, 2, 3],
+      itemsList: [1, 2, 3, 4, 5, 6, 7],
+      itemsCount: 7,
       listYcoordinate: 0,
       isTopButtonVisible: false,
       isBottomButtonVisible: true,
@@ -17,8 +18,8 @@ class SideMenu extends Component {
     const { itemsCount, listYcoordinate } = this.state;
     const isClickTop = e.target.className.includes("top");
     const plusMinus = !isClickTop ? -1 : 1;
-    const itemWidth = 260;
-    const containerCountLimit = 4;
+    const itemWidth = 80;
+    const containerCountLimit = 1;
     const containerWidth = itemWidth * containerCountLimit;
     const divisionCount = itemsCount / containerCountLimit;
     const itemsCountModulo = itemsCount % containerCountLimit;
@@ -43,8 +44,8 @@ class SideMenu extends Component {
         : containerWidth * plusMinus;
     this.setState({
       listYcoordinate: listYcoordinate + yIncrement,
-      isTopButtonVisible: isFinalBottomClickConditionReached ? false : true,
-      isBottomButtonVisible: isFinalTopClickConditionReached ? false : true,
+      isBottomButtonVisible: isFinalBottomClickConditionReached ? false : true,
+      isTopButtonVisible: isFinalTopClickConditionReached ? false : true,
     });
   };
 
@@ -93,7 +94,7 @@ class SideMenu extends Component {
           >
             <img
               className="button-arrow-img top"
-              src="./Images/Main/SpecialProductsSet/button_left_arrow.png"
+              src="./Images/SideMenu/button_arrow.png"
               alt="recent list top button"
             />
           </div>
@@ -107,16 +108,16 @@ class SideMenu extends Component {
           >
             <img
               className="button-arrow-img bottom"
-              src="./Images/Main/SpecialProductsSet/button_right_arrow.png"
+              src="./Images/SideMenu/button_arrow.png"
               alt="recent list bottom button"
             />
           </div>
           <p>최근 본 상품</p>
           <div className="recently-seen-container">
-            <ul>
-              <li>recent</li>
-              <li>recent</li>
-              <li>recent</li>
+            <ul style={itemsTranslation}>
+              {itemsList.map((item) => (
+                <li>{item}</li>
+              ))}
             </ul>
           </div>
         </div>

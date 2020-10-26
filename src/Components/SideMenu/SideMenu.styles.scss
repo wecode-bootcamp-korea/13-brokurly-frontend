@@ -1,13 +1,17 @@
+$recent-item-height: 80px;
+$container-count: 3;
+
 .SideMenu {
   display: flex;
   flex-direction: column;
   // justify-content: center;
   align-items: center;
-  width: 100px;
+  width: 80px;
   overflow: hidden;
   position: absolute;
   top: 35%;
   right: 2%;
+  z-index: 2;
 
   .delivery-info {
     display: flex;
@@ -15,13 +19,13 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 150px;
+    height: 120px;
     overflow: hidden;
     position: relative;
     text-align: center;
 
     p {
-      font-size: 16px;
+      font-size: 14px;
       color: #fff;
       position: absolute;
       top: 12%;
@@ -45,6 +49,7 @@
 
     li {
       padding: 8px 0;
+      font-size: 12px;
       border-bottom: 1px solid #ddd;
 
       &:last-child {
@@ -58,7 +63,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 330px;
+    height: 310px;
     position: relative;
     border: 1px solid #ddd;
 
@@ -72,11 +77,11 @@
       overflow: hidden;
       position: absolute;
       z-index: 3;
-      background-color: #000;
+      cursor: pointer;
 
       .button-arrow-img {
-        width: 240%;
-        height: 240%;
+        width: 120%;
+        height: 120%;
       }
     }
 
@@ -87,15 +92,15 @@
 
     .button-arrow.bottom {
       bottom: 0.5%;
-      transform: rotate(90deg);
+      transform: rotate(-90deg);
     }
 
     .button-arrow.hide {
-      opacity: 0.1;
+      display: none;
     }
 
     p {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 700;
       position: absolute;
       top: 8%;
@@ -106,10 +111,10 @@
       flex-direction: column;
       align-items: center;
       width: 80%;
-      height: 260px;
+      height: $recent-item-height * $container-count;
       overflow: hidden;
       position: absolute;
-      bottom: 6%;
+      top: 15%;
 
       ul {
         display: flex;
@@ -124,7 +129,7 @@
           justify-content: center;
           align-items: center;
           width: 100%;
-          height: 99px;
+          height: 76px;
           margin: 2px 0;
           text-align: center;
           background-color: #e3e3e3;

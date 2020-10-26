@@ -10,12 +10,16 @@ class MainBanner extends Component {
       bannerImages: [],
       bannerImgWidth: window.innerWidth,
       bannerImgCount: 0,
-      bannerImgsXcoordinate: 0,
       currentBannerId: 1,
+      bannerImgsXcoordinate: 0,
+      bannerImgsTransitionDelay: 800,
+      leftClickedOnMainBanner: false,
+      slideIntervalDelay: 4000,
     };
   }
 
   componentDidMount = () => {
+    const { slideIntervalDelay } = this.state;
     fetch("http://localhost:3000/data/main/MainBannerImagesData.json")
       .then((res) => res.json())
       .then((res) => {
@@ -24,28 +28,55 @@ class MainBanner extends Component {
           bannerImgCount: res.bannerImages.length,
         });
       });
+    this.timerId = setInterval(this.bannerSlideAuto, slideIntervalDelay);
+  };
 
-    const bannerSlideAuto = () => {
-      const {
-        bannerImages,
-        bannerImgWidth,
-        bannerImgsXcoordinate,
-        currentBannerId,
-      } = this.state;
-      const xIncrement = bannerImgWidth * -1;
-      this.setState(
-        currentBannerId === bannerImages.length
-          ? {
-              currentBannerId: 1,
-              bannerImgsXcoordinate: 0,
-            }
-          : {
-              currentBannerId: currentBannerId + 1,
-              bannerImgsXcoordinate: bannerImgsXcoordinate + xIncrement,
-            }
-      );
-    };
-    setInterval(bannerSlideAuto, 4000);
+  componentDidUpdate = (prevProps, prevState) => {
+    const { currentBannerId, slideIntervalDelay } = this.state;
+    if (currentBannerId !== prevState.currentBannerId) {
+      clearInterval(this.timerId);
+      this.timerId = setInterval(this.bannerSlideAuto, slideIntervalDelay);
+    }
+  };
+
+  componentWillUnmount = () => {
+    clearInterval(this.timerId);
+  };
+
+  bannerSlideAuto = () => {
+    const {
+      bannerImages,
+      bannerImgWidth,
+      bannerImgsXcoordinate,
+      currentBannerId,
+      leftClickedOnMainBanner,
+    } = this.state;
+    const xIncrement = bannerImgWidth * -1;
+    console.log(leftClickedOnMainBanner);
+    console.log(bannerImgsXcoordinate);
+    this.setState({
+      currentBannerId:
+        leftClickedOnMainBanner && currentBannerId === bannerImages.length
+          ? currentBannerId - 1
+          : !leftClickedOnMainBanner && currentBannerId === bannerImages.length
+          ? 1
+          : currentBannerId + 1,
+      bannerImgsXcoordinate:
+        leftClickedOnMainBanner && currentBannerId === bannerImages.length
+          ? bannerImgsXcoordinate - xIncrement
+          : !leftClickedOnMainBanner && currentBannerId === bannerImages.length
+          ? 0
+          : bannerImgsXcoordinate + xIncrement,
+      bannerImgsTransitionDelay:
+        !leftClickedOnMainBanner && currentBannerId === bannerImages.length
+          ? 0
+          : 800,
+      slideIntervalDelay:
+        !leftClickedOnMainBanner && currentBannerId === bannerImages.length
+          ? 0
+          : 4000,
+      leftClickedOnMainBanner: false,
+    });
   };
 
   bannerSlideLeft = () => {
@@ -56,17 +87,17 @@ class MainBanner extends Component {
       currentBannerId,
     } = this.state;
     const xIncrement = bannerImgWidth * -1;
-    this.setState(
-      currentBannerId === bannerImages.length
-        ? {
-            currentBannerId: 1,
-            bannerImgsXcoordinate: 0,
-          }
-        : {
-            currentBannerId: currentBannerId + 1,
-            bannerImgsXcoordinate: bannerImgsXcoordinate + xIncrement,
-          }
-    );
+    this.setState({
+      currentBannerId:
+        currentBannerId === bannerImages.length ? 1 : currentBannerId + 1,
+      bannerImgsXcoordinate:
+        currentBannerId === bannerImages.length
+          ? 0
+          : bannerImgsXcoordinate + xIncrement,
+      bannerImgsTransitionDelay:
+        currentBannerId === bannerImages.length ? 0 : 800,
+      slideIntervalDelay: currentBannerId === bannerImages.length ? 0 : 4000,
+    });
   };
 
   bannerSlideRight = () => {
@@ -75,26 +106,32 @@ class MainBanner extends Component {
       bannerImgWidth,
       bannerImgsXcoordinate,
       currentBannerId,
+      leftClickedOnMainBanner,
     } = this.state;
+    console.log(leftClickedOnMainBanner);
     const xIncrement = bannerImgWidth;
-    this.setState(
-      currentBannerId === 1
-        ? {
-            currentBannerId: 0,
-            bannerImgsXcoordinate: xIncrement * -1 * (bannerImages.length - 1),
-          }
-        : {
-            currentBannerId: currentBannerId - 1,
-            bannerImgsXcoordinate: bannerImgsXcoordinate + xIncrement,
-          }
-    );
+    this.setState({
+      currentBannerId:
+        currentBannerId === 1 ? bannerImages.length : currentBannerId - 1,
+      bannerImgsXcoordinate:
+        currentBannerId === 1
+          ? xIncrement * -1 * (bannerImages.length - 1)
+          : bannerImgsXcoordinate + xIncrement,
+      bannerImgsTransitionDelay: currentBannerId === 1 ? 0 : 800,
+      leftClickedOnMainBanner: currentBannerId === 1 ? true : false,
+      slideIntervalDelay: currentBannerId === 1 ? 0 : 4000,
+    });
   };
 
   render() {
-    const { bannerImages, bannerImgsXcoordinate } = this.state;
+    const {
+      bannerImages,
+      bannerImgsXcoordinate,
+      bannerImgsTransitionDelay,
+    } = this.state;
     let bannerTranslateStyle = {
       transform: `translate(${bannerImgsXcoordinate}px, 0)`,
-      transition: `transform 800ms`,
+      transition: `transform ${bannerImgsTransitionDelay}ms`,
     };
     return (
       <header className="MainBanner">

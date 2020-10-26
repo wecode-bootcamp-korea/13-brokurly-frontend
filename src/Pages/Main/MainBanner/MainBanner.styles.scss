@@ -3,7 +3,7 @@ $bannerImgItemCount: 5;
 
 .MainBanner {
   width: 100vw;
-  height: 370px;
+  height: 330px;
   overflow: hidden;
   position: relative;
   z-index: 1;
@@ -49,7 +49,7 @@ $bannerImgItemCount: 5;
 
     .banner-img-item {
       width: 100vw;
-      height: 100%;
+      // height: 100%;
       overflow: hidden;
 
       .banner-img {

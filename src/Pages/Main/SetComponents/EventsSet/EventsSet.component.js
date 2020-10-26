@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 
 import "./EventsSet.styles.scss";
 
+const sectionIdToType = {
+  100: "events",
+  101: "recipe",
+  1000: "md",
+};
+
 class EventsSet extends Component {
   constructor() {
     super();
@@ -13,6 +19,7 @@ class EventsSet extends Component {
 
   componentDidMount = () => {
     const { type } = this.props;
+    console.log(type);
     fetch(`http://localhost:3000/data/main/Main${type}Data.json`)
       .then((res) => res.json())
       .then((res) => {

@@ -43,16 +43,11 @@ class SectionRender extends Component {
             {section.subtitle}
           </p>
         </Link>
-        {section.componentType === "products" && (
-          <SpecialProductsSet categoryId={1} key={1} />
-        )}
-        {section.componentType === "events" && (
+        {section.id < 100 && <SpecialProductsSet sectionId={section.id} />}
+        {section.id >= 100 && section.id < 1000 && (
           <EventsSet type={section.componentType} key={section.componentType} />
         )}
-        {section.componentType === "recipe" && (
-          <EventsSet type={section.componentType} key={section.componentType} />
-        )}
-        {section.componentType === "md" && <MDRecommend />}
+        {section.id >= 1000 && <MDRecommend sectionId={section.id} />}
       </div>
     );
   }
