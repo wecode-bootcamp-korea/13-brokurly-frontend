@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import {
   GET_SHOPPINGBASKET_API,
   SEND_RECENT_ITEM_SELECTED_API,
-  USER_TOKEN,
 } from "../../config";
 
 import {
@@ -29,6 +28,7 @@ class CartItem extends Component {
       checkStatusAllSelectCheckBox,
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
+      userToken,
     } = this.props;
     const { id } = cartItemInfo;
     toggleSelectedItemCheckBox(id);
@@ -39,7 +39,7 @@ class CartItem extends Component {
       method: "PUT",
       headers: {
         "content-type": "application/json",
-        Authorization: USER_TOKEN,
+        Authorization: userToken,
       },
       body: JSON.stringify({
         shopbasket_id: id,
@@ -55,13 +55,14 @@ class CartItem extends Component {
       cartItemInfo,
       decreaseItemAmount,
       selectedItemsTotalPrice,
+      userToken,
     } = this.props;
     decreaseItemAmount(cartItemInfo);
     fetch(GET_SHOPPINGBASKET_API, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
-        Authorization: USER_TOKEN,
+        Authorization: userToken,
       },
       body: JSON.stringify({
         increase_or_decrease: "minus",
@@ -76,13 +77,14 @@ class CartItem extends Component {
       cartItemInfo,
       increaseItemAmount,
       selectedItemsTotalPrice,
+      userToken,
     } = this.props;
     increaseItemAmount(cartItemInfo);
     fetch(GET_SHOPPINGBASKET_API, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
-        Authorization: USER_TOKEN,
+        Authorization: userToken,
       },
       body: JSON.stringify({
         increase_or_decrease: "plus",
@@ -99,6 +101,7 @@ class CartItem extends Component {
       selectedItemsTotalPrice,
       checkStatusAllSelectCheckBox,
       getSelectedItemsAmount,
+      userToken,
     } = this.props;
     clearItemFromCart(cartItemInfo);
     selectedItemsTotalPrice();
@@ -108,7 +111,7 @@ class CartItem extends Component {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
-        Authorization: USER_TOKEN,
+        Authorization: userToken,
       },
       body: JSON.stringify({
         shopbasket_id: cartItemInfo.id,
@@ -201,9 +204,10 @@ class CartItem extends Component {
   }
 }
 
-const mapStateToProps = ({ cart }) => ({
+const mapStateToProps = ({ cart, user }) => ({
   cartItems: cart.cartItems,
   allSelect: cart.allSelect,
+  userToken: user.userToken,
 });
 
 const mapDispatchToProps = (dispatch) => ({

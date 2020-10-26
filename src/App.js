@@ -12,13 +12,13 @@ import SearchId from "./Pages/Login/SearchId/SearchId.component";
 import SearchPwd from "./Pages/Login/SearchPwd/SearchPwd.component";
 import Login from "./Pages/Login/Login.component";
 import Signup from "./Pages/Signup/Signup.component";
+import MyPage from "./Pages/MyPage/MyPage.component";
 // For Testing Some Functions Before Launching
 // import Test from "./Pages/Test/Test.component";
 
 import { getCartItems } from "./redux/cart/cart.actions";
 
 import { GET_SHOPPINGBASKET_API } from "./config";
-import { USER_TOKEN } from "./config";
 
 import "./App.scss";
 
@@ -30,19 +30,20 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    const { getCartItems } = this.props;
+  componentDidUpdate() {
+    const { getCartItems, userToken } = this.props;
     window.addEventListener("scroll", this.scrollNavBarChange);
-    fetch(GET_SHOPPINGBASKET_API, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        Authorization: USER_TOKEN,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => data["shopping_list"])
-      .then((cartItems) => getCartItems(cartItems));
+    userToken &&
+      fetch(GET_SHOPPINGBASKET_API, {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: userToken,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => data["shopping_list"])
+        .then((cartItems) => getCartItems(cartItems));
   }
 
   componentWillUnmount() {
@@ -69,6 +70,7 @@ class App extends Component {
             <Route exact path="/searchpwd" component={SearchPwd} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/mypage" component={MyPage} />
             {/* <Route exact path="/test" component={Test} /> */}
           </Switch>
         </div>
@@ -79,6 +81,7 @@ class App extends Component {
 }
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
+  userToken: user.userToken,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { userLogout } from "../../redux/user/user.actions";
+import { userLogout, clearToken } from "../../redux/user/user.actions";
 import { logOutClearCart } from "../../redux/cart/cart.actions";
 
 import { EARLY_DELIVERY_INFO, NEW_USER } from "../../config";
@@ -11,7 +11,13 @@ import "./NavUserMenu.styles.scss";
 
 class NavUserMenu extends Component {
   render() {
-    const { currentUser, logout, logOutClearCart } = this.props;
+    const {
+      currentUser,
+      logout,
+      logOutClearCart,
+      clearToken,
+      history,
+    } = this.props;
     const { user_name, user_rank } = currentUser;
     return (
       <div className="NavUserMenu">
@@ -39,6 +45,7 @@ class NavUserMenu extends Component {
                     onClick={() => {
                       logOutClearCart();
                       logout();
+                      clearToken();
                       this.props.history.push("/main");
                     }}
                   >
@@ -48,11 +55,10 @@ class NavUserMenu extends Component {
               </div>
             ) : (
               <>
-                <div className="signup">회원가입</div>
-                <div
-                  className="login"
-                  onClick={() => this.props.history.push("/test")}
-                >
+                <div className="signup" onClick={() => history.push("/signup")}>
+                  회원가입
+                </div>
+                <div className="login" onClick={() => history.push("/login")}>
                   로그인
                 </div>
               </>
@@ -83,6 +89,7 @@ const mapStateToProps = ({ user }) => ({
 const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(userLogout()),
   logOutClearCart: () => dispatch(logOutClearCart()),
+  clearToken: () => dispatch(clearToken()),
 });
 
 export default withRouter(

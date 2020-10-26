@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { getToken, getCurrentUser } from "../../redux/user/user.actions";
 
 import "./Login.styles.scss";
 
@@ -24,8 +27,8 @@ class Login extends Component {
   handleLoginButton = (e) => {
     e.preventDefault();
     const { user_id, password } = this.state;
+    const { getToken, getCurrentUser } = this.props;
     if (user_id !== "" && password !== "") {
-      console.log(`${user_id} // ${password}`);
       fetch("http://10.58.6.216:8000/user/signin", {
         method: "POST",
         body: JSON.stringify({
@@ -37,7 +40,9 @@ class Login extends Component {
         .then((result) => {
           if (result.message === "SUCCESS") {
             alert("쓸거면 팍팍써라, 많이 먹는다고 안 죽는다.");
-            localStorage.setItem("authorization", result.authorization);
+            // localStorage.setItem("authorization", result.authorization);
+            getToken(result.authorization);
+            getCurrentUser(result.user);
             this.goToMain();
           } else {
             alert("잘못된 아이디 혹은 비밀번호입니다.");
@@ -102,4 +107,9 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+const mapDispatchToProps = (dispatch) => ({
+  getToken: (token) => dispatch(getToken(token)),
+  getCurrentUser: (user) => dispatch(getCurrentUser(user)),
+});
+
+export default withRouter(connect(null, mapDispatchToProps)(Login));

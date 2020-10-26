@@ -5,7 +5,7 @@ import { filterOutSoldoutItems } from "../../redux/cart/cart.actions";
 
 import CartItem from "../CartItem/CartItem.component";
 
-import { SEND_RECENT_ITEM_SELECTED_API, USER_TOKEN } from "../../config";
+import { SEND_RECENT_ITEM_SELECTED_API } from "../../config";
 
 import {
   toggleAllSelectCheckBox,
@@ -29,6 +29,7 @@ class ViewCart extends Component {
       toggleAllSelectCheckBox,
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
+      userToken,
     } = this.props;
     toggleAllSelectCheckBox();
     selectedItemsTotalPrice();
@@ -37,7 +38,7 @@ class ViewCart extends Component {
       method: "PUT",
       headers: {
         "content-type": "application/json",
-        Authorization: USER_TOKEN,
+        Authorization: userToken,
       },
       body: JSON.stringify({
         selected: "all",
@@ -53,6 +54,7 @@ class ViewCart extends Component {
       selectedItemsTotalPrice,
       checkStatusAllSelectCheckBox,
       getSelectedItemsAmount,
+      userToken,
     } = this.props;
     deleteSelectedItems();
     selectedItemsTotalPrice();
@@ -62,7 +64,7 @@ class ViewCart extends Component {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
-        Authorization: USER_TOKEN,
+        Authorization: userToken,
       },
       body: JSON.stringify({
         delete: "selected",
@@ -78,6 +80,7 @@ class ViewCart extends Component {
       selectedItemsTotalPrice,
       checkStatusAllSelectCheckBox,
       getSelectedItemsAmount,
+      userToken,
     } = this.props;
     filterOutSoldoutItems();
     selectedItemsTotalPrice();
@@ -87,7 +90,7 @@ class ViewCart extends Component {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
-        Authorization: USER_TOKEN,
+        Authorization: userToken,
       },
       body: JSON.stringify({
         delete: "soldout",
@@ -165,10 +168,11 @@ class ViewCart extends Component {
   }
 }
 
-const mapStateToProps = ({ cart }) => ({
+const mapStateToProps = ({ cart, user }) => ({
   cartItems: cart.cartItems,
   allSelect: cart.allSelect,
   seletectedItemsAmount: cart.seletectedItemsAmount,
+  userToken: user.userToken,
 });
 
 const mapDispatchToProps = (dispatch) => ({

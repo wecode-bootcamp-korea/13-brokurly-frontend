@@ -2,6 +2,7 @@ import UserActionTypes from "./user.types";
 
 const INITIAL_STATE = {
   currentUser: {},
+  userToken: "",
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -15,6 +16,16 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentUser: {},
+      };
+    case UserActionTypes.GET_TOKEN:
+      return {
+        ...state,
+        userToken: action.payload,
+      };
+    case UserActionTypes.CLEAR_TOKEN:
+      return {
+        ...state,
+        userToken: "",
       };
     default:
       return state;
