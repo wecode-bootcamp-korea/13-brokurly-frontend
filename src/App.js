@@ -5,7 +5,6 @@ import Nav from "./Components/Nav/Nav.component";
 import Main from "./Pages/Main/Main.component";
 import Footer from "./Components/Footer/Footer.component";
 import ProductList from "./Pages/ProductList/ProductList.component";
-import Signup from "./Pages/Signup/Signup.component";
 
 function App() {
   return (
@@ -13,8 +12,8 @@ function App() {
       <Nav />
       <Switch>
         <Route exact path="/" component={Main} />
-        <Route exact path="/signup" component={Signup} />
         <Route exact path="/productlist" component={ProductList} />
+        <Route exact path="/payment" component={Payment} />
       </Switch>
       <Footer />
     </Router>
