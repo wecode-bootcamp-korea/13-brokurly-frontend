@@ -4,6 +4,15 @@ import "./ProductDetailsHeader.styles.scss";
 
 const API = "http://10.58.6.216:8000/user/shoppingbasket";
 
+const otherInfoHeader = {
+  productShipping: "배송구분",
+  origin: "원산지",
+  pakingType: "포장타입",
+  shelfLife: "유통기한",
+  allergyInformaion: "알레르기정보",
+  information: "안내사항",
+};
+
 class ProductDetailsHeader extends Component {
   state = {
     isWidthBiggerThanHeight: false,
@@ -98,10 +107,12 @@ class ProductDetailsHeader extends Component {
       salesUnit,
       otherInformation,
     } = this.props.productDetail;
-    const { totalPrice, totalAmount, isMinusAmount } = this.state;
-
-    const { isWidthBiggerThanHeight } = this.state;
-
+    const {
+      totalPrice,
+      totalAmount,
+      isMinusAmount,
+      isWidthBiggerThanHeight,
+    } = this.state;
     return (
       <div className="ProductDetailsHeader">
         <figure className="product-image">
@@ -151,33 +162,16 @@ class ProductDetailsHeader extends Component {
               <dt>중량/용량</dt>
               <dd>{size}</dd>
             </dl>
-            {/* NOTE 요기는 backend랑 데이터 구조 맞추는중입니당 */}
-            {/* {otherInformation.map((info) => {
-              console.log(info);
-            })} */}
-            {/* <dl>
-              <dt>배송구분</dt>
-              <dd>샛별배송/택배배송</dd>
-            </dl>
-            <dl>
-              <dt>원산지</dt>
-              <dd>국산</dd>
-            </dl> */}
-            <dl>
-              <dt>포장타입</dt>
-              <dd>
-                <span>냉장/종이포장</span>
-                <span>택배배송은 에코포장이 스티로폼으로 대체됩니다.</span>
-              </dd>
-            </dl>
-            {/* <dl>
-              <dt>알레르기정보</dt>
-              <dd>대두 함유</dd>
-            </dl>
-            <dl>
-              <dt>유통기한</dt>
-              <dd>수령일 포함 최소 1일이상 남은 상품을 배송드립니다.</dd>
-            </dl> */}
+            {Object.entries(otherInformation).map((info, idx) => {
+              return (
+                info[1] && (
+                  <dl key={idx}>
+                    <dt>{otherInfoHeader[info[0]]}</dt>
+                    <dd>{info[1]}</dd>
+                  </dl>
+                )
+              );
+            })}
             <dl>
               <dt>구매수량</dt>
               <dd>
