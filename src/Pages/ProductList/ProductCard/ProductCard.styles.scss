@@ -23,6 +23,7 @@
       transform: translateX(-66px);
       object-fit: fill;
       transition: ease 0.5s;
+
       &:hover {
         transform: scale(1.05) translateX(-66px);
       }
@@ -60,6 +61,7 @@
     opacity: 80%;
     z-index: 1;
     @include flexSet(center, center);
+
     button {
       background-color: transparent;
       border: 0;
