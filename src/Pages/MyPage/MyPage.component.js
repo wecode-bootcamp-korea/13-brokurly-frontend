@@ -1,62 +1,52 @@
 import React, { Component } from "react";
 
+import UserInfo from "../../Components/UserInfo/UserInfo.component";
+
 import "./MyPage.styles.scss";
 
 class MyPage extends Component {
   render() {
     return (
       <div className="MyPage">
-        <div className="user-info-big-container">
-          <div className="user-info-small-container">
-            <div className="user-ranking">
-              <div className="top">
-                <div className="current-ranking">
-                  <span>웰컴</span>
+        <UserInfo />
+        <div className="my-kurly">
+          <div className="my-kurly-container">
+            <aside>
+              <div className="category-name">
+                <span>마이컬리</span>
+              </div>
+              <div className="category">
+                <div>
+                  <span>주문 내역</span>
+                  <i class="fal fa-greater-than" />
                 </div>
-                <div className="ranking-information">
-                  <p className="name">
-                    김제형<span>님</span>
-                  </p>
-                  <p className="mileage-rating">적립 5%</p>
-                  <p className="privilege">최초 1회 무료배송</p>
+                <div>
+                  <span>늘 사는 것</span>
+                  <i class="fal fa-greater-than" />
+                </div>
+                <div>
+                  <span>상품후기</span>
+                  <i class="fal fa-greater-than" />
+                </div>
+                <div>
+                  <span>적립금</span>
+                  <i class="fal fa-greater-than" />
+                </div>
+                <div>
+                  <span>쿠폰</span>
+                  <i class="fal fa-greater-than" />
+                </div>
+                <div>
+                  <span>개인 정보 수정</span>
+                  <i class="fal fa-greater-than" />
                 </div>
               </div>
-              <div className="bottom">
-                <button>전체등급 보기</button>
-                <button>다음 달 예상등급 보기</button>
+              <div className="help">
+                <span>도움이 필요하신가요?</span>
+                <span>1:1 문의하기</span>
               </div>
-            </div>
-            <div className="user-point">
-              <div>
-                <span>적립금</span>
-              </div>
-              <div className="point-info">
-                <p>
-                  0 원<span>&#62;</span>
-                </p>
-                <p>소멸예정 0원</p>
-              </div>
-            </div>
-            <div className="user-coupon">
-              <div>
-                <span>쿠폰</span>
-              </div>
-              <div className="coupon-info">
-                <p>
-                  1 개<span>&#62;</span>
-                </p>
-              </div>
-            </div>
-            <div className="user-pass">
-              <div>
-                <span>컬리패스</span>
-              </div>
-              <div className="coupon-info">
-                <p>
-                  알아보기<span>&#62;</span>
-                </p>
-              </div>
-            </div>
+            </aside>
+            <main></main>
           </div>
         </div>
       </div>

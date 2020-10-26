@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import { userLogout } from "../../redux/user/user.actions";
+import { logOutClearCart } from "../../redux/cart/cart.actions";
 
 import { EARLY_DELIVERY_INFO, NEW_USER } from "../../config";
 
@@ -9,7 +11,7 @@ import "./NavUserMenu.styles.scss";
 
 class NavUserMenu extends Component {
   render() {
-    const { currentUser, logout } = this.props;
+    const { currentUser, logout, logOutClearCart } = this.props;
     const { user_name, user_rank } = currentUser;
     return (
       <div className="NavUserMenu">
@@ -33,13 +35,26 @@ class NavUserMenu extends Component {
                   <span>적립금</span>
                   <span>쿠폰</span>
                   <span>개인 정보 수정</span>
-                  <span onClick={logout}>로그아웃</span>
+                  <span
+                    onClick={() => {
+                      logOutClearCart();
+                      logout();
+                      this.props.history.push("/main");
+                    }}
+                  >
+                    로그아웃
+                  </span>
                 </div>
               </div>
             ) : (
               <>
                 <div className="signup">회원가입</div>
-                <div className="login">로그인</div>
+                <div
+                  className="login"
+                  onClick={() => this.props.history.push("/test")}
+                >
+                  로그인
+                </div>
               </>
             )}
             <div className="help">
@@ -67,6 +82,9 @@ const mapStateToProps = ({ user }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(userLogout()),
+  logOutClearCart: () => dispatch(logOutClearCart()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavUserMenu);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(NavUserMenu)
+);

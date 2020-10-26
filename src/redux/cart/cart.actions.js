@@ -53,3 +53,7 @@ export const addItemToCart = (item) => ({
   type: CartActionTypes.ADD_ITEM_TO_CART,
   payload: item,
 });
+
+export const logOutClearCart = () => ({
+  type: CartActionTypes.USER_LOGOUT_CLEAR_CART,
+});

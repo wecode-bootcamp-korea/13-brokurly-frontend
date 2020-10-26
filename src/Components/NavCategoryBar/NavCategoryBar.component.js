@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import NavCategoryAllBarSub from "../NavCategoryAllBar/NavCategoryAllBarSub.component";
@@ -9,6 +9,16 @@ import { CART } from "../../config";
 import "./NavCategoryBar.styles.scss";
 
 class NavCategoryBar extends Component {
+  checkCartItemPageAccess = () => {
+    const { currentUser } = this.props;
+    if (!Object.keys(currentUser).length) {
+      alert("로그인을 해 주세요!");
+      this.props.history.push("/test");
+      return;
+    }
+    this.props.history.push("/cartItems");
+  };
+
   render() {
     const { cartItems } = this.props;
     return (
@@ -32,10 +42,12 @@ class NavCategoryBar extends Component {
               <input type="text" placeholder="내 맘대로 끓여먹는 라면" />
               <i className="fa fa-search"></i>
             </div>
-            <Link to="/cartItems">
-              <img src={CART} alt="cart-icon" />
-              {!cartItems.length ? "" : <span>{cartItems.length}</span>}
-            </Link>
+            <img
+              src={CART}
+              alt="cart-icon"
+              onClick={this.checkCartItemPageAccess}
+            />
+            {!cartItems.length ? "" : <span>{cartItems.length}</span>}
           </div>
         </div>
       </div>
@@ -43,8 +55,9 @@ class NavCategoryBar extends Component {
   }
 }
 
-const mapStateToProps = ({ cart }) => ({
+const mapStateToProps = ({ cart, user }) => ({
   cartItems: cart.cartItems,
+  currentUser: user.currentUser,
 });
 
-export default connect(mapStateToProps)(NavCategoryBar);
+export default withRouter(connect(mapStateToProps)(NavCategoryBar));

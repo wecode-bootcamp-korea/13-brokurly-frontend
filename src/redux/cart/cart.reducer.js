@@ -164,6 +164,11 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: checkAddItemToCart(state.cartItems, action.payload),
       };
+    case CartActionTypes.USER_LOGOUT_CLEAR_CART:
+      return {
+        ...state,
+        cartItems: {},
+      };
     default:
       return state;
   }
