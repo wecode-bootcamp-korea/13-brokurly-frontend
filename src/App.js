@@ -13,7 +13,7 @@ import MyPage from "./Pages/MyPage/MyPage.component";
 import { getCartItems } from "./redux/cart/cart.actions";
 
 // For Testing Some Functions Before Launching
-// import Test from "./Pages/Test/Test.component";
+import Test from "./Pages/Test/Test.component";
 
 import "./App.scss";
 
@@ -51,7 +51,7 @@ class App extends Component {
             <Route exact path="/mypage" component={MyPage} />
             <Route exact path="/signup" component={SignupComponent} />
 
-            {/* <Route exact path="/test" component={Test} /> */}
+            <Route exact path="/test" component={Test} />
           </Switch>
         </div>
         <Footer />
