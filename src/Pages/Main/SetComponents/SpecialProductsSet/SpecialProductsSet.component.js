@@ -16,46 +16,28 @@ class SpecialProductsSet extends Component {
 
   componentDidMount = () => {
     const { sectionId, categoryId } = this.props;
-    const productAPI =
-      categoryId !== undefined
-        ? `http://10.58.4.20:8000/home/md_choice?category=${categoryId}`
-        : "http://10.58.4.20:8000/main/section";
+    const productAPI = !!categoryId
+      ? `http://10.58.4.20:8000/products/home/md_choice?category=${categoryId}`
+      : "http://10.58.4.20:8000/products/main/section";
+
+    console.log(categoryId);
     fetch(productAPI)
       .then((res) => res.json())
       .then((res) => {
         if (res.message === "SUCCESS") {
           this.setState({
-            itemsList:
-              categoryId !== undefined
-                ? res.products
-                : res.section_list[sectionId]["products"],
-            itemsCount:
-              categoryId !== undefined
-                ? res.products.length
-                : res.section_list[sectionId]["products"].length,
+            itemsList: !!categoryId
+              ? res.products
+              : res.section_list[sectionId]["products"],
+            itemsCount: !!categoryId
+              ? res.products.length
+              : res.section_list[sectionId]["products"].length,
           });
         } else {
           console.log("error");
         }
       });
   };
-
-  // 백 API 접근불가시 아래 mock data 활용:
-  // componentDidMount = () => {
-  //   fetch("http://localhost:3000/data/main/MainSpecialProductsData.json")
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       console.log(res.specialProductsItems[0]);
-  //       if (res.specialProductsItems) {
-  //         this.setState({
-  //           itemsList: res.specialProductsItems,
-  //           itemsCount: res.specialProductsItems,
-  //         });
-  //       } else {
-  //         console.log("error");
-  //       }
-  //     });
-  // };
 
   slideList = (e) => {
     const { itemsCount, listXcoordinate } = this.state;

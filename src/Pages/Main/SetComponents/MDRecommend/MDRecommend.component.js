@@ -8,7 +8,7 @@ class MDRecommend extends Component {
     this.state = {
       categoriesList: [],
       selectedCategoryName: "",
-      selectedCategoryId: null,
+      selectedCategoryId: Math.floor(Math.random() * 16),
     };
   }
 
