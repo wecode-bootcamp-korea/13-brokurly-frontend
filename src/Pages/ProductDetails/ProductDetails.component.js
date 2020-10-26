@@ -24,10 +24,10 @@ class ProductDetails extends Component {
     try {
       //backend API
       const productDetails = await fetch(
-        `http://10.58.4.20:8000/product/product_detail?product_item=${postId}`
+        `http://10.58.4.20:8000/products/product_detail?product_item=${postId}`
       );
       const relatedProducts = await fetch(
-        `http://10.58.4.20:8000/related_product?product_item=${postId}`
+        `http://10.58.4.20:8000/products/related_products?product_item=${postId}`
       );
       if (productDetails.status !== 200) {
         throw new Error("cannot fetch the data");

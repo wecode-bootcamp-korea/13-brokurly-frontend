@@ -50,8 +50,6 @@ class ProductDetailsRelated extends Component {
       isRightButtonVisible: isFinalRightClickConditionReached ? false : true,
       isLeftButtonVisible: isFinalLeftClickConditionReached ? false : true,
     });
-    console.log(this.props.sectionId);
-    console.log(this.state.itemsCount);
   };
 
   render() {
@@ -78,7 +76,7 @@ class ProductDetailsRelated extends Component {
           <div className="relation-card">
             <ul style={itemsTranslation}>
               {products.map((product) => (
-                <ProductDetailsCard product={product} />
+                <ProductDetailsCard product={product} key={product.id} />
               ))}
             </ul>
           </div>
