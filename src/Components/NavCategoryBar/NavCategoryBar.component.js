@@ -13,7 +13,7 @@ class NavCategoryBar extends Component {
     const { currentUser } = this.props;
     if (!Object.keys(currentUser).length) {
       alert("로그인을 해 주세요!");
-      this.props.history.push("/test");
+      this.props.history.push("/login");
       return;
     }
     this.props.history.push("/cartItems");
