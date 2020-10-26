@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
 
 import ProductList from "./Pages/ProductList/ProductList.component";
+import SignupComponent from "./Pages/Signup/Signup.component";
 import Nav from "./Components/Nav/Nav.component";
 import Main from "./Pages/Main/Main.component";
 import Footer from "./Components/Footer/Footer.component";
 import CartItems from "./Pages/CartItems/CartItems.component";
 import MyPage from "./Pages/MyPage/MyPage.component";
 
+import { getCartItems } from "./redux/cart/cart.actions";
+
 // For Testing Some Functions Before Launching
-import Test from "./Pages/Test/Test.component";
+// import Test from "./Pages/Test/Test.component";
 
 import "./App.scss";
 
@@ -45,7 +49,9 @@ class App extends Component {
             <Route exact path="/cartItems" component={CartItems} />
             <Route exact path="/productlist" component={ProductList} />
             <Route exact path="/mypage" component={MyPage} />
-            <Route exact path="/test" component={Test} />
+            <Route exact path="/signup" component={SignupComponent} />
+
+            {/* <Route exact path="/test" component={Test} /> */}
           </Switch>
         </div>
         <Footer />
@@ -54,4 +60,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
