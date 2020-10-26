@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Signup from "../Signup/Signup.component";
 
 import "./Main.styles.scss";
 
