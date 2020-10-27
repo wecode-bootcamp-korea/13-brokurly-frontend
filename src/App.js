@@ -13,8 +13,6 @@ import SearchPwd from "./Pages/Login/SearchPwd/SearchPwd.component";
 import Login from "./Pages/Login/Login.component";
 import Signup from "./Pages/Signup/Signup.component";
 import MyPage from "./Pages/MyPage/MyPage.component";
-// For Testing Some Functions Before Launching
-// import Test from "./Pages/Test/Test.component";
 
 import { getCartItems } from "./redux/cart/cart.actions";
 
@@ -30,21 +28,21 @@ class App extends Component {
     };
   }
 
-  componentDidUpdate() {
-    const { getCartItems, userToken } = this.props;
-    window.addEventListener("scroll", this.scrollNavBarChange);
-    userToken &&
-      fetch(GET_SHOPPINGBASKET_API, {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-          Authorization: userToken,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => data["shopping_list"])
-        .then((cartItems) => getCartItems(cartItems));
-  }
+  // componentDidUpdate() {
+  //   const { getCartItems, userToken } = this.props;
+  //   window.addEventListener("scroll", this.scrollNavBarChange);
+  //   userToken &&
+  //     fetch(GET_SHOPPINGBASKET_API, {
+  //       method: "GET",
+  //       headers: {
+  //         "content-type": "application/json",
+  //         Authorization: userToken,
+  //       },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => data["shopping_list"])
+  //       .then((cartItems) => console.log(cartItems));
+  // }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.scrollNavBarChange);

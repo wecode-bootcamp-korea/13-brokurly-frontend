@@ -1,20 +1,25 @@
 import React, { Component } from "react";
 
+import { connect } from "react-redux";
+
 import "./UserInfo.styles.scss";
 
 class UserInfo extends Component {
   render() {
+    const { currentUser } = this.props;
+    const { user_rank, user_name } = currentUser;
     return (
       <div className="UserInfo">
         <div className="user-info-small-container">
           <div className="user-ranking">
             <div className="top">
               <div className="current-ranking">
-                <span>웰컴</span>
+                <span>{user_rank}</span>
               </div>
               <div className="ranking-information">
                 <p className="name">
-                  김제형<span>님</span>
+                  {user_name}
+                  <span>님</span>
                 </p>
                 <p className="mileage-rating">적립 5%</p>
                 <p className="privilege">최초 1회 무료배송</p>
@@ -62,4 +67,8 @@ class UserInfo extends Component {
   }
 }
 
-export default UserInfo;
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
+export default connect(mapStateToProps)(UserInfo);

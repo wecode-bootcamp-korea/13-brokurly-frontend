@@ -1,0 +1,45 @@
+main {
+  // border: 1px solid #000;
+  margin-left: 30px;
+  flex: 3.5;
+
+  .purchase-list-name {
+    height: 80px;
+    // border: 1px solid #000;
+    display: flex;
+
+    span {
+      &:first-child {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
+        font-weight: 500;
+      }
+
+      &:last-child {
+        flex: 5;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #d7c5b3;
+      }
+    }
+  }
+
+  .purchase-list-container {
+    border-top: 2px solid var(--primary-color);
+    min-height: 125px;
+    border-bottom: 2px solid #dbdbdb;
+    position: relative;
+
+    > span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+    }
+  }
+}

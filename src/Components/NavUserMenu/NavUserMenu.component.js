@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import { userLogout, clearToken } from "../../redux/user/user.actions";
 import { logOutClearCart } from "../../redux/cart/cart.actions";
+import { logoutClearPurchaseList } from "../../redux/purchase/purchase.actions";
 
 import { EARLY_DELIVERY_INFO, NEW_USER } from "../../config";
 
@@ -16,6 +17,7 @@ class NavUserMenu extends Component {
       logout,
       logOutClearCart,
       clearToken,
+      logoutClearPurchaseList,
       history,
     } = this.props;
     const { user_name, user_rank } = currentUser;
@@ -35,7 +37,7 @@ class NavUserMenu extends Component {
                   <i className="fas fa-caret-down"></i>
                 </span>
                 <div className="current-user-sub">
-                  <span>주문 내역</span>
+                  <span onClick={() => history.push("/mypage")}>주문 내역</span>
                   <span>늘 사는 것</span>
                   <span>상품후기</span>
                   <span>적립금</span>
@@ -46,7 +48,8 @@ class NavUserMenu extends Component {
                       logOutClearCart();
                       logout();
                       clearToken();
-                      this.props.history.push("/main");
+                      logoutClearPurchaseList();
+                      history.push("/main");
                     }}
                   >
                     로그아웃
@@ -90,6 +93,7 @@ const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(userLogout()),
   logOutClearCart: () => dispatch(logOutClearCart()),
   clearToken: () => dispatch(clearToken()),
+  logoutClearPurchaseList: () => dispatch(logoutClearPurchaseList()),
 });
 
 export default withRouter(
