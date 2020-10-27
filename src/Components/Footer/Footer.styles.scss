@@ -1,6 +1,9 @@
 @import url(../../Styles/Common.styles.scss);
 
 .Footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 500px;
   position: absolute;
@@ -15,8 +18,8 @@
   //   border-bottom: 1px solid white;
 
   .left-side.content {
-    width: 400px;
-    height: 500px;
+    width: 350px;
+    height: 450px;
     position: relative;
     transform-style: preserve-3d;
 
@@ -24,7 +27,7 @@
       transform: perspective(600px) rotateY(-180deg);
     }
 
-    &:hover > .back {
+    &:hover > .left-side.back {
       transform: perspective(600px) rotateY(0deg);
     }
 
@@ -36,7 +39,7 @@
       position: absolute;
       padding-left: 20px;
       backface-visibility: hidden;
-      transition: transform 500ms;
+      transition: transform 200ms linear;
     }
 
     .left-side.front {

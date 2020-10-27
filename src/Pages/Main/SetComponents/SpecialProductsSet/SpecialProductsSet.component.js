@@ -18,7 +18,7 @@ class SpecialProductsSet extends Component {
     const { sectionId, categoryId } = this.props;
     const productAPI =
       sectionId === 1000
-        ? `http://10.58.4.20:8000/products/home/md_choice?category=${categoryId}`
+        ? `http://10.58.4.20:8000/products/home/md-choice?category=${categoryId}`
         : "http://10.58.4.20:8000/products/main/section";
     fetch(productAPI)
       .then((res) => res.json())
