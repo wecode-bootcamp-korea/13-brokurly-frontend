@@ -22,62 +22,50 @@ import { numberWithCommas } from "../../redux/cart/cart.utils";
 import "./CartItem.styles.scss";
 
 class CartItem extends Component {
-  toggleCheckBox = () => {
+  toggleCheckBox = async () => {
+    const { cartItemInfo, toggleSelectedItemCheckBox } = this.props;
+    const { id } = cartItemInfo;
+    try {
+      await toggleSelectedItemCheckBox(id);
+      this.checkTotalPriceAndAmount();
+      await fetch(SEND_RECENT_ITEM_SELECTED_API, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          Authorization: USER_TOKEN,
+        },
+        body: JSON.stringify({
+          shopbasket_id: id,
+          selected: "single",
+        }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  checkTotalPriceAndAmount = () => {
     const {
-      cartItemInfo,
-      toggleSelectedItemCheckBox,
       checkStatusAllSelectCheckBox,
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
     } = this.props;
-    const { id } = cartItemInfo;
-    toggleSelectedItemCheckBox(id);
     checkStatusAllSelectCheckBox();
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
-    fetch(SEND_RECENT_ITEM_SELECTED_API, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-        Authorization: USER_TOKEN,
-      },
-      body: JSON.stringify({
-        shopbasket_id: id,
-        selected: "single",
-      }),
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
   };
 
-  decreaseButtonClick = () => {
+  amountChangeIncreaseOrDecrease = (isIncrease) => {
     const {
       cartItemInfo,
       decreaseItemAmount,
-      selectedItemsTotalPrice,
-    } = this.props;
-    decreaseItemAmount(cartItemInfo);
-    fetch(GET_SHOPPINGBASKET_API, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-        Authorization: USER_TOKEN,
-      },
-      body: JSON.stringify({
-        increase_or_decrease: "minus",
-        shopbasket_id: cartItemInfo.id,
-      }),
-    }).catch((error) => console.log(error.message));
-    selectedItemsTotalPrice();
-  };
-
-  increaseButtonClick = () => {
-    const {
-      cartItemInfo,
       increaseItemAmount,
       selectedItemsTotalPrice,
     } = this.props;
-    increaseItemAmount(cartItemInfo);
+    const operation = isIncrease ? "plus" : "minus";
+    isIncrease
+      ? increaseItemAmount(cartItemInfo)
+      : decreaseItemAmount(cartItemInfo);
     fetch(GET_SHOPPINGBASKET_API, {
       method: "PUT",
       headers: {
@@ -85,7 +73,7 @@ class CartItem extends Component {
         Authorization: USER_TOKEN,
       },
       body: JSON.stringify({
-        increase_or_decrease: "plus",
+        increase_or_decrease: operation,
         shopbasket_id: cartItemInfo.id,
       }),
     }).catch((error) => console.log(error.message));
@@ -145,42 +133,42 @@ class CartItem extends Component {
           />
         </div>
         <div className="cart-item-info">
-          {option_name ? (
+          {option_name && (
             <div className="cart-item-info-top">
               <span>{name}</span>
               <span>{numberWithCommas(price)}원</span>
             </div>
-          ) : (
-            ""
           )}
           <div className="cart-item-info-bottom">
             <div className="cart-item-photo">
               <img src={image_url} alt="item" />
             </div>
-            <div className="cart-item-specific-info-container">
+            <div className="specific-info-container">
               <div className="cart-item-name-and-price">
                 <div className="cart-item-name">
-                  {option_name ? (
-                    <span>{option_name}</span>
-                  ) : (
-                    <span>{name}</span>
-                  )}
-                  {sold_out ? <span className="sold-out">품절</span> : ""}
+                  {<span>{option_name ? option_name : name}</span>}
+                  {sold_out && <span className="sold-out">품절</span>}
                 </div>
                 <div className="cart-item-price">
-                  <span>{numberWithCommas(option_price)}원</span>
+                  <span>{numberWithCommas(price)}원</span>
                 </div>
               </div>
               <div className="cart-item-quantity">
                 <div className="quantity-container">
-                  <div className="left" onClick={this.decreaseButtonClick}>
-                    <p className="left-element">&#8722;</p>
+                  <div
+                    className="minus"
+                    onClick={() => this.amountChangeIncreaseOrDecrease(false)}
+                  >
+                    <p className="minus-element">&#8722;</p>
                   </div>
                   <div className="quantity">
                     <span>{quantity}</span>
                   </div>
-                  <div className="right" onClick={this.increaseButtonClick}>
-                    <p className="right-element">&#43;</p>
+                  <div
+                    className="plus"
+                    onClick={() => this.amountChangeIncreaseOrDecrease(true)}
+                  >
+                    <p className="plus-element">&#43;</p>
                   </div>
                 </div>
               </div>

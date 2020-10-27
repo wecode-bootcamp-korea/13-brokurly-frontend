@@ -108,7 +108,7 @@ class ViewCart extends Component {
                 <input
                   type="checkbox"
                   onChange={this.AllSelectCheckboxClick}
-                  checked={allSelect ? true : false}
+                  checked={!!allSelect}
                 />
               </label>
               <span className="select-all">

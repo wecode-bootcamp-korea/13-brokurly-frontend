@@ -23,7 +23,7 @@ class NavUserMenu extends Component {
                 <span>{user_rank}</span>
                 <span className="user-name">
                   {user_name}님
-                  {user_rank === "웰컴" ? <img src={NEW_USER} alt="new" /> : ""}
+                  {user_rank === "웰컴" && <img src={NEW_USER} alt="new" />}
                   <i className="fas fa-caret-down"></i>
                 </span>
                 <div className="current-user-sub">

@@ -25,90 +25,35 @@ import {
 //   [option_sales] 판매제한(몇개 이상 혹은 몇개 이하)
 // }
 const INITIAL_STATE = {
-  cartItems: [
-    // {
-    //   checked: true,
-    //   id: 4,
-    //   image_url:
-    //     "https://images.unsplash.com/photo-1582515073490-39981397c445?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
-    //   name: "한끼 당근 1개",
-    //   option: 0,
-    //   option_name: "",
-    //   option_price: 1300,
-    //   option_sales: "",
-    //   option_sold_out: "",
-    //   price: 1300,
-    //   product_id: 2,
-    //   quantity: 3,
-    //   sales: 1,
-    //   sold_out: true,
-    //   user_id: 19,
-    // },
-    // {
-    //   checked: false,
-    //   id: 8,
-    //   image_url:
-    //     "https://images.unsplash.com/photo-1598806243937-2072d39bc11d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=633&q=80",
-    //   name: "간편 간식 브리또 8종",
-    //   option: 2,
-    //   option_name: "불고기 브리또",
-    //   option_price: 2800,
-    //   option_sales: 1,
-    //   option_sold_out: false,
-    //   price: 2800,
-    //   product_id: 5,
-    //   quantity: 1,
-    //   sales: 1,
-    //   sold_out: true,
-    //   user_id: 19,
-    // },
-    // {
-    //   checked: false,
-    //   id: 9,
-    //   image_url:
-    //     "https://images.unsplash.com/photo-1598806243937-2072d39bc11d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=633&q=80",
-    //   name: "간편 간식 브리또 8종",
-    //   option: 3,
-    //   option_name: "야채 브리또",
-    //   option_price: 2800,
-    //   option_sales: 1,
-    //   option_sold_out: false,
-    //   price: 2800,
-    //   product_id: 5,
-    //   quantity: 1,
-    //   sales: 1,
-    //   sold_out: false,
-    //   user_id: 19,
-    // },
-  ],
+  cartItems: [],
   allSelect: true,
   seletectedItemsAmount: 0,
   selectedItemsTotalPrice: 0,
 };
 
-const cartReducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
+const cartReducer = (state = INITIAL_STATE, { type, payload }) => {
+  switch (type) {
     case CartActionTypes.INCREASE_ITEM_AMOUNT:
       return {
         ...state,
-        cartItems: increaseItemAmount(state.cartItems, action.payload),
+        cartItems: increaseItemAmount(state.cartItems, payload),
       };
     case CartActionTypes.DECREASE_ITEM_AMOUNT:
       return {
         ...state,
-        cartItems: removeItemFromCart(state.cartItems, action.payload),
+        cartItems: removeItemFromCart(state.cartItems, payload),
       };
     case CartActionTypes.CLEAR_ITEM_FROM_CART:
       return {
         ...state,
         cartItems: state.cartItems.filter(
-          (cartItem) => cartItem.id !== action.payload.id
+          (cartItem) => cartItem.id !== payload.id
         ),
       };
     case CartActionTypes.TOGGLE_ITEM_CHECKBOX:
       return {
         ...state,
-        cartItems: toggleItemCheckBox(state.cartItems, action.payload),
+        cartItems: toggleItemCheckBox(state.cartItems, payload),
       };
     case CartActionTypes.TOGGLE_ALL_SELECT_CHECKBOX:
       return {
@@ -133,10 +78,8 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         selectedItemsTotalPrice: state.cartItems.reduce(
-          (accumulator, cartItem) =>
-            cartItem.checked
-              ? accumulator + cartItem.price * cartItem.quantity
-              : accumulator,
+          (accumulator, { price, checked, quantity }) =>
+            checked ? accumulator + price * quantity : accumulator,
           0
         ),
       };
@@ -144,15 +87,15 @@ const cartReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         seletectedItemsAmount: state.cartItems.reduce(
-          (accumulator, cartItem) =>
-            cartItem.checked ? accumulator + 1 : accumulator,
+          (accumulator, { checked }) =>
+            checked ? accumulator + 1 : accumulator,
           0
         ),
       };
     case CartActionTypes.GET_CART_ITEMS:
       return {
         ...state,
-        cartItems: [...action.payload],
+        cartItems: [...payload],
       };
     case CartActionTypes.DELETE_SOLDOUT_ITEMS:
       return {
@@ -162,7 +105,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     case CartActionTypes.ADD_ITEM_TO_CART:
       return {
         ...state,
-        cartItems: checkAddItemToCart(state.cartItems, action.payload),
+        cartItems: checkAddItemToCart(state.cartItems, payload),
       };
     default:
       return state;

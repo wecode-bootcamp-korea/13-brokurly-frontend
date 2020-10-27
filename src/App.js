@@ -12,8 +12,6 @@ import SearchId from "./Pages/Login/SearchId/SearchId.component";
 import SearchPwd from "./Pages/Login/SearchPwd/SearchPwd.component";
 import Login from "./Pages/Login/Login.component";
 import Signup from "./Pages/Signup/Signup.component";
-// For Testing Some Functions Before Launching
-// import Test from "./Pages/Test/Test.component";
 
 import { getCartItems } from "./redux/cart/cart.actions";
 
@@ -31,27 +29,31 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const { getCartItems } = this.props;
-    window.addEventListener("scroll", this.scrollNavBarChange);
-    fetch(GET_SHOPPINGBASKET_API, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        Authorization: USER_TOKEN,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => data["shopping_list"])
-      .then((cartItems) => getCartItems(cartItems));
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.scrollNavBarChange);
+    this.addScrollEventAndFetchCartItemList();
   }
 
   scrollNavBarChange = () => {
     const currentScrollTop = window.scrollY;
-    this.setState({ hidden: currentScrollTop > 50 });
+    if (currentScrollTop > 50 && this.state.hidden === false)
+      this.setState({ hidden: true });
+
+    if (currentScrollTop < 50 && this.state.hidden === true)
+      this.setState({ hidden: false });
+  };
+
+  addScrollEventAndFetchCartItemList = () => {
+    const { getCartItems, currentUser } = this.props;
+    window.addEventListener("scroll", this.scrollNavBarChange);
+    Object.keys(currentUser).length &&
+      fetch(GET_SHOPPINGBASKET_API, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: USER_TOKEN,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => data["shopping_list"])
+        .then((cartItems) => getCartItems(cartItems));
   };
 
   render() {
@@ -69,7 +71,6 @@ class App extends Component {
             <Route exact path="/searchpwd" component={SearchPwd} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
-            {/* <Route exact path="/test" component={Test} /> */}
           </Switch>
         </div>
         <Footer />
@@ -81,8 +82,4 @@ const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, { getCartItems })(App);

@@ -16,9 +16,9 @@ class NavCategoryBar extends Component {
         <div>
           <div className="all">
             <div className="hamburger">
-              <span></span>
-              <span></span>
-              <span></span>
+              <span />
+              <span />
+              <span />
             </div>
             <span>전체 카테고리</span>
             <NavCategoryAllBarSub />
@@ -34,7 +34,7 @@ class NavCategoryBar extends Component {
             </div>
             <Link to="/cartItems">
               <img src={CART} alt="cart-icon" />
-              {!cartItems.length ? "" : <span>{cartItems.length}</span>}
+              {cartItems.length && <span>{cartItems.length}</span>}
             </Link>
           </div>
         </div>
