@@ -8,3 +8,7 @@ export const getPurchaseList = (purchaseList) => ({
 export const logoutClearPurchaseList = () => ({
   type: PurchaseActionTypes.LOGOUT_CLEAR_PURCHASE_LIST,
 });
+
+export const orderPurchaseList = () => ({
+  type: PurchaseActionTypes.ORDER_PURCHASE_LIST,
+});

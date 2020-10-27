@@ -102,6 +102,7 @@ class ViewCart extends Component {
 
   render() {
     const { cartItems, allSelect, seletectedItemsAmount } = this.props;
+    console.log(cartItems);
     return (
       <div className="ViewCart">
         <div className="selected-items">

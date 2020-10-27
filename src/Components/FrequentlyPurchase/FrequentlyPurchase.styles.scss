@@ -1,0 +1,78 @@
+.FrequentlyPurchase {
+  // border: 1px solid #000;
+
+  .frequently-purchase-list-name {
+    height: 80px;
+    // border: 1px solid #000;
+    display: flex;
+
+    span {
+      &:first-child {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
+        font-weight: 500;
+      }
+
+      &:last-child {
+        flex: 5;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #d7c5b3;
+      }
+    }
+  }
+
+  .frequently-purchase-list-container {
+    border-top: 2px solid var(--primary-color);
+    min-height: 125px;
+    border-bottom: 2px solid #dbdbdb;
+    position: relative;
+
+    > span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+    }
+  }
+
+  .select-button {
+    margin-top: 10px;
+    // border: 1px solid #000;
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    button {
+      height: 70%;
+      width: 120px;
+      margin: 0 10px;
+      background-color: var(--primary-color);
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      outline: none;
+
+      &:first-child {
+        background-color: white;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        font-weight: bold;
+      }
+
+      &:last-child {
+        margin-right: 0;
+        color: white;
+        font-weight: bold;
+      }
+    }
+  }
+}

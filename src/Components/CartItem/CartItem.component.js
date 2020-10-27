@@ -171,7 +171,7 @@ class CartItem extends Component {
                   {sold_out ? <span className="sold-out">품절</span> : ""}
                 </div>
                 <div className="cart-item-price">
-                  <span>{numberWithCommas(option_price)}원</span>
+                  <span>{numberWithCommas(price)}원</span>
                 </div>
               </div>
               <div className="cart-item-quantity">

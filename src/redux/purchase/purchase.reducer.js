@@ -12,6 +12,7 @@ const purchaseReducer = (state = INITIAL_STATE, action) => {
         purchaseList: [...action.payload],
       };
     case PurchaseActionTypes.LOGOUT_CLEAR_PURCHASE_LIST:
+    case PurchaseActionTypes.ORDER_PURCHASE_LIST:
       return {
         ...state,
         purchaseList: [],

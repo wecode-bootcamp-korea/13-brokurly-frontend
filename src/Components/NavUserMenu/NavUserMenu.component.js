@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { userLogout, clearToken } from "../../redux/user/user.actions";
 import { logOutClearCart } from "../../redux/cart/cart.actions";
 import { logoutClearPurchaseList } from "../../redux/purchase/purchase.actions";
+import { clearFrequentlyPurchaseItemList } from "../../redux/frequentlyPurchase/frequentlyPurchase.actions";
 
 import { EARLY_DELIVERY_INFO, NEW_USER } from "../../config";
 
@@ -18,6 +19,7 @@ class NavUserMenu extends Component {
       logOutClearCart,
       clearToken,
       logoutClearPurchaseList,
+      clearFrequentlyPurchaseItemList,
       history,
     } = this.props;
     const { user_name, user_rank } = currentUser;
@@ -46,9 +48,10 @@ class NavUserMenu extends Component {
                   <span
                     onClick={() => {
                       logOutClearCart();
-                      logout();
                       clearToken();
                       logoutClearPurchaseList();
+                      clearFrequentlyPurchaseItemList();
+                      logout();
                       history.push("/main");
                     }}
                   >
@@ -94,6 +97,8 @@ const mapDispatchToProps = (dispatch) => ({
   logOutClearCart: () => dispatch(logOutClearCart()),
   clearToken: () => dispatch(clearToken()),
   logoutClearPurchaseList: () => dispatch(logoutClearPurchaseList()),
+  clearFrequentlyPurchaseItemList: () =>
+    dispatch(clearFrequentlyPurchaseItemList()),
 });
 
 export default withRouter(

@@ -5,7 +5,7 @@ import "./PurchaseElement.styles.scss";
 class PurchaseElement extends Component {
   render() {
     return (
-      <div className="purchase-element-container">
+      <div className="PurchaseElement">
         <div className="top">
           <span>[고온어다이어트] 미트볼 & 퀴노아영양밥</span>
           <i className="fal fa-greater-than" />
