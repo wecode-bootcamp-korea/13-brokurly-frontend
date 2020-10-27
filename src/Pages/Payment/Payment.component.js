@@ -16,8 +16,19 @@ class Payment extends Component {
     };
   }
 
+  componentDidMount = () => {
+    fetch("http://localhost:3001/data/paymentData.json", {
+      headers: {
+        Authorization: localStorage.getItem("Authorization"),
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => this.setState({ result }));
+  };
+
   render() {
-    const { onOffSwitch } = this.state;
+    const { onOffSwitch, result } = this.state;
+    console.log(result && result.products);
     return (
       <div className="Payment">
         <div className="payment-container">
@@ -33,7 +44,9 @@ class Payment extends Component {
               <div
                 className={`products-list-before ${onOffSwitch ? "on" : "off"}`}
               >
-                <p>[초록동당근] 10종 외 1개 상품을 주문합니다.</p>
+                <p>{`${result && result.products[0].name} 외 ${
+                  result && result.products.length - 1
+                }종`}</p>
                 <button
                   onClick={() => this.setState({ onOffSwitch: !onOffSwitch })}
                 >
@@ -46,7 +59,15 @@ class Payment extends Component {
                   <span>상품 금액</span>
                 </div>
                 <ul className={`order-products`}>
-                  <OrderProductList />
+                  {result &&
+                    result.products.map((product) => (
+                      <OrderProductList
+                        name={product.name}
+                        imeage={product.imageUrl}
+                        price={product.originalPrice}
+                        quantity={Number(product.quantity)}
+                      />
+                    ))}
                 </ul>
               </div>
             </div>
@@ -57,15 +78,27 @@ class Payment extends Component {
             <div className="user-info-container">
               <div className="user-info">
                 <span className="user-info-content">보내는 분*</span>
-                <input className="user-info-input"></input>
+                <input
+                  type="text"
+                  className="user-info-input"
+                  value={result && result.user_name}
+                />
               </div>
               <div className="user-info">
                 <span className="user-info-content">휴대폰*</span>
-                <input className="user-info-input"></input>
+                <input
+                  type="text"
+                  className="user-info-input"
+                  value={result && result.phone}
+                />
               </div>
               <div className="user-info">
                 <span className="user-info-content">이메일*</span>
-                <input className="user-info-input"></input>
+                <input
+                  type="text"
+                  className="user-info-input"
+                  value={result && result.email}
+                />
                 <div className="text-info">
                   <p>이메일을 통해 주문처리과정을 보내드립니다.</p>
                   <p>
@@ -107,15 +140,16 @@ class Payment extends Component {
               </div>
             </div>
           </section>
+          {/* 결제수단 */}
           <section className="section-name payment-info">
             <div className="payment-info-left">
               <h3>결제 수단</h3>
               <div className="payment-method">
-                <div>일반결제</div>
+                <div>카카오 페이</div>
                 <label className="payment-check-container">
                   <input type="radio" className="check-input" />
                   <span className="checkmark"></span>
-                  <span className="mark-name">신용카드</span>
+                  <span className="mark-name">체크</span>
                 </label>
                 <img src={americanExperss} alt="card"></img>
               </div>

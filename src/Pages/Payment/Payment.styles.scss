@@ -43,6 +43,12 @@
         .user-info {
           padding: 8px 0;
 
+          .user-info-input {
+            border: none;
+            outline: none;
+            font-size: 12px;
+          }
+
           .user-info-content {
             display: inline-block;
             width: 190px;

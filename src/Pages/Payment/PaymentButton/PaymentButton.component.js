@@ -28,7 +28,6 @@ class PaymentButton extends Component {
       buyer_tel: "01012341234", // 구매자 전화번호
       buyer_email: "example@example", // 구매자 이메일
       buyer_addr: "신사동 661-16", // 구매자 주소
-      buyer_postcode: "06018", // 구매자 우편번호
     };
 
     /* 4. 결제 창 호출하기 */
