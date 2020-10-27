@@ -28,21 +28,21 @@ class App extends Component {
     };
   }
 
-  // componentDidUpdate() {
-  //   const { getCartItems, userToken } = this.props;
-  //   window.addEventListener("scroll", this.scrollNavBarChange);
-  //   userToken &&
-  //     fetch(GET_SHOPPINGBASKET_API, {
-  //       method: "GET",
-  //       headers: {
-  //         "content-type": "application/json",
-  //         Authorization: userToken,
-  //       },
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => data["shopping_list"])
-  //       .then((cartItems) => console.log(cartItems));
-  // }
+  componentDidMount() {
+    // const { getCartItems, userToken } = this.props;
+    window.addEventListener("scroll", this.scrollNavBarChange);
+    // userToken &&
+    //   fetch(GET_SHOPPINGBASKET_API, {
+    //     method: "GET",
+    //     headers: {
+    //       "content-type": "application/json",
+    //       Authorization: userToken,
+    //     },
+    //   })
+    //     .then((res) => res.json())
+    //     .then((data) => data["shopping_list"])
+    //     .then((cartItems) => console.log(cartItems));
+  }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.scrollNavBarChange);
