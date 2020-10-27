@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 import OrderProductList from "./OrderProductList/OrderProductList.component";
+import PaymentButton from "./PaymentButton/PaymentButton.component";
 
 import "./Payment.styles.scss";
 
@@ -68,7 +69,7 @@ class Payment extends Component {
                 <div className="text-info">
                   <p>이메일을 통해 주문처리과정을 보내드립니다.</p>
                   <p>
-                    정보 변경은 <b>마이컬리 > 개인정보</b> 수정 메뉴에서
+                    정보 변경은 <b>{`마이컬리 > 개인정보`}</b> 수정 메뉴에서
                     가능합니다.
                   </p>
                 </div>
@@ -111,7 +112,7 @@ class Payment extends Component {
               <h3>결제 수단</h3>
               <div className="payment-method">
                 <div>일반결제</div>
-                <label className="container">
+                <label className="payment-check-container">
                   <input type="radio" className="check-input" />
                   <span className="checkmark"></span>
                   <span className="mark-name">신용카드</span>
@@ -150,7 +151,7 @@ class Payment extends Component {
             </div>
           </section>
           <section className="section-name complete-btn">
-            <button className="pay-button">결제하기</button>
+            <PaymentButton />
           </section>
         </div>
       </div>
