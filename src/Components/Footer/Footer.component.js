@@ -6,8 +6,8 @@ class Footer extends Component {
   render() {
     return (
       <footer className="Footer">
-        <div className="footer-container">
-          <div className="left-side container">
+        <div className="left-side container">
+          <div className="left-side content">
             <div className="left-side front info">
               <img
                 className="logo"
@@ -63,8 +63,8 @@ class Footer extends Component {
               />
             </div>
           </div>
-          <div className="right-side"></div>
         </div>
+        <div className="right-side"></div>
       </footer>
     );
   }
