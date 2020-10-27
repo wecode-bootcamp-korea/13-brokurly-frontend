@@ -30,7 +30,6 @@ class App extends Component {
 
   componentDidUpdate() {
     const { getCartItems, userToken } = this.props;
-    window.addEventListener("scroll", this.scrollNavBarChange);
     userToken &&
       fetch(GET_SHOPPINGBASKET_API, {
         method: "GET",
@@ -44,13 +43,32 @@ class App extends Component {
         .then((cartItems) => getCartItems(cartItems));
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.scrollNavBarChange);
+  componentDidMount() {
+    this.addScrollEventAndFetchCartItemList();
   }
 
   scrollNavBarChange = () => {
     const currentScrollTop = window.scrollY;
-    this.setState({ hidden: currentScrollTop > 50 });
+    if (currentScrollTop > 50 && this.state.hidden === false)
+      this.setState({ hidden: true });
+
+    if (currentScrollTop < 50 && this.state.hidden === true)
+      this.setState({ hidden: false });
+  };
+
+  addScrollEventAndFetchCartItemList = () => {
+    const { getCartItems, currentUser, userToken } = this.props;
+    window.addEventListener("scroll", this.scrollNavBarChange);
+    Object.keys(currentUser).length &&
+      fetch(GET_SHOPPINGBASKET_API, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: userToken,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => data["shopping_list"])
+        .then((cartItems) => getCartItems(cartItems));
   };
 
   render() {
@@ -69,7 +87,6 @@ class App extends Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/mypage" component={MyPage} />
-            {/* <Route exact path="/test" component={Test} /> */}
           </Switch>
         </div>
         <Footer />
@@ -82,8 +99,4 @@ const mapStateToProps = ({ user }) => ({
   userToken: user.userToken,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, { getCartItems })(App);

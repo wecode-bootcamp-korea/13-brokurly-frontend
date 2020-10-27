@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import NavCategoryAllBarSub from "../NavCategoryAllBar/NavCategoryAllBarSub.component";
@@ -26,9 +26,9 @@ class NavCategoryBar extends Component {
         <div>
           <div className="all">
             <div className="hamburger">
-              <span></span>
-              <span></span>
-              <span></span>
+              <span />
+              <span />
+              <span />
             </div>
             <span>전체 카테고리</span>
             <NavCategoryAllBarSub />
@@ -42,12 +42,15 @@ class NavCategoryBar extends Component {
               <input type="text" placeholder="내 맘대로 끓여먹는 라면" />
               <i className="fa fa-search"></i>
             </div>
-            <img
-              src={CART}
-              alt="cart-icon"
-              onClick={this.checkCartItemPageAccess}
-            />
-            {!cartItems.length ? "" : <span>{cartItems.length}</span>}
+
+            <Link to="/cartItems">
+              <img
+                src={CART}
+                alt="cart-icon"
+                onClick={this.checkCartItemPageAccess}
+              />
+              {cartItems.length && <span>{cartItems.length}</span>}
+            </Link>
           </div>
         </div>
       </div>

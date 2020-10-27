@@ -15,29 +15,36 @@ class NavCategoryAllBarSub extends Component {
   }
 
   componentDidMount() {
-    fetch(GET_CATEGORY_API)
-      .then((res) => res.json())
-      .then((data) => data["categories"])
-      .then((specificDataList) => {
-        specificDataList.map((specificData) =>
-          this.setState({
-            categoryList: [
-              ...this.state.categoryList,
-              [
-                specificData.name,
-                specificData.imageUrl,
-                specificData.imageActiveUrl,
-              ],
-            ],
-            subCategoryList: [
-              ...this.state.subCategoryList,
-              specificData.sub_categories,
-            ],
-          })
-        );
-      })
-      .catch((error) => console.log(error.message));
+    this.getCategoryList();
   }
+
+  getCategoryList = async () => {
+    try {
+      await fetch(GET_CATEGORY_API)
+        .then((res) => res.json())
+        .then((data) => data.categories)
+        .then((specificDataList) => {
+          specificDataList.map((specificData) =>
+            this.setState({
+              categoryList: [
+                ...this.state.categoryList,
+                [
+                  specificData.name,
+                  specificData.imageUrl,
+                  specificData.imageActiveUrl,
+                ],
+              ],
+              subCategoryList: [
+                ...this.state.subCategoryList,
+                specificData.sub_categories,
+              ],
+            })
+          );
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   showRightSubMenu = (idx) => {
     const { subCategoryList, categoryList } = this.state;
@@ -50,14 +57,6 @@ class NavCategoryAllBarSub extends Component {
     elementImage[idx].src = categoryList[idx][2];
   };
 
-  leaveCurrentElement = (idx) => {
-    const { categoryList } = this.state;
-    let elementImage = document.querySelectorAll(
-      ".all-bar-sub-left-element img"
-    );
-    elementImage[idx].src = categoryList[idx][1];
-  };
-
   render() {
     const { categoryList, showSubCategoryList } = this.state;
     return (
@@ -67,16 +66,15 @@ class NavCategoryAllBarSub extends Component {
             className="all-bar-sub-left-element"
             key={idx}
             onMouseEnter={() => this.showRightSubMenu(idx)}
-            onMouseLeave={() => this.leaveCurrentElement(idx)}
           >
-            <img src={category[1]} alt="category" />
+            <img src={category[2]} alt="category" />
             <span>{category[0]}</span>
           </div>
         ))}
         <div className="all-bar-sub-right">
-          {showSubCategoryList.map((showSubCategory, idx) => (
+          {showSubCategoryList.map(({ name }, idx) => (
             <div key={idx}>
-              <span>{showSubCategory.name}</span>
+              <span>{name}</span>
             </div>
           ))}
         </div>
