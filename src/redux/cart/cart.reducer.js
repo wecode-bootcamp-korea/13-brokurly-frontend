@@ -31,29 +31,29 @@ const INITIAL_STATE = {
   selectedItemsTotalPrice: 0,
 };
 
-const cartReducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
+const cartReducer = (state = INITIAL_STATE, { type, payload }) => {
+  switch (type) {
     case CartActionTypes.INCREASE_ITEM_AMOUNT:
       return {
         ...state,
-        cartItems: increaseItemAmount(state.cartItems, action.payload),
+        cartItems: increaseItemAmount(state.cartItems, payload),
       };
     case CartActionTypes.DECREASE_ITEM_AMOUNT:
       return {
         ...state,
-        cartItems: removeItemFromCart(state.cartItems, action.payload),
+        cartItems: removeItemFromCart(state.cartItems, payload),
       };
     case CartActionTypes.CLEAR_ITEM_FROM_CART:
       return {
         ...state,
         cartItems: state.cartItems.filter(
-          (cartItem) => cartItem.id !== action.payload.id
+          (cartItem) => cartItem.id !== payload.id
         ),
       };
     case CartActionTypes.TOGGLE_ITEM_CHECKBOX:
       return {
         ...state,
-        cartItems: toggleItemCheckBox(state.cartItems, action.payload),
+        cartItems: toggleItemCheckBox(state.cartItems, payload),
       };
     case CartActionTypes.TOGGLE_ALL_SELECT_CHECKBOX:
       return {
@@ -97,7 +97,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     case CartActionTypes.GET_CART_ITEMS:
       return {
         ...state,
-        cartItems: [...action.payload],
+        cartItems: [...payload],
       };
     case CartActionTypes.DELETE_SOLDOUT_ITEMS:
       return {
@@ -107,7 +107,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     case CartActionTypes.ADD_ITEM_TO_CART:
       return {
         ...state,
-        cartItems: checkAddItemToCart(state.cartItems, action.payload),
+        cartItems: checkAddItemToCart(state.cartItems, payload),
       };
     case CartActionTypes.USER_LOGOUT_CLEAR_CART:
       return {

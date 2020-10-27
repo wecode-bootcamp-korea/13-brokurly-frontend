@@ -5,12 +5,12 @@ const INITIAL_STATE = {
   userToken: "",
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
+const userReducer = (state = INITIAL_STATE, { type, payload }) => {
+  switch (type) {
     case UserActionTypes.GET_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.payload,
+        currentUser: payload,
       };
     case UserActionTypes.USER_LOGOUT:
       return {
@@ -20,7 +20,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.GET_TOKEN:
       return {
         ...state,
-        userToken: action.payload,
+        userToken: payload,
       };
     case UserActionTypes.CLEAR_TOKEN:
       return {
