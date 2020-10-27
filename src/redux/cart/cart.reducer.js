@@ -78,8 +78,10 @@ const cartReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         selectedItemsTotalPrice: state.cartItems.reduce(
-          (accumulator, { price, checked, quantity }) =>
-            checked ? accumulator + price * quantity : accumulator,
+          (accumulator, cartItem) =>
+            cartItem.checked
+              ? accumulator + cartItem.price * cartItem.quantity
+              : accumulator,
           0
         ),
       };
@@ -87,8 +89,8 @@ const cartReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         seletectedItemsAmount: state.cartItems.reduce(
-          (accumulator, { checked }) =>
-            checked ? accumulator + 1 : accumulator,
+          (accumulator, cartItem) =>
+            cartItem.checked ? accumulator + 1 : accumulator,
           0
         ),
       };
@@ -106,6 +108,11 @@ const cartReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         cartItems: checkAddItemToCart(state.cartItems, payload),
+      };
+    case CartActionTypes.USER_LOGOUT_CLEAR_CART:
+      return {
+        ...state,
+        cartItems: {},
       };
     default:
       return state;
