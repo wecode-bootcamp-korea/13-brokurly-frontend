@@ -1,0 +1,101 @@
+.ViewCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .selected-items {
+    border-top: 1px solid var(--primary-color);
+    width: 100%;
+
+    .selected-items-header {
+      height: 61px;
+      border-bottom: 2px solid #ddd;
+      display: flex;
+
+      > div {
+        display: flex;
+        align-items: center;
+
+        span {
+          font-size: 14px;
+          color: #666666;
+          font-weight: bold;
+        }
+      }
+
+      .selected-items-header-select {
+        flex: 36;
+
+        label {
+          padding: 0px 16px;
+
+          input[type="checkbox"] {
+            height: 16px;
+            width: 16px;
+          }
+        }
+      }
+
+      .selected-items-header-info {
+        flex: 42;
+      }
+
+      .selected-items-header-count {
+        flex: 11;
+      }
+
+      .selected-items-header-cost {
+        flex: 10;
+      }
+    }
+  }
+
+  .selected-options-container {
+    width: 100%;
+    height: 152px;
+    padding: 30px 12px;
+
+    .selected-options {
+      height: 42px;
+      display: flex;
+      align-items: center;
+
+      button {
+        outline: none;
+        cursor: pointer;
+      }
+
+      .select-all {
+        display: flex;
+        align-items: center;
+        padding-left: 5px;
+        div {
+          input[type="checkbox"] {
+            height: 16px;
+            width: 16px;
+          }
+        }
+      }
+
+      button {
+        background-color: #fff;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .select-delete {
+        height: 100%;
+        width: 88px;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      .sold-out-delete {
+        height: 100%;
+        width: 120px;
+      }
+    }
+  }
+}
