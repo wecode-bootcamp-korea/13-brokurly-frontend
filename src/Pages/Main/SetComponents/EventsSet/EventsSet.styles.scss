@@ -10,17 +10,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
     width: 340px;
-    padding: 0 5px;
+    margin: 0 10px;
 
     .image {
       width: 100%;
       height: 330px;
-      overflow: hidden;
-    }
 
-    .img {
-      width: 100%;
+      .img.full-width {
+        width: 120%;
+        transition: all 300ms ease-out;
+      }
+
+      .img.full-height {
+        height: 120%;
+        transition: all 300ms ease-out;
+      }
     }
 
     .info {

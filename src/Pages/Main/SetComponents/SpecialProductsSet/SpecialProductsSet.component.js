@@ -19,7 +19,7 @@ class SpecialProductsSet extends Component {
     const productAPI =
       sectionId === 1000
         ? `http://10.58.4.20:8000/products/home/md-choice?category=${categoryId}`
-        : "http://10.58.4.20:8000/products/main/section";
+        : "http://10.58.4.20:8000/products/home/section";
     fetch(productAPI)
       .then((res) => res.json())
       .then((res) => {
@@ -75,6 +75,8 @@ class SpecialProductsSet extends Component {
       isLeftButtonVisible: !isFinalLeftClickConditionReached,
     });
   };
+
+  goToProductPage = () => {};
 
   render() {
     const {

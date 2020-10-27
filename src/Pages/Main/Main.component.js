@@ -38,7 +38,11 @@ class Main extends Component {
       },
       () => {
         setTimeout(() => {
-          this.setState({ position: 0 });
+          const scrollTop = this.main.current.scrollTop;
+          this.setState({ position: scrollTop >= 5100 ? -3 : 0 });
+          setTimeout(() => {
+            this.setState({ scrollTop });
+          }, 500);
         }, 500);
       }
     );
@@ -67,6 +71,7 @@ class Main extends Component {
     this.setState({
       scrollTop,
     });
+    console.log(scrollTop);
     if (lastScrollTop === 0 && scrollTop >= 240) {
       this.setState({
         lastScrollTop: 240,

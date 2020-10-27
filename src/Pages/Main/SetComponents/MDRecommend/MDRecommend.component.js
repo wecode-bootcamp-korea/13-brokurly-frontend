@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import SpecialProductsSet from "../SpecialProductsSet/SpecialProductsSet.component";
 import "./MDRecommend.styles.scss";
 
@@ -65,13 +66,15 @@ class MDRecommend extends Component {
           categoryId={selectedCategoryId}
           key={selectedCategoryId}
         />
-        <button className="see-all-of-category-button">
-          <p>
-            {selectedCategoryName}
-            <span>{" 전체보기"}</span>
-          </p>
-          <div className="right-angle-icon"></div>
-        </button>
+        <Link className="Link" to={`/productlist/${selectedCategoryId}`}>
+          <button className="see-all-of-category-button">
+            <p>
+              {selectedCategoryName}
+              <span>{" 전체보기"}</span>
+            </p>
+            <div className="right-angle-icon"></div>
+          </button>
+        </Link>
       </div>
     );
   }

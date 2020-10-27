@@ -33,7 +33,7 @@ class SpecialProductsItem extends Component {
     } = this.props;
     return (
       <li className="SpecialProductsItem" key={id}>
-        <Link className="Link" to="/product-page">
+        <Link className="Link" to={`/productdetails/${id}`}>
           <div className="special-products-item-img">
             <div className={discountPercent ? "sale-box" : "sale-box hide"}>
               <p className="sale-type">{discountName}</p>

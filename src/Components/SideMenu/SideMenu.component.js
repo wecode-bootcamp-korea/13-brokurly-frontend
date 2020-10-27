@@ -62,6 +62,7 @@ class SideMenu extends Component {
       transition: `transform 600ms`,
     };
     const positionToClassName = {
+      "-3": "SideMenu scroll-end",
       "-2": "SideMenu",
       "-1": "SideMenu on-scroll-down",
       0: "SideMenu default",
