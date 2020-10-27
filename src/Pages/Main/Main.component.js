@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MainBanner from "./MainBanner/MainBanner.component";
 import SideMenu from "../../Components/SideMenu/SideMenu.component";
 import SectionRender from "./SectionRender/SectionRender.component";
+import Footer from "../../Components/Footer/Footer.component";
 import "./Main.styles.scss";
 
 class Main extends Component {
@@ -105,6 +106,7 @@ class Main extends Component {
         {specialSections.map((section) => (
           <SectionRender section={section} key={section.id} />
         ))}
+        <Footer />
       </div>
     );
   }
