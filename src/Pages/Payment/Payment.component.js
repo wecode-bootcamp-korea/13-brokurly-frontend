@@ -1,13 +1,22 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
+import OrderProductList from "./OrderProductList/OrderProductList.component";
+
 import "./Payment.styles.scss";
 
 import americanExperss from "../../Images/american.png";
-import carrot from "../../Images/carrot.jpeg";
 
 class Payment extends Component {
+  constructor() {
+    super();
+    this.state = {
+      onOffSwitch: true,
+    };
+  }
+
   render() {
+    const { onOffSwitch } = this.state;
     return (
       <div className="Payment">
         <div className="payment-container">
@@ -20,48 +29,25 @@ class Payment extends Component {
           <section className="section-name product-info">
             <h3>상품 정보</h3>
             <div className="product-info-container">
-              <div className="products-list-bar">
-                <span>상품 정보</span>
-                <span>상품 금액</span>
+              <div
+                className={`products-list-before ${onOffSwitch ? "on" : "off"}`}
+              >
+                <p>[초록동당근] 10종 외 1개 상품을 주문합니다.</p>
+                <button
+                  onClick={() => this.setState({ onOffSwitch: !onOffSwitch })}
+                >
+                  상세보기<i class="fas fa-angle-down"></i>
+                </button>
               </div>
-              <ul className="order-products">
-                <li className="order-product">
-                  <img src={carrot} alt="이미지 데이터" />
-                  <div className="product-detail">
-                    <span className="product-title">
-                      [초록동당근] 상품 당근 10종
-                    </span>
-                    <span className="product-subtitle">
-                      [초록동당근] 1개 / 개 당 15,000원
-                    </span>
-                  </div>
-                  <span className="product-price">15,000원</span>
-                </li>
-                <li className="order-product">
-                  <img src={carrot} alt="이미지 데이터" />
-                  <div className="product-detail">
-                    <span className="product-title">
-                      [초록동당근] 상품 당근 10종
-                    </span>
-                    <span className="product-subtitle">
-                      [초록동당근] 1개 / 개 당 15,000원
-                    </span>
-                  </div>
-                  <span className="product-price">15,000원</span>
-                </li>
-                <li className="order-product">
-                  <img src={carrot} alt="이미지 데이터" />
-                  <div className="product-detail">
-                    <span className="product-title">
-                      [초록동당근] 상품 당근 10종
-                    </span>
-                    <span className="product-subtitle">
-                      [초록동당근] 1개 / 개 당 15,000원
-                    </span>
-                  </div>
-                  <span className="product-price">15,000원</span>
-                </li>
-              </ul>
+              <div className={`onOffBox ${onOffSwitch ? "off" : "on"}`}>
+                <div className={`products-list-bar `}>
+                  <span>상품 정보</span>
+                  <span>상품 금액</span>
+                </div>
+                <ul className={`order-products`}>
+                  <OrderProductList />
+                </ul>
+              </div>
             </div>
           </section>
           {/* 주문자 정보 */}
