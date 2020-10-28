@@ -4,21 +4,21 @@
   align-items: center;
 
   .selected-items {
-    border-top: 1px solid var(--primary-color);
     width: 100%;
+    border-top: 1px solid var(--primary-color);
 
     .selected-items-header {
+      display: flex;
       height: 61px;
       border-bottom: 2px solid #ddd;
-      display: flex;
 
       > div {
         display: flex;
         align-items: center;
 
         span {
-          font-size: 14px;
           color: #666666;
+          font-size: 14px;
           font-weight: bold;
         }
       }
@@ -30,8 +30,8 @@
           padding: 0px 16px;
 
           input[type="checkbox"] {
-            height: 16px;
             width: 16px;
+            height: 16px;
           }
         }
       }
@@ -56,9 +56,9 @@
     padding: 30px 12px;
 
     .selected-options {
-      height: 42px;
       display: flex;
       align-items: center;
+      height: 42px;
 
       button {
         outline: none;
@@ -71,30 +71,30 @@
         padding-left: 5px;
         div {
           input[type="checkbox"] {
-            height: 16px;
             width: 16px;
+            height: 16px;
           }
         }
       }
 
       button {
         background-color: #fff;
-        border: 1px solid var(--primary-color);
         color: var(--primary-color);
+        border: 1px solid var(--primary-color);
         font-size: 12px;
         font-weight: 700;
       }
 
       .select-delete {
-        height: 100%;
         width: 88px;
+        height: 100%;
         margin-left: 10px;
         margin-right: 10px;
       }
 
       .sold-out-delete {
-        height: 100%;
         width: 120px;
+        height: 100%;
       }
     }
   }

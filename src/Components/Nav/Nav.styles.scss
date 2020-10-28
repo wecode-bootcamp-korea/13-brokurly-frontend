@@ -2,17 +2,17 @@
   position: fixed;
   top: 0;
   width: 100%;
+  background-color: #fff;
   box-shadow: 0 0 3px #fcfcfc;
   z-index: 10000;
-  background-color: #fff;
 
   .logo {
     display: flex;
     justify-content: center;
 
     img {
-      min-height: 100%;
       width: 103px;
+      min-height: 100%;
     }
   }
 }

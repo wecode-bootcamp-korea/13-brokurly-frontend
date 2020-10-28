@@ -5,51 +5,51 @@
   margin-bottom: 200px;
 
   .cart-items-header {
-    height: 152px;
-    margin-top: 30px;
-    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    height: 152px;
+    margin-top: 30px;
+    padding: 10px;
 
     h1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90px;
       text-align: center;
       font-size: 40px;
       font-weight: 700;
-      height: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     p {
+      color: #999;
       text-align: center;
       font-size: 16px;
-      color: #999;
     }
   }
 
   .cart-items-content {
-    margin-top: 40px;
     width: 55%;
     min-width: 800px;
+    margin-top: 40px;
   }
 
   .price-result-container {
-    height: 165px;
-    width: 55%;
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+    width: 55%;
     min-width: 800px;
+    height: 165px;
 
     span {
-      width: 86px;
-      height: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 86px;
+      height: 50%;
       font-size: 35px;
     }
 
@@ -59,16 +59,16 @@
     }
 
     .initial-price {
-      width: 196px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      width: 196px;
 
       span {
-        width: 100%;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        width: 100%;
       }
 
       .initial-price-text {
@@ -83,16 +83,16 @@
     }
 
     .discount-amount {
-      width: 196px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      width: 196px;
 
       span {
-        width: 100%;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        width: 100%;
       }
 
       .discount-amount-text {
@@ -107,16 +107,16 @@
     }
 
     .delivery-fee {
-      width: 196px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      width: 196px;
 
       span {
-        width: 100%;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        width: 100%;
       }
 
       .delivery-fee-text {
@@ -131,60 +131,60 @@
     }
 
     .price-result {
-      width: 226px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      width: 226px;
 
       span {
-        width: 100%;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        width: 100%;
       }
 
       .price-result-text {
-        margin-top: 15px;
         height: 15%;
+        margin-top: 15px;
         font-size: 13px;
       }
 
       .price-result-number {
         height: 25%;
-        font-size: 23px;
         color: var(--primary-color);
+        font-size: 23px;
       }
 
       .mileage-point-info {
         height: 10%;
-        font-size: 11px;
         color: var(--primary-color);
+        font-size: 11px;
       }
     }
 
     .price-result-additonal-info {
       position: absolute;
-      height: 18px;
-      width: 300px;
       top: 110%;
       right: 0;
       display: flex;
       align-items: center;
+      width: 300px;
+      height: 18px;
       span {
-        height: 100%;
-        width: 100%;
-        font-size: 11px;
         display: flex;
         justify-content: flex-end;
+        width: 100%;
+        height: 100%;
+        font-size: 11px;
       }
     }
   }
 
   .goto-order-page {
-    margin-top: 40px;
-    width: 55%;
     display: flex;
     justify-content: center;
+    width: 55%;
+    margin-top: 40px;
 
     button {
       outline: none;
@@ -196,40 +196,40 @@
       height: 48px;
       background-color: var(--primary-color);
       color: white;
-      font-weight: bold;
       border: none;
+      font-weight: bold;
     }
   }
 
   .warning {
-    margin-top: 50px;
-    width: 55%;
-    height: 80px;
-    background-color: #f7f7f7;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    width: 55%;
     min-width: 900px;
+    height: 80px;
+    margin-top: 50px;
+    background-color: #f7f7f7;
 
     .warning-text-top {
-      height: 40%;
-      width: 50%;
-      font-size: 12px;
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 50%;
+      height: 40%;
       color: #999;
+      font-size: 12px;
     }
 
     .warning-text-bottom {
-      height: 40%;
-      width: 50%;
-      font-size: 12px;
       display: flex;
       justify-content: center;
       align-items: flex-start;
+      width: 50%;
+      height: 40%;
       color: #999;
+      font-size: 12px;
     }
   }
 }

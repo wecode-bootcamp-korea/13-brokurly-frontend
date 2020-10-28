@@ -1,70 +1,66 @@
 .FrequentlyPurchase {
-  // border: 1px solid #000;
-
   .frequently-purchase-list-name {
-    height: 80px;
-    // border: 1px solid #000;
     display: flex;
+    height: 80px;
 
     span {
       &:first-child {
-        flex: 1;
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 25px;
         font-weight: 500;
+        flex: 1;
       }
 
       &:last-child {
-        flex: 5;
         display: flex;
         align-items: center;
-        font-size: 14px;
         color: #d7c5b3;
+        font-size: 14px;
+        flex: 5;
       }
     }
   }
 
   .frequently-purchase-list-container {
-    border-top: 2px solid var(--primary-color);
-    min-height: 125px;
-    border-bottom: 2px solid #dbdbdb;
     position: relative;
+    min-height: 125px;
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid #dbdbdb;
 
     > span {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
       font-size: 12px;
+      transform: translate(-50%, -50%);
     }
   }
 
   .select-button {
-    margin-top: 10px;
-    // border: 1px solid #000;
-    height: 50px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    height: 50px;
+    margin-top: 10px;
 
     button {
-      height: 70%;
-      width: 120px;
-      margin: 0 10px;
-      background-color: var(--primary-color);
-      border: none;
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
+      width: 120px;
+      height: 70%;
+      margin: 0 10px;
+      background-color: var(--primary-color);
       outline: none;
+      border: none;
+      cursor: pointer;
 
       &:first-child {
         background-color: white;
-        border: 1px solid var(--primary-color);
         color: var(--primary-color);
+        border: 1px solid var(--primary-color);
         font-weight: bold;
       }
 

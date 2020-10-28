@@ -1,12 +1,11 @@
 .MyKurly {
-  // border: 1px solid #000;
-  padding-top: 70px;
   display: flex;
   justify-content: center;
+  padding-top: 70px;
 
   .my-kurly-container {
+    display: flex;
     width: 55%;
     min-height: 670px;
-    display: flex;
   }
 }

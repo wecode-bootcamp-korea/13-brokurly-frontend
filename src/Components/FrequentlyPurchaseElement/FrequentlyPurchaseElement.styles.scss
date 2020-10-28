@@ -1,36 +1,32 @@
 .FrequentlyPurchaseElement {
-  border: 1px solid #dbdbdb;
-  height: 150px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  height: 150px;
+  border: 1px solid #dbdbdb;
 
   > div {
     width: 95%;
-    // border: 1px solid #000;
   }
 
   .bottom {
-    // border: 1px solid #000;
-    // padding-top: 15px;
-    height: 79px;
     display: flex;
+    height: 79px;
 
     img {
-      margin-right: 20px;
       width: 60px;
       height: 77px;
+      margin-right: 20px;
     }
 
     .purchase-information {
-      // border: 1px solid #000;
-      width: 75%;
-      height: 100%;
-      padding: 5px 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      width: 75%;
+      height: 100%;
+      padding: 5px 0;
       span {
         &:first-child {
           margin-bottom: 18px;
@@ -41,26 +37,25 @@
           font-size: 12px;
         }
       }
-
     }
 
     .option-buttons {
-      // border: 1px solid #000;
-      width: calc(25% - 77px);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      // border: 1px solid #000;
+      width: calc(25% - 77px);
 
       button {
         width: 85%;
         height: 40%;
-        border: 1px solid var(--primary-color);
         background-color: white;
+        outline: none;
+        border: 1px solid var(--primary-color);
         font-size: 12px;
         font-weight: bold;
         cursor: pointer;
-        outline: none;
 
         &.review {
           margin-bottom: 5px;

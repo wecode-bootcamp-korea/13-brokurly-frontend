@@ -1,58 +1,53 @@
 .PurchaseElement {
-  border: 1px solid #dbdbdb;
-  height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 150px;
+  border: 1px solid #dbdbdb;
 
   > div {
     width: 95%;
-    // border: 1px solid #000;
   }
 
   .top {
-    border-bottom: 1px solid #dbdbdb;
     position: relative;
     height: 50px;
     margin-bottom: 10px;
+    border-bottom: 1px solid #dbdbdb;
 
     span {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
       font-weight: bold;
+      transform: translateY(-50%);
     }
 
     i {
       position: absolute;
       top: 50%;
       right: 0;
-      transform: translateY(-50%);
-      font-size: 20px;
       color: var(--primary-color);
+      font-size: 20px;
+      transform: translateY(-50%);
     }
   }
 
   .bottom {
-    // border: 1px solid #000;
-    // padding-top: 15px;
-    height: 79px;
     display: flex;
+    height: 79px;
 
     img {
-      margin-right: 20px;
       width: 60px;
       height: 77px;
+      margin-right: 20px;
     }
 
     .purchase-information {
-      // border: 1px solid #000;
       width: 75%;
       height: 100%;
       padding: 5px 0;
 
       div {
-        // border: 1px solid #000;
         height: calc(100% / 3);
 
         span {
@@ -70,22 +65,21 @@
     }
 
     .option-buttons {
-      // border: 1px solid #000;
-      width: calc(25% - 77px);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      width: calc(25% - 77px);
 
       button {
         width: 80%;
         height: 40%;
-        border: 1px solid var(--primary-color);
         background-color: white;
+        outline: none;
+        border: 1px solid var(--primary-color);
         font-size: 12px;
         font-weight: bold;
         cursor: pointer;
-        outline: none;
 
         &.review {
           margin-bottom: 5px;
