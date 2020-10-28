@@ -10,6 +10,7 @@ class Main extends Component {
     this.state = {
       specialSections: [],
       scrollTop: 0,
+      // scrollY: 0,
       position: -2,
     };
     this.main = React.createRef();
@@ -34,6 +35,32 @@ class Main extends Component {
       console.log("error...");
     }
   };
+
+  // addSideMenuScrollEventListner = () => {
+  //   window.addEventListener("scroll");
+  //   console.log(window.scrollY);
+  // };
+
+  // handleSideMenuScroll = () => {
+  //   const scrollY = window.scrollY;
+  //   const totalHeight = window.scrollHeight;
+  //   const viewHeight = window.innerHeight;
+  //   const numViews = totalHeight / viewHeight;
+  //   const renderCurrentViewNo = (i=1) => {
+  //     let seenViews = i;
+  //     const remainingViews = numViews - seenViews;
+  //     while (seenViews <= numViews) {
+  //       if (scrollY >= viewHeight * seenViews) {
+  //         seenViews++;
+  //         return seenViews;
+  //       } else {
+  //         seenViews = remainingViews - seenViews;
+  //         renderCurrentViewNo(seenViews);
+  //       }
+  //     }
+  //   }
+  //   const currentView =
+  // };
 
   onScrollDown = () => {
     this.setState(
