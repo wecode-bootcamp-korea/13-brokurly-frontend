@@ -7,23 +7,9 @@ import {
   filterOutSelectedItems,
   filterOutSoldoutItems,
   checkAddItemToCart,
+  filterOutCheckOutCheckedItems,
 } from "./cart.utils";
-// shopping_list_json
-// shopping_list_element = {
-//   [id]
-//   [quantity]
-//   [user_id] 고객 id
-//   [product_id] header 이름
-//   [option] 새끼 품목들 id/ option이 없으면 option항목들이 없음
-//   [name]
-//   [price] 전체
-//   [sold_out]
-//   [sales]
-//   [option_name] 밑에 이름
-//   [option_price] 상세 가격
-//   [option_sold_out]
-//   [option_sales] 판매제한(몇개 이상 혹은 몇개 이하)
-// }
+
 const INITIAL_STATE = {
   cartItems: [],
   allSelect: true,
@@ -113,6 +99,13 @@ const cartReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         cartItems: {},
+        seletectedItemsAmount: 0,
+        selectedItemsTotalPrice: 0,
+      };
+    case CartActionTypes.CHECKOUT_CHECKED_ITEMS:
+      return {
+        ...state,
+        cartItems: filterOutCheckOutCheckedItems(state.cartItems),
       };
     default:
       return state;

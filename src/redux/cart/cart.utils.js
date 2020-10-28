@@ -1,6 +1,6 @@
 export const increaseItemAmount = (cartItems, cartItemToAdd) => {
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === cartItemToAdd.id
+    (cartItem) => cartItem.product_id === cartItemToAdd.product_id
   );
 
   if (existingCartItem) {
@@ -16,12 +16,12 @@ export const increaseItemAmount = (cartItems, cartItemToAdd) => {
 
 export const checkAddItemToCart = (cartItems, cartItemToAdd) => {
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === cartItemToAdd.id
+    (cartItem) => cartItem.product_id === cartItemToAdd.product_id
   );
 
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
-      cartItem.id === cartItemToAdd.id
+      cartItem.product_id === cartItemToAdd.product_id
         ? { ...cartItem, quantity: cartItem.quantity + cartItemToAdd.quantity }
         : cartItem
     );
@@ -32,15 +32,17 @@ export const checkAddItemToCart = (cartItems, cartItemToAdd) => {
 
 export const removeItemFromCart = (cartItems, cartItemToRemove) => {
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === cartItemToRemove.id
+    (cartItem) => cartItem.product_id === cartItemToRemove.product_id
   );
 
   if (existingCartItem.quantity === 1) {
-    return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
+    return cartItems.filter(
+      (cartItem) => cartItem.product_id !== cartItemToRemove.product_id
+    );
   }
 
   return cartItems.map((cartItem) =>
-    cartItem.id === cartItemToRemove.id
+    cartItem.product_id === cartItemToRemove.product_id
       ? { ...cartItem, quantity: cartItem.quantity - 1 }
       : cartItem
   );
@@ -66,5 +68,6 @@ export const filterOutSoldoutItems = (cartItems) => {
   return cartItems.filter((cartItem) => cartItem.sold_out === false);
 };
 
-export const numberWithCommas = (num) =>
-  num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+export const filterOutCheckOutCheckedItems = (cartItems) => {
+  return cartItems.filter((cartItem) => cartItem.checked !== true);
+};

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import "./SearchPwd.styles.scss";
 
+import { USER_SEARCH_PASSWORD } from "../../../config";
+
 class SearchPwd extends Component {
   constructor() {
     super();
@@ -23,7 +25,7 @@ class SearchPwd extends Component {
     if (
       Object.keys(this.state).every((element) => this.state[element] !== "")
     ) {
-      fetch("API", {
+      fetch(USER_SEARCH_PASSWORD, {
         method: "POST",
         body: JSON.stringify({
           user_name,
@@ -33,8 +35,16 @@ class SearchPwd extends Component {
       })
         .then((response) => response.json())
         .then((result) => {
+          console.log("결과=>", result.message);
           if (result.message === "SUCCESS") {
-            alert("아직 작업중이에요");
+            const newPwd = prompt("새로운 비밀번호를 입력해주세요!");
+            fetch(USER_SEARCH_PASSWORD, {
+              method: "PATCH",
+              body: JSON.stringify({
+                user_id,
+                password: newPwd,
+              }),
+            }).then(alert("비밀번호 변경이 완료되었습니다."));
           }
         });
     } else {

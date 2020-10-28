@@ -9,8 +9,6 @@ import {
   checkStatusAllSelectCheckBox,
 } from "../../redux/cart/cart.actions";
 
-import { numberWithCommas } from "../../redux/cart/cart.utils";
-
 import "./CartItems.styles.scss";
 
 class CartItems extends Component {
@@ -40,7 +38,7 @@ class CartItems extends Component {
           <div className="initial-price">
             <span className="initial-price-text">상품금액</span>
             <span className="initial-price-number">
-              {numberWithCommas(totalPrice)} 원
+              {totalPrice.toLocaleString()} 원
             </span>
           </div>
           <span>&#8722;</span>
@@ -57,10 +55,10 @@ class CartItems extends Component {
           <div className="price-result">
             <span className="price-result-text">결제예정금액</span>
             <span className="price-result-number">
-              {numberWithCommas(totalPrice - 18000)} 원
+              {(totalPrice - 18000).toLocaleString()} 원
             </span>
             <span className="mileage-point-info">
-              구매시 {numberWithCommas((totalPrice - 18000) / 10)}원 적립
+              구매시 {((totalPrice - 18000) / 10).toLocaleString()}원 적립
             </span>
           </div>
           <div className="price-result-additonal-info">

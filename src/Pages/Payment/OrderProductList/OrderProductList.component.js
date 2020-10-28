@@ -10,13 +10,11 @@ class OrderProductList extends Component {
         <img src={imeage} alt="이미지 데이터" />
         <div className="product-detail">
           <span className="product-title">{name}</span>
-          <span className="product-subtitle">{`${quantity}개 / 1개 당 ${numberComma(
-            price
-          )}원`}</span>
+          <span className="product-subtitle">{`${quantity}개 / 1개 당 ${price.toLocaleString()}원`}</span>
         </div>
-        <span className="product-price">{`${numberComma(
+        <span className="product-price">{`${(
           price * quantity
-        )}원`}</span>
+        ).toLocaleString()}원`}</span>
       </li>
     );
   }

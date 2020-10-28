@@ -17,8 +17,6 @@ import {
   getSelectedItemsAmount,
 } from "../../redux/cart/cart.actions";
 
-import { numberWithCommas } from "../../redux/cart/cart.utils";
-
 import "./CartItem.styles.scss";
 
 class CartItem extends Component {
@@ -138,7 +136,7 @@ class CartItem extends Component {
           {option_name && (
             <div className="cart-item-info-top">
               <span>{name}</span>
-              <span>{numberWithCommas(price)}원</span>
+              <span>{parseInt(price).toLocaleString()}원</span>
             </div>
           )}
           <div className="cart-item-info-bottom">
@@ -152,7 +150,7 @@ class CartItem extends Component {
                   {sold_out && <span className="sold-out">품절</span>}
                 </div>
                 <div className="cart-item-price">
-                  <span>{numberWithCommas(price)}원</span>
+                  <span>{parseInt(price).toLocaleString()}원</span>
                 </div>
               </div>
               <div className="cart-item-quantity">
@@ -175,7 +173,7 @@ class CartItem extends Component {
                 </div>
               </div>
               <div className="cart-item-total">
-                <span>{numberWithCommas(price * quantity)}원</span>
+                <span>{(price * quantity).toLocaleString}원</span>
               </div>
               <div
                 className="cart-item-delete"
