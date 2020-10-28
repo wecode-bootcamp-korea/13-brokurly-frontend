@@ -7,12 +7,9 @@ import "./MyKurlyMain.styles.scss";
 
 class MyKurlyMain extends Component {
   render() {
-    return (
-      <main>
-        {/* <Purchase /> */}
-        <FrequentlyPurchase />
-      </main>
-    );
+    const categoryPagesArray = [<Purchase />, <FrequentlyPurchase />];
+    const { showCategoryNumber } = this.props;
+    return <main>{categoryPagesArray[showCategoryNumber]}</main>;
   }
 }
 

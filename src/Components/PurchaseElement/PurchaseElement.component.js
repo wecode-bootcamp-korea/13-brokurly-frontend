@@ -4,22 +4,23 @@ import "./PurchaseElement.styles.scss";
 
 class PurchaseElement extends Component {
   render() {
+    const { product_name, price, order_number, product_image_url } = this.props;
     return (
       <div className="PurchaseElement">
         <div className="top">
-          <span>[고온어다이어트] 미트볼 & 퀴노아영양밥</span>
+          <span>{product_name}</span>
           <i className="fal fa-greater-than" />
         </div>
         <div className="bottom">
-          <img src="http://placehold.it/60x77" alt="purchase-item" />
+          <img src={product_image_url} alt="purchase-item" />
           <div className="purchase-information">
             <div className="purchase-number">
               <span>주문번호</span>
-              <span>1601900246927</span>
+              <span>{order_number}</span>
             </div>
             <div className="purchase-amount">
               <span>결제금액</span>
-              <span>29280원</span>
+              <span>{price.toLocaleString()}원</span>
             </div>
             <div className="purchase-shipping-status">
               <span>주문상태</span>

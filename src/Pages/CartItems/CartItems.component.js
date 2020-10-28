@@ -7,9 +7,8 @@ import {
   selectedItemsTotalPrice,
   getSelectedItemsAmount,
   checkStatusAllSelectCheckBox,
+  checkoutCheckedItems,
 } from "../../redux/cart/cart.actions";
-
-import { numberWithCommas } from "../../redux/cart/cart.utils";
 
 import "./CartItems.styles.scss";
 
@@ -24,6 +23,11 @@ class CartItems extends Component {
     getSelectedItemsAmount();
     checkStatusAllSelectCheckBox();
   }
+
+  orderClick = () => {
+    const { checkoutCheckedItems } = this.props;
+    checkoutCheckedItems();
+  };
 
   render() {
     const { totalPrice } = this.props;
@@ -40,7 +44,7 @@ class CartItems extends Component {
           <div className="initial-price">
             <span className="initial-price-text">상품금액</span>
             <span className="initial-price-number">
-              {numberWithCommas(totalPrice)} 원
+              {totalPrice.toLocaleString()} 원
             </span>
           </div>
           <span>&#8722;</span>
@@ -57,10 +61,10 @@ class CartItems extends Component {
           <div className="price-result">
             <span className="price-result-text">결제예정금액</span>
             <span className="price-result-number">
-              {numberWithCommas(totalPrice - 18000)} 원
+              {(totalPrice - 18000).toLocaleString()} 원
             </span>
             <span className="mileage-point-info">
-              구매시 {numberWithCommas((totalPrice - 18000) / 10)}원 적립
+              구매시 {((totalPrice - 18000) / 10).toLocaleString()}원 적립
             </span>
           </div>
           <div className="price-result-additonal-info">
@@ -68,7 +72,9 @@ class CartItems extends Component {
           </div>
         </div>
         <div className="goto-order-page">
-          <button className="goto-order-page-button">주문하기</button>
+          <button className="goto-order-page-button" onClick={this.orderClick}>
+            주문하기
+          </button>
         </div>
         <div className="warning">
           <span className="warning-text-top">
@@ -93,6 +99,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
   getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
   checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
+  checkoutCheckedItems: () => dispatch(checkoutCheckedItems()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItems);

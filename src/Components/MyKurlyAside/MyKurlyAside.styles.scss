@@ -24,6 +24,7 @@ aside {
       position: relative;
       border: 1px solid #dbdbdb;
       border-bottom: none;
+      cursor: pointer;
 
       &:last-of-type {
         border-bottom: 1px solid #dbdbdb;
@@ -58,6 +59,7 @@ aside {
     flex-direction: column;
     justify-content: center;
     position: relative;
+    cursor: pointer;
 
     span:first-of-type {
       font-size: 12px;

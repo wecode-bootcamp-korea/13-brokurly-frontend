@@ -3,6 +3,15 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { getToken, getCurrentUser } from "../../redux/user/user.actions";
+import { getCartItems } from "../../redux/cart/cart.actions";
+import { getFrequentlyPurchaseItems } from "../../redux/frequentlyPurchase/frequentlyPurchase.actions";
+import { getPurchaseList } from "../../redux/purchase/purchase.actions";
+
+import {
+  GET_SHOPPINGBASKET_API,
+  GET_PURHCASE_LIST_API,
+  GET_FREQUENTLY_PRODUCT_API,
+} from "../../config";
 
 import "./Login.styles.scss";
 
@@ -24,12 +33,19 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  handleLoginButton = (e) => {
+  handleLoginButton = async (e) => {
     e.preventDefault();
     const { user_id, password } = this.state;
-    const { getToken, getCurrentUser } = this.props;
+    const {
+      getToken,
+      getCurrentUser,
+      getCartItems,
+      getFrequentlyPurchaseItems,
+      getPurchaseList,
+      userToken,
+    } = this.props;
     if (user_id !== "" && password !== "") {
-      fetch("http://10.58.6.216:8000/user/signin", {
+      await fetch("http://10.58.6.216:8000/user/signin", {
         method: "POST",
         body: JSON.stringify({
           user_id,
@@ -40,7 +56,6 @@ class Login extends Component {
         .then((result) => {
           if (result.message === "SUCCESS") {
             alert("쓸거면 팍팍써라, 많이 먹는다고 안 죽는다.");
-            // localStorage.setItem("authorization", result.authorization);
             getToken(result.authorization);
             getCurrentUser(result.user);
             this.goToMain();
@@ -48,6 +63,39 @@ class Login extends Component {
             alert("잘못된 아이디 혹은 비밀번호입니다.");
           }
         });
+
+      // await fetch(GET_SHOPPINGBASKET_API, {
+      //   headers: {
+      //     "content-type": "application/json",
+      //     Authorization: userToken,
+      //   },
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => data.shopping_list)
+      //   .then((cartItems) => getCartItems(cartItems))
+      //   .catch((error) => console.log(error));
+
+      // await fetch(GET_FREQUENTLY_PRODUCT_API, {
+      //   headers: {
+      //     "content-type": "application/json",
+      //     Authorization: userToken,
+      //   },
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => data.product_list)
+      //   .then((product_list) => getFrequentlyPurchaseItems(product_list))
+      //   .catch((error) => console.log(error));
+
+      // await fetch(GET_PURHCASE_LIST_API, {
+      //   headers: {
+      //     "content-type": "application/json",
+      //     Authorization: userToken,
+      //   },
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => data.order_list)
+      //   .then((purchaseList) => getPurchaseList(purchaseList))
+      //   .catch((error) => console.log(error));
     } else {
       alert("밥먹고 싶으면 제대로 써라!");
     }
@@ -107,9 +155,17 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = ({ user }) => ({
+  userToken: user.userToken,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   getToken: (token) => dispatch(getToken(token)),
   getCurrentUser: (user) => dispatch(getCurrentUser(user)),
+  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
+  getFrequentlyPurchaseItems: (purchaseItems) =>
+    dispatch(getFrequentlyPurchaseItems(purchaseItems)),
+  getPurchaseList: (purchaseItems) => dispatch(getPurchaseList(purchaseItems)),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(Login));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

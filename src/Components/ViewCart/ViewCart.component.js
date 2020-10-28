@@ -24,7 +24,7 @@ class ViewCart extends Component {
     getSelectedItemsAmount();
   }
 
-  AllSelectCheckboxClick = () => {
+  allSelectCheckboxClick = () => {
     const {
       toggleAllSelectCheckBox,
       selectedItemsTotalPrice,
@@ -35,7 +35,7 @@ class ViewCart extends Component {
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
     fetch(SEND_RECENT_ITEM_SELECTED_API, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "content-type": "application/json",
         Authorization: userToken,
@@ -102,7 +102,6 @@ class ViewCart extends Component {
 
   render() {
     const { cartItems, allSelect, seletectedItemsAmount } = this.props;
-    console.log(cartItems);
     return (
       <div className="ViewCart">
         <div className="selected-items">
@@ -111,7 +110,7 @@ class ViewCart extends Component {
               <label>
                 <input
                   type="checkbox"
-                  onChange={this.AllSelectCheckboxClick}
+                  onChange={this.allSelectCheckboxClick}
                   checked={!!allSelect}
                 />
               </label>
@@ -132,7 +131,7 @@ class ViewCart extends Component {
           </div>
           <div className="selected-items-info">
             {cartItems.map((cartItem, idx) => (
-              <CartItem key={idx} cartItemInfo={cartItem} productOrder={idx} />
+              <CartItem key={idx} cartItemInfo={cartItem} />
             ))}
           </div>
         </div>
@@ -142,7 +141,7 @@ class ViewCart extends Component {
               <div>
                 <input
                   type="checkbox"
-                  onChange={this.AllSelectCheckboxClick}
+                  onChange={this.allSelectCheckboxClick}
                   checked={allSelect ? "checked" : ""}
                 />
               </div>

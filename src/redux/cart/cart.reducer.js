@@ -7,6 +7,7 @@ import {
   filterOutSelectedItems,
   filterOutSoldoutItems,
   checkAddItemToCart,
+  filterOutCheckOutCheckedItems,
 } from "./cart.utils";
 
 const INITIAL_STATE = {
@@ -100,6 +101,11 @@ const cartReducer = (state = INITIAL_STATE, { type, payload }) => {
         cartItems: {},
         seletectedItemsAmount: 0,
         selectedItemsTotalPrice: 0,
+      };
+    case CartActionTypes.CHECKOUT_CHECKED_ITEMS:
+      return {
+        ...state,
+        cartItems: filterOutCheckOutCheckedItems(state.cartItems),
       };
     default:
       return state;

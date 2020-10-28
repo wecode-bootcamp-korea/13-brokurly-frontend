@@ -16,8 +16,6 @@ import {
   getSelectedItemsAmount,
 } from "../../redux/cart/cart.actions";
 
-import { numberWithCommas } from "../../redux/cart/cart.utils";
-
 import "./CartItem.styles.scss";
 
 class CartItem extends Component {
@@ -28,7 +26,7 @@ class CartItem extends Component {
       await toggleSelectedItemCheckBox(id);
       this.checkTotalPriceAndAmount();
       await fetch(SEND_RECENT_ITEM_SELECTED_API, {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "content-type": "application/json",
           Authorization: userToken,
@@ -49,14 +47,14 @@ class CartItem extends Component {
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
       userToken,
-      currentUser,
+      cartItemInfo,
     } = this.props;
-    const { id } = currentUser;
+    const { id } = cartItemInfo;
     checkStatusAllSelectCheckBox();
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
     fetch(SEND_RECENT_ITEM_SELECTED_API, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "content-type": "application/json",
         Authorization: userToken,
@@ -74,18 +72,22 @@ class CartItem extends Component {
     const {
       cartItemInfo,
       decreaseItemAmount,
+      increaseItemAmount,
       selectedItemsTotalPrice,
       userToken,
     } = this.props;
-    decreaseItemAmount(cartItemInfo);
+    const operation = isIncrease ? "plus" : "minus";
+    isIncrease
+      ? increaseItemAmount(cartItemInfo)
+      : decreaseItemAmount(cartItemInfo);
     fetch(GET_SHOPPINGBASKET_API, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "content-type": "application/json",
         Authorization: userToken,
       },
       body: JSON.stringify({
-        increase_or_decrease: "minus",
+        increase_or_decrease: operation,
         shopbasket_id: cartItemInfo.id,
       }),
     }).catch((error) => console.log(error.message));
@@ -101,6 +103,7 @@ class CartItem extends Component {
       getSelectedItemsAmount,
       userToken,
     } = this.props;
+    console.log(cartItemInfo);
     clearItemFromCart(cartItemInfo);
     selectedItemsTotalPrice();
     checkStatusAllSelectCheckBox();
@@ -149,7 +152,7 @@ class CartItem extends Component {
           {option_name && (
             <div className="cart-item-info-top">
               <span>{name}</span>
-              <span>{numberWithCommas(price)}원</span>
+              <span>{price.toLocaleString()}원</span>
             </div>
           )}
           <div className="cart-item-info-bottom">
@@ -163,7 +166,7 @@ class CartItem extends Component {
                   {sold_out && <span className="sold-out">품절</span>}
                 </div>
                 <div className="cart-item-price">
-                  <span>{numberWithCommas(price)}원</span>
+                  <span>{parseInt(price).toLocaleString()}원</span>
                 </div>
               </div>
               <div className="cart-item-quantity">
@@ -186,7 +189,7 @@ class CartItem extends Component {
                 </div>
               </div>
               <div className="cart-item-total">
-                <span>{numberWithCommas(price * quantity)}원</span>
+                <span>{(price * quantity).toLocaleString()}원</span>
               </div>
               <div
                 className="cart-item-delete"
@@ -203,10 +206,8 @@ class CartItem extends Component {
 }
 
 const mapStateToProps = ({ cart, user }) => ({
-  cartItems: cart.cartItems,
   allSelect: cart.allSelect,
   userToken: user.userToken,
-  currentUser: user.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({

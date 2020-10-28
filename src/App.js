@@ -15,67 +15,100 @@ import Signup from "./Pages/Signup/Signup.component";
 import MyPage from "./Pages/MyPage/MyPage.component";
 
 import { getCartItems } from "./redux/cart/cart.actions";
+import { getPurchaseList } from "./redux/purchase/purchase.actions";
+import { getFrequentlyPurchaseItems } from "./redux/frequentlyPurchase/frequentlyPurchase.actions";
 
-import { GET_SHOPPINGBASKET_API } from "./config";
+import {
+  GET_SHOPPINGBASKET_API,
+  GET_PURHCASE_LIST_API,
+  GET_FREQUENTLY_PRODUCT_API,
+} from "./config";
 
 import "./App.scss";
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      hidden: false,
-    };
-  }
+  // componentDidUpdate() {
+  //   const { userToken } = this.props;
+  //   userToken && this.getCurrentUserCartAndProductData();
+  // }
 
-  componentDidUpdate() {
-    const { getCartItems, userToken } = this.props;
-    userToken &&
-      fetch(GET_SHOPPINGBASKET_API, {
-        method: "GET",
-        headers: {
-          "content-type": "application/json",
-          Authorization: userToken,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => data["shopping_list"])
-        .then((cartItems) => getCartItems(cartItems));
-  }
+  // getCurrentUserCartAndProductData = () => {
+  //   const {
+  //     getCartItems,
+  //     userToken,
+  //     getPurchaseList,
+  //     getFrequentlyPurchaseItems,
+  //   } = this.props;
 
-  componentDidMount() {
-    this.addScrollEventAndFetchCartItemList();
-  }
+  //   fetch(GET_SHOPPINGBASKET_API, {
+  //     headers: {
+  //       "content-type": "application/json",
+  //       Authorization: userToken,
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => data["shopping_list"])
+  //     .then((cartItems) => getCartItems(cartItems));
 
-  scrollNavBarChange = () => {
-    const currentScrollTop = window.scrollY;
-    if (currentScrollTop > 50 && this.state.hidden === false)
-      this.setState({ hidden: true });
+  //   fetch(GET_FREQUENTLY_PRODUCT_API, {
+  //     headers: {
+  //       "content-type": "application/json",
+  //       Authorization: userToken,
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => data.product_list)
+  //     .then((product_list) => getFrequentlyPurchaseItems(product_list))
+  //     .catch((error) => console.log(error));
 
-    if (currentScrollTop < 50 && this.state.hidden === true)
-      this.setState({ hidden: false });
-  };
+  //   fetch(GET_PURHCASE_LIST_API, {
+  //     headers: {
+  //       "content-type": "application/json",
+  //       Authorization: userToken,
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => data.order_list)
+  //     .then((purchaseList) => getPurchaseList(purchaseList))
+  //     .catch((error) => console.log(error));
+  // };
 
-  addScrollEventAndFetchCartItemList = () => {
-    const { getCartItems, currentUser, userToken } = this.props;
-    window.addEventListener("scroll", this.scrollNavBarChange);
-    Object.keys(currentUser).length &&
-      fetch(GET_SHOPPINGBASKET_API, {
-        headers: {
-          "content-type": "application/json",
-          Authorization: userToken,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => data["shopping_list"])
-        .then((cartItems) => getCartItems(cartItems));
-  };
+  // componentDidMount() {
+  //   this.addScrollEventAndFetchCartItemList();
+  // }
+
+  // scrollNavBarChange = () => {
+  //   const currentScrollTop = window.scrollY;
+  //   if (currentScrollTop > 50 && this.state.hidden === false) {
+  //     this.setState({ hidden: true });
+  //     console.log("changed1");
+  //   }
+
+  //   if (currentScrollTop < 50 && this.state.hidden === true) {
+  //     this.setState({ hidden: false });
+  //     console.log("changed2");
+  //   }
+  // };
+
+  // addScrollEventAndFetchCartItemList = () => {
+  //   const { getCartItems, currentUser, userToken } = this.props;
+  //   window.addEventListener("scroll", this.scrollNavBarChange);
+  //   Object.keys(currentUser).length &&
+  //     fetch(GET_SHOPPINGBASKET_API, {
+  //       headers: {
+  //         "content-type": "application/json",
+  //         Authorization: userToken,
+  //       },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => data["shopping_list"])
+  //       .then((cartItems) => getCartItems(cartItems));
+  // };
 
   render() {
-    const { hidden } = this.state;
     return (
       <Router>
-        <Nav hidden={hidden} />
+        <Nav />
         <div className="container">
           <Switch>
             <Route exact path="/" component={Main} />
@@ -99,4 +132,8 @@ const mapStateToProps = ({ user }) => ({
   userToken: user.userToken,
 });
 
-export default connect(mapStateToProps, { getCartItems })(App);
+export default connect(mapStateToProps, {
+  getCartItems,
+  getPurchaseList,
+  getFrequentlyPurchaseItems,
+})(App);

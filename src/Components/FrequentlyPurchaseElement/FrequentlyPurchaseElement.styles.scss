@@ -4,33 +4,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   > div {
     width: 95%;
     // border: 1px solid #000;
-  }
-
-  .top {
-    border-bottom: 1px solid #dbdbdb;
-    position: relative;
-    height: 50px;
-    margin-bottom: 10px;
-
-    span {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-weight: bold;
-    }
-
-    i {
-      position: absolute;
-      top: 50%;
-      right: 0;
-      transform: translateY(-50%);
-      font-size: 20px;
-      color: var(--primary-color);
-    }
   }
 
   .bottom {
@@ -41,6 +19,8 @@
 
     img {
       margin-right: 20px;
+      width: 60px;
+      height: 77px;
     }
 
     .purchase-information {

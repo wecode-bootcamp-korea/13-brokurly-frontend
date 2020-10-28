@@ -1,23 +1,55 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { addItemToCart } from "../../redux/cart/cart.actions";
+
+import { GET_SHOPPINGBASKET_API } from "../../config";
 
 import "./FrequentlyPurchaseElement.styles.scss";
 
 class FrequentlyPurchaseElement extends Component {
+  frequentlyPurchaseItemToCart = (product_id, quantity) => {
+    const { addItemToCart, userToken, frequentlyPurchaseItem } = this.props;
+    addItemToCart(frequentlyPurchaseItem);
+    fetch(GET_SHOPPINGBASKET_API, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: userToken,
+      },
+      body: JSON.stringify({
+        product_id: product_id,
+        quantity: quantity,
+      }),
+    });
+  };
+
   render() {
+    const { frequentlyPurchaseItem } = this.props;
+    const {
+      name,
+      price,
+      image_url,
+      product_id,
+      quantity,
+    } = frequentlyPurchaseItem;
     return (
       <div className="FrequentlyPurchaseElement">
-        <div className="top">
-          <span>[고온어다이어트] 미트볼 & 퀴노아영양밥</span>
-          <i className="fal fa-greater-than" />
-        </div>
         <div className="bottom">
-          <img src="http://placehold.it/60x77" alt="frequently-purchase-item" />
+          <img src={image_url} />
           <div className="purchase-information">
-            <span>[폴스] 팜하우스 골드 밀크</span>
-            <span>3900원</span>
+            <span>{name}</span>
+            <span>{price.toLocaleString()}원</span>
           </div>
           <div className="option-buttons">
-            <button className="review">장바구니 담기</button>
+            <button
+              className="review"
+              onClick={() =>
+                this.frequentlyPurchaseItemToCart(product_id, quantity)
+              }
+            >
+              장바구니 담기
+            </button>
             <button className="help">1:1 문의</button>
           </div>
         </div>
@@ -26,4 +58,15 @@ class FrequentlyPurchaseElement extends Component {
   }
 }
 
-export default FrequentlyPurchaseElement;
+const mapStateToProps = ({ frequentlyPurchase, user }) => ({
+  userToken: user.userToken,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addItemToCart: (item) => dispatch(addItemToCart(item)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FrequentlyPurchaseElement);

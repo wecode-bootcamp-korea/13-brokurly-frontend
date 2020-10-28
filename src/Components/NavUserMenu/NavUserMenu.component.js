@@ -13,16 +13,25 @@ import "./NavUserMenu.styles.scss";
 
 class NavUserMenu extends Component {
   render() {
-    const {
-      currentUser,
-      logout,
-      logOutClearCart,
-      clearToken,
-      logoutClearPurchaseList,
-      clearFrequentlyPurchaseItemList,
-      history,
-    } = this.props;
+    const { currentUser, history } = this.props;
     const { user_name, user_rank } = currentUser;
+
+    const logoutButtonClick = () => {
+      const {
+        logOutClearCart,
+        clearToken,
+        logoutClearPurchaseList,
+        clearFrequentlyPurchaseItemList,
+        logout,
+      } = this.props;
+      logOutClearCart();
+      clearToken();
+      logoutClearPurchaseList();
+      clearFrequentlyPurchaseItemList();
+      logout();
+      history.push("/main");
+    };
+
     return (
       <div className="NavUserMenu">
         <div>
@@ -45,18 +54,7 @@ class NavUserMenu extends Component {
                   <span>적립금</span>
                   <span>쿠폰</span>
                   <span>개인 정보 수정</span>
-                  <span
-                    onClick={() => {
-                      logOutClearCart();
-                      clearToken();
-                      logoutClearPurchaseList();
-                      clearFrequentlyPurchaseItemList();
-                      logout();
-                      history.push("/main");
-                    }}
-                  >
-                    로그아웃
-                  </span>
+                  <span onClick={logoutButtonClick}>로그아웃</span>
                 </div>
               </div>
             ) : (

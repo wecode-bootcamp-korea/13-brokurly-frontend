@@ -4,17 +4,18 @@ import "./MyKurlyAside.styles.scss";
 
 class MyKurlyAside extends Component {
   render() {
+    const { changePage } = this.props;
     return (
       <aside>
         <div className="category-name">
           <span>마이컬리</span>
         </div>
         <div className="category">
-          <div>
+          <div onClick={() => changePage(0)}>
             <span>주문 내역</span>
             <i className="fal fa-greater-than" />
           </div>
-          <div>
+          <div onClick={() => changePage(1)}>
             <span>늘 사는 것</span>
             <i className="fal fa-greater-than" />
           </div>
