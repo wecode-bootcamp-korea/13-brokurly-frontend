@@ -13,8 +13,7 @@ class ProductDetailsReview extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  postNewReview = async (e, id) => {
-    e.preventDefault();
+  postNewReview = async (id) => {
     const { newReviewContent, newReviewTitle } = this.state;
     try {
       const response = await fetch("http://10.58.6.216:8000/user/user-review", {
@@ -66,7 +65,8 @@ class ProductDetailsReview extends Component {
   };
 
   getPage = async (e) => {
-    const offset = e?.target.dataset.idx * 10;
+    const index = e?.target.dataset.idx;
+    const offset = index * 10;
     const limit = offset + 10;
     const response = await fetch(
       `http://10.58.6.216:8000/user/product/5/reviews?offset=${offset}&limit=${limit}`,
@@ -74,7 +74,34 @@ class ProductDetailsReview extends Component {
     );
     const { review_list } = await response.json();
     this.setState({
+      activeReviewList: index,
       reviewList: review_list,
+    });
+  };
+
+  getPageByArrow = async (e) => {
+    const { totalPages, activeReviewList } = this.state;
+    const name = e?.target.dataset.name;
+    console.log(name);
+    let page = 0;
+    name === "first" && (page = 0);
+    name === "last" && (page = totalPages[totalPages.length - 2]);
+    name === "prev" && activeReviewList > 0 && (page = activeReviewList - 1);
+    name === "next" &&
+      activeReviewList < totalPages[totalPages.length - 2] &&
+      (page = activeReviewList + 1);
+    console.log(page);
+    let offset = page * 10;
+    let limit = offset + 10;
+    const response = await fetch(
+      `http://10.58.6.216:8000/user/product/5/reviews?offset=${offset}&limit=${limit}`,
+      { method: "GET" }
+    );
+    console.log(response);
+    const { review_list } = await response.json();
+    this.setState({
+      reviewList: review_list,
+      activeReviewList: page,
     });
   };
 
@@ -196,25 +223,27 @@ class ProductDetailsReview extends Component {
               name="newReviewTitle"
               onChange={this.getNewReviewValue}
               value={newReviewTitle}
+              placeholder="title"
             />
             <input
               type="text"
               name="newReviewContent"
               onChange={this.getNewReviewValue}
               value={newReviewContent}
+              placeholder="content"
             />
           </form>
-          <button onClick={(e) => this.postNewReview(productDetail.id)}>
+          <button onClick={() => this.postNewReview(productDetail.id)}>
             후기쓰기
           </button>
         </div>
 
         <div className="pagination">
           <ul>
-            <li>
+            <li data-name="first" onClick={this.getPageByArrow}>
               <i className="fas fa-angle-double-left" />
             </li>
-            <li>
+            <li data-name="prev" onClick={this.getPageByArrow}>
               <i className="fas fa-angle-left" />
             </li>
             {totalPages &&
@@ -223,11 +252,10 @@ class ProductDetailsReview extends Component {
                   {page}
                 </li>
               ))}
-
-            <li>
+            <li data-name="next" onClick={this.getPageByArrow}>
               <i className="fas fa-angle-right" />
             </li>
-            <li>
+            <li data-name="last" onClick={this.getPageByArrow}>
               <i className="fas fa-angle-double-right" />
             </li>
           </ul>

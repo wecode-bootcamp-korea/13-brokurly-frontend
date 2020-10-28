@@ -57,7 +57,7 @@ class ProductModal extends Component {
             "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
         },
         body: JSON.stringify({
-          productId,
+          product_id: productId,
           quantity: totalAmount,
         }),
       });

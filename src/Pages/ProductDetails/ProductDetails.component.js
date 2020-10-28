@@ -105,13 +105,25 @@ class ProductDetails extends Component {
 
           <article className="product-main">
             <ul className="product-categories">
-              <li id="0" onClick={this.activeMenu}>
+              <li
+                id="0"
+                className={+activeMenu === 0 ? "categories-actived" : ""}
+                onClick={this.activeMenu}
+              >
                 상품설명
               </li>
-              <li id="1" onClick={this.activeMenu}>
+              <li
+                id="1"
+                className={+activeMenu === 1 ? "categories-actived" : ""}
+                onClick={this.activeMenu}
+              >
                 고객후기 ({totalReviewCount})
               </li>
-              <li id="2" onClick={this.activeMenu}>
+              <li
+                id="2"
+                className={+activeMenu === 2 ? "categories-actived" : ""}
+                onClick={this.activeMenu}
+              >
                 상품문의 ({totalReviewCount})
               </li>
             </ul>

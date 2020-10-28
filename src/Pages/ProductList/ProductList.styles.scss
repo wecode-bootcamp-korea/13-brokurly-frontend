@@ -116,5 +116,5 @@
 .active-category {
   color: var(--primary-color);
   font-weight: 700;
-  border-bottom: 1px solid var(--primary-color);
+  border-bottom: 1px solid var(--primary-color) !important;
 }

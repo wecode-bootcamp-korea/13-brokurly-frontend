@@ -11,7 +11,6 @@ const API = "http://10.58.4.20:8000/products?main=1&ordering=0";
 
 class ProductList extends Component {
   state = {
-    // isCategoryClick: true,
     isSortingClick: false,
     activeSorting: 0,
     activeCategory: 0,
@@ -51,7 +50,7 @@ class ProductList extends Component {
     try {
       const { id } = e.target;
       console.log(id);
-      const { activeCategory, isCategoryClick } = this.state;
+      const { activeCategory } = this.state;
       //local test
       // const response = await fetch(
       //   `http://localhost:3000/data/productlist/productlist_${id}.json`
@@ -100,14 +99,13 @@ class ProductList extends Component {
 
   render() {
     const {
-      // isCategoryClick,
       isSortingClick,
       products,
       mainCategories,
       subCategories,
       sortings,
       activeSorting,
-      // activeCategory,
+      activeCategory,
     } = this.state;
 
     return (
@@ -123,7 +121,12 @@ class ProductList extends Component {
             <ul>
               {subCategories &&
                 subCategories.map((subCategory, id) => (
-                  <li key={id} id={id} onClick={this.handleCategory}>
+                  <li
+                    key={id}
+                    id={id}
+                    className={+activeCategory === id ? "active-category" : ""}
+                    onClick={this.handleCategory}
+                  >
                     {subCategory}
                   </li>
                 ))}

@@ -1,5 +1,6 @@
 @mixin tableTemplate($arg) {
   tr {
+    cursor: pointer;
     #{$arg} {
       padding: 25px 0;
       font-weight: 400;
@@ -33,6 +34,9 @@
       &:last-child {
         width: 80px;
       }
+    }
+    &:hover {
+      background-color: #ddd;
     }
   }
 }
@@ -115,9 +119,17 @@
         height: 100%;
         outline: none;
         border: 1px solid var(--primary-color);
+
+        &::placeholder {
+          text-align: center;
+          color: var(--primary-color);
+          text-transform: uppercase;
+        }
+
         &:first-child {
           width: 20%;
         }
+
         &:last-child {
           width: 80%;
           margin-left: 10px;
@@ -131,6 +143,12 @@
       color: #fff;
       border: 1px solid var(--primary-color);
       line-height: 30px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #fff;
+        color: var(--primary-color);
+      }
     }
   }
 

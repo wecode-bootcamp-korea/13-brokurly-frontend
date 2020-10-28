@@ -30,13 +30,15 @@
           cursor: pointer;
 
           &:first-child {
-            border-bottom: 0px;
             border-left: 1px solid #bfbfbf;
-            background-color: #fff;
           }
         }
       }
     }
+  }
+  .categories-actived {
+    border-bottom: 0px !important;
+    background-color: #fff !important;
   }
 }
 

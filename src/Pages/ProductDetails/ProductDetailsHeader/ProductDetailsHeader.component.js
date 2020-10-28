@@ -4,15 +4,6 @@ import "./ProductDetailsHeader.styles.scss";
 
 const API = "http://10.58.6.216:8000/user/shoppingbasket";
 
-const otherInfoHeader = {
-  productShipping: "배송구분",
-  origin: "원산지",
-  pakingType: "포장타입",
-  shelfLife: "유통기한",
-  allergyInformaion: "알레르기정보",
-  information: "안내사항",
-};
-
 class ProductDetailsHeader extends Component {
   state = {
     isWidthBiggerThanHeight: false,
@@ -71,7 +62,7 @@ class ProductDetailsHeader extends Component {
             "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
         },
         body: JSON.stringify({
-          productId,
+          product_id: productId,
           quantity: totalAmount,
         }),
       });
@@ -164,10 +155,10 @@ class ProductDetailsHeader extends Component {
             </dl>
             {Object.entries(otherInformation).map((info, idx) => {
               return (
-                info[1] && (
+                info[1][1] && (
                   <dl key={idx}>
-                    <dt>{otherInfoHeader[info[0]]}</dt>
-                    <dd>{info[1]}</dd>
+                    <dt>{info[1][0]}</dt>
+                    <dd>{info[1][1]}</dd>
                   </dl>
                 )
               );
