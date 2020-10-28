@@ -15,16 +15,23 @@ class Purchase extends Component {
           <span>지난 3년간의 주문 내역 조회가 가능합니다</span>
         </div>
         <div className="purchase-list-container">
-          {purchaseList.map(
-            ({ product_name, price, order_number, product_image_url }, idx) => (
-              <PurchaseElement
-                key={idx}
-                product_name={product_name}
-                price={price}
-                order_number={order_number}
-                product_image_url={product_image_url}
-              />
+          {purchaseList.length ? (
+            purchaseList.map(
+              (
+                { product_name, price, order_number, product_image_url },
+                idx
+              ) => (
+                <PurchaseElement
+                  key={idx}
+                  product_name={product_name}
+                  price={price}
+                  order_number={order_number}
+                  product_image_url={product_image_url}
+                />
+              )
             )
+          ) : (
+            <span>주문내역 없습니다</span>
           )}
         </div>
       </>

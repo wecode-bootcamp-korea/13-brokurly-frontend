@@ -10,7 +10,7 @@ import "./FrequentlyPurchaseElement.styles.scss";
 class FrequentlyPurchaseElement extends Component {
   frequentlyPurchaseItemToCart = (product_id, quantity) => {
     const { addItemToCart, userToken, frequentlyPurchaseItem } = this.props;
-    addItemToCart(frequentlyPurchaseItem);
+    addItemToCart({ ...frequentlyPurchaseItem, checked: true });
     fetch(GET_SHOPPINGBASKET_API, {
       method: "POST",
       headers: {

@@ -19,48 +19,6 @@ import SectionRender from "./SectionRender/SectionRender.component";
 import "./Main.styles.scss";
 
 class Main extends Component {
-  componentDidMount() {
-    const {
-      userToken,
-      getCartItems,
-      getFrequentlyPurchaseItems,
-      getPurchaseList,
-    } = this.props;
-
-    fetch(GET_SHOPPINGBASKET_API, {
-      headers: {
-        "content-type": "application/json",
-        Authorization: userToken,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => data.shopping_list)
-      .then((cartItems) => getCartItems(cartItems))
-      .catch((error) => console.log(error));
-
-    fetch(GET_FREQUENTLY_PRODUCT_API, {
-      headers: {
-        "content-type": "application/json",
-        Authorization: userToken,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => data.product_list)
-      .then((product_list) => getFrequentlyPurchaseItems(product_list))
-      .catch((error) => console.log(error));
-
-    fetch(GET_PURHCASE_LIST_API, {
-      headers: {
-        "content-type": "application/json",
-        Authorization: userToken,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => data.order_list)
-      .then((purchaseList) => getPurchaseList(purchaseList))
-      .catch((error) => console.log(error));
-  }
-
   constructor() {
     super();
     this.state = {
@@ -72,7 +30,16 @@ class Main extends Component {
     this.main = React.createRef();
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
+    const {
+      userToken,
+      getCartItems,
+      getFrequentlyPurchaseItems,
+      getPurchaseList,
+    } = this.props;
+
+    console.log("Mount Main");
+
     fetch("http://localhost:3000/data/main/MainPageSectionsDataArr.json")
       .then((res) => res.json())
       .then((res) => {
@@ -85,7 +52,48 @@ class Main extends Component {
     this.setState({
       scrollTop,
     });
-  };
+
+    userToken &&
+      fetch(GET_SHOPPINGBASKET_API, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: userToken,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => data.shopping_list)
+        .then((cartItems) => getCartItems(cartItems))
+        .catch((error) => console.log(error));
+
+    userToken &&
+      fetch(GET_FREQUENTLY_PRODUCT_API, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: userToken,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => data.product_list)
+        .then(
+          (product_list) =>
+            product_list.length && getFrequentlyPurchaseItems(product_list)
+        )
+        .catch((error) => console.log(error));
+
+    userToken &&
+      fetch(GET_PURHCASE_LIST_API, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: userToken,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => data.order_list)
+        .then(
+          (purchaseList) => purchaseList.length && getPurchaseList(purchaseList)
+        )
+        .catch((error) => console.log(error));
+  }
 
   onScrollDown = () => {
     this.setState(

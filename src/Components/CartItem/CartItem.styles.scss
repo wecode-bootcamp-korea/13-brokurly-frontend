@@ -99,6 +99,11 @@
             span {
               font-size: 12px;
               padding-left: 2px;
+
+              &:first-child {
+                text-decoration: line-through;
+                margin-right: 10px;
+              }
             }
           }
         }

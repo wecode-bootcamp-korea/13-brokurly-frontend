@@ -43,9 +43,7 @@ class ViewCart extends Component {
       body: JSON.stringify({
         selected: "all",
       }),
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+    }).catch((error) => console.log(error));
   };
 
   selectedItemDeleteCheckboxCLick = () => {
@@ -69,9 +67,7 @@ class ViewCart extends Component {
       body: JSON.stringify({
         delete: "selected",
       }),
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+    }).catch((error) => console.log(error));
   };
 
   soldOutItemDeleteButtonClick = () => {
@@ -95,22 +91,11 @@ class ViewCart extends Component {
       body: JSON.stringify({
         delete: "soldout",
       }),
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+    }).catch((error) => console.log(error));
   };
-
-  // componentDidUpdate(prevProps) {
-  //   console.log("Im Updated!!");
-  //   if (prevProps.cartItems[0].checked !== this.props.cartItems[0].checked) {
-  //     console.log("Changed");
-  //   } else console.log("Same");
-  // }
 
   render() {
     const { cartItems, allSelect, seletectedItemsAmount } = this.props;
-
-    // cartItems.map((cartItem) => console.log("hello: ", cartItem.checked));
 
     return (
       <div className="ViewCart">

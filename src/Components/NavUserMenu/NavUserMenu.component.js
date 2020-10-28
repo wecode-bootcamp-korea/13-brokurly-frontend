@@ -29,7 +29,7 @@ class NavUserMenu extends Component {
       logoutClearPurchaseList();
       clearFrequentlyPurchaseItemList();
       logout();
-      history.push("/main");
+      history.push("/");
     };
 
     return (

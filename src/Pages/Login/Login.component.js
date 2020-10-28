@@ -55,7 +55,7 @@ class Login extends Component {
         .then((response) => response.json())
         .then((result) => {
           if (result.message === "SUCCESS") {
-            alert("쓸거면 팍팍써라, 많이 먹는다고 안 죽는다.");
+            alert("로그인 성공");
             getToken(result.authorization);
             getCurrentUser(result.user);
             this.goToMain();
@@ -63,39 +63,6 @@ class Login extends Component {
             alert("잘못된 아이디 혹은 비밀번호입니다.");
           }
         });
-
-      // await fetch(GET_SHOPPINGBASKET_API, {
-      //   headers: {
-      //     "content-type": "application/json",
-      //     Authorization: userToken,
-      //   },
-      // })
-      //   .then((res) => res.json())
-      //   .then((data) => data.shopping_list)
-      //   .then((cartItems) => getCartItems(cartItems))
-      //   .catch((error) => console.log(error));
-
-      // await fetch(GET_FREQUENTLY_PRODUCT_API, {
-      //   headers: {
-      //     "content-type": "application/json",
-      //     Authorization: userToken,
-      //   },
-      // })
-      //   .then((res) => res.json())
-      //   .then((data) => data.product_list)
-      //   .then((product_list) => getFrequentlyPurchaseItems(product_list))
-      //   .catch((error) => console.log(error));
-
-      // await fetch(GET_PURHCASE_LIST_API, {
-      //   headers: {
-      //     "content-type": "application/json",
-      //     Authorization: userToken,
-      //   },
-      // })
-      //   .then((res) => res.json())
-      //   .then((data) => data.order_list)
-      //   .then((purchaseList) => getPurchaseList(purchaseList))
-      //   .catch((error) => console.log(error));
     } else {
       alert("밥먹고 싶으면 제대로 써라!");
     }

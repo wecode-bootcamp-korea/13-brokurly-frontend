@@ -25,8 +25,8 @@ class CartItem extends Component {
     const { id } = cartItemInfo;
     try {
       await toggleSelectedItemCheckBox(id);
-      e.target.checked = cartItemInfo.checked;
-      this.checkTotalPriceAndAmount();
+      // e.target.checked = cartItemInfo.checked;
+      await this.checkTotalPriceAndAmount();
       await fetch(SEND_RECENT_ITEM_SELECTED_API, {
         method: "PATCH",
         headers: {
@@ -43,38 +43,15 @@ class CartItem extends Component {
     }
   };
 
-  // componentDidUpdate(prevProps) {
-  //   console.log("sudfsuusususususususususususu");
-  //   if (prevProps.checked !== this.props.checked) {
-  //     console.log("asdfasdf: ", this.props.checked);
-  //   }
-  // }
-
   checkTotalPriceAndAmount = () => {
     const {
       checkStatusAllSelectCheckBox,
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
-      userToken,
-      cartItemInfo,
     } = this.props;
-    const { id } = cartItemInfo;
     checkStatusAllSelectCheckBox();
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
-    fetch(SEND_RECENT_ITEM_SELECTED_API, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-        Authorization: userToken,
-      },
-      body: JSON.stringify({
-        shopbasket_id: id,
-        selected: "single",
-      }),
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
   };
 
   amountChangeIncreaseOrDecrease = (isIncrease) => {
@@ -130,7 +107,7 @@ class CartItem extends Component {
   };
 
   render() {
-    const { cartItemInfo } = this.props;
+    const { cartItemInfo, checked } = this.props;
     const {
       id,
       quantity,
@@ -145,7 +122,6 @@ class CartItem extends Component {
       option_price,
       option_sold_out,
       option_sales,
-      checked,
       image_url,
     } = cartItemInfo;
 
@@ -155,7 +131,7 @@ class CartItem extends Component {
           <input
             type="checkbox"
             onChange={this.toggleCheckBox}
-            // checked={this.props.checked}
+            checked={checked}
           />
         </div>
         <div className="cart-item-info">
@@ -176,6 +152,7 @@ class CartItem extends Component {
                   {sold_out && <span className="sold-out">품절</span>}
                 </div>
                 <div className="cart-item-price">
+                  <span>{parseInt(price).toLocaleString()}원</span>
                   <span>{parseInt(price).toLocaleString()}원</span>
                 </div>
               </div>

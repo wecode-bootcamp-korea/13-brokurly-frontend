@@ -3,10 +3,13 @@ import { connect } from "react-redux";
 
 import ViewCart from "../../Components/ViewCart/ViewCart.component";
 
+import { GET_SHOPPINGBASKET_API } from "../../config";
+
 import {
   selectedItemsTotalPrice,
   getSelectedItemsAmount,
   checkStatusAllSelectCheckBox,
+  getCartItems,
 } from "../../redux/cart/cart.actions";
 
 import "./CartItems.styles.scss";
@@ -17,7 +20,21 @@ class CartItems extends Component {
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
       checkStatusAllSelectCheckBox,
+      userToken,
+      getCartItems,
     } = this.props;
+
+    fetch(GET_SHOPPINGBASKET_API, {
+      headers: {
+        "content-type": "application/json",
+        Authorization: userToken,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => data.shopping_list)
+      .then((cartItems) => getCartItems(cartItems))
+      .catch((error) => console.log(error));
+
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
     checkStatusAllSelectCheckBox();
@@ -82,15 +99,17 @@ class CartItems extends Component {
   }
 }
 
-const mapStateToProps = ({ cart }) => ({
+const mapStateToProps = ({ cart, user }) => ({
   totalPrice: cart.selectedItemsTotalPrice,
   cartItems: cart.cartItems,
+  userToken: user.userToken,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
   getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
   checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
+  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItems);
