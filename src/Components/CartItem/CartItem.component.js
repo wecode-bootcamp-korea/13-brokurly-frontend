@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { checkDiscountTotalPrice } from "../../redux/cart/cart.actions";
+
 import {
   GET_SHOPPINGBASKET_API,
   SEND_RECENT_ITEM_SELECTED_API,
@@ -21,7 +23,12 @@ import "./CartItem.styles.scss";
 class CartItem extends Component {
   toggleCheckBox = async (e) => {
     e.persist();
-    const { cartItemInfo, toggleSelectedItemCheckBox, userToken } = this.props;
+    const {
+      cartItemInfo,
+      toggleSelectedItemCheckBox,
+      checkDiscountTotalPrice,
+      userToken,
+    } = this.props;
     const { id } = cartItemInfo;
     try {
       await toggleSelectedItemCheckBox(id);
@@ -38,6 +45,7 @@ class CartItem extends Component {
           selected: "single",
         }),
       });
+      checkDiscountTotalPrice();
     } catch (error) {
       console.error(error);
     }
@@ -48,10 +56,12 @@ class CartItem extends Component {
       checkStatusAllSelectCheckBox,
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
+      checkDiscountTotalPrice,
     } = this.props;
     checkStatusAllSelectCheckBox();
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
   };
 
   amountChangeIncreaseOrDecrease = (isIncrease) => {
@@ -60,6 +70,7 @@ class CartItem extends Component {
       decreaseItemAmount,
       increaseItemAmount,
       selectedItemsTotalPrice,
+      checkDiscountTotalPrice,
       userToken,
     } = this.props;
     const operation = isIncrease ? "plus" : "minus";
@@ -78,6 +89,7 @@ class CartItem extends Component {
       }),
     }).catch((error) => console.log(error.message));
     selectedItemsTotalPrice();
+    checkDiscountTotalPrice();
   };
 
   clearItemButtonClick = () => {
@@ -87,6 +99,7 @@ class CartItem extends Component {
       selectedItemsTotalPrice,
       checkStatusAllSelectCheckBox,
       getSelectedItemsAmount,
+      checkDiscountTotalPrice,
       userToken,
     } = this.props;
 
@@ -94,6 +107,7 @@ class CartItem extends Component {
     selectedItemsTotalPrice();
     checkStatusAllSelectCheckBox();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
     fetch(GET_SHOPPINGBASKET_API, {
       method: "DELETE",
       headers: {
@@ -173,7 +187,7 @@ class CartItem extends Component {
                 </div>
               </div>
               <div className="cart-item-total">
-                <span>{(price * quantity).toLocaleString()}원</span>
+                <span>{(discount_price * quantity).toLocaleString()}원</span>
               </div>
               <div
                 className="cart-item-delete"
@@ -202,6 +216,7 @@ const mapDispatchToProps = (dispatch) => ({
   checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
   selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
   getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
+  checkDiscountTotalPrice: () => dispatch(checkDiscountTotalPrice()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

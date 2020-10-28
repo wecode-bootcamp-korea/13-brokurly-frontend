@@ -17,7 +17,7 @@ import {
 import "./CartItems.styles.scss";
 
 class CartItems extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     const {
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
@@ -27,7 +27,7 @@ class CartItems extends Component {
       getCartItems,
     } = this.props;
 
-    fetch(GET_SHOPPINGBASKET_API, {
+    await fetch(GET_SHOPPINGBASKET_API, {
       headers: {
         "content-type": "application/json",
         Authorization: userToken,
