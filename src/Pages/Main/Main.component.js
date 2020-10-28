@@ -10,7 +10,6 @@ class Main extends Component {
     this.state = {
       specialSections: [],
       scrollTop: 0,
-      // lastScrollTop: 0,
       position: -2,
     };
     this.main = React.createRef();
