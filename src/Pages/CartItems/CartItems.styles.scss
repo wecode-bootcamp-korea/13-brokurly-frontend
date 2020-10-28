@@ -1,0 +1,235 @@
+.CartItems {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 200px;
+
+  .cart-items-header {
+    height: 152px;
+    margin-top: 30px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1 {
+      text-align: center;
+      font-size: 40px;
+      font-weight: 700;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    p {
+      text-align: center;
+      font-size: 16px;
+      color: #999;
+    }
+  }
+
+  .cart-items-content {
+    margin-top: 40px;
+    width: 55%;
+    min-width: 800px;
+  }
+
+  .price-result-container {
+    height: 165px;
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    min-width: 800px;
+
+    span {
+      width: 86px;
+      height: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 35px;
+    }
+
+    > div:not(:last-child) {
+      height: inherit;
+      border: 2px solid #dbdbdb;
+    }
+
+    .initial-price {
+      width: 196px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      span {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .initial-price-text {
+        height: 15%;
+        font-size: 13px;
+      }
+
+      .initial-price-number {
+        height: 25%;
+        font-size: 23px;
+      }
+    }
+
+    .discount-amount {
+      width: 196px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      span {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .discount-amount-text {
+        height: 15%;
+        font-size: 13px;
+      }
+
+      .discount-amount-number {
+        height: 25%;
+        font-size: 23px;
+      }
+    }
+
+    .delivery-fee {
+      width: 196px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      span {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .delivery-fee-text {
+        height: 15%;
+        font-size: 13px;
+      }
+
+      .delivery-fee-number {
+        height: 25%;
+        font-size: 23px;
+      }
+    }
+
+    .price-result {
+      width: 226px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      span {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .price-result-text {
+        margin-top: 15px;
+        height: 15%;
+        font-size: 13px;
+      }
+
+      .price-result-number {
+        height: 25%;
+        font-size: 23px;
+        color: var(--primary-color);
+      }
+
+      .mileage-point-info {
+        height: 10%;
+        font-size: 11px;
+        color: var(--primary-color);
+      }
+    }
+
+    .price-result-additonal-info {
+      position: absolute;
+      height: 18px;
+      width: 300px;
+      top: 110%;
+      right: 0;
+      display: flex;
+      align-items: center;
+      span {
+        height: 100%;
+        width: 100%;
+        font-size: 11px;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  .goto-order-page {
+    margin-top: 40px;
+    width: 55%;
+    display: flex;
+    justify-content: center;
+
+    button {
+      outline: none;
+      cursor: pointer;
+    }
+
+    .goto-order-page-button {
+      width: 200px;
+      height: 48px;
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: bold;
+      border: none;
+    }
+  }
+
+  .warning {
+    margin-top: 50px;
+    width: 55%;
+    height: 80px;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 900px;
+
+    .warning-text-top {
+      height: 40%;
+      width: 50%;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #999;
+    }
+
+    .warning-text-bottom {
+      height: 40%;
+      width: 50%;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      color: #999;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "message": "SUCCESS",
+  "events_list": [
+    {
+      "id": 1,
+      "name": "1등급 상어 모음전",
+      "image_url": "https://images.unsplash.com/photo-1499242360313-50c6d0b126e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2028&q=80"
+    },
+    {
+      "id": 2,
+      "name": "바다거북 특전 최대 50% 할인",
+      "image_url": "https://images.unsplash.com/photo-1574244104030-7ebb728e683c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2767&q=80"
+    },
+    {
+      "id": 3,
+      "name": "맛있는 바나나 타임세일",
+      "image_url": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2900&q=80"
+    }
+  ]
+}

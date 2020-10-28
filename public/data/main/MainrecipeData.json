@@ -1,0 +1,59 @@
+{
+  "message": "SUCCESS",
+  "recipe_list": [
+    {
+      "id": 1,
+      "recipe_category_id": 1,
+      "name": "JMT 딸기아이스크림",
+      "image_url": "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+    },
+    {
+      "id": 2,
+      "recipe_category_id": 1,
+      "name": "냉동 군만두",
+      "image_url": "https://images.unsplash.com/photo-1583224994076-ae951d019af7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 3,
+      "recipe_category_id": 1,
+      "name": "비빔밥",
+      "image_url": "https://images.unsplash.com/photo-1590301157890-4810ed352733?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=676&q=80"
+    },
+    {
+      "id": 4,
+      "recipe_category_id": 2,
+      "name": "잡채",
+      "image_url": "https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+    },
+    {
+      "id": 5,
+      "recipe_category_id": 2,
+      "name": "괄도네넴띤",
+      "image_url": "https://images.unsplash.com/photo-1579576792017-054fe0e86b79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
+    },
+    {
+      "id": 6,
+      "recipe_category_id": 2,
+      "name": "신라호텔 망고빙수",
+      "image_url": "https://images.unsplash.com/photo-1595275320712-24b6f2b0a984?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 7,
+      "recipe_category_id": 3,
+      "name": "시원~한 아이스커피",
+      "image_url": "https://images.unsplash.com/photo-1580555535526-d49b8f40b1ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+    },
+    {
+      "id": 8,
+      "recipe_category_id": 3,
+      "name": "엄마손김밥",
+      "image_url": "https://images.unsplash.com/photo-1532347231146-80afc9e3df2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=632&q=80"
+    },
+    {
+      "id": 9,
+      "recipe_category_id": 3,
+      "name": "자일리톨",
+      "image_url": "https://i.ytimg.com/vi/f_tbyUtCzEU/hqdefault.jpg"
+    }
+  ]
+}
