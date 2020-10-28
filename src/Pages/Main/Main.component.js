@@ -16,18 +16,23 @@ class Main extends Component {
   }
 
   componentDidMount = () => {
-    fetch("http://localhost:3000/data/main/MainPageSectionsDataArr.json")
-      .then((res) => res.json())
-      .then((res) => {
-        this.setState({
-          specialSections: res.specialProductsSections,
-        });
-      })
-      .catch((error) => console.log(error.message));
+    this.getAPIdata();
     const scrollTop = this.main.current.scrollTop;
     this.setState({
       scrollTop,
     });
+  };
+
+  getAPIdata = async () => {
+    const res = await fetch("/data/main/MainPageSectionsDataArr.json");
+    const data = await res.json();
+    try {
+      this.setState({
+        specialSections: data.specialProductsSections,
+      });
+    } catch (error) {
+      console.log("error...");
+    }
   };
 
   onScrollDown = () => {
