@@ -25,7 +25,6 @@ class Payment extends Component {
     price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   handleCheckBox = (e) => {
-    console.log(e.target.name);
     this.setState({ checkPayMethod: e.target.name });
   };
 

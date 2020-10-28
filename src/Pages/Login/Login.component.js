@@ -25,7 +25,6 @@ class Login extends Component {
     e.preventDefault();
     const { user_id, password } = this.state;
     if (user_id !== "" && password !== "") {
-      console.log(`${user_id} // ${password}`);
       fetch("http://10.58.6.216:8000/user/signin", {
         method: "POST",
         body: JSON.stringify({
