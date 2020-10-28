@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 
 import "./MainBanner.styles.scss";
 
+const bannerImgWidth = window.innerWidth;
+
 class MainBanner extends Component {
   constructor() {
     super();
     this.state = {
       bannerImages: [],
-      bannerImgWidth: window.innerWidth,
       bannerImgCount: 0,
       currentBannerId: 1,
       bannerImgsXcoordinate: 0,
@@ -20,7 +21,7 @@ class MainBanner extends Component {
 
   componentDidMount = () => {
     const { slideIntervalDelay } = this.state;
-    fetch("http://localhost:3000/data/main/MainBannerImagesData.json")
+    fetch("/data/main/MainBannerImagesData.json")
       .then((res) => res.json())
       .then((res) => {
         this.setState({
@@ -46,7 +47,6 @@ class MainBanner extends Component {
   bannerSlideAuto = () => {
     const {
       bannerImages,
-      bannerImgWidth,
       bannerImgsXcoordinate,
       currentBannerId,
       leftClickedOnMainBanner,
@@ -74,12 +74,7 @@ class MainBanner extends Component {
   };
 
   bannerSlideLeft = () => {
-    const {
-      bannerImages,
-      bannerImgWidth,
-      bannerImgsXcoordinate,
-      currentBannerId,
-    } = this.state;
+    const { bannerImages, bannerImgsXcoordinate, currentBannerId } = this.state;
     const xIncrement = bannerImgWidth * -1;
     const isLastImg = currentBannerId === bannerImages.length;
     this.setState({
@@ -91,12 +86,7 @@ class MainBanner extends Component {
   };
 
   bannerSlideRight = () => {
-    const {
-      bannerImages,
-      bannerImgWidth,
-      bannerImgsXcoordinate,
-      currentBannerId,
-    } = this.state;
+    const { bannerImages, bannerImgsXcoordinate, currentBannerId } = this.state;
     const xIncrement = bannerImgWidth;
     const isFirstImg = currentBannerId === 1;
     this.setState({

@@ -53,22 +53,17 @@ class SpecialProductsItem extends Component {
         </Link>
         <div className="special-products-item-info">
           <Link className="Link" to="/product-page">
-            <p className="product-name">
-              <span className={0 ? "brand-name" : "brand-name hide"}>
-                {`[${this.props.brandName}] `}
-              </span>
-              {name}
-            </p>
+            <p className="product-name">{name}</p>
           </Link>
           <p className="price">
             {discountPrice
-              ? `${insertCommasToNum(discountPrice)}원`
-              : `${insertCommasToNum(originalPrice)}원`}
+              ? `${discountPrice.toLocaleString("en-US")}원`
+              : `${originalPrice.toLocaleString("en-US")}원`}
           </p>
           <p
             className={discountPrice ? "original-price" : "original-price hide"}
           >
-            {`${insertCommasToNum(originalPrice)}원`}
+            {`${originalPrice.toLocaleString("en-US")}원`}
           </p>
         </div>
       </li>

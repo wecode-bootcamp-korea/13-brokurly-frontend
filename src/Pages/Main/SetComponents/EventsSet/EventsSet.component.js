@@ -14,13 +14,7 @@ class EventsSet extends Component {
 
   componentDidMount = () => {
     const { type } = this.props;
-    const eventsAPI =
-      type === "recipe"
-        ? "http://10.58.6.216:8000/recipe/category?id=0"
-        : type === "events"
-        ? "http://localhost:3000/data/main/MainEventsData.json"
-        : "error";
-    fetch(eventsAPI)
+    fetch(this.getAPI())
       .then((res) => res.json())
       .then((res) => {
         if (type === "events") {
@@ -42,8 +36,18 @@ class EventsSet extends Component {
       .catch((error) => console.log(error.message));
   };
 
+  getAPI = () => {
+    const { type } = this.props;
+    if (type === "recipe") {
+      return "http://10.58.6.216:8000/recipe/category/0";
+    } else if (type === "events") {
+      return "/data/main/MainEventsData.json";
+    } else {
+      return "error";
+    }
+  };
+
   resizeImage = (e) => {
-    console.log(e.target.naturalHeight > e.target.naturalWidth);
     this.setState({
       isImgVertical: e.target.naturalHeight > e.target.naturalWidth,
     });

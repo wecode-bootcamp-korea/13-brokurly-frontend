@@ -15,12 +15,8 @@ class SpecialProductsSet extends Component {
   }
 
   componentDidMount = () => {
-    const { sectionId, categoryId } = this.props;
-    const productAPI =
-      sectionId === 1000
-        ? `http://10.58.4.20:8000/products/home/md-choice?category=${categoryId}`
-        : "http://10.58.4.20:8000/products/home/section";
-    fetch(productAPI)
+    const { sectionId } = this.props;
+    fetch(this.getAPI())
       .then((res) => res.json())
       .then((res) => {
         if (res.message === "SUCCESS") {
@@ -38,6 +34,15 @@ class SpecialProductsSet extends Component {
           console.log("error");
         }
       });
+  };
+
+  getAPI = () => {
+    const { sectionId, categoryId } = this.props;
+    if (sectionId === 1000) {
+      return `http://10.58.4.20:8000/products/home/md-choice?category=${categoryId}`;
+    } else {
+      return "http://10.58.4.20:8000/products/home/section";
+    }
   };
 
   slideList = (e) => {
@@ -75,8 +80,6 @@ class SpecialProductsSet extends Component {
       isLeftButtonVisible: !isFinalLeftClickConditionReached,
     });
   };
-
-  goToProductPage = () => {};
 
   render() {
     const {
@@ -119,7 +122,7 @@ class SpecialProductsSet extends Component {
         </div>
         <div className="special-products-set-container">
           <ul className="special-products-set-items" style={itemsTranslation}>
-            {!itemsList
+            {!itemsList.length
               ? ""
               : itemsList.map((item) => {
                   return (

@@ -15,17 +15,27 @@
     margin: 0 10px;
 
     .image {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       width: 100%;
       height: 330px;
+      overflow: hidden;
 
-      .img.full-width {
-        width: 120%;
-        transition: all 300ms ease-out;
+      &:hover .img {
+        transform: scale(1.1);
       }
 
-      .img.full-height {
-        height: 120%;
+      .img {
         transition: all 300ms ease-out;
+
+        .full-width {
+          width: 120%;
+        }
+
+        .full-height {
+          height: 120%;
+        }
       }
     }
 
@@ -62,18 +72,20 @@
       overflow: hidden;
 
       &:hover .img {
-        transform: scale(0.9);
+        transform: scale(1.1);
       }
-    }
 
-    .img.full-width {
-      width: 108%;
-      transition: all 300ms ease-out;
-    }
+      .img {
+        transition: all 300ms ease-out;
 
-    .img.full-height {
-      height: 108%;
-      transition: all 300ms ease-out;
+        .full-width {
+          width: 110%;
+        }
+
+        .full-height {
+          height: 110%;
+        }
+      }
     }
 
     .info {

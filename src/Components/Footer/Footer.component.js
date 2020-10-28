@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { Component } from "react";
 
 import "./Footer.styles.scss";
@@ -23,19 +24,24 @@ class Footer extends Component {
               <a
                 className="github-link daphne"
                 href="https://github.com/Daphne-dev"
+                target="_blank"
               >
                 <i className="fab fa-github"></i>
+                <h4 className="github link text">daphne-dev</h4>
               </a>
-              <h4>daphne-dev GitHub</h4>
             </li>
             <li>
               <p>
                 김형욱 <span>{"> "}Login/Accounts</span>
               </p>
-              <a className="github-link kho" href="https://github.com/kho5420">
+              <a
+                className="github-link kho"
+                href="https://github.com/kho5420"
+                target="_blank"
+              >
                 <i className="fab fa-github"></i>
+                <h4 className="github link text">kho5420</h4>
               </a>
-              <h4>kho5420 GitHub</h4>
             </li>
           </ul>
           <br />
@@ -48,10 +54,11 @@ class Footer extends Component {
               <a
                 className="github-link vannskang"
                 href="https://github.com/VannsKang"
+                target="_blank"
               >
                 <i className="fab fa-github"></i>
+                <h4 className="github link text">VannsKang</h4>
               </a>
-              <h4>VannsKang GitHub</h4>
             </li>
             <li>
               <p>
@@ -60,19 +67,24 @@ class Footer extends Component {
               <a
                 className="github-link muscardinus"
                 href="https://github.com/Muscardinus94"
+                target="_blank"
               >
                 <i className="fab fa-github"></i>
+                <h4 className="github link text">Muscardinus94</h4>
               </a>
-              <h4>Muscardinus94 GitHub</h4>
             </li>
             <li>
               <p>
                 이동훈 <span>{"> "}Main page, Side menu, Footer</span>
               </p>
-              <a className="github-link pdl39" href="https://github.com/pdl39">
+              <a
+                className="github-link pdl39"
+                href="https://github.com/pdl39"
+                target="_blank"
+              >
                 <i className="fab fa-github"></i>
+                <h4 className="github link text">pdl39</h4>
               </a>
-              <h4>pdl39 GitHub</h4>
             </li>
             <li>
               <p>
@@ -81,10 +93,11 @@ class Footer extends Component {
               <a
                 className="github-link deokyeong"
                 href="https://github.com/deokyeong93"
+                target="_blank"
               >
                 <i className="fab fa-github"></i>
+                <h4 className="github link text">deokyeong93</h4>
               </a>
-              <h4>ddeokyeong93 GitHub</h4>
             </li>
           </ul>
         </div>

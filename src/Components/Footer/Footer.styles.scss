@@ -7,14 +7,14 @@
   width: 100vw;
   height: 400px;
   position: absolute;
-  padding: 0 20px;
-  margin: 0 auto;
+  padding: 0 60px;
   background-color: #333;
+  opacity: 0.92;
 
   .left-side.info {
     display: flex;
     flex-direction: column;
-    width: 380px;
+    width: 420px;
     height: 350px;
     overflow: hidden;
     padding: 20px 0;
@@ -40,7 +40,24 @@
     li {
       width: 100%;
       display: flex;
+      align-items: center;
       position: relative;
+    }
+
+    li::after {
+      position: absolute;
+      content: "";
+      bottom: -0.1px;
+      margin: 0 auto;
+      left: 0.5%;
+      width: 0%;
+      background: white;
+      transition: 500ms ease-out;
+    }
+
+    li:hover::after {
+      width: 8%;
+      height: 1px;
     }
 
     li p {
@@ -52,49 +69,40 @@
       }
     }
 
-    li p::after {
-      position: absolute;
-      content: "";
-      bottom: -0.1px;
-      margin: 0 auto;
-      left: 0%;
-      width: 0%;
-      background: white;
-      transition: 500ms ease-out;
-    }
-
-    li p:hover::after {
-      width: 15%;
-      height: 1px;
-    }
-
     li span {
+      font-weight: 400;
       color: var(--primary-color);
     }
 
     li a {
+      width: 160px;
+      display: flex;
+      align-items: center;
       position: absolute;
-      right: 20%;
+      left: 66%;
       color: white;
       z-index: 3;
       transition: opacity 500ms;
 
-      &:hover {
-        opacity: 0;
-      }
-
+      &:hover i,
       &:hover h4 {
-        visibility: default;
+        opacity: 1;
       }
-    }
 
-    li h4 {
-      font-size: 12px;
-      font-weight: 200;
-      position: absolute;
-      right: 1%;
-      z-index: 2;
-      visibility: hidden;
+      i {
+        opacity: 0.6;
+        transition: opacity 300ms ease-out;
+      }
+
+      h4 {
+        font-size: 12px;
+        font-weight: 200;
+        position: absolute;
+        left: 15%;
+        z-index: 2;
+        opacity: 0;
+        transition: opacity 300ms ease-out;
+      }
     }
   }
 

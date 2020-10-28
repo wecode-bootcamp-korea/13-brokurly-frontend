@@ -10,7 +10,7 @@ $container-count: 2;
   overflow: hidden;
   position: fixed;
   top: 60%;
-  right: 1%;
+  right: 0.5%;
   z-index: 10;
   transition: all 1000ms ease-in;
 
@@ -162,6 +162,6 @@ $container-count: 2;
 }
 
 .SideMenu.scroll-end {
-  top: 5%;
+  top: -20%;
   transition: all 800ms ease-in;
 }

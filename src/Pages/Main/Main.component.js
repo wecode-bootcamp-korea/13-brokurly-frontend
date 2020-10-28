@@ -10,7 +10,7 @@ class Main extends Component {
     this.state = {
       specialSections: [],
       scrollTop: 0,
-      lastScrollTop: 0,
+      // lastScrollTop: 0,
       position: -2,
     };
     this.main = React.createRef();
@@ -39,11 +39,12 @@ class Main extends Component {
       () => {
         setTimeout(() => {
           const scrollTop = this.main.current.scrollTop;
-          this.setState({ position: scrollTop >= 5100 ? -3 : 0 });
+          this.setState({ position: scrollTop > 5350 ? 2 : 0 });
+          console.log(scrollTop);
           setTimeout(() => {
             this.setState({ scrollTop });
-          }, 500);
-        }, 500);
+          }, 200);
+        }, 200);
       }
     );
   };
@@ -59,41 +60,34 @@ class Main extends Component {
           this.setState({ position: scrollTop === 0 ? -2 : 0 });
           setTimeout(() => {
             this.setState({ scrollTop });
-          }, 500);
-        }, 500);
+          }, 200);
+        }, 200);
       }
     );
   };
 
   toggleSideMenuPosition = () => {
-    const { lastScrollTop } = this.state;
     const scrollTop = this.main.current.scrollTop;
+    const posToDefaultCondition = scrollTop >= 240;
+    const posToInitialCondition = scrollTop < 240;
+    const posOnScrollDownCondition =
+      scrollTop >= 240 && scrollTop > this.state.scrollTop;
+    const posOnScrollUpCondition =
+      scrollTop >= 240 && scrollTop < this.state.scrollTop;
+    let position = -2;
     this.setState({
       scrollTop,
     });
-    console.log(scrollTop);
-    if (lastScrollTop === 0 && scrollTop >= 240) {
-      this.setState({
-        lastScrollTop: 240,
-        position: 0,
-      });
-    } else if (scrollTop < 240) {
-      this.setState({
-        lastScrollTop: 0,
-        position: -2,
-      });
-    } else if (
-      lastScrollTop > 0 &&
-      scrollTop >= 240 &&
-      scrollTop > this.state.scrollTop
-    ) {
+    if (posToDefaultCondition) position = 0;
+    if (posToInitialCondition) position = -2;
+    if (posOnScrollDownCondition) {
       this.onScrollDown();
-    } else if (
-      lastScrollTop > 0 &&
-      scrollTop >= 240 &&
-      scrollTop < this.state.scrollTop
-    ) {
+    } else if (posOnScrollUpCondition) {
       this.onScrollUp();
+    } else {
+      this.setState({
+        position,
+      });
     }
   };
 

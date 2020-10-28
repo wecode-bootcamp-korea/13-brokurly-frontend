@@ -7,7 +7,7 @@
     cursor: default;
   }
 
-  h2.special-section-heading {
+  .special-section-heading {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,7 +30,7 @@
     }
   }
 
-  p.special-section-subtitle {
+  .special-section-subtitle {
     width: 500px;
     margin: 0 auto;
     margin-top: 10px;
@@ -39,7 +39,7 @@
     text-align: center;
   }
 
-  p.special-section-subtitle.hide {
+  .special-section-subtitle.hide {
     display: none;
   }
 }
