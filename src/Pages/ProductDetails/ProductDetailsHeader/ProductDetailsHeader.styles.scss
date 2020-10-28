@@ -253,6 +253,7 @@
       font-size: 16px;
       font-weight: 700;
       overflow: hidden;
+      cursor: pointer;
 
       &:first-child {
         color: #ddd;
@@ -268,6 +269,14 @@
       }
     }
   }
+  .full-width {
+    width: 100%;
+  }
+
+  .full-height {
+    height: 100% !important;
+    transform: translateX(-25%);
+  }
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -275,13 +284,4 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   margin: 0;
   -webkit-appearance: none;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.full-height {
-  height: 100% !important;
-  transform: translateX(-25%);
 }

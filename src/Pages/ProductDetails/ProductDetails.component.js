@@ -20,14 +20,28 @@ class ProductDetails extends Component {
     });
   };
 
+  getBoardCnt = async () => {
+    const OFFSET = 0;
+    const LIMIT = 10;
+    const request = await fetch(
+      `http://10.58.6.216:8000/user/product/5/reviews?offset=${OFFSET}&limit=${LIMIT}`,
+      { method: "GET" }
+    );
+    const { total_count } = await request.json();
+
+    this.setState({
+      totalReviewCount: total_count,
+    });
+  };
+
   getProductDetails = async (postId) => {
     try {
       //backend API
       const productDetails = await fetch(
-        `http://10.58.4.20:8000/products/product_detail?product_item=${postId}`
+        `http://10.58.4.20:8000/products/${postId}`
       );
       const relatedProducts = await fetch(
-        `http://10.58.4.20:8000/products/related_products?product_item=${postId}`
+        `http://10.58.4.20:8000/products/${postId}/related-products`
       );
       if (productDetails.status !== 200) {
         throw new Error("cannot fetch the data");
@@ -47,14 +61,37 @@ class ProductDetails extends Component {
   componentDidMount = () => {
     let id = this.props.match.params.id;
     this.getProductDetails(id);
+    this.getBoardCnt();
   };
 
+  componentDidUpdate(prevProps) {
+    const { id } = this.props.match.params;
+    if (this.props.location !== prevProps.location) {
+      this.getProductDetails(id);
+    }
+  }
+
   render() {
-    const { productDetail, activeMenu, relatedProducts } = this.state;
+    const {
+      productDetail,
+      activeMenu,
+      relatedProducts,
+      totalReviewCount,
+    } = this.state;
     const detailMenus = {
       0: <ProductDetailsMain productDetail={productDetail} />,
-      1: <ProductDetailsReview productDetail={productDetail} />,
-      2: <ProductDetailsRequest productDetail={productDetail} />,
+      1: (
+        <ProductDetailsReview
+          totalReviews={this.getBoardCnt}
+          productDetail={productDetail}
+        />
+      ),
+      2: (
+        <ProductDetailsRequest
+          productDetail={productDetail}
+          totalReviews={this.getBoardCnt}
+        />
+      ),
     };
     return (
       <section className="ProductDetails">
@@ -72,10 +109,10 @@ class ProductDetails extends Component {
                 상품설명
               </li>
               <li id="1" onClick={this.activeMenu}>
-                고객후기 (3876)
+                고객후기 ({totalReviewCount})
               </li>
               <li id="2" onClick={this.activeMenu}>
-                상품문의 (82)
+                상품문의 ({totalReviewCount})
               </li>
             </ul>
             {detailMenus[activeMenu]}

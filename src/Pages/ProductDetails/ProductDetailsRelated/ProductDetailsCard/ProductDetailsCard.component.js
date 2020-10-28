@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import "./ProductDetailsCard.styles.scss";
 
@@ -17,21 +18,23 @@ class ProductDetailsCard extends Component {
     const { product } = this.props;
     return (
       <li key={product.id} className="ProductDetailsCard">
-        <figure className="relation-card-thumb">
-          <img
-            src={product.imageUrl}
-            alt=""
-            className={isWidthBiggerThanHeight ? "full-height" : "full-width"}
-            onLoad={this.resizeImage}
-          />
-        </figure>
-        <div className="relation-card-desc">
-          <div className="relation-card-title">{product.name}</div>
-          <div className="relation-card-price">
-            <span>{product.originalPrice}</span>
-            <span>원</span>
+        <Link to={`/productdetails/${product.id}`}>
+          <figure className="relation-card-thumb">
+            <img
+              src={product.imageUrl}
+              alt=""
+              className={isWidthBiggerThanHeight ? "full-height" : "full-width"}
+              onLoad={this.resizeImage}
+            />
+          </figure>
+          <div className="relation-card-desc">
+            <div className="relation-card-title">{product.name}</div>
+            <div className="relation-card-price">
+              <span>{product.originalPrice}</span>
+              <span>원</span>
+            </div>
           </div>
-        </div>
+        </Link>
       </li>
     );
   }

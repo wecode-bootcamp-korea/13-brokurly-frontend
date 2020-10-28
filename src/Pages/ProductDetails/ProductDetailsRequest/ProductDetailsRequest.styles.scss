@@ -80,6 +80,7 @@
     }
     .review-list {
       border-bottom: 2px solid var(--primary-color);
+
       .review-tbody {
         width: 100%;
         border-top: 1px solid #e3e3e3;
@@ -87,7 +88,7 @@
         line-height: 140%;
         table-layout: fixed;
 
-        tbody {
+        & tbody {
           @include tableTemplate(td);
         }
       }
@@ -102,11 +103,29 @@
 
   .review-write {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin: 10px 0;
     padding: 20px 0 20px 5px;
 
-    button {
+    & form {
+      display: flex;
+      width: 80%;
+      margin-left: 30px;
+      & input {
+        height: 100%;
+        outline: none;
+        border: 1px solid var(--primary-color);
+        &:first-child {
+          width: 20%;
+        }
+        &:last-child {
+          width: 80%;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    & button {
       width: 130px;
       background-color: var(--primary-color);
       color: #fff;
@@ -115,7 +134,7 @@
     }
   }
 
-  .pagenation {
+  .pagination {
     ul {
       display: flex;
       flex-direction: row;

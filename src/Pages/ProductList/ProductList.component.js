@@ -7,8 +7,7 @@ import ProductCard from "./ProductCard/ProductCard.component";
 // Mock data
 // const API = "http://localhost:3000/data/productlist/productlist_0.json";
 // Backend API
-const API =
-  "http://10.58.4.20:8000/products/product_list?check=1&main=1&sub=1&sort_type=0";
+const API = "http://10.58.4.20:8000/products?main=1&ordering=0";
 
 class ProductList extends Component {
   state = {
@@ -25,10 +24,10 @@ class ProductList extends Component {
       const { activeSorting, isCategoryClick } = this.state;
       +id !== 0
         ? (response = await fetch(
-            `http://10.58.4.20:8000/products/product_list?check=0&main=1&sub=${id}&sort_type=${activeSorting}`
+            `http://10.58.4.20:8000/products?main=1&sub=${id}&ordering=${activeSorting}`
           ))
         : (response = await fetch(
-            `http://10.58.4.20:8000/products/product_list?check=1&main=1&sub=1&sort_type=${activeSorting}`
+            `http://10.58.4.20:8000/products?main=1&sub=1&ordering=${activeSorting}`
           ));
       if (response.state === 200) {
         throw new Error("cannot fetch the data");
@@ -60,10 +59,10 @@ class ProductList extends Component {
       //backend API
       +activeCategory !== 0
         ? (response = await fetch(
-            `http://10.58.4.20:8000/products/product_list?check=0&main=1&sub=${activeCategory}&sort_type=${id}`
+            `http://10.58.4.20:8000/products?main=1&sub=${activeCategory}&ordering=${id}`
           ))
         : (response = await fetch(
-            `http://10.58.4.20:8000/products/product_list?check=1&main=1&sub=1&sort_type=${id}`
+            `http://10.58.4.20:8000/products?main=1&sub=1&ordering=${id}`
           ));
       if (response.status !== 200) {
         throw new Error("cannot fetch the data");
