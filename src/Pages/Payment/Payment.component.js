@@ -34,12 +34,14 @@ class Payment extends Component {
     await fetch(GET_SHOPPINGBASKET_API, {
       headers: {
         "content-type": "application/json",
-        Authorization: userToken,
+        Authorization:
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
       },
     })
       .then((res) => res.json())
       .then((data) => data.shopping_list)
       .then((cartItems) => getCartItems(cartItems))
+      // .then((data) => console.log(data))
       .catch((error) => console.log(error));
   };
 
@@ -47,7 +49,12 @@ class Payment extends Component {
     const { onOffSwitch } = this.state;
     const { cartItems, currentUser } = this.props;
     const orderingItems = cartItems.filter((item) => item.checked === true);
-    console.log(cartItems, orderingItems);
+    const totalAmount = orderingItems.reduce(
+      (acc, curVal) => acc + curVal.price,
+      0
+    );
+    console.log(cartItems);
+    console.log(orderingItems);
     return (
       <div className="Payment">
         <div className="payment-container">
@@ -93,7 +100,7 @@ class Payment extends Component {
             <h3>주문자 정보</h3>
             <div className="user-info-container">
               <div className="user-info">
-                <span className="user-info-content">보내는 분*</span>
+                <span className="user-info-content">주문자*</span>
                 <span className="user-info-input">{currentUser.user_name}</span>
               </div>
               <div className="user-info">
@@ -181,14 +188,24 @@ class Payment extends Component {
                 <div>
                   <span>최종 결제 금액</span>
                   <span className="total-price">
-                    {cartItems.selectedItemsTotalPrice}
+                    {totalAmount.toLocaleString()}
                   </span>
                 </div>
               </div>
             </div>
           </section>
           <section className="section-name complete-btn">
-            <PaymentButton payMethod={this.state.checkPayMethod} />
+            <PaymentButton
+              payMethod={this.state.checkPayMethod}
+              orderProductName={`${orderingItems && orderingItems[0].name} 외 ${
+                orderingItems && orderingItems.length - 1
+              }종`}
+              tryToPay={totalAmount}
+              orderer={currentUser.user_name}
+              ordererPhone={String(currentUser.phone)}
+              email={currentUser.email}
+              address={currentUser.address}
+            />
           </section>
         </div>
       </div>
@@ -209,3 +226,5 @@ const mapDispatchToProps = (dispatch) => ({
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Payment)
 );
+
+// {cartItems.selectedItemsTotalPrice}
