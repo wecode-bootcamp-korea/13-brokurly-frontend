@@ -49,10 +49,12 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) => {
 };
 
 export const toggleItemCheckBox = (cartItems, cartItemId) => {
-  return cartItems.map((cartItem) => {
+  let tmp = cartItems.map((cartItem) => {
     if (cartItem.id === cartItemId) cartItem.checked = !cartItem.checked;
     return cartItem;
   });
+  console.log(tmp);
+  return tmp;
 };
 
 export const checkAllSelectCheckBox = (cartItems) => {

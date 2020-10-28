@@ -7,7 +7,6 @@ import {
   selectedItemsTotalPrice,
   getSelectedItemsAmount,
   checkStatusAllSelectCheckBox,
-  checkoutCheckedItems,
 } from "../../redux/cart/cart.actions";
 
 import "./CartItems.styles.scss";
@@ -23,11 +22,6 @@ class CartItems extends Component {
     getSelectedItemsAmount();
     checkStatusAllSelectCheckBox();
   }
-
-  orderClick = () => {
-    const { checkoutCheckedItems } = this.props;
-    checkoutCheckedItems();
-  };
 
   render() {
     const { totalPrice } = this.props;
@@ -72,9 +66,7 @@ class CartItems extends Component {
           </div>
         </div>
         <div className="goto-order-page">
-          <button className="goto-order-page-button" onClick={this.orderClick}>
-            주문하기
-          </button>
+          <button className="goto-order-page-button">주문하기</button>
         </div>
         <div className="warning">
           <span className="warning-text-top">
@@ -99,7 +91,6 @@ const mapDispatchToProps = (dispatch) => ({
   selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
   getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
   checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
-  checkoutCheckedItems: () => dispatch(checkoutCheckedItems()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItems);

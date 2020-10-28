@@ -19,11 +19,13 @@ import {
 import "./CartItem.styles.scss";
 
 class CartItem extends Component {
-  toggleCheckBox = async () => {
+  toggleCheckBox = async (e) => {
+    e.persist();
     const { cartItemInfo, toggleSelectedItemCheckBox, userToken } = this.props;
     const { id } = cartItemInfo;
     try {
       await toggleSelectedItemCheckBox(id);
+      e.target.checked = cartItemInfo.checked;
       this.checkTotalPriceAndAmount();
       await fetch(SEND_RECENT_ITEM_SELECTED_API, {
         method: "PATCH",
@@ -40,6 +42,13 @@ class CartItem extends Component {
       console.error(error);
     }
   };
+
+  // componentDidUpdate(prevProps) {
+  //   console.log("sudfsuusususususususususususu");
+  //   if (prevProps.checked !== this.props.checked) {
+  //     console.log("asdfasdf: ", this.props.checked);
+  //   }
+  // }
 
   checkTotalPriceAndAmount = () => {
     const {
@@ -103,7 +112,7 @@ class CartItem extends Component {
       getSelectedItemsAmount,
       userToken,
     } = this.props;
-    console.log(cartItemInfo);
+
     clearItemFromCart(cartItemInfo);
     selectedItemsTotalPrice();
     checkStatusAllSelectCheckBox();
@@ -139,20 +148,21 @@ class CartItem extends Component {
       checked,
       image_url,
     } = cartItemInfo;
+
     return (
       <div className="CartItem">
         <div className="cart-item-select">
           <input
             type="checkbox"
             onChange={this.toggleCheckBox}
-            checked={checked}
+            // checked={this.props.checked}
           />
         </div>
         <div className="cart-item-info">
           {option_name && (
             <div className="cart-item-info-top">
               <span>{name}</span>
-              <span>{price.toLocaleString()}원</span>
+              <span>{parseInt(price).toLocaleString()}원</span>
             </div>
           )}
           <div className="cart-item-info-bottom">

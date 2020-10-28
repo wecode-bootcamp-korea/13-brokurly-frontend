@@ -100,8 +100,18 @@ class ViewCart extends Component {
       .catch((error) => console.log(error));
   };
 
+  // componentDidUpdate(prevProps) {
+  //   console.log("Im Updated!!");
+  //   if (prevProps.cartItems[0].checked !== this.props.cartItems[0].checked) {
+  //     console.log("Changed");
+  //   } else console.log("Same");
+  // }
+
   render() {
     const { cartItems, allSelect, seletectedItemsAmount } = this.props;
+
+    // cartItems.map((cartItem) => console.log("hello: ", cartItem.checked));
+
     return (
       <div className="ViewCart">
         <div className="selected-items">
@@ -130,9 +140,15 @@ class ViewCart extends Component {
             </div>
           </div>
           <div className="selected-items-info">
-            {cartItems.map((cartItem, idx) => (
-              <CartItem key={idx} cartItemInfo={cartItem} />
-            ))}
+            {cartItems.map((cartItem) => {
+              return (
+                <CartItem
+                  key={cartItem.id}
+                  cartItemInfo={cartItem}
+                  checked={cartItem.checked}
+                />
+              );
+            })}
           </div>
         </div>
         <div className="selected-options-container">
