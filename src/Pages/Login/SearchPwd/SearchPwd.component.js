@@ -35,7 +35,6 @@ class SearchPwd extends Component {
         .then((result) => {
           if (result.message === "SUCCESS") {
             alert("아직 작업중이에요");
-            //여기 뭔가 추가할까?
           }
         });
     } else {

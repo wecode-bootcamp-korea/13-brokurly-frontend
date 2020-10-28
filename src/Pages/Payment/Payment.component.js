@@ -16,8 +16,11 @@ class Payment extends Component {
     };
   }
 
+  numberWithCommas = (price) =>
+    price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
   componentDidMount = () => {
-    fetch("http://localhost:3001/data/paymentData.json", {
+    fetch("http://localhost:3000/data/paymentData.json", {
       headers: {
         Authorization: localStorage.getItem("Authorization"),
       },
@@ -28,7 +31,6 @@ class Payment extends Component {
 
   render() {
     const { onOffSwitch, result } = this.state;
-    console.log(result && result.products);
     return (
       <div className="Payment">
         <div className="payment-container">
@@ -50,7 +52,7 @@ class Payment extends Component {
                 <button
                   onClick={() => this.setState({ onOffSwitch: !onOffSwitch })}
                 >
-                  상세보기<i class="fas fa-angle-down"></i>
+                  상세보기<i className="fas fa-angle-down"></i>
                 </button>
               </div>
               <div className={`onOffBox ${onOffSwitch ? "off" : "on"}`}>
@@ -65,7 +67,9 @@ class Payment extends Component {
                         name={product.name}
                         imeage={product.imageUrl}
                         price={product.originalPrice}
+                        numberComma={this.numberWithCommas}
                         quantity={Number(product.quantity)}
+                        key={product.id}
                       />
                     ))}
                 </ul>
@@ -78,27 +82,21 @@ class Payment extends Component {
             <div className="user-info-container">
               <div className="user-info">
                 <span className="user-info-content">보내는 분*</span>
-                <input
-                  type="text"
-                  className="user-info-input"
-                  value={result && result.user_name}
-                />
+                <span className="user-info-input">
+                  {result && result.user_name}
+                </span>
               </div>
               <div className="user-info">
                 <span className="user-info-content">휴대폰*</span>
-                <input
-                  type="text"
-                  className="user-info-input"
-                  value={result && result.phone}
-                />
+                <span className="user-info-input">
+                  {result && result.phone}
+                </span>
               </div>
               <div className="user-info">
                 <span className="user-info-content">이메일*</span>
-                <input
-                  type="text"
-                  className="user-info-input"
-                  value={result && result.email}
-                />
+                <span className="user-info-input">
+                  {result && result.email}
+                </span>
                 <div className="text-info">
                   <p>이메일을 통해 주문처리과정을 보내드립니다.</p>
                   <p>

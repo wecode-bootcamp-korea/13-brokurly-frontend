@@ -1,0 +1,105 @@
+{
+  "allCategory": [
+    {
+      "id": 0,
+      "category": "채소",
+      "imgUrl": "https://img-cf.kurly.com/shop/data/category/icon_veggies_inactive_pc@2x.1586324570.png",
+      "subCategory": [
+        {
+          "id": 0,
+          "category": "기본채소"
+        },
+        {
+          "id": 1,
+          "category": "쌈·샐러드·간편채소"
+        },
+        {
+          "id": 2,
+          "category": "브로콜리·특수채소"
+        },
+        {
+          "id": 3,
+          "category": "콩나물·버섯류"
+        },
+        {
+          "id": 4,
+          "category": "시금치·부추·나물"
+        },
+        {
+          "id": 5,
+          "category": "양파·마늘·생강·파"
+        },
+        {
+          "id": 6,
+          "category": "파프리카·피망·고추"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "category": "과일·견과·쌀",
+      "imgUrl": "https://img-cf.kurly.com/shop/data/category/icon_fruit_inactive_pc@2x.1568684150.png",
+      "subCategory": [
+        {
+          "id": 0,
+          "category": "제철과일"
+        },
+        {
+          "id": 1,
+          "category": "국산과일"
+        },
+        {
+          "id": 2,
+          "category": "수입과일"
+        },
+        {
+          "id": 3,
+          "category": "냉동·건과일"
+        },
+        {
+          "id": 4,
+          "category": "견과류"
+        },
+        {
+          "id": 5,
+          "category": "쌀·잡곡"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "category": "수산·해산·건어물",
+      "imgUrl": "https://img-cf.kurly.com/shop/data/category/icon_seafood_inactive_pc@2x.1568684352.png",
+      "subCategory": [
+        {
+          "id": 0,
+          "category": "생선류"
+        },
+        {
+          "id": 1,
+          "category": "오징어·낙지·문어"
+        },
+        {
+          "id": 2,
+          "category": "새우·게·랍스터"
+        },
+        {
+          "id": 3,
+          "category": "해산물·조개류"
+        },
+        {
+          "id": 4,
+          "category": "수산가공품"
+        },
+        {
+          "id": 5,
+          "category": "김·미역·해조류"
+        },
+        {
+          "id": 6,
+          "category": "건어물·다시팩"
+        }
+      ]
+    }
+  ]
+}

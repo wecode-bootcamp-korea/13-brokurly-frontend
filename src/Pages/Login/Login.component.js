@@ -36,7 +36,7 @@ class Login extends Component {
         .then((response) => response.json())
         .then((result) => {
           if (result.message === "SUCCESS") {
-            alert("쓸거면 팍팍써라, 많이 먹는다고 안 죽는다.");
+            alert("로그인 되었습니다.");
             localStorage.setItem("authorization", result.authorization);
             this.goToMain();
           } else {
@@ -44,7 +44,7 @@ class Login extends Component {
           }
         });
     } else {
-      alert("밥먹고 싶으면 제대로 써라!");
+      alert("입력칸을 채워주세요.");
     }
   };
 

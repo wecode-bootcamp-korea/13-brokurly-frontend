@@ -32,13 +32,13 @@ class SearchId extends Component {
         .then((response) => response.json())
         .then((result) => {
           if (result.message === "SUCCESS") {
-            alert(`아이디 찾아가라 ${result.user_id}`);
+            alert(`찾으시는 아이디는 ${result.user_id}입니다.`);
           } else {
-            alert(`정보를 다시 확인해주세요`);
+            alert(`입력한 정보를 다시 확인해주세요`);
           }
         });
     } else {
-      alert(`빈칸을 남겨두지마세요!`);
+      alert(`입력칸을 확인해주세요.`);
     }
   };
 
