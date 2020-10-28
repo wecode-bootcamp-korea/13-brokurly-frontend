@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-// import { NavLink } from "react-router-dom";
 
 import "./ProductList.styles.scss";
 import ProductCard from "./ProductCard/ProductCard.component";
-
-// Mock data
-// const API = "http://localhost:3000/data/productlist/productlist_0.json";
-// Backend API
-const API = "http://10.58.4.20:8000/products?main=1&ordering=0";
+import { PRODUCT_VEGE_LIST } from "../../config";
 
 class ProductList extends Component {
   state = {
@@ -20,13 +15,13 @@ class ProductList extends Component {
     let response;
     try {
       const { id } = e.target;
-      const { activeSorting, isCategoryClick } = this.state;
+      const { activeSorting } = this.state;
       +id !== 0
         ? (response = await fetch(
-            `http://10.58.4.20:8000/products?main=1&sub=${id}&ordering=${activeSorting}`
+            `${PRODUCT_VEGE_LIST}&sub=${id}&ordering=${activeSorting}`
           ))
         : (response = await fetch(
-            `http://10.58.4.20:8000/products?main=1&sub=1&ordering=${activeSorting}`
+            `${PRODUCT_VEGE_LIST}&sub=1&ordering=${activeSorting}`
           ));
       if (response.state === 200) {
         throw new Error("cannot fetch the data");
@@ -46,23 +41,14 @@ class ProductList extends Component {
   };
 
   sortingList = async (e) => {
-    let response;
     try {
       const { id } = e.target;
-      console.log(id);
       const { activeCategory } = this.state;
-      //local test
-      // const response = await fetch(
-      //   `http://localhost:3000/data/productlist/productlist_${id}.json`
-      // );
-      //backend API
-      +activeCategory !== 0
-        ? (response = await fetch(
-            `http://10.58.4.20:8000/products?main=1&sub=${activeCategory}&ordering=${id}`
-          ))
-        : (response = await fetch(
-            `http://10.58.4.20:8000/products?main=1&sub=1&ordering=${id}`
-          ));
+      const response = await fetch(
+        !!+activeCategory
+          ? `${PRODUCT_VEGE_LIST}&sub=${activeCategory}&ordering=${id}`
+          : `${PRODUCT_VEGE_LIST}&sub=1&ordering=${id}`
+      );
       if (response.status !== 200) {
         throw new Error("cannot fetch the data");
       }
@@ -75,7 +61,7 @@ class ProductList extends Component {
 
   getProductList = async () => {
     try {
-      const response = await fetch(API);
+      const response = await fetch(`${PRODUCT_VEGE_LIST}&ordering=0`);
       if (response.status !== 200) {
         throw new Error("cannot fetch the data");
       }
@@ -86,8 +72,13 @@ class ProductList extends Component {
         sortings,
       } = await response.json();
       // whole list
-      subCategories.unshift("전체보기");
-      this.setState({ products, mainCategories, subCategories, sortings });
+      subCategories.unshift({ id: 0, name: "전체보기" });
+      this.setState({
+        products,
+        mainCategories,
+        subCategories,
+        sortings,
+      });
     } catch (err) {
       console.log("!!error alert!!");
     }
@@ -120,14 +111,18 @@ class ProductList extends Component {
           <div className="category-list">
             <ul>
               {subCategories &&
-                subCategories.map((subCategory, id) => (
+                subCategories.map((subCategory) => (
                   <li
-                    key={id}
-                    id={id}
-                    className={+activeCategory === id ? "active-category" : ""}
+                    key={subCategory.id}
+                    id={subCategory.id}
+                    className={
+                      +activeCategory === subCategory.id
+                        ? "active-category"
+                        : ""
+                    }
                     onClick={this.handleCategory}
                   >
-                    {subCategory}
+                    {subCategory.name}
                   </li>
                 ))}
             </ul>
@@ -135,7 +130,7 @@ class ProductList extends Component {
               className={`sort-trigger ${isSortingClick && "active-color"}`}
               onClick={this.handleSorting}
             >
-              <span>{sortings && sortings[activeSorting]}</span>
+              <span>{sortings && sortings[activeSorting].name}</span>
               <i
                 className={`fas fa-chevron-${isSortingClick ? "up" : "down"}`}
               ></i>
@@ -146,9 +141,13 @@ class ProductList extends Component {
             >
               <ul>
                 {sortings &&
-                  sortings.map((sortName, sortId) => (
-                    <li key={sortId} id={sortId} onClick={this.sortingList}>
-                      {sortName}
+                  sortings.map((sorting) => (
+                    <li
+                      key={sorting.id}
+                      id={sorting.id}
+                      onClick={this.sortingList}
+                    >
+                      {sorting.name}
                     </li>
                   ))}
               </ul>

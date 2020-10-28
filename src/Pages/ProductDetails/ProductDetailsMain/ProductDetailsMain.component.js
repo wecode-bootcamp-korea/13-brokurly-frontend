@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { RESIZE_IMAGE } from "../../../utils";
 
-import "./ProductDetailsMain.styles.scss";
 import carrots from "../../../Images/ProductDetails/carrots.svg";
 import pepper from "../../../Images/ProductDetails/pepper.svg";
+
+import "./ProductDetailsMain.styles.scss";
 
 class ProductDetailsMain extends Component {
   state = {
@@ -10,8 +12,7 @@ class ProductDetailsMain extends Component {
   };
 
   resizeImage = (e) => {
-    const sizeCheck = e.target.naturalWidth >= e.target.naturalHeight;
-    this.setState({ isWidthBiggerThanHeight: sizeCheck });
+    this.setState({ isWidthBiggerThanHeight: RESIZE_IMAGE(e) });
   };
 
   render() {
@@ -21,16 +22,16 @@ class ProductDetailsMain extends Component {
       <main className="ProductDetailsMain">
         <figure>
           <img
-            src={productDetail && productDetail.imageUrl}
+            src={productDetail?.imageUrl}
             className={isWidthBiggerThanHeight ? "" : "main-vertical-align"}
             onLoad={this.resizeImage}
-            alt=""
+            alt="product_main_image"
           />
         </figure>
         <div className="product-info">
           <h1 className="product-info-title">
             <span>무농약 콩으로 기른 장인의 나물</span>
-            <span>{productDetail && productDetail.name}</span>
+            <span>{productDetail?.name}</span>
           </h1>
           <p>
             동산에는 뜨거운지라, 석가는 따뜻한 생생하며, 평화스러운 착목한는

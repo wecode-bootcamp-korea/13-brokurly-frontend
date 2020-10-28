@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
 import "./ProductModal.styles.scss";
-
-const API = "http://10.58.6.216:8000/user/shoppingbasket";
+import { GET_SHOPPINGBASKET_API } from "../../../../config";
 
 class ProductModal extends Component {
   state = {
@@ -50,7 +49,7 @@ class ProductModal extends Component {
   sendShoppingList = async () => {
     try {
       const { productId, totalAmount } = this.state;
-      const response = await fetch(API, {
+      const response = await fetch(GET_SHOPPINGBASKET_API, {
         method: "POST",
         headers: {
           Authorization:

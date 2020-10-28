@@ -53,7 +53,7 @@ class ProductDetailsRelated extends Component {
   };
 
   render() {
-    let itemsTranslation = {
+    const itemsTranslation = {
       transform: `translate(${this.state.listXcoordinate}px, 0)`,
       transition: `transform 600ms`,
     };

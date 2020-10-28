@@ -1,61 +1,52 @@
 import React, { Component } from "react";
+import { GET_SHOPPINGBASKET_API } from "../../../config";
+import { RESIZE_IMAGE } from "../../../utils";
 
 import "./ProductDetailsHeader.styles.scss";
-
-const API = "http://10.58.6.216:8000/user/shoppingbasket";
+let cnt = 1;
 
 class ProductDetailsHeader extends Component {
-  state = {
-    isWidthBiggerThanHeight: false,
-    isMinusAmount: true,
-  };
+  constructor(props) {
+    super(props);
+    const { productDetail } = props;
+    this.state = {
+      isWidthBiggerThanHeight: false,
+      isMinusAmount: true,
+      rootPrice: this.getRealPrice(productDetail),
+      totalPrice: this.getRealPrice(productDetail),
+      productId: productDetail.id,
+    };
+  }
 
   resizeImage = (e) => {
-    const sizeCheck = e.target.naturalWidth >= e.target.naturalHeight;
-    this.setState({ isWidthBiggerThanHeight: sizeCheck });
+    this.setState({ isWidthBiggerThanHeight: RESIZE_IMAGE(e) });
   };
 
   getNumberWithCommas = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return price.toLocaleString();
   };
 
-  getRealPrice = (material) => {
-    return material.discountPrice
-      ? material.discountPrice
-      : material.originalPrice;
+  getRealPrice = ({ discountPrice, originalPrice }) => {
+    return discountPrice ? discountPrice : originalPrice;
   };
 
-  getTotalPrice = () => {
-    const { totalAmount, rootPrice } = this.state;
-    const newTotalPrice = totalAmount * rootPrice;
-    this.setState({
-      totalPrice: newTotalPrice,
-    });
-  };
-
-  handleAmount = async (e) => {
+  handleAmount = (e) => {
     const { name } = e.target;
-    // declare issue!
-    const { totalAmount } = this.state;
+    const { rootPrice } = this.state;
+    name === "plus" && cnt++;
+    name === "minus" && cnt--;
 
-    await this.setState({
-      totalAmount:
-        (name === "plus" && totalAmount + 1) ||
-        (name === "minus" && totalAmount - 1),
+    this.setState({
+      totalAmount: cnt,
+      totalPrice: cnt * rootPrice,
+      isMinusAmount: cnt < 1,
     });
-
-    // NOTE reason using this.state.totalAmount not totalAmount upper is both two things is different.
-    await this.setState({
-      isMinusAmount: this.state.totalAmount < 1,
-    });
-
-    this.getTotalPrice();
   };
 
   sendShoppingList = async () => {
     try {
       const { productId, totalAmount } = this.state;
-      const response = await fetch(API, {
+      const response = await fetch(GET_SHOPPINGBASKET_API, {
         method: "POST",
         headers: {
           Authorization:
@@ -77,12 +68,8 @@ class ProductDetailsHeader extends Component {
   };
 
   componentDidMount = () => {
-    const { productDetail } = this.props;
     this.setState({
-      rootPrice: this.getRealPrice(productDetail),
-      totalPrice: this.getRealPrice(productDetail),
       totalAmount: 1,
-      productId: productDetail.id,
     });
   };
 
@@ -98,12 +85,14 @@ class ProductDetailsHeader extends Component {
       salesUnit,
       otherInformation,
     } = this.props.productDetail;
+
     const {
       totalPrice,
       totalAmount,
       isMinusAmount,
       isWidthBiggerThanHeight,
     } = this.state;
+
     return (
       <div className="ProductDetailsHeader">
         <figure className="product-image">
@@ -121,7 +110,7 @@ class ProductDetailsHeader extends Component {
               <span>{content}</span>
             </div>
             <button>
-              <i className="far fa-share-alt"></i>
+              <i className="far fa-share-alt" />
             </button>
           </div>
           <div className="order-price">
@@ -140,7 +129,7 @@ class ProductDetailsHeader extends Component {
             >
               <span>{originalPrice}</span>
               <span>원</span>
-              <i className="far fa-question-circle"></i>
+              <i className="far fa-question-circle" />
             </div>
             <div>로그인 후, 회원할인가와 적립혜택이 제공됩니다.</div>
           </div>
@@ -153,12 +142,12 @@ class ProductDetailsHeader extends Component {
               <dt>중량/용량</dt>
               <dd>{size}</dd>
             </dl>
-            {Object.entries(otherInformation).map((info, idx) => {
+            {otherInformation.map((info, idx) => {
               return (
-                info[1][1] && (
+                info.description && (
                   <dl key={idx}>
-                    <dt>{info[1][0]}</dt>
-                    <dd>{info[1][1]}</dd>
+                    <dt>{info.category}</dt>
+                    <dd>{info.description}</dd>
                   </dl>
                 )
               );

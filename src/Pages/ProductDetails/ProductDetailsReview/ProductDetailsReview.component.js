@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { PRODUCT_REVIEW_POST, PRODUCT_REVIEW } from "../../../config";
 
 import "./ProductDetailsReview.styles.scss";
 
@@ -16,7 +17,7 @@ class ProductDetailsReview extends Component {
   postNewReview = async (id) => {
     const { newReviewContent, newReviewTitle } = this.state;
     try {
-      const response = await fetch("http://10.58.6.216:8000/user/user-review", {
+      const response = await fetch(PRODUCT_REVIEW_POST, {
         method: "POST",
         headers: {
           Authorization:
@@ -38,13 +39,10 @@ class ProductDetailsReview extends Component {
 
   postReviewCount = async (id) => {
     try {
-      const response = await fetch(
-        "http://10.58.6.216:8000/user/product/5/reviews",
-        {
-          method: "POST",
-          body: JSON.stringify({ review_id: id }),
-        }
-      );
+      const response = await fetch(PRODUCT_REVIEW, {
+        method: "POST",
+        body: JSON.stringify({ review_id: id }),
+      });
       const result = await response.json();
       console.log(result);
     } catch (error) {
@@ -69,7 +67,7 @@ class ProductDetailsReview extends Component {
     const offset = index * 10;
     const limit = offset + 10;
     const response = await fetch(
-      `http://10.58.6.216:8000/user/product/5/reviews?offset=${offset}&limit=${limit}`,
+      `${PRODUCT_REVIEW}?offset=${offset}&limit=${limit}`,
       { method: "GET" }
     );
     const { review_list } = await response.json();
@@ -94,7 +92,7 @@ class ProductDetailsReview extends Component {
     let offset = page * 10;
     let limit = offset + 10;
     const response = await fetch(
-      `http://10.58.6.216:8000/user/product/5/reviews?offset=${offset}&limit=${limit}`,
+      `${PRODUCT_REVIEW}?offset=${offset}&limit=${limit}`,
       { method: "GET" }
     );
     console.log(response);
@@ -109,7 +107,7 @@ class ProductDetailsReview extends Component {
     const OFFSET = 0;
     const LIMIT = 10;
     const response = await fetch(
-      `http://10.58.6.216:8000/user/product/5/reviews?offset=${OFFSET}&limit=${LIMIT}`,
+      `${PRODUCT_REVIEW}?offset=${OFFSET}&limit=${LIMIT}`,
       { method: "GET" }
     );
     const { review_list, total_count } = await response.json();
