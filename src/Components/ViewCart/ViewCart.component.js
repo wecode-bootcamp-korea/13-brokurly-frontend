@@ -13,15 +13,21 @@ import {
   selectedItemsTotalPrice,
   checkStatusAllSelectCheckBox,
   getSelectedItemsAmount,
+  checkDiscountTotalPrice,
 } from "../../redux/cart/cart.actions";
 
 import "./ViewCart.styles.scss";
 
 class ViewCart extends Component {
   componentDidMount() {
-    const { checkStatusAllSelectCheckBox, getSelectedItemsAmount } = this.props;
+    const {
+      checkStatusAllSelectCheckBox,
+      getSelectedItemsAmount,
+      checkDiscountTotalPrice,
+    } = this.props;
     checkStatusAllSelectCheckBox();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
   }
 
   allSelectCheckboxClick = () => {
@@ -29,11 +35,14 @@ class ViewCart extends Component {
       toggleAllSelectCheckBox,
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
+      checkDiscountTotalPrice,
       userToken,
     } = this.props;
     toggleAllSelectCheckBox();
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
+
     fetch(SEND_RECENT_ITEM_SELECTED_API, {
       method: "PATCH",
       headers: {
@@ -52,12 +61,14 @@ class ViewCart extends Component {
       selectedItemsTotalPrice,
       checkStatusAllSelectCheckBox,
       getSelectedItemsAmount,
+      checkDiscountTotalPrice,
       userToken,
     } = this.props;
     deleteSelectedItems();
     selectedItemsTotalPrice();
     checkStatusAllSelectCheckBox();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
     fetch(SEND_RECENT_ITEM_SELECTED_API, {
       method: "DELETE",
       headers: {
@@ -76,12 +87,14 @@ class ViewCart extends Component {
       selectedItemsTotalPrice,
       checkStatusAllSelectCheckBox,
       getSelectedItemsAmount,
+      checkDiscountTotalPrice,
       userToken,
     } = this.props;
     filterOutSoldoutItems();
     selectedItemsTotalPrice();
     checkStatusAllSelectCheckBox();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
     fetch(SEND_RECENT_ITEM_SELECTED_API, {
       method: "DELETE",
       headers: {
@@ -183,6 +196,7 @@ const mapDispatchToProps = (dispatch) => ({
   checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
   getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
   filterOutSoldoutItems: () => dispatch(filterOutSoldoutItems()),
+  checkDiscountTotalPrice: () => dispatch(checkDiscountTotalPrice()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewCart);

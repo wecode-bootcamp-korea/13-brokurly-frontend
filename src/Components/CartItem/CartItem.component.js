@@ -117,11 +117,7 @@ class CartItem extends Component {
       name,
       price,
       sold_out,
-      sales,
-      option_name,
-      option_price,
-      option_sold_out,
-      option_sales,
+      discount_price,
       image_url,
     } = cartItemInfo;
 
@@ -135,12 +131,12 @@ class CartItem extends Component {
           />
         </div>
         <div className="cart-item-info">
-          {option_name && (
+          {/* {option_name && (
             <div className="cart-item-info-top">
               <span>{name}</span>
               <span>{parseInt(price).toLocaleString()}원</span>
             </div>
-          )}
+          )} */}
           <div className="cart-item-info-bottom">
             <div className="cart-item-photo">
               <img src={image_url} alt="item" />
@@ -148,12 +144,13 @@ class CartItem extends Component {
             <div className="specific-info-container">
               <div className="cart-item-name-and-price">
                 <div className="cart-item-name">
-                  {<span>{option_name ? option_name : name}</span>}
+                  {/* {<span>{option_name ? option_name : name}</span>} */}
+                  <span>{name}</span>
                   {sold_out && <span className="sold-out">품절</span>}
                 </div>
                 <div className="cart-item-price">
                   <span>{parseInt(price).toLocaleString()}원</span>
-                  <span>{parseInt(price).toLocaleString()}원</span>
+                  <span>{parseInt(discount_price).toLocaleString()}원</span>
                 </div>
               </div>
               <div className="cart-item-quantity">

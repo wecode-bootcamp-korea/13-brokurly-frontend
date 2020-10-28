@@ -71,3 +71,12 @@ export const filterOutSoldoutItems = (cartItems) => {
 export const filterOutCheckOutCheckedItems = (cartItems) => {
   return cartItems.filter((cartItem) => cartItem.checked !== true);
 };
+
+export const checkDiscountTotalPrice = (cartItems) =>
+  cartItems.reduce(
+    (acc, cartItem) =>
+      cartItem.discount_price !== cartItem.price
+        ? acc + cartItem.discount_price * cartItem.quantity
+        : acc,
+    0
+  );

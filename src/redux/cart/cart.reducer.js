@@ -8,6 +8,7 @@ import {
   filterOutSoldoutItems,
   checkAddItemToCart,
   filterOutCheckOutCheckedItems,
+  checkDiscountTotalPrice,
 } from "./cart.utils";
 
 const INITIAL_STATE = {
@@ -15,6 +16,7 @@ const INITIAL_STATE = {
   allSelect: true,
   seletectedItemsAmount: 0,
   selectedItemsTotalPrice: 0,
+  discountTotalPrice: 0,
 };
 
 const cartReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -106,6 +108,11 @@ const cartReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         cartItems: filterOutCheckOutCheckedItems(state.cartItems),
+      };
+    case CartActionTypes.CHECK_DISCOUNT_TOTAL_PRICE:
+      return {
+        ...state,
+        discountTotalPrice: checkDiscountTotalPrice(state.cartItems),
       };
     default:
       return state;

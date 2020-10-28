@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import ViewCart from "../../Components/ViewCart/ViewCart.component";
 
+import { checkDiscountTotalPrice } from "../../redux/cart/cart.actions";
+
 import { GET_SHOPPINGBASKET_API } from "../../config";
 
 import {
@@ -20,6 +22,7 @@ class CartItems extends Component {
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
       checkStatusAllSelectCheckBox,
+      checkDiscountTotalPrice,
       userToken,
       getCartItems,
     } = this.props;
@@ -38,10 +41,11 @@ class CartItems extends Component {
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
     checkStatusAllSelectCheckBox();
+    checkDiscountTotalPrice();
   }
 
   render() {
-    const { totalPrice } = this.props;
+    const { totalPrice, discountTotalPrice } = this.props;
     return (
       <div className="CartItems">
         <div className="cart-items-header">
@@ -54,14 +58,14 @@ class CartItems extends Component {
         <div className="price-result-container">
           <div className="initial-price">
             <span className="initial-price-text">상품금액</span>
-            <span className="initial-price-number">
-              {totalPrice.toLocaleString()} 원
-            </span>
+            <span className="initial-price-number">{totalPrice} 원</span>
           </div>
           <span>&#8722;</span>
           <div className="discount-amount">
             <span className="discount-amount-text">상품할인금액</span>
-            <span className="discount-amount-number">-18,000 원</span>
+            <span className="discount-amount-number">
+              {discountTotalPrice} 원
+            </span>
           </div>
           <span>&#43;</span>
           <div className="delivery-fee">
@@ -72,10 +76,11 @@ class CartItems extends Component {
           <div className="price-result">
             <span className="price-result-text">결제예정금액</span>
             <span className="price-result-number">
-              {(totalPrice - 18000).toLocaleString()} 원
+              {parseInt(totalPrice - discountTotalPrice).toLocaleString()} 원
             </span>
             <span className="mileage-point-info">
-              구매시 {((totalPrice - 18000) / 10).toLocaleString()}원 적립
+              구매시 {((totalPrice - discountTotalPrice) / 10).toLocaleString()}
+              원 적립
             </span>
           </div>
           <div className="price-result-additonal-info">
@@ -102,6 +107,7 @@ class CartItems extends Component {
 const mapStateToProps = ({ cart, user }) => ({
   totalPrice: cart.selectedItemsTotalPrice,
   cartItems: cart.cartItems,
+  discountTotalPrice: cart.discountTotalPrice,
   userToken: user.userToken,
 });
 
@@ -110,6 +116,7 @@ const mapDispatchToProps = (dispatch) => ({
   getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
   checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
   getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
+  checkDiscountTotalPrice: () => dispatch(checkDiscountTotalPrice()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItems);
