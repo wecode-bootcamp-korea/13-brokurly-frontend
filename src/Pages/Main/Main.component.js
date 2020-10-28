@@ -40,7 +40,6 @@ class Main extends Component {
         setTimeout(() => {
           const scrollTop = this.main.current.scrollTop;
           this.setState({ position: scrollTop > 5350 ? 2 : 0 });
-          console.log(scrollTop);
           setTimeout(() => {
             this.setState({ scrollTop });
           }, 200);

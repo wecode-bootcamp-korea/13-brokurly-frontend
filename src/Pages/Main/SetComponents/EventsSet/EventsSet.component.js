@@ -13,37 +13,31 @@ class EventsSet extends Component {
   }
 
   componentDidMount = () => {
-    const { type } = this.props;
-    fetch(this.getAPI())
-      .then((res) => res.json())
-      .then((res) => {
-        if (type === "events") {
-          this.setState({
-            eventsList: res.eventsItems,
-          });
-        }
-        if (res.message === "SUCCESS") {
-          this.setState({
-            eventsList:
-              type === "recipe"
-                ? res.recipe_list
-                : type === "events"
-                ? res.eventsItems
-                : "error",
-          });
-        }
-      })
-      .catch((error) => console.log(error.message));
+    this.getAPIData();
   };
 
-  getAPI = () => {
+  getAPIData = async () => {
     const { type } = this.props;
-    if (type === "recipe") {
-      return "http://10.58.6.216:8000/recipe/category/0";
-    } else if (type === "events") {
-      return "/data/main/MainEventsData.json";
-    } else {
-      return "error";
+    const typeTable = {
+      events: {
+        api: "/data/main/MainEventsData.json",
+        dataKey: "events_list",
+      },
+      recipe: {
+        api: "http://10.58.6.216:8000/recipe/category/0",
+        dataKey: "recipe_list",
+      },
+    };
+    try {
+      const res = await fetch(typeTable[type]["api"]);
+      const data = await res.json();
+      if ((data.message = "SUCCESS")) {
+        this.setState({
+          eventsList: data[typeTable[type]["dataKey"]],
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

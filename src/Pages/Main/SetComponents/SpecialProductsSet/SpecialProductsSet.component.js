@@ -36,6 +36,30 @@ class SpecialProductsSet extends Component {
       });
   };
 
+  getAPIData = async () => {
+    const { sectionId, categoryId } = this.props;
+    const section = sectionId === 1000 ? "md" : "products";
+    const sectionTable = {
+      md: {
+        api: `http://10.58.4.20:8000/products/home/md-choice?category=${categoryId}`,
+        dataKey: "products",
+      },
+      products: {
+        api: "http://10.58.4.20:8000/products/home/section",
+        dataKey: "section_list",
+      },
+    };
+    try {
+      const res = await fetch(sectionTable[section]["api"]);
+      const data = await res.json();
+      this.setState({
+        itemsList: data[sectionTable[section]["dataKey"]],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   getAPI = () => {
     const { sectionId, categoryId } = this.props;
     if (sectionId === 1000) {

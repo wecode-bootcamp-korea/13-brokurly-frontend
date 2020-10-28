@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./SpecialProductsItem.styles.scss";
 
-function insertCommasToNum(num) {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
 class SpecialProductsItem extends Component {
   constructor() {
     super();
