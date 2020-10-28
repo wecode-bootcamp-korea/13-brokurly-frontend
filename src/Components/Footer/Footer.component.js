@@ -101,7 +101,7 @@ class Footer extends Component {
             </li>
           </ul>
         </div>
-        <div className="right-side container">
+        <div className="right-side img-container">
           <div className="right-side front image-stack">
             <img
               className="team-pic 1"
