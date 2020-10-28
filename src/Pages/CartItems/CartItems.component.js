@@ -1,21 +1,16 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-
 import ViewCart from "../../Components/ViewCart/ViewCart.component";
-
 import { checkDiscountTotalPrice } from "../../redux/cart/cart.actions";
-
 import { GET_SHOPPINGBASKET_API } from "../../config";
-
 import {
   selectedItemsTotalPrice,
   getSelectedItemsAmount,
   checkStatusAllSelectCheckBox,
   getCartItems,
 } from "../../redux/cart/cart.actions";
-
 import "./CartItems.styles.scss";
-
 class CartItems extends Component {
   async componentDidMount() {
     const {
@@ -26,7 +21,6 @@ class CartItems extends Component {
       userToken,
       getCartItems,
     } = this.props;
-
     await fetch(GET_SHOPPINGBASKET_API, {
       headers: {
         "content-type": "application/json",
@@ -37,13 +31,17 @@ class CartItems extends Component {
       .then((data) => data.shopping_list)
       .then((cartItems) => getCartItems(cartItems))
       .catch((error) => console.log(error));
-
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
     checkStatusAllSelectCheckBox();
     checkDiscountTotalPrice();
   }
-
+  checkGoToPayment = () => {
+    const { cartItems } = this.props;
+    const check = cartItems.some((cartItem) => cartItem.checked);
+    if (!check) alert("최소 1개 이상 담아주세요");
+    else this.props.history.push("/payment");
+  };
   render() {
     const { totalPrice, discountTotalPrice } = this.props;
     return (
@@ -88,7 +86,12 @@ class CartItems extends Component {
           </div>
         </div>
         <div className="goto-order-page">
-          <button className="goto-order-page-button">주문하기</button>
+          <button
+            className="goto-order-page-button"
+            onClick={this.checkGoToPayment}
+          >
+            주문하기
+          </button>
         </div>
         <div className="warning">
           <span className="warning-text-top">
@@ -103,14 +106,12 @@ class CartItems extends Component {
     );
   }
 }
-
 const mapStateToProps = ({ cart, user }) => ({
   totalPrice: cart.selectedItemsTotalPrice,
   cartItems: cart.cartItems,
   discountTotalPrice: cart.discountTotalPrice,
   userToken: user.userToken,
 });
-
 const mapDispatchToProps = (dispatch) => ({
   selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
   getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
@@ -118,5 +119,6 @@ const mapDispatchToProps = (dispatch) => ({
   getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
   checkDiscountTotalPrice: () => dispatch(checkDiscountTotalPrice()),
 });
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartItems);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CartItems)
+);

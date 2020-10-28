@@ -64,7 +64,7 @@ class Login extends Component {
           }
         });
     } else {
-      alert("밥먹고 싶으면 제대로 써라!");
+      alert("로그인 실패!");
     }
   };
 
