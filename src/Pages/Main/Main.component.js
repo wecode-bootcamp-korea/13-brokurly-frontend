@@ -8,9 +8,9 @@ import {
   GET_FREQUENTLY_PRODUCT_API,
   GET_PURHCASE_LIST_API,
 } from "../../config";
-import MainBanner from "./MainBanner/MainBanner.component";
-import SideMenu from "../../Components/SideMenu/SideMenu.component";
-import SectionRender from "./SectionRender/SectionRender.component";
+// import MainBanner from "./MainBanner/MainBanner.component";
+// import SideMenu from "../../Components/SideMenu/SideMenu.component";
+// import SectionRender from "./SectionRender/SectionRender.component";
 
 import "./Main.styles.scss";
 class Main extends Component {
@@ -143,11 +143,11 @@ class Main extends Component {
         ref={this.main}
         onScroll={this.toggleSideMenuPosition}
       >
-        <MainBanner />
-        <SideMenu position={position} />
-        {specialSections.map((section) => (
-          <SectionRender section={section} key={section.id} />
-        ))}
+        {/* <MainBanner /> */}
+        {/* <SideMenu position={position} /> */}
+        {specialSections.map((section) => ({
+          /* <SectionRender section={section} key={section.id} /> */
+        }))}
       </div>
     );
   }
@@ -155,6 +155,7 @@ class Main extends Component {
 const mapStateToProps = ({ user }) => ({
   userToken: user.userToken,
 });
+
 const mapDispatchToProps = (dispatch) => ({
   getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
   getFrequentlyPurchaseItems: (purchaseItems) =>
