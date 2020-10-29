@@ -24,7 +24,7 @@ class EventsSet extends Component {
         dataKey: "events_list",
       },
       recipe: {
-        api: "http://10.58.6.216:8000/recipe/category/0",
+        api: "/data/main/MainRecipeData.json",
         dataKey: "recipe_list",
       },
     };

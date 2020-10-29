@@ -9,7 +9,7 @@ $container-count: 2;
   width: 80px;
   overflow: hidden;
   position: fixed;
-  top: 60%;
+  top: 66%;
   right: 0.5%;
   z-index: 10;
   transition: all 1000ms ease-in;
@@ -145,8 +145,9 @@ $container-count: 2;
     }
   }
 }
+
 .SideMenu.default {
-  top: 20%;
+  top: 22%;
   transition: all 500ms ease-in;
 }
 
