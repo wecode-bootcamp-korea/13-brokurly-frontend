@@ -117,7 +117,7 @@ class ProductModal extends Component {
 }
 
 const mapStateToProps = ({ user }) => ({
-  user: user.userToken,
+  userToken: user.userToken,
 });
 
 export default connect(mapStateToProps, { addItemToCart })(ProductModal);
