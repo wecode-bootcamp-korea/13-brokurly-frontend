@@ -33,8 +33,7 @@ class Payment extends Component {
     await fetch(GET_SHOPPINGBASKET_API, {
       headers: {
         "content-type": "application/json",
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+        Authorization: userToken,
       },
     })
       .then((res) => res.json())
@@ -49,7 +48,7 @@ class Payment extends Component {
     const { cartItems, currentUser } = this.props;
     const orderingItems = cartItems.filter((item) => item.checked === true);
     const totalAmount = orderingItems.reduce(
-      (acc, curVal) => acc + curVal.price,
+      (acc, curVal) => acc + curVal.discount_price * curVal.quantity,
       0
     );
     console.log(cartItems);
@@ -86,7 +85,7 @@ class Payment extends Component {
                     <OrderProductList
                       name={product.name}
                       imeage={product.image_url}
-                      price={product.price}
+                      discount_price={product.discount_price}
                       quantity={product.quantity}
                       key={idx}
                     />
@@ -225,5 +224,3 @@ const mapDispatchToProps = (dispatch) => ({
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(Payment)
 );
-
-// {cartItems.selectedItemsTotalPrice}
