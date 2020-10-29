@@ -57,3 +57,11 @@ export const addItemToCart = (item) => ({
 export const logOutClearCart = () => ({
   type: CartActionTypes.USER_LOGOUT_CLEAR_CART,
 });
+
+export const checkoutCheckedItems = () => ({
+  type: CartActionTypes.CHECKOUT_CHECKED_ITEMS,
+});
+
+export const checkDiscountTotalPrice = () => ({
+  type: CartActionTypes.CHECK_DISCOUNT_TOTAL_PRICE,
+});

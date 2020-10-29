@@ -19,9 +19,9 @@ import { getCartItems } from "./redux/cart/cart.actions";
 import { GET_SHOPPINGBASKET_API } from "./config";
 import { USER_TOKEN } from "./config";
 
-import "./App.scss";
+import "./Routes.scss";
 
-class App extends Component {
+class Routes extends Component {
   constructor() {
     super();
     this.state = {
@@ -153,4 +153,4 @@ const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });
 
-export default connect(mapStateToProps, { getCartItems })(App);
+export default connect(mapStateToProps, { getCartItems })(Routes);

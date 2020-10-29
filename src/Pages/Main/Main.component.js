@@ -18,7 +18,6 @@ class Main extends Component {
     this.state = {
       specialSections: [],
     };
-    this.main = React.createRef();
   }
 
   componentDidMount() {
@@ -54,10 +53,6 @@ class Main extends Component {
         });
       })
       .catch((error) => console.log(error.message));
-    const scrollTop = this.main.current.scrollTop;
-    this.setState({
-      scrollTop,
-    });
 
     fetch(GET_SHOPPINGBASKET_API, {
       headers: {
