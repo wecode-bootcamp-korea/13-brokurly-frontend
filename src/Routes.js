@@ -47,7 +47,10 @@ class Routes extends Component {
       () => {
         setTimeout(() => {
           const scrollY = window.scrollY;
-          this.setState({ position: scrollY > 5650 ? 2 : 0 });
+          const scrollHeight = this.container.current.scrollHeight + 400 + 175;
+          const scrollTotal = scrollHeight - window.innerHeight - 250;
+          console.log(scrollTotal);
+          this.setState({ position: scrollY > scrollTotal ? 2 : 0 });
         }, 200);
       }
     );
