@@ -21,7 +21,7 @@ import { GET_SHOPPINGBASKET_API } from "./config";
 
 import "./App.scss";
 
-class App extends Component {
+class Routes extends Component {
   constructor() {
     super();
     this.state = {
@@ -95,8 +95,4 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
-  userToken: user.userToken,
-});
-export default connect(mapStateToProps, { getCartItems })(App);
+export default connect(mapStateToProps, { getCartItems })(Routes);
