@@ -1,8 +1,9 @@
+@import "../../../Styles/Mix.styles.scss";
+
 .ProductDetailsHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   padding-bottom: 40px;
+  @include flexSet(space-between, null);
+  @include resizeSet;
 
   .product-image {
     width: 430px;
@@ -27,21 +28,19 @@
     }
 
     .order-header {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
       padding: 10px 0 29px 0;
+      @include flexSet(space-between, null);
 
       & div {
-        display: flex;
-        flex-direction: column;
         padding-right: 60px;
+        @include flexSet(null, null, column);
 
         span {
           &:first-child {
             line-height: 34px;
             font-size: 24px;
           }
+
           &:last-child {
             padding-top: 4px;
             color: #999;
@@ -52,16 +51,14 @@
       }
 
       & button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         width: 40px;
         height: 40px;
+        padding: 1px;
         background-color: #fff;
         border: 1px solid #000;
         border-radius: 50%;
         opacity: 50%;
-        padding: 1px;
+        @include flexSet(center, center);
 
         i {
           color: #000;
@@ -83,11 +80,13 @@
             font-size: 28px;
             font-weight: 400;
           }
+
           &:nth-child(2) {
             padding: 0 7px 0 2px;
             line-height: 27px;
             font-size: 18px;
           }
+
           &:nth-child(3) {
             color: red;
             line-height: 41px;
@@ -95,18 +94,22 @@
           }
         }
       }
+
       .original-price {
         display: block;
         color: #ccc;
         line-height: 24px;
         font-size: 16px;
+
         span {
           text-decoration: line-through;
         }
+
         i {
           padding-left: 5px;
         }
       }
+
       div:last-child {
         padding-top: 7px;
         color: var(--primary-color);
@@ -125,20 +128,25 @@
         display: flex;
         padding: 18px 0;
         border-top: 1px solid #eee;
+
         dt {
           width: 150px;
           color: #666;
         }
+
         &:first-child {
           padding: 18px 0 0 0;
         }
+
         &:nth-child(2) {
           border-top: 0;
         }
+
         &:nth-child(5) {
           & dd {
             display: flex;
             flex-direction: column;
+
             & span:last-child {
               padding-top: 4px;
               color: #666;
@@ -147,17 +155,17 @@
             }
           }
         }
+
         &:last-child {
           border-bottom: 1px solid #eee;
+
           & dd {
-            display: flex;
-            align-items: center;
+            @include flexSet(null, center);
+
             & :focus {
               outline: 0;
             }
             & button {
-              display: flex;
-              justify-content: center;
               width: 22px;
               height: 22px;
               background-color: #f6f7f7;
@@ -165,7 +173,9 @@
               text-align: center;
               line-height: 17px;
               font-size: 22px;
+              @include flexSet(center, null);
             }
+
             & input {
               width: 41px;
               height: 22px;
@@ -183,10 +193,8 @@
   }
 
   .order-total {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
     padding: 30px 0 20px;
+    @include flexSet(null, flex-end, column);
 
     div {
       &:first-child {
@@ -212,14 +220,9 @@
       }
 
       &:last-child {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+        @include flexSet(null, center);
 
         & div {
-          display: flex;
-          justify-content: center;
-          align-items: center;
           width: 38px;
           height: 20px;
           margin-right: 2px;
@@ -229,6 +232,7 @@
           border-radius: 10px;
           font-size: 12px;
           font-weight: 700;
+          @include flexSet(center, center);
         }
 
         & span {
@@ -254,6 +258,7 @@
       font-weight: 700;
       overflow: hidden;
       cursor: pointer;
+      transition: 0.3s ease;
 
       &:first-child {
         color: #ddd;
@@ -266,16 +271,13 @@
         background-color: var(--primary-color);
         color: #fff;
         border: 1px solid var(--primary-color);
+
+        &:hover {
+          background-color: #fff;
+          color: var(--primary-color);
+        }
       }
     }
-  }
-  .full-width {
-    width: 100%;
-  }
-
-  .full-height {
-    height: 100% !important;
-    transform: translateX(-25%);
   }
 }
 

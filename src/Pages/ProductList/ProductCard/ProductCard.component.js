@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import ProductModal from "./ProductModal/ProductModal.component";
+import { RESIZE_IMAGE } from "../../../utils";
 
 import "./ProductCard.styles.scss";
 
@@ -9,15 +10,6 @@ class ProductCard extends Component {
   state = {
     isWidthBiggerThanHeight: false,
     isShoppingBasketClicked: false,
-  };
-
-  resizeImage = (e) => {
-    const sizeCheck = e.target.naturalWidth >= e.target.naturalHeight;
-    this.setState({ isWidthBiggerThanHeight: sizeCheck });
-  };
-
-  getNumberWithCommas = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   toggleBaksetModal = (e) => {
@@ -51,7 +43,7 @@ class ProductCard extends Component {
                 className={
                   isWidthBiggerThanHeight ? "full-height" : "full-width"
                 }
-                onLoad={this.resizeImage}
+                onLoad={(e) => RESIZE_IMAGE(e, this)}
               />
             </div>
           </Link>
@@ -65,15 +57,13 @@ class ProductCard extends Component {
               <span className="card-title">{product.name}</span>
               <div className="card-price">
                 <div className={`${!product.discountPrice && "display-none"}`}>
-                  <span>
-                    {this.getNumberWithCommas(product.originalPrice)}원{" "}
-                  </span>
+                  <span>{product.originalPrice.toLocaleString()}원 </span>
                   <i className="fas fa-long-arrow-alt-right" />
                 </div>
                 <span>
                   {product.discountPrice
-                    ? this.getNumberWithCommas(product.discountPrice)
-                    : this.getNumberWithCommas(product.originalPrice)}
+                    ? product.discountPrice.toLocaleString()
+                    : product.originalPrice.toLocaleString()}
                   원
                 </span>
               </div>

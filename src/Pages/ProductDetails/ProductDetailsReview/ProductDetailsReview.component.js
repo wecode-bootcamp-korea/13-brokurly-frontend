@@ -131,8 +131,6 @@ class ProductDetailsReview extends Component {
     this.getRequestData();
   }
 
-  // conditional rendering
-  // !data.length && return <div>Loading...</div>
   render() {
     const {
       reviewList,
@@ -158,11 +156,6 @@ class ProductDetailsReview extends Component {
                 내 <u>1:1문의</u> 에 남겨주세요.
               </li>
             </ul>
-            <select name="" id="">
-              <option value="1">최근등록순</option>
-              <option value="2">좋아요많은순</option>
-              <option value="3">조회많은순</option>
-            </select>
           </div>
         </div>
         <div className="review-board">
