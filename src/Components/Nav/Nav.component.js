@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import NavUserMenu from "../NavUserMenu/NavUserMenu.component";
 import NavCategoryBar from "../NavCategoryBar/NavCategoryBar.component";
+
+import { LOGO_IMG } from "../../config";
 
 import "./Nav.styles.scss";
 
@@ -36,7 +38,7 @@ class Nav extends Component {
             <NavUserMenu />
             <div className="logo">
               <Link to="/">
-                <img src="Images/new_kurly.png" alt="logo" />
+                <img src={LOGO_IMG} alt="logo" />
               </Link>
             </div>
           </>
@@ -47,4 +49,4 @@ class Nav extends Component {
   }
 }
 
-export default Nav;
+export default withRouter(Nav);
