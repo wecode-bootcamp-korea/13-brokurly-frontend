@@ -28,9 +28,9 @@ class ProductList extends Component {
         throw new Error("cannot fetch the data");
       }
       const { products } = await response.json();
-      await this.setState({ isLoading: true });
+      await this.setState({ isLoading: true, products, activeCategory: id });
       setTimeout(() => {
-        this.setState({ isLoading: false, products, activeCategory: id });
+        this.setState({ isLoading: false });
       }, 2000);
     } catch (err) {
       console.log("!! error alert !!");
@@ -58,9 +58,9 @@ class ProductList extends Component {
         throw new Error("cannot fetch the data");
       }
       const { products } = await response.json();
-      await this.setState({ isLoading: true });
+      await this.setState({ isLoading: true, products, activeSorting: id });
       setTimeout(() => {
-        this.setState({ isLoading: false, products, activeSorting: id });
+        this.setState({ isLoading: false });
       }, 2000);
     } catch (err) {
       console.log("!!error alert!!");

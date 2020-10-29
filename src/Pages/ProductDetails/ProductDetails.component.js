@@ -24,7 +24,8 @@ class ProductDetails extends Component {
   };
 
   getBoardCnt = async () => {
-    let id = this.props.match.params.id;
+    // const { id } = this.props.match.params;
+    const id = this.state.reviewId;
     const OFFSET = 0;
     const LIMIT = 10;
     const request = await fetch(
@@ -53,12 +54,13 @@ class ProductDetails extends Component {
       // console.log(realted_products);
       await this.setState({
         isLoading: true,
+        reviewId: postId,
+        productDetail: product_detail,
+        relatedProducts: related_products,
       });
       setTimeout(() => {
         this.setState({
           isLoading: false,
-          productDetail: product_detail,
-          relatedProducts: related_products,
         });
       }, 2000);
     } catch (err) {
