@@ -140,8 +140,14 @@ class CartItem extends Component {
                   {sold_out && <span className="sold-out">품절</span>}
                 </div>
                 <div className="cart-item-price">
-                  <span>{Number(price).toLocaleString()}원</span>
-                  <span>{Number(discount_price).toLocaleString()}원</span>
+                  {Number(price) !== Number(discount_price) ? (
+                    <>
+                      <span className="original-price">{price}원</span>
+                      <span className="discount-price">{discount_price}원</span>
+                    </>
+                  ) : (
+                    <span className="discount-price">{discount_price}원</span>
+                  )}
                 </div>
               </div>
               <div className="cart-item-quantity">
