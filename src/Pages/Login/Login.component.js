@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 
+import { SIGNIN } from "../../config";
+
 import "./Login.styles.scss";
 
 class Login extends Component {
@@ -25,7 +27,7 @@ class Login extends Component {
     e.preventDefault();
     const { user_id, password } = this.state;
     if (user_id !== "" && password !== "") {
-      fetch("http://10.58.6.216:8000/user/signin", {
+      fetch(SIGNIN, {
         method: "POST",
         body: JSON.stringify({
           user_id,

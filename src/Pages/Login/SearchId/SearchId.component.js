@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import "./SearchId.styles.scss";
 
+import { USER_SEARCH_ID } from "../../../config";
+
 class SearchId extends Component {
   constructor() {
     super();
@@ -22,7 +24,7 @@ class SearchId extends Component {
     if (
       Object.keys(this.state).every((element) => this.state[element] !== "")
     ) {
-      fetch("http://10.58.6.216:8000/user/findid", {
+      fetch(USER_SEARCH_ID, {
         method: "POST",
         body: JSON.stringify({
           user_name,
