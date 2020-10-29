@@ -4,6 +4,7 @@ const UserActionTypes = {
   GET_TOKEN: "GET_TOKEN",
   CLEAR_TOKEN: "CLEAR_TOKEN",
   ADD_MILEAGE: "ADD_MILEAGE",
+  CLEAR_MILEAGE: "CLEAR_MILEAGE",
 };
 
 export default UserActionTypes;

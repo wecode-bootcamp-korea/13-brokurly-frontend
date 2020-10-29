@@ -33,6 +33,11 @@ const userReducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         userMileage: state.userMileage + payload,
       };
+    case UserActionTypes.CLEAR_MILEAGE:
+      return {
+        ...state,
+        userMileage: 0,
+      };
     default:
       return state;
   }

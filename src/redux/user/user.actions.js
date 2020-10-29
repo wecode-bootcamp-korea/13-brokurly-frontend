@@ -22,3 +22,7 @@ export const addMileage = (mileage) => ({
   type: UserActionTypes.ADD_MILEAGE,
   payload: mileage,
 });
+
+export const clearMileage = () => ({
+  type: UserActionTypes.CLEAR_MILEAGE,
+});
