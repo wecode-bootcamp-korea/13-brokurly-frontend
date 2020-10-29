@@ -18,49 +18,63 @@ class Main extends Component {
     this.state = {
       specialSections: [],
       scrollTop: 0,
-      // lastScrollTop: 0,
       position: -2,
     };
     this.main = React.createRef();
   }
-
   componentDidMount() {
+    this.getUserAllInformation();
+    this.getProductInformation();
+  }
+  getUserAllInformation = async () => {
     const {
       userToken,
       getCartItems,
       getFrequentlyPurchaseItems,
       getPurchaseList,
     } = this.props;
-    fetch(GET_SHOPPINGBASKET_API, {
-      headers: {
-        "content-type": "application/json",
-        Authorization: userToken,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => data.shopping_list)
-      .then((cartItems) => getCartItems(cartItems))
-      .catch((error) => console.log(error));
-    fetch(GET_FREQUENTLY_PRODUCT_API, {
-      headers: {
-        "content-type": "application/json",
-        Authorization: userToken,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => data.product_list)
-      .then((product_list) => getFrequentlyPurchaseItems(product_list))
-      .catch((error) => console.log(error));
-    fetch(GET_PURHCASE_LIST_API, {
-      headers: {
-        "content-type": "application/json",
-        Authorization: userToken,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => data.order_list)
-      .then((purchaseList) => getPurchaseList(purchaseList))
-      .catch((error) => console.log(error));
+    try {
+      userToken &&
+        (await fetch(GET_SHOPPINGBASKET_API, {
+          headers: {
+            "content-type": "application/json",
+            Authorization: userToken,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => data.shopping_list)
+          .then((cartItems) => getCartItems(cartItems)));
+      userToken &&
+        (await fetch(GET_FREQUENTLY_PRODUCT_API, {
+          headers: {
+            "content-type": "application/json",
+            Authorization: userToken,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => data.product_list)
+          .then(
+            (product_list) =>
+              product_list.length && getFrequentlyPurchaseItems(product_list)
+          ));
+      userToken &&
+        (await fetch(GET_PURHCASE_LIST_API, {
+          headers: {
+            "content-type": "application/json",
+            Authorization: userToken,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => data.order_list)
+          .then(
+            (purchaseList) =>
+              purchaseList.length && getPurchaseList(purchaseList)
+          ));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getProductInformation = () => {
     fetch("http://localhost:3000/data/main/MainPageSectionsDataArr.json")
       .then((res) => res.json())
       .then((res) => {
@@ -73,8 +87,7 @@ class Main extends Component {
     this.setState({
       scrollTop,
     });
-  }
-
+  };
   onScrollDown = () => {
     this.setState(
       {
@@ -91,7 +104,6 @@ class Main extends Component {
       }
     );
   };
-
   onScrollUp = () => {
     this.setState(
       {
@@ -108,7 +120,6 @@ class Main extends Component {
       }
     );
   };
-
   toggleSideMenuPosition = () => {
     const scrollTop = this.main.current.scrollTop;
     const posToDefaultCondition = scrollTop >= 240;
@@ -133,7 +144,6 @@ class Main extends Component {
       });
     }
   };
-
   render() {
     const { specialSections, position } = this.state;
     return (
@@ -154,10 +164,8 @@ class Main extends Component {
 const mapStateToProps = ({ user }) => ({
   userToken: user.userToken,
 });
-const mapDispatchToProps = (dispatch) => ({
-  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
-  getFrequentlyPurchaseItems: (purchaseItems) =>
-    dispatch(getFrequentlyPurchaseItems(purchaseItems)),
-  getPurchaseList: (purchaseItems) => dispatch(getPurchaseList(purchaseItems)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, {
+  getCartItems,
+  getFrequentlyPurchaseItems,
+  getPurchaseList,
+})(Main);

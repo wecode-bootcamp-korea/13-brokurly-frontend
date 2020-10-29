@@ -1,0 +1,96 @@
+.PurchaseElement {
+  border: 1px solid #dbdbdb;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > div {
+    width: 95%;
+  }
+
+  .top {
+    border-bottom: 1px solid #dbdbdb;
+    position: relative;
+    height: 50px;
+    margin-bottom: 10px;
+
+    span {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-weight: bold;
+    }
+
+    i {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: var(--primary-color);
+    }
+  }
+
+  .bottom {
+    height: 79px;
+    display: flex;
+
+    img {
+      margin-right: 20px;
+      width: 60px;
+      height: 77px;
+    }
+
+    .purchase-information {
+      width: 75%;
+      height: 100%;
+      padding: 5px 0;
+
+      div {
+        height: calc(100% / 3);
+
+        span {
+          font-size: 13px;
+
+          &:first-child {
+            margin-right: 10px;
+          }
+
+          &:last-child {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .option-buttons {
+      width: calc(25% - 77px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        width: 80%;
+        height: 40%;
+        border: 1px solid var(--primary-color);
+        background-color: white;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        outline: none;
+
+        &.review {
+          margin-bottom: 5px;
+          background-color: var(--primary-color);
+          color: white;
+        }
+
+        &.help {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+}

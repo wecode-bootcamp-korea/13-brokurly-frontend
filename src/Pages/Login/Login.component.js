@@ -108,8 +108,13 @@ class Login extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  getToken: (token) => dispatch(getToken(token)),
-  getCurrentUser: (user) => dispatch(getCurrentUser(user)),
+const mapStateToProps = ({ user }) => ({
+  userToken: user.userToken,
 });
-export default withRouter(connect(null, mapDispatchToProps)(Login));
+
+export default withRouter(
+  connect(mapStateToProps, {
+    getToken,
+    getCurrentUser,
+  })(Login)
+);

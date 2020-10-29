@@ -1,41 +1,42 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
 import { filterOutSoldoutItems } from "../../redux/cart/cart.actions";
-
 import CartItem from "../CartItem/CartItem.component";
-
 import { SEND_RECENT_ITEM_SELECTED_API } from "../../config";
-
 import {
   toggleAllSelectCheckBox,
   deleteSelectedItems,
   selectedItemsTotalPrice,
   checkStatusAllSelectCheckBox,
   getSelectedItemsAmount,
+  checkDiscountTotalPrice,
 } from "../../redux/cart/cart.actions";
-
 import "./ViewCart.styles.scss";
-
 class ViewCart extends Component {
   componentDidMount() {
-    const { checkStatusAllSelectCheckBox, getSelectedItemsAmount } = this.props;
+    const {
+      checkStatusAllSelectCheckBox,
+      getSelectedItemsAmount,
+      checkDiscountTotalPrice,
+    } = this.props;
     checkStatusAllSelectCheckBox();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
   }
-
-  AllSelectCheckboxClick = () => {
+  allSelectCheckboxClick = () => {
     const {
       toggleAllSelectCheckBox,
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
+      checkDiscountTotalPrice,
       userToken,
     } = this.props;
     toggleAllSelectCheckBox();
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
     fetch(SEND_RECENT_ITEM_SELECTED_API, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "content-type": "application/json",
         Authorization: userToken,
@@ -43,23 +44,22 @@ class ViewCart extends Component {
       body: JSON.stringify({
         selected: "all",
       }),
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+    }).catch((error) => console.log(error));
   };
-
   selectedItemDeleteCheckboxCLick = () => {
     const {
       deleteSelectedItems,
       selectedItemsTotalPrice,
       checkStatusAllSelectCheckBox,
       getSelectedItemsAmount,
+      checkDiscountTotalPrice,
       userToken,
     } = this.props;
     deleteSelectedItems();
     selectedItemsTotalPrice();
     checkStatusAllSelectCheckBox();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
     fetch(SEND_RECENT_ITEM_SELECTED_API, {
       method: "DELETE",
       headers: {
@@ -69,23 +69,22 @@ class ViewCart extends Component {
       body: JSON.stringify({
         delete: "selected",
       }),
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+    }).catch((error) => console.log(error));
   };
-
   soldOutItemDeleteButtonClick = () => {
     const {
       filterOutSoldoutItems,
       selectedItemsTotalPrice,
       checkStatusAllSelectCheckBox,
       getSelectedItemsAmount,
+      checkDiscountTotalPrice,
       userToken,
     } = this.props;
     filterOutSoldoutItems();
     selectedItemsTotalPrice();
     checkStatusAllSelectCheckBox();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
     fetch(SEND_RECENT_ITEM_SELECTED_API, {
       method: "DELETE",
       headers: {
@@ -95,11 +94,8 @@ class ViewCart extends Component {
       body: JSON.stringify({
         delete: "soldout",
       }),
-    })
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
+    }).catch((error) => console.log(error));
   };
-
   render() {
     const { cartItems, allSelect, seletectedItemsAmount } = this.props;
     return (
@@ -110,7 +106,7 @@ class ViewCart extends Component {
               <label>
                 <input
                   type="checkbox"
-                  onChange={this.AllSelectCheckboxClick}
+                  onChange={this.allSelectCheckboxClick}
                   checked={!!allSelect}
                 />
               </label>
@@ -130,9 +126,15 @@ class ViewCart extends Component {
             </div>
           </div>
           <div className="selected-items-info">
-            {cartItems.map((cartItem, idx) => (
-              <CartItem key={idx} cartItemInfo={cartItem} productOrder={idx} />
-            ))}
+            {cartItems.map((cartItem) => {
+              return (
+                <CartItem
+                  key={cartItem.id}
+                  cartItemInfo={cartItem}
+                  checked={cartItem.checked}
+                />
+              );
+            })}
           </div>
         </div>
         <div className="selected-options-container">
@@ -141,7 +143,7 @@ class ViewCart extends Component {
               <div>
                 <input
                   type="checkbox"
-                  onChange={this.AllSelectCheckboxClick}
+                  onChange={this.allSelectCheckboxClick}
                   checked={allSelect ? "checked" : ""}
                 />
               </div>
@@ -167,21 +169,18 @@ class ViewCart extends Component {
     );
   }
 }
-
 const mapStateToProps = ({ cart, user }) => ({
   cartItems: cart.cartItems,
   allSelect: cart.allSelect,
   seletectedItemsAmount: cart.seletectedItemsAmount,
   userToken: user.userToken,
 });
-
-const mapDispatchToProps = (dispatch) => ({
-  toggleAllSelectCheckBox: () => dispatch(toggleAllSelectCheckBox()),
-  deleteSelectedItems: () => dispatch(deleteSelectedItems()),
-  selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
-  checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
-  getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
-  filterOutSoldoutItems: () => dispatch(filterOutSoldoutItems()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ViewCart);
+export default connect(mapStateToProps, {
+  toggleAllSelectCheckBox,
+  deleteSelectedItems,
+  selectedItemsTotalPrice,
+  checkStatusAllSelectCheckBox,
+  getSelectedItemsAmount,
+  filterOutSoldoutItems,
+  checkDiscountTotalPrice,
+})(ViewCart);

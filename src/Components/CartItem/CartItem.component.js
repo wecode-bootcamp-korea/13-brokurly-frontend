@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import { checkDiscountTotalPrice } from "../../redux/cart/cart.actions";
 import {
   GET_SHOPPINGBASKET_API,
   SEND_RECENT_ITEM_SELECTED_API,
-  userToken,
 } from "../../config";
-
 import {
   increaseItemAmount,
   decreaseItemAmount,
@@ -16,18 +14,22 @@ import {
   selectedItemsTotalPrice,
   getSelectedItemsAmount,
 } from "../../redux/cart/cart.actions";
-
 import "./CartItem.styles.scss";
-
 class CartItem extends Component {
-  toggleCheckBox = async () => {
-    const { cartItemInfo, toggleSelectedItemCheckBox, userToken } = this.props;
+  toggleCheckBox = async (e) => {
+    e.persist();
+    const {
+      cartItemInfo,
+      toggleSelectedItemCheckBox,
+      checkDiscountTotalPrice,
+      userToken,
+    } = this.props;
     const { id } = cartItemInfo;
     try {
       await toggleSelectedItemCheckBox(id);
-      this.checkTotalPriceAndAmount();
+      await this.checkTotalPriceAndAmount();
       await fetch(SEND_RECENT_ITEM_SELECTED_API, {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "content-type": "application/json",
           Authorization: userToken,
@@ -37,28 +39,30 @@ class CartItem extends Component {
           selected: "single",
         }),
       });
+      checkDiscountTotalPrice();
     } catch (error) {
       console.error(error);
     }
   };
-
   checkTotalPriceAndAmount = () => {
     const {
       checkStatusAllSelectCheckBox,
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
+      checkDiscountTotalPrice,
     } = this.props;
     checkStatusAllSelectCheckBox();
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
   };
-
   amountChangeIncreaseOrDecrease = (isIncrease) => {
     const {
       cartItemInfo,
       decreaseItemAmount,
       increaseItemAmount,
       selectedItemsTotalPrice,
+      checkDiscountTotalPrice,
       userToken,
     } = this.props;
     const operation = isIncrease ? "plus" : "minus";
@@ -66,7 +70,7 @@ class CartItem extends Component {
       ? increaseItemAmount(cartItemInfo)
       : decreaseItemAmount(cartItemInfo);
     fetch(GET_SHOPPINGBASKET_API, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "content-type": "application/json",
         Authorization: userToken,
@@ -77,8 +81,8 @@ class CartItem extends Component {
       }),
     }).catch((error) => console.log(error.message));
     selectedItemsTotalPrice();
+    checkDiscountTotalPrice();
   };
-
   clearItemButtonClick = () => {
     const {
       cartItemInfo,
@@ -86,12 +90,14 @@ class CartItem extends Component {
       selectedItemsTotalPrice,
       checkStatusAllSelectCheckBox,
       getSelectedItemsAmount,
+      checkDiscountTotalPrice,
       userToken,
     } = this.props;
     clearItemFromCart(cartItemInfo);
     selectedItemsTotalPrice();
     checkStatusAllSelectCheckBox();
     getSelectedItemsAmount();
+    checkDiscountTotalPrice();
     fetch(GET_SHOPPINGBASKET_API, {
       method: "DELETE",
       headers: {
@@ -103,24 +109,14 @@ class CartItem extends Component {
       }),
     });
   };
-
   render() {
-    const { cartItemInfo } = this.props;
+    const { cartItemInfo, checked } = this.props;
     const {
-      id,
       quantity,
-      user_id,
-      product_id,
-      option,
       name,
       price,
       sold_out,
-      sales,
-      option_name,
-      option_price,
-      option_sold_out,
-      option_sales,
-      checked,
+      discount_price,
       image_url,
     } = cartItemInfo;
     return (
@@ -133,12 +129,6 @@ class CartItem extends Component {
           />
         </div>
         <div className="cart-item-info">
-          {option_name && (
-            <div className="cart-item-info-top">
-              <span>{name}</span>
-              <span>{parseInt(price).toLocaleString()}원</span>
-            </div>
-          )}
           <div className="cart-item-info-bottom">
             <div className="cart-item-photo">
               <img src={image_url} alt="item" />
@@ -146,11 +136,12 @@ class CartItem extends Component {
             <div className="specific-info-container">
               <div className="cart-item-name-and-price">
                 <div className="cart-item-name">
-                  {<span>{option_name ? option_name : name}</span>}
+                  <span>{name}</span>
                   {sold_out && <span className="sold-out">품절</span>}
                 </div>
                 <div className="cart-item-price">
-                  <span>{parseInt(price).toLocaleString()}원</span>
+                  <span>{Number(price).toLocaleString()}원</span>
+                  <span>{Number(discount_price).toLocaleString()}원</span>
                 </div>
               </div>
               <div className="cart-item-quantity">
@@ -173,7 +164,7 @@ class CartItem extends Component {
                 </div>
               </div>
               <div className="cart-item-total">
-                <span>{(price * quantity).toLocaleString}원</span>
+                <span>{(discount_price * quantity).toLocaleString()}원</span>
               </div>
               <div
                 className="cart-item-delete"
@@ -188,21 +179,17 @@ class CartItem extends Component {
     );
   }
 }
-
 const mapStateToProps = ({ cart, user }) => ({
-  cartItems: cart.cartItems,
   allSelect: cart.allSelect,
   userToken: user.userToken,
 });
-
-const mapDispatchToProps = (dispatch) => ({
-  increaseItemAmount: (item) => dispatch(increaseItemAmount(item)),
-  decreaseItemAmount: (item) => dispatch(decreaseItemAmount(item)),
-  clearItemFromCart: (item) => dispatch(clearItemFromCart(item)),
-  toggleSelectedItemCheckBox: (id) => dispatch(toggleSelectedItemCheckBox(id)),
-  checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
-  selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
-  getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartItem);
+export default connect(mapStateToProps, {
+  increaseItemAmount,
+  decreaseItemAmount,
+  clearItemFromCart,
+  toggleSelectedItemCheckBox,
+  checkStatusAllSelectCheckBox,
+  selectedItemsTotalPrice,
+  getSelectedItemsAmount,
+  checkDiscountTotalPrice,
+})(CartItem);

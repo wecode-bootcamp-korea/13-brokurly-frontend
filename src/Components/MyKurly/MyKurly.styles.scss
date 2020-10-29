@@ -1,0 +1,16 @@
+.MyKurly {
+  padding-top: 70px;
+  display: flex;
+  justify-content: center;
+
+  .my-kurly-container {
+    width: 55%;
+    min-height: 670px;
+    display: flex;
+
+    main {
+      margin-left: 30px;
+      flex: 3.5;
+    }
+  }
+}
