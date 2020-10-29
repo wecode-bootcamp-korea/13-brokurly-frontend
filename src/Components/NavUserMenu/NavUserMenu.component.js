@@ -22,13 +22,13 @@ class NavUserMenu extends Component {
         clearToken,
         logoutClearPurchaseList,
         clearFrequentlyPurchaseItemList,
-        logout,
+        userLogout,
       } = this.props;
       logOutClearCart();
       clearToken();
       logoutClearPurchaseList();
       clearFrequentlyPurchaseItemList();
-      logout();
+      userLogout();
       history.push("/");
     };
 
