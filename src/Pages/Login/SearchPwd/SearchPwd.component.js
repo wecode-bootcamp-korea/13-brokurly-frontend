@@ -37,7 +37,18 @@ class SearchPwd extends Component {
         .then((result) => {
           console.log("결과=>", result.message);
           if (result.message === "SUCCESS") {
-            const newPwd = prompt("새로운 비밀번호를 입력해주세요!");
+            let newPwd = prompt(
+              "10자 이상의 영문,숫자,특수문자 각각 1개 이상의 조합으로 새로 작성해주세요"
+            );
+            while (
+              !newPwd.match(
+                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/
+              )
+            ) {
+              newPwd = prompt(
+                "10자 이상의 영문,숫자,특수문자 각각 1개 이상의 조합으로 새로 작성해주세요"
+              );
+            }
             fetch(USER_SEARCH_PASSWORD, {
               method: "PATCH",
               body: JSON.stringify({

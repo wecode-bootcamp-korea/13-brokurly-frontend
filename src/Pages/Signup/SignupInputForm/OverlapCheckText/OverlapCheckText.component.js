@@ -63,7 +63,7 @@ class OverlapCheckText extends Component {
             <span
               className={`initial ${
                 password.match(
-                  /(?=.*[a-z!])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,}/
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/
                 )
                   ? "correct"
                   : "incorrect"
@@ -78,7 +78,7 @@ class OverlapCheckText extends Component {
             <span
               className={`initial ${
                 password.match(
-                  /(?=.*[a-z!])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,}/
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/
                 ) && password === userPwdCheck
                   ? "correct"
                   : "incorrect"
