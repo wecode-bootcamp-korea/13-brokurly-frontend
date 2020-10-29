@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { addItemToCart } from "../../../../redux/cart/cart.actions";
 
 import "./ProductModal.styles.scss";
 import { GET_SHOPPINGBASKET_API } from "../../../../config";
@@ -30,11 +33,11 @@ class ProductModal extends Component {
   sendShoppingList = async () => {
     try {
       const { productId, totalAmount } = this.state;
+      const { addItemToCart, userToken } = this.props;
       const response = await fetch(GET_SHOPPINGBASKET_API, {
         method: "POST",
         headers: {
-          Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+          Authorization: userToken,
         },
         body: JSON.stringify({
           product_id: productId,
@@ -46,6 +49,7 @@ class ProductModal extends Component {
       }
       const result = await response.json();
       console.log(result);
+      addItemToCart({ product_id: productId, quantity: totalAmount });
     } catch (err) {
       console.log("!! error alert !!");
     }
@@ -112,4 +116,8 @@ class ProductModal extends Component {
   }
 }
 
-export default ProductModal;
+const mapStateToProps = ({ user }) => ({
+  userToken: user.userToken,
+});
+
+export default connect(mapStateToProps, { addItemToCart })(ProductModal);

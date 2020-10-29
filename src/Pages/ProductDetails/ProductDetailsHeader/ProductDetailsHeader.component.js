@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import { GET_SHOPPINGBASKET_API } from "../../../config";
 import { RESIZE_IMAGE } from "../../../utils";
+
+import { addItemToCart } from "../../../redux/cart/cart.actions";
 
 import "./ProductDetailsHeader.styles.scss";
 
@@ -33,11 +37,11 @@ class ProductDetailsHeader extends Component {
   sendShoppingList = async () => {
     try {
       const { productId, totalAmount } = this.state;
+      const { addItemToCart, userToken } = this.props;
       const response = await fetch(GET_SHOPPINGBASKET_API, {
         method: "POST",
         headers: {
-          Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+          Authorization: userToken,
         },
         body: JSON.stringify({
           product_id: productId,
@@ -49,6 +53,7 @@ class ProductDetailsHeader extends Component {
       }
       const result = await response.json();
       console.log(result);
+      addItemToCart({ product_id: productId, quantity: totalAmount });
     } catch (err) {
       console.log("!! error alert !!");
     }
@@ -68,7 +73,6 @@ class ProductDetailsHeader extends Component {
     } = this.props.productDetail;
 
     const { totalPrice, totalAmount, isWidthBiggerThanHeight } = this.state;
-
     return (
       <div className="ProductDetailsHeader">
         <figure className="product-image">
@@ -167,4 +171,10 @@ class ProductDetailsHeader extends Component {
   }
 }
 
-export default ProductDetailsHeader;
+const mapStateToProps = ({ user }) => ({
+  userToken: user.userToken,
+});
+
+export default connect(mapStateToProps, { addItemToCart })(
+  ProductDetailsHeader
+);

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+
 import { withRouter } from "react-router-dom";
+
 import "./NavCategoryAllBarSub.styles.scss";
 import { GET_CATEGORY_API } from "../../config";
 class NavCategoryAllBarSub extends Component {
