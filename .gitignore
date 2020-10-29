@@ -5,7 +5,6 @@ config.js
 
 # dependencies
 /node_modules
-/redux
 /.pnp
 .pnp.js
 

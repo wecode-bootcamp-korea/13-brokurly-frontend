@@ -132,7 +132,7 @@ class Payment extends Component {
                     <span>기본배송지</span>
                   </div>
                   <span className="user-spot-info">{currentUser.address}</span>
-                  <span className="user-spot-info">{`${currentUser.name},${currentUser.phone}`}</span>
+                  <span className="user-spot-info">{`${currentUser.user_name}, ${currentUser.phone}`}</span>
                   <button className="change-button">변경</button>
                 </div>
               </div>
@@ -165,7 +165,7 @@ class Payment extends Component {
               <div className="payment-price">
                 <div>
                   <span>주문 금액</span>
-                  <span>{cartItems.selectedItemsTotalPrice}</span>
+                  <span>{totalAmount.toLocaleString()}</span>
                 </div>
                 <div>
                   <span className="product-price-sales">상품 금액</span>

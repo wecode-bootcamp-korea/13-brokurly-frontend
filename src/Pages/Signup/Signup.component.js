@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 import SignupInputForm from "./SignupInputForm/SignupInputForm.component";
+import OverlapCheckText from "./SignupInputForm/OverlapCheckText/OverlapCheckText.component";
+
+import { SIGNUP, SIGNUP_CHECK_EMAIL } from "../../config";
 
 import "./Signup.styles.scss";
 import "./SignupInputForm/SignupInputForm.styles.scss";
 import "./SignupInputForm/OverlapCheckText/OverlapCheckText.styles.scss";
-
-import OverlapCheckText from "./SignupInputForm/OverlapCheckText/OverlapCheckText.component";
 
 class Signup extends Component {
   constructor() {
@@ -27,13 +28,11 @@ class Signup extends Component {
       is_privacy_policy: false,
       is_sms_agreed: false,
       is_email_agreed: false,
-      // 이상 필수 사항
       passwordCheck: false,
       address: "",
       gender: "",
       recommender: "",
       event: "",
-      // (위)백에 전달해야하는 데이터들
       userPwdCheck: "",
       recommendInputContent: "",
       recommendCheck: "",
@@ -86,7 +85,7 @@ class Signup extends Component {
   checkId = () => {
     const { user_id } = this.state;
     if (user_id.match(/[A-Za-z0-9]\w{5,}/)) {
-      fetch("http://10.58.6.216:8000/user/checkid", {
+      fetch(SIGNUP, {
         method: "POST",
         body: JSON.stringify({
           user_id,
@@ -114,7 +113,7 @@ class Signup extends Component {
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
       )
     ) {
-      fetch("http://10.58.6.216:8000/user/checkemail", {
+      fetch(SIGNUP_CHECK_EMAIL, {
         method: "POST",
         body: JSON.stringify({
           email,
@@ -251,7 +250,7 @@ class Signup extends Component {
         this.state[info] !== false
     );
     if (isFull) {
-      fetch("http://10.58.6.216:8000/user/signup", {
+      fetch(SIGNUP, {
         method: "POST",
         body: JSON.stringify({
           user_id,
@@ -268,9 +267,7 @@ class Signup extends Component {
           is_sms_agreed,
           is_email_agreed,
         }),
-      })
-        .then((response) => response.json())
-        .then((result) => console.log("결과", result));
+      }).then((response) => response.json());
       alert("가입이 완료되었습니다.");
       this.goToMain();
     } else {
