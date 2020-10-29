@@ -142,11 +142,17 @@ class CartItem extends Component {
                 <div className="cart-item-price">
                   {Number(price) !== Number(discount_price) ? (
                     <>
-                      <span className="original-price">{price}원</span>
-                      <span className="discount-price">{discount_price}원</span>
+                      <span className="original-price">
+                        {price && price.toLocaleString()}원
+                      </span>
+                      <span className="discount-price">
+                        {discount_price && discount_price.toLocaleString()}원
+                      </span>
                     </>
                   ) : (
-                    <span className="discount-price">{discount_price}원</span>
+                    <span className="discount-price">
+                      {discount_price && discount_price.toLocaleString()}원
+                    </span>
                   )}
                 </div>
               </div>

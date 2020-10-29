@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
 
 import FrequentlyPurchaseElement from "../FrequentlyPurchaseElement/FrequentlyPurchaseElement.component";
 
@@ -10,7 +11,10 @@ import {
   frequentlyPurchaseItemToCartList,
 } from "../../redux/frequentlyPurchase/frequentlyPurchase.actions";
 
-import { GET_SHOPPINGBASKET_API } from "../../config";
+import {
+  GET_SHOPPINGBASKET_API,
+  GET_FREQUENTLY_PRODUCT_API,
+} from "../../config";
 
 import "./FrequentlyPurchase.styles.scss";
 
@@ -34,11 +38,33 @@ class FrequentlyPurchase extends Component {
     });
   };
 
+  clearFrequentlyPurchaseItemListButtonClick = () => {
+    const { clearFrequentlyPurchaseItemList, userToken } = this.props;
+    if (!clearFrequentlyPurchaseItemList.length) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "비어있습니다",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
+    try {
+      fetch(GET_FREQUENTLY_PRODUCT_API, {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          Authorization: userToken,
+        },
+      }).then(() => clearFrequentlyPurchaseItemList());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   render() {
-    const {
-      frequentlyPurchaseList,
-      clearFrequentlyPurchaseItemList,
-    } = this.props;
+    const { frequentlyPurchaseList } = this.props;
     return (
       <div className="FrequentlyPurchase">
         <div className="frequently-purchase-list-name">
@@ -58,7 +84,7 @@ class FrequentlyPurchase extends Component {
           )}
         </div>
         <div className="select-button">
-          <button onClick={clearFrequentlyPurchaseItemList}>
+          <button onClick={this.clearFrequentlyPurchaseItemListButtonClick}>
             늘 사는 것 비우기
           </button>
           <button onClick={this.purchaseAllItems}>전체 주문하기</button>

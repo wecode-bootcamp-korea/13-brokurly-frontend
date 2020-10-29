@@ -56,13 +56,15 @@ class CartItems extends Component {
         <div className="price-result-container">
           <div className="initial-price">
             <span className="initial-price-text">상품금액</span>
-            <span className="initial-price-number">{totalPrice} 원</span>
+            <span className="initial-price-number">
+              {totalPrice.toLocaleString()} 원
+            </span>
           </div>
           <span>&#8722;</span>
           <div className="discount-amount">
             <span className="discount-amount-text">상품할인금액</span>
             <span className="discount-amount-number">
-              {discountTotalPrice} 원
+              {discountTotalPrice.toLocaleString()} 원
             </span>
           </div>
           <span>&#43;</span>

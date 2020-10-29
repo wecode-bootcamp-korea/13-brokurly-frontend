@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
 
 import { addMileage } from "../../../redux/user/user.actions";
 import { GET_PURHCASE_LIST_API } from "../../../config";
@@ -10,7 +11,13 @@ class PaymentButton extends Component {
     const { success, error_msg } = response;
     const { history, userToken, addMileage, totalAmount } = this.props;
     if (success) {
-      alert("결제성공");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "결제 완료하였습니다",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       fetch(GET_PURHCASE_LIST_API, {
         method: "POST",
         headers: {

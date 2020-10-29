@@ -16,7 +16,8 @@
     "react-scripts": "^3.4.4",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "sweetalert2": "^10.8.1"
   },
   "scripts": {
     "start": "react-scripts start",

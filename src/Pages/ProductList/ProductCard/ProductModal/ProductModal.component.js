@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
 
 import { addItemToCart } from "../../../../redux/cart/cart.actions";
 
@@ -49,6 +50,13 @@ class ProductModal extends Component {
       }
       const result = await response.json();
       console.log(result);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "장바구니에 담겼습니다",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       addItemToCart({ product_id: productId, quantity: totalAmount });
     } catch (err) {
       console.log("!! error alert !!");
