@@ -22,7 +22,7 @@ class NavCategoryBar extends Component {
     const { cartItems } = this.props;
     return (
       <div className="NavCategoryBar">
-        <div>
+        <div className="category-bar-container">
           <div className="all">
             <div className="hamburger">
               <span />
