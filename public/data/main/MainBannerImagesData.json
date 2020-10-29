@@ -2,37 +2,37 @@
   "bannerImages": [
     {
       "id": 1,
-      "src": "./Images/Main/Banner/banner-img-1.png",
+      "src": "./Images/Main/Banner/farm.jpeg",
       "alt": "banner main"
     },
     {
       "id": 2,
-      "src": "./Images/Main/Banner/banner-img-2.png",
+      "src": "./Images/Main/Banner/seaturtle.jpeg",
       "alt": "banner 2"
     },
     {
       "id": 3,
-      "src": "./Images/Main/Banner/banner-img-3.png",
+      "src": "./Images/Main/Banner/fruits.jpeg",
       "alt": "banner 3"
     },
     {
       "id": 4,
-      "src": "./Images/Main/Banner/banner-img-4.png",
+      "src": "./Images/Main/Banner/ship.jpeg",
       "alt": "banner 3"
     },
     {
       "id": 5,
-      "src": "./Images/Main/Banner/banner-img-5.png",
+      "src": "./Images/Main/Banner/sharks.jpeg",
       "alt": "banner 4"
     },
     {
       "id": 6,
-      "src": "./Images/Main/Banner/banner-img-6.png",
+      "src": "./Images/Main/Banner/beer.jpeg",
       "alt": "banner 5"
     },
     {
       "id": 7,
-      "src": "./Images/Main/Banner/banner-img-1.png",
+      "src": "./Images/Main/Banner/farm.jpeg",
       "alt": "banner main"
     }
   ]
