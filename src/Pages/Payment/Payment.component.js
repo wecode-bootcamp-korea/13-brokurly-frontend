@@ -214,10 +214,4 @@ const mapStateToProps = ({ user, cart }) => ({
   cartItems: cart.cartItems,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
-});
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Payment)
-);
+export default withRouter(connect(mapStateToProps, { getCartItems })(Payment));

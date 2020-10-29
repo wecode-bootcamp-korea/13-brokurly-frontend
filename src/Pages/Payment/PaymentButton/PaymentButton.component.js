@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { addMileage } from "../../../redux/user/user.actions";
 
 class PaymentButton extends Component {
   callback = (response) => {
@@ -50,4 +53,4 @@ class PaymentButton extends Component {
   }
 }
 
-export default withRouter(PaymentButton);
+export default connect(null, { addMileage })(withRouter(PaymentButton));
