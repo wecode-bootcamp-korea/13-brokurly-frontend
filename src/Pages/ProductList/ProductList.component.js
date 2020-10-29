@@ -1,28 +1,28 @@
 import React, { Component } from "react";
 
-import "./ProductList.styles.scss";
 import ProductCard from "./ProductCard/ProductCard.component";
-import { PRODUCT_VEGE_LIST } from "../../config";
+import { menusToAPI } from "../../categories";
+import { PRODUCT_LIST } from "../../config";
+import "./ProductList.styles.scss";
 
 class ProductList extends Component {
   state = {
     isSortingClick: false,
     activeSorting: 0,
     activeCategory: 0,
+    isLoading: true,
   };
 
   handleCategory = async (e) => {
-    let response;
+    const { name } = this.props.match.params;
     try {
       const { id } = e.target;
       const { activeSorting } = this.state;
-      +id !== 0
-        ? (response = await fetch(
-            `${PRODUCT_VEGE_LIST}&sub=${id}&ordering=${activeSorting}`
-          ))
-        : (response = await fetch(
-            `${PRODUCT_VEGE_LIST}&sub=1&ordering=${activeSorting}`
-          ));
+      const response = await fetch(
+        !!+id
+          ? `${PRODUCT_LIST}?main=${menusToAPI[name]}&sub=${id}&ordering=${activeSorting}`
+          : `${PRODUCT_LIST}?main=${menusToAPI[name]}&sub=1&ordering=${activeSorting}`
+      );
       if (response.state === 200) {
         throw new Error("cannot fetch the data");
       }
@@ -41,13 +41,14 @@ class ProductList extends Component {
   };
 
   sortingList = async (e) => {
+    const { name } = this.props.match.params;
     try {
       const { id } = e.target;
       const { activeCategory } = this.state;
       const response = await fetch(
         !!+activeCategory
-          ? `${PRODUCT_VEGE_LIST}&sub=${activeCategory}&ordering=${id}`
-          : `${PRODUCT_VEGE_LIST}&sub=1&ordering=${id}`
+          ? `${PRODUCT_LIST}?main=${menusToAPI[name]}&sub=${activeCategory}&ordering=${id}`
+          : `${PRODUCT_LIST}?main=${menusToAPI[name]}&sub=1&ordering=${id}`
       );
       if (response.status !== 200) {
         throw new Error("cannot fetch the data");
@@ -59,9 +60,11 @@ class ProductList extends Component {
     }
   };
 
-  getProductList = async () => {
+  getProductList = async (majorCategory) => {
     try {
-      const response = await fetch(`${PRODUCT_VEGE_LIST}&ordering=0`);
+      const response = await fetch(
+        `${PRODUCT_LIST}?main=${majorCategory}&ordering=0`
+      );
       if (response.status !== 200) {
         throw new Error("cannot fetch the data");
       }
@@ -71,7 +74,7 @@ class ProductList extends Component {
         subCategories,
         sortings,
       } = await response.json();
-      // whole list
+      // add whole items menu
       subCategories.unshift({ id: 0, name: "전체보기" });
       this.setState({
         products,
@@ -85,7 +88,9 @@ class ProductList extends Component {
   };
 
   componentDidMount = () => {
-    this.getProductList();
+    const { name } = this.props.match.params;
+    this.getProductList(menusToAPI[name]);
+    this.setState({ isLoading: false });
   };
 
   render() {
@@ -97,9 +102,12 @@ class ProductList extends Component {
       sortings,
       activeSorting,
       activeCategory,
+      isLoading,
     } = this.state;
 
-    return (
+    return isLoading ? (
+      <section className="ProductList loading"></section>
+    ) : (
       <section className="ProductList">
         <div className="category-nav">
           {mainCategories && (

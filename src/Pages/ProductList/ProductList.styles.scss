@@ -1,11 +1,4 @@
-@mixin flexSet($arg...) {
-  display: flex;
-  justify-content: #{nth($arg, 1)};
-  align-items: #{nth($arg, 2)};
-  @if length($arg) == 3 {
-    flex-direction: #{nth($arg, 3)};
-  }
-}
+@import "../../Styles/Mix.styles.scss";
 
 .ProductList {
   @include flexSet(null, center, column);
@@ -109,12 +102,15 @@
   color: var(--primary-color) !important;
 }
 
-.display-none {
-  display: none !important;
-}
-
 .active-category {
   color: var(--primary-color);
   font-weight: 700;
   border-bottom: 1px solid var(--primary-color) !important;
+}
+
+.loading {
+  position: absolute;
+  background-color: var(--primary-color);
+  width: 100%;
+  height: 100%;
 }

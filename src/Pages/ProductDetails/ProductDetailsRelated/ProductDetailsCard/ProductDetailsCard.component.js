@@ -1,16 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { RESIZE_IMAGE } from "../../../../utils";
 
 import "./ProductDetailsCard.styles.scss";
 
 class ProductDetailsCard extends Component {
   state = {
     isWidthBiggerThanHeight: false,
-  };
-
-  resizeImage = (e) => {
-    const sizeCheck = e.target.naturalWidth >= e.target.naturalHeight;
-    this.setState({ isWidthBiggerThanHeight: sizeCheck });
   };
 
   render() {
@@ -24,7 +20,7 @@ class ProductDetailsCard extends Component {
               src={product.imageUrl}
               alt=""
               className={isWidthBiggerThanHeight ? "full-height" : "full-width"}
-              onLoad={this.resizeImage}
+              onLoad={(e) => RESIZE_IMAGE(e, this)}
             />
           </figure>
           <div className="relation-card-desc">
