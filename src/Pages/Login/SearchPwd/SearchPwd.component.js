@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import "./SearchPwd.styles.scss";
 
+import { USER_SEARCH_PASSWORD } from "../../../config";
+
 class SearchPwd extends Component {
   constructor() {
     super();
@@ -19,11 +21,14 @@ class SearchPwd extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
     const { user_name, user_id, email } = this.state;
+    const pwdCondition = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
+
     if (
       Object.keys(this.state).every((element) => this.state[element] !== "")
     ) {
-      fetch("API", {
+      fetch(USER_SEARCH_PASSWORD, {
         method: "POST",
         body: JSON.stringify({
           user_name,
@@ -34,8 +39,21 @@ class SearchPwd extends Component {
         .then((response) => response.json())
         .then((result) => {
           if (result.message === "SUCCESS") {
-            alert("아직 작업중이에요");
-            //여기 뭔가 추가할까?
+            let newPwd = prompt(
+              "10자 이상의 영문,숫자,특수문자 각각 1개 이상의 조합으로 새로 작성해주세요"
+            );
+            while (!newPwd.match(pwdCondition)) {
+              newPwd = prompt(
+                "10자 이상의 영문,숫자,특수문자 각각 1개 이상의 조합으로 새로 작성해주세요"
+              );
+            }
+            fetch(USER_SEARCH_PASSWORD, {
+              method: "PATCH",
+              body: JSON.stringify({
+                user_id,
+                password: newPwd,
+              }),
+            }).then(alert("비밀번호 변경이 완료되었습니다."));
           }
         });
     } else {

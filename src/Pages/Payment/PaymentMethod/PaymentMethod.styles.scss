@@ -1,0 +1,59 @@
+.PaymentMethod {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 12px 0 11px 0;
+  .method-name {
+    flex: 2;
+    margin-bottom: 1px;
+  }
+
+  label {
+    flex: 8;
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    cursor: pointer;
+
+    .check-input {
+      opacity: 0;
+      cursor: pointer;
+
+      &:checked ~ .checkmark {
+        background-color: var(--primary-color);
+      }
+
+      &:checked ~ .checkmark::after {
+        display: block;
+      }
+    }
+
+    .checkmark {
+      position: absolute;
+      height: 24px;
+      width: 24px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      top: 1px;
+      &::after {
+        content: "";
+        position: relative;
+        display: none;
+        top: 5px;
+        left: 5px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: white;
+      }
+    }
+    img {
+      margin-left: 40px;
+    }
+
+    .american {
+      width: 240px;
+    }
+  }
+}

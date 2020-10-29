@@ -3,9 +3,6 @@ import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { getToken, getCurrentUser } from "../../redux/user/user.actions";
-import { getCartItems } from "../../redux/cart/cart.actions";
-import { getFrequentlyPurchaseItems } from "../../redux/frequentlyPurchase/frequentlyPurchase.actions";
-import { getPurchaseList } from "../../redux/purchase/purchase.actions";
 
 import { SIGNIN } from "../../config";
 
@@ -32,14 +29,7 @@ class Login extends Component {
   handleLoginButton = async (e) => {
     e.preventDefault();
     const { user_id, password } = this.state;
-    const {
-      getToken,
-      getCurrentUser,
-      getCartItems,
-      getFrequentlyPurchaseItems,
-      getPurchaseList,
-      userToken,
-    } = this.props;
+    const { getToken, getCurrentUser } = this.props;
     if (user_id !== "" && password !== "") {
       await fetch(SIGNIN, {
         method: "POST",
@@ -126,8 +116,5 @@ export default withRouter(
   connect(mapStateToProps, {
     getToken,
     getCurrentUser,
-    getCartItems,
-    getFrequentlyPurchaseItems,
-    getPurchaseList,
   })(Login)
 );
