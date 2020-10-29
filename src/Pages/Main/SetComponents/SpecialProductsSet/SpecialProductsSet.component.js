@@ -47,36 +47,6 @@ class SpecialProductsSet extends Component {
     }
   };
 
-  // getAPIData = async () => {
-  //   const { sectionId, categoryId } = this.props;
-  //   console.log("sectionId: " + sectionId);
-  //   console.log("categoryId: " + categoryId);
-  //   const section = sectionId === 1000 ? "md" : "products";
-  //   const sectionTable = {
-  //     md: {
-  //       api: GET_SPECIAL_PRODUCTS + categoryId,
-  //       dataKey: "products",
-  //     },
-  //     products: {
-  //       api: GET_SECTION_PRODUCTS,
-  //       dataKey: "section_list",
-  //     },
-  //   };
-  //   try {
-  //     const res = await fetch(sectionTable[section]["api"]);
-  //     const data = await res.json();
-  //     if ((data.message = "SUCCESS")) {
-  //       console.log(data[sectionTable][section]["dataKey"]);
-  //       this.setState({
-  //         itemsList: data[sectionTable][section]["dataKey"],
-  //         itemsCount: data[sectionTable][section]["dataKey"].length,
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   slideList = (e) => {
     const { itemsCount, listXcoordinate } = this.state;
     const isClickLeft = e.target.className.includes("left");

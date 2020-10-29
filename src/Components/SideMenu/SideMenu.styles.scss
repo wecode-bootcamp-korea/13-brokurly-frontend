@@ -84,26 +84,26 @@ $container-count: 2;
       background-color: #fff;
       z-index: 3;
       cursor: pointer;
+    }
 
-      .top {
-        top: 1%;
-        transform: rotate(90deg);
-      }
+    .button-arrow.top {
+      top: 1%;
+      transform: rotate(90deg);
+    }
 
-      .bottom {
-        bottom: 0.5%;
-        transform: rotate(-90deg);
-      }
+    .button-arrow.bottom {
+      bottom: 0.5%;
+      transform: rotate(-90deg);
+    }
 
-      .hide {
-        opacity: 0.3;
-        cursor: default;
-      }
+    .button-arrow.hide {
+      opacity: 0.3;
+      cursor: default;
+    }
 
-      .button-arrow-img {
-        width: 100%;
-        height: 100%;
-      }
+    .button-arrow-img {
+      width: 100%;
+      height: 100%;
     }
 
     p {

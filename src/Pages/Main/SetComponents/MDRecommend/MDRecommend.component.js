@@ -9,6 +9,7 @@ class MDRecommend extends Component {
     this.state = {
       categoriesList: [],
       selectedCategoryName: "",
+      selectedCategoryNameEng: "",
       selectedCategoryId: Math.floor(Math.random() * 16),
     };
   }
@@ -21,15 +22,17 @@ class MDRecommend extends Component {
         this.setState({
           categoriesList: res.categories,
           selectedCategoryName: res.categories[randomInitialIdx].name,
+          selectedCategoryNameEng: res.categories[randomInitialIdx].name_eng,
           selectedCategoryId: res.categories[randomInitialIdx].id,
         });
       })
       .catch((error) => console.log(error.message));
   };
 
-  selectCategory = (categoryName, categoryId) => {
+  selectCategory = (categoryName, categoryNameEng, categoryId) => {
     this.setState({
       selectedCategoryName: categoryName,
+      selectedCategoryNameEng: categoryNameEng,
       selectedCategoryId: categoryId,
     });
   };
@@ -38,10 +41,10 @@ class MDRecommend extends Component {
     const {
       categoriesList,
       selectedCategoryName,
+      selectedCategoryNameEng,
       selectedCategoryId,
     } = this.state;
     const { sectionId } = this.props;
-    console.log("categoryId " + selectedCategoryId);
     return (
       <div className="MDRecommend">
         <ul className="categories">
@@ -55,7 +58,13 @@ class MDRecommend extends Component {
                     : "categories-item"
                 }
                 key={category.id}
-                onClick={() => this.selectCategory(category.name, category.id)}
+                onClick={() =>
+                  this.selectCategory(
+                    category.name,
+                    category.name_eng,
+                    category.id
+                  )
+                }
               >
                 <p className="category">{category.name}</p>
               </li>
@@ -67,7 +76,7 @@ class MDRecommend extends Component {
           categoryId={selectedCategoryId}
           key={selectedCategoryId}
         />
-        <Link className="Link" to={`/productlist/${selectedCategoryId}`}>
+        <Link className="Link" to={`/productlist/${selectedCategoryNameEng}`}>
           <button className="see-all-of-category-button">
             <p>
               {selectedCategoryName}
