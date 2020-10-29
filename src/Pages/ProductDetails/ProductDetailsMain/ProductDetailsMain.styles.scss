@@ -1,7 +1,9 @@
+@import "../../../Styles/Mix.styles.scss";
+
 .ProductDetailsMain {
-  padding-top: 60px;
-  margin-bottom: 50px;
   min-height: 500px;
+  margin-bottom: 50px;
+  padding-top: 60px;
   font-weight: 200;
 
   & figure {
@@ -18,51 +20,49 @@
     padding-top: 75px;
 
     & h1 {
-      font-weight: 500;
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      font-size: 38px;
-      line-height: 46px;
-      color: #666;
       padding-bottom: 35px;
+      color: #666;
+      text-align: center;
+      line-height: 46px;
+      font-size: 38px;
+      font-weight: 500;
       border-bottom: 1px solid #bfbfbf;
+      @include flexSet(null, null, column);
 
       span:first-child {
-        font-size: 24px;
-        line-height: 15px;
         padding-bottom: 14px;
+        line-height: 15px;
+        font-size: 24px;
       }
     }
     & p {
-      padding-top: 28px;
       margin-bottom: 170px;
-      font-size: 18px;
-      line-height: 32px;
+      padding-top: 28px;
       color: #373737;
+      line-height: 32px;
+      font-size: 18px;
     }
 
     .product-checkpoint {
       & h3 {
-        font-weight: 500;
-        font-size: 50px;
-        color: #666;
         padding-bottom: 70px;
-        display: flex;
-        justify-content: center;
+        color: #666;
+        font-size: 50px;
+        font-weight: 500;
+        @include flexSet(center, null);
 
         span {
           &:first-child {
             position: absolute;
-            margin-top: 24px;
             width: 1050px;
             height: 1px;
+            margin-top: 24px;
             background: #bfbfbf;
           }
 
           &:last-child {
-            padding: 0 15px;
             position: relative;
+            padding: 0 15px;
             background-color: #fff;
           }
         }
@@ -71,16 +71,13 @@
       .checkpoint-info {
         margin-bottom: 170px;
         font-size: 18px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
+        @include flexSet(space-around, null);
 
         div {
           .check-title {
             font-size: 23px;
             font-weight: 500;
-            display: flex;
-            align-items: flex-end;
+            @include flexSet(null, flex-end);
 
             img {
               width: 90px;
@@ -88,12 +85,14 @@
 
             span {
               padding-bottom: 30px;
+
               &:nth-child(2) {
                 padding-left: 5px;
               }
+
               &:last-child {
-                color: #666;
                 padding-left: 10px;
+                color: #666;
                 font-size: 20px;
                 font-weight: 400;
               }
@@ -101,8 +100,8 @@
           }
 
           ul {
-            list-style-type: disc;
             padding-top: 15px;
+            list-style-type: disc;
 
             li {
               padding-bottom: 10px;

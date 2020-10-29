@@ -11,11 +11,6 @@ class ProductDetailsRelated extends Component {
     isLeftButtonVisible: false,
   };
 
-  resizeImage = (e) => {
-    const sizeCheck = e.target.naturalWidth >= e.target.naturalHeight;
-    this.setState({ isWidthBiggerThanHeight: sizeCheck });
-  };
-
   slideList = (e) => {
     const { itemsCount, listXcoordinate } = this.state;
     const isClickLeft = e.target.className.includes("left");

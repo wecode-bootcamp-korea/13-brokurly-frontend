@@ -31,13 +31,15 @@ class OverlapCheckText extends Component {
       userPwdCheck,
       recommendCheck,
     } = this.props.onData;
+    const idCondition = /[A-Za-z0-9]\w{5,}/;
+    const pwdCondition = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
     return (
       <div className="OverlapCheckText">
         {this.props.onOffCount === "idCheck" && (
           <>
             <span
               className={`initial ${
-                user_id.match(/[A-Za-z0-9]\w{5,}/) ? "correct" : "incorrect"
+                user_id.match(idCondition) ? "correct" : "incorrect"
               }`}
             >
               {idCheck[0]}
@@ -62,11 +64,7 @@ class OverlapCheckText extends Component {
             </span>
             <span
               className={`initial ${
-                password.match(
-                  /(?=.*[a-z!])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,}/
-                )
-                  ? "correct"
-                  : "incorrect"
+                password.match(pwdCondition) ? "correct" : "incorrect"
               }`}
             >
               {pwdCheck[1]}
@@ -77,9 +75,7 @@ class OverlapCheckText extends Component {
           <>
             <span
               className={`initial ${
-                password.match(
-                  /(?=.*[a-z!])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,}/
-                ) && password === userPwdCheck
+                password.match(pwdCondition) && password === userPwdCheck
                   ? "correct"
                   : "incorrect"
               }`}

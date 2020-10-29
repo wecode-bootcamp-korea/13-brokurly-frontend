@@ -11,10 +11,6 @@ class ProductDetailsMain extends Component {
     isWidthBiggerThanHeight: false,
   };
 
-  resizeImage = (e) => {
-    this.setState({ isWidthBiggerThanHeight: RESIZE_IMAGE(e) });
-  };
-
   render() {
     const { isWidthBiggerThanHeight } = this.state;
     const { productDetail } = this.props;
@@ -24,7 +20,7 @@ class ProductDetailsMain extends Component {
           <img
             src={productDetail?.imageUrl}
             className={isWidthBiggerThanHeight ? "" : "main-vertical-align"}
-            onLoad={this.resizeImage}
+            onLoad={(e) => RESIZE_IMAGE(e, this)}
             alt="product_main_image"
           />
         </figure>

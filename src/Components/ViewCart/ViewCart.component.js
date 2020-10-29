@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
 import { filterOutSoldoutItems } from "../../redux/cart/cart.actions";
-
 import CartItem from "../CartItem/CartItem.component";
-
 import { SEND_RECENT_ITEM_SELECTED_API } from "../../config";
-
 import {
   toggleAllSelectCheckBox,
   deleteSelectedItems,
@@ -15,9 +11,7 @@ import {
   getSelectedItemsAmount,
   checkDiscountTotalPrice,
 } from "../../redux/cart/cart.actions";
-
 import "./ViewCart.styles.scss";
-
 class ViewCart extends Component {
   componentDidMount() {
     const {
@@ -29,7 +23,6 @@ class ViewCart extends Component {
     getSelectedItemsAmount();
     checkDiscountTotalPrice();
   }
-
   allSelectCheckboxClick = () => {
     const {
       toggleAllSelectCheckBox,
@@ -42,7 +35,6 @@ class ViewCart extends Component {
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
     checkDiscountTotalPrice();
-
     fetch(SEND_RECENT_ITEM_SELECTED_API, {
       method: "PATCH",
       headers: {
@@ -54,7 +46,6 @@ class ViewCart extends Component {
       }),
     }).catch((error) => console.log(error));
   };
-
   selectedItemDeleteCheckboxCLick = () => {
     const {
       deleteSelectedItems,
@@ -80,7 +71,6 @@ class ViewCart extends Component {
       }),
     }).catch((error) => console.log(error));
   };
-
   soldOutItemDeleteButtonClick = () => {
     const {
       filterOutSoldoutItems,
@@ -106,10 +96,8 @@ class ViewCart extends Component {
       }),
     }).catch((error) => console.log(error));
   };
-
   render() {
     const { cartItems, allSelect, seletectedItemsAmount } = this.props;
-
     return (
       <div className="ViewCart">
         <div className="selected-items">
@@ -181,14 +169,12 @@ class ViewCart extends Component {
     );
   }
 }
-
 const mapStateToProps = ({ cart, user }) => ({
   cartItems: cart.cartItems,
   allSelect: cart.allSelect,
   seletectedItemsAmount: cart.seletectedItemsAmount,
   userToken: user.userToken,
 });
-
 export default connect(mapStateToProps, {
   toggleAllSelectCheckBox,
   deleteSelectedItems,

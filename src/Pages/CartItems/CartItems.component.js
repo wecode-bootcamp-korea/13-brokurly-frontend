@@ -107,14 +107,12 @@ class CartItems extends Component {
     );
   }
 }
-
 const mapStateToProps = ({ cart, user }) => ({
   totalPrice: cart.selectedItemsTotalPrice,
   cartItems: cart.cartItems,
   discountTotalPrice: cart.discountTotalPrice,
   userToken: user.userToken,
 });
-
 export default withRouter(
   connect(mapStateToProps, {
     selectedItemsTotalPrice,

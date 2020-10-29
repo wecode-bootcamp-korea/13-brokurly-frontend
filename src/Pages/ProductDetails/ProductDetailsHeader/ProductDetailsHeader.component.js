@@ -1,56 +1,47 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import { GET_SHOPPINGBASKET_API } from "../../../config";
 import { RESIZE_IMAGE } from "../../../utils";
 
+import { addItemToCart } from "../../../redux/cart/cart.actions";
+
 import "./ProductDetailsHeader.styles.scss";
-let cnt = 1;
 
 class ProductDetailsHeader extends Component {
   constructor(props) {
     super(props);
-    const { productDetail } = props;
+    const { id, discountPrice, originalPrice } = props.productDetail;
     this.state = {
       isWidthBiggerThanHeight: false,
-      isMinusAmount: true,
-      rootPrice: this.getRealPrice(productDetail),
-      totalPrice: this.getRealPrice(productDetail),
-      productId: productDetail.id,
+      rootPrice: discountPrice ? discountPrice : originalPrice,
+      totalPrice: discountPrice ? discountPrice : originalPrice,
+      productId: id,
+      totalAmount: 1,
     };
   }
 
-  resizeImage = (e) => {
-    this.setState({ isWidthBiggerThanHeight: RESIZE_IMAGE(e) });
-  };
-
-  getNumberWithCommas = (price) => {
-    return price.toLocaleString();
-  };
-
-  getRealPrice = ({ discountPrice, originalPrice }) => {
-    return discountPrice ? discountPrice : originalPrice;
-  };
-
   handleAmount = (e) => {
+    const { totalAmount, rootPrice } = this.state;
     const { name } = e.target;
-    const { rootPrice } = this.state;
-    name === "plus" && cnt++;
-    name === "minus" && cnt--;
+
+    const setCalc = name === "minus" ? -1 : 1;
+    const nextCount = totalAmount + setCalc;
 
     this.setState({
-      totalAmount: cnt,
-      totalPrice: cnt * rootPrice,
-      isMinusAmount: cnt < 1,
+      totalAmount: nextCount,
+      totalPrice: nextCount * rootPrice,
     });
   };
 
   sendShoppingList = async () => {
     try {
       const { productId, totalAmount } = this.state;
+      const { addItemToCart, userToken } = this.props;
       const response = await fetch(GET_SHOPPINGBASKET_API, {
         method: "POST",
         headers: {
-          Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+          Authorization: userToken,
         },
         body: JSON.stringify({
           product_id: productId,
@@ -62,15 +53,10 @@ class ProductDetailsHeader extends Component {
       }
       const result = await response.json();
       console.log(result);
+      addItemToCart({ product_id: productId, quantity: totalAmount });
     } catch (err) {
       console.log("!! error alert !!");
     }
-  };
-
-  componentDidMount = () => {
-    this.setState({
-      totalAmount: 1,
-    });
   };
 
   render() {
@@ -86,20 +72,14 @@ class ProductDetailsHeader extends Component {
       otherInformation,
     } = this.props.productDetail;
 
-    const {
-      totalPrice,
-      totalAmount,
-      isMinusAmount,
-      isWidthBiggerThanHeight,
-    } = this.state;
-
+    const { totalPrice, totalAmount, isWidthBiggerThanHeight } = this.state;
     return (
       <div className="ProductDetailsHeader">
         <figure className="product-image">
           <img
             src={imageUrl}
             className={isWidthBiggerThanHeight ? "full-height" : "full-width"}
-            onLoad={this.resizeImage}
+            onLoad={(e) => RESIZE_IMAGE(e, this)}
             alt=""
           />
         </figure>
@@ -118,8 +98,8 @@ class ProductDetailsHeader extends Component {
             <div className="sale-price">
               <span>
                 {discountPrice
-                  ? this.getNumberWithCommas(discountPrice)
-                  : this.getNumberWithCommas(originalPrice)}
+                  ? discountPrice.toLocaleString()
+                  : originalPrice.toLocaleString()}
               </span>
               <span>원</span>
               <span>{discountContent}</span>
@@ -158,11 +138,11 @@ class ProductDetailsHeader extends Component {
                 <button
                   onClick={this.handleAmount}
                   name="minus"
-                  disabled={isMinusAmount}
+                  disabled={totalAmount < 1}
                 >
                   -
                 </button>
-                <input type="number" name="" defaultValue={totalAmount} />
+                <input type="number" name="" value={totalAmount} />
                 <button onClick={this.handleAmount} name="plus">
                   +
                 </button>
@@ -172,7 +152,7 @@ class ProductDetailsHeader extends Component {
           <div className="order-total">
             <div>
               <span>총 상품금액:</span>
-              <span>{this.getNumberWithCommas(+totalPrice)}</span>
+              <span>{totalPrice.toLocaleString()}</span>
               <span>원</span>
             </div>
             <div>
@@ -191,4 +171,10 @@ class ProductDetailsHeader extends Component {
   }
 }
 
-export default ProductDetailsHeader;
+const mapStateToProps = ({ user }) => ({
+  user: user.userToken,
+});
+
+export default connect(mapStateToProps, { addItemToCart })(
+  ProductDetailsHeader
+);
