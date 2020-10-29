@@ -58,7 +58,7 @@ class NavCategoryAllBarSub extends Component {
   };
 
   render() {
-    const { categoryList, showSubCategoryList, subCategoryList } = this.state;
+    const { categoryList, showSubCategoryList } = this.state;
     return (
       <div className="NavCategoryAllBarSub">
         {categoryList.map((category, idx) => (

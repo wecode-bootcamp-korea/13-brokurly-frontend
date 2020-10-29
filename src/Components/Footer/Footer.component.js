@@ -99,7 +99,7 @@ class Footer extends Component {
               </li>
               <li>
                 <p>
-                  허덕형 <span>{"> "}Login/Register, Order page</span>
+                  허덕형 <span>{"> "}Login/Register, Payments</span>
                 </p>
                 <a
                   className="github-link deokyeong"

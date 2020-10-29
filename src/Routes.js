@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { connect } from "react-redux";
-
 import ProductList from "./Pages/ProductList/ProductList.component";
+import ProductDetails from "./Pages/ProductDetails/ProductDetails.component";
 import SignupComponent from "./Pages/Signup/Signup.component";
 import Nav from "./Components/Nav/Nav.component";
 import Main from "./Pages/Main/Main.component";
@@ -12,13 +11,8 @@ import SearchId from "./Pages/Login/SearchId/SearchId.component";
 import SearchPwd from "./Pages/Login/SearchPwd/SearchPwd.component";
 import Login from "./Pages/Login/Login.component";
 import Signup from "./Pages/Signup/Signup.component";
+import MyPage from "./Pages/MyPage/MyPage.component";
 import SideMenu from "./Components/SideMenu/SideMenu.component";
-
-import { getCartItems } from "./redux/cart/cart.actions";
-
-import { GET_SHOPPINGBASKET_API } from "./config";
-import { USER_TOKEN } from "./config";
-
 import "./Routes.scss";
 
 class Routes extends Component {
@@ -28,39 +22,13 @@ class Routes extends Component {
       hidden: false,
       lastScrollY: 0,
       position: -2,
-      sideMenuTranslateY: 0,
     };
     this.container = React.createRef();
   }
 
   componentDidMount() {
-    this.addScrollEventAndFetchCartItemList();
     this.addSideMenuScrollEvent();
   }
-
-  scrollNavBarChange = () => {
-    const currentScrollTop = window.scrollY;
-    if (currentScrollTop > 50 && this.state.hidden === false)
-      this.setState({ hidden: true });
-
-    if (currentScrollTop < 50 && this.state.hidden === true)
-      this.setState({ hidden: false });
-  };
-
-  addScrollEventAndFetchCartItemList = () => {
-    const { getCartItems, currentUser } = this.props;
-    window.addEventListener("scroll", this.scrollNavBarChange);
-    Object.keys(currentUser).length &&
-      fetch(GET_SHOPPINGBASKET_API, {
-        headers: {
-          "content-type": "application/json",
-          Authorization: USER_TOKEN,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => data["shopping_list"])
-        .then((cartItems) => getCartItems(cartItems));
-  };
 
   addSideMenuScrollEvent = () => {
     window.addEventListener("scroll", this.toggleSideMenuPosition);
@@ -136,11 +104,17 @@ class Routes extends Component {
             <Route exact path="/" component={Main} />
             <Route exact path="/cartItems" component={CartItems} />
             <Route exact path="/productlist" component={ProductList} />
+            <Route
+              exact
+              path="/productdetails/:id"
+              component={ProductDetails}
+            />
             <Route exact path="/signup" component={SignupComponent} />
             <Route exact path="/searchid" component={SearchId} />
             <Route exact path="/searchpwd" component={SearchPwd} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/mypage" component={MyPage} />
           </Switch>
         </div>
         <SideMenu position={position} />
@@ -149,8 +123,5 @@ class Routes extends Component {
     );
   }
 }
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
-});
 
-export default connect(mapStateToProps, { getCartItems })(Routes);
+export default Routes;

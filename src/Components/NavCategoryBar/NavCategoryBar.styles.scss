@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
 
-  > div {
+  .category-bar-container {
     width: 55%;
     min-width: 680px;
     display: flex;
@@ -153,6 +153,7 @@
         span {
           position: absolute;
           right: 10px;
+          top: 5px;
           height: 20px;
           width: 20px;
           color: white;

@@ -1,0 +1,55 @@
+.ProductDetailsRelated {
+  width: 1010px;
+  margin: 0 auto;
+
+  .relation-title {
+    span {
+      &:first-child {
+        display: block;
+        width: 20px;
+        height: 5px;
+        background-color: #000;
+      }
+
+      &:last-child {
+        text-transform: uppercase;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .relation-cardlist {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+
+    & button {
+      width: 30px;
+      height: 320px;
+      background-color: #fff;
+      border: 0px;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      z-index: 1;
+
+      & i {
+        color: #808080;
+        font-size: 25px;
+      }
+
+      & :last-child {
+        left: 1010px;
+      }
+    }
+
+    .relation-card {
+      width: 940px;
+      overflow: hidden;
+
+      & ul {
+        display: flex;
+        flex-direction: row;
+      }
+    }
+  }
+}
