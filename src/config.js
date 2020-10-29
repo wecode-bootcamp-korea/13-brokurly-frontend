@@ -1,3 +1,7 @@
+export const GET_SPECIAL_PRODUCTS =
+  "http://3.35.53.241:8000/products/home/md-choice?category=";
+export const GET_SECTION_PRODUCTS =
+  "http://3.35.53.241:8000/products/home/section";
 export const GET_CATEGORY_API = "http://3.35.53.241:8000/products/category";
 export const GET_SHOPPINGBASKET_API =
   "http://3.35.53.241:8000/user/shoppingbasket";

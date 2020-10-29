@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SpecialProductsItem from "./SpecialProductItem/SpecialProductsItem.component";
+import { GET_SPECIAL_PRODUCTS, GET_SECTION_PRODUCTS } from "../../../../config";
 import "./SpecialProductsSet.styles.scss";
 
 class SpecialProductsSet extends Component {
@@ -15,6 +16,7 @@ class SpecialProductsSet extends Component {
   }
 
   componentDidMount = () => {
+    // this.getAPIData();
     const { sectionId } = this.props;
     fetch(this.getAPI())
       .then((res) => res.json())
@@ -36,38 +38,44 @@ class SpecialProductsSet extends Component {
       });
   };
 
-  getAPIData = async () => {
-    const { sectionId, categoryId } = this.props;
-    const section = sectionId === 1000 ? "md" : "products";
-    const sectionTable = {
-      md: {
-        api: `http://10.58.4.20:8000/products/home/md-choice?category=${categoryId}`,
-        dataKey: "products",
-      },
-      products: {
-        api: "http://10.58.4.20:8000/products/home/section",
-        dataKey: "section_list",
-      },
-    };
-    try {
-      const res = await fetch(sectionTable[section]["api"]);
-      const data = await res.json();
-      this.setState({
-        itemsList: data[sectionTable[section]["dataKey"]],
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   getAPI = () => {
     const { sectionId, categoryId } = this.props;
     if (sectionId === 1000) {
-      return `http://10.58.4.20:8000/products/home/md-choice?category=${categoryId}`;
+      return GET_SPECIAL_PRODUCTS + categoryId;
     } else {
-      return "http://10.58.4.20:8000/products/home/section";
+      return GET_SECTION_PRODUCTS;
     }
   };
+
+  // getAPIData = async () => {
+  //   const { sectionId, categoryId } = this.props;
+  //   console.log("sectionId: " + sectionId);
+  //   console.log("categoryId: " + categoryId);
+  //   const section = sectionId === 1000 ? "md" : "products";
+  //   const sectionTable = {
+  //     md: {
+  //       api: GET_SPECIAL_PRODUCTS + categoryId,
+  //       dataKey: "products",
+  //     },
+  //     products: {
+  //       api: GET_SECTION_PRODUCTS,
+  //       dataKey: "section_list",
+  //     },
+  //   };
+  //   try {
+  //     const res = await fetch(sectionTable[section]["api"]);
+  //     const data = await res.json();
+  //     if ((data.message = "SUCCESS")) {
+  //       console.log(data[sectionTable][section]["dataKey"]);
+  //       this.setState({
+  //         itemsList: data[sectionTable][section]["dataKey"],
+  //         itemsCount: data[sectionTable][section]["dataKey"].length,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   slideList = (e) => {
     const { itemsCount, listXcoordinate } = this.state;

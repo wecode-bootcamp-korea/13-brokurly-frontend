@@ -14,7 +14,7 @@ class MDRecommend extends Component {
   }
 
   componentDidMount = () => {
-    fetch("http://localhost:3000/data/main/MainCategoriesData.json")
+    fetch("/data/main/MainCategoriesData.json")
       .then((res) => res.json())
       .then((res) => {
         const randomInitialIdx = Math.floor(Math.random() * 4);
@@ -41,6 +41,7 @@ class MDRecommend extends Component {
       selectedCategoryId,
     } = this.state;
     const { sectionId } = this.props;
+    console.log("categoryId " + selectedCategoryId);
     return (
       <div className="MDRecommend">
         <ul className="categories">
