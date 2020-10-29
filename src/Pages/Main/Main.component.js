@@ -25,6 +25,10 @@ class Main extends Component {
     this.getProductInformation();
   }
 
+  componentWillUnmount() {
+    console.log("Unmounted!!");
+  }
+
   getUserAllInformation = async () => {
     const {
       userToken,

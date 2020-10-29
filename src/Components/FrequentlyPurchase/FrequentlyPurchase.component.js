@@ -46,12 +46,16 @@ class FrequentlyPurchase extends Component {
           <span>늘 사는 것으로 등록하신 상품 목록입니다</span>
         </div>
         <div className="frequently-purchase-list-container">
-          {frequentlyPurchaseList.map((frequentlyPurchaseItem, idx) => (
-            <FrequentlyPurchaseElement
-              key={idx}
-              frequentlyPurchaseItem={frequentlyPurchaseItem}
-            />
-          ))}
+          {!frequentlyPurchaseList.length ? (
+            <span>늘 사는 것이 없습니다</span>
+          ) : (
+            frequentlyPurchaseList.map((frequentlyPurchaseItem, idx) => (
+              <FrequentlyPurchaseElement
+                key={idx}
+                frequentlyPurchaseItem={frequentlyPurchaseItem}
+              />
+            ))
+          )}
         </div>
         <div className="select-button">
           <button onClick={clearFrequentlyPurchaseItemList}>
