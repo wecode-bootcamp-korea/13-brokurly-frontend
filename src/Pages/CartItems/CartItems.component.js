@@ -1,32 +1,49 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-
 import ViewCart from "../../Components/ViewCart/ViewCart.component";
-
+import { checkDiscountTotalPrice } from "../../redux/cart/cart.actions";
+import { GET_SHOPPINGBASKET_API } from "../../config";
 import {
   selectedItemsTotalPrice,
   getSelectedItemsAmount,
   checkStatusAllSelectCheckBox,
+  getCartItems,
 } from "../../redux/cart/cart.actions";
-
-import { numberWithCommas } from "../../redux/cart/cart.utils";
-
 import "./CartItems.styles.scss";
-
 class CartItems extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     const {
       selectedItemsTotalPrice,
       getSelectedItemsAmount,
       checkStatusAllSelectCheckBox,
+      checkDiscountTotalPrice,
+      userToken,
+      getCartItems,
     } = this.props;
+    await fetch(GET_SHOPPINGBASKET_API, {
+      headers: {
+        "content-type": "application/json",
+        Authorization: userToken,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => data.shopping_list)
+      .then((cartItems) => getCartItems(cartItems))
+      .catch((error) => console.log(error));
     selectedItemsTotalPrice();
     getSelectedItemsAmount();
     checkStatusAllSelectCheckBox();
+    checkDiscountTotalPrice();
   }
-
+  checkGoToPayment = () => {
+    const { cartItems } = this.props;
+    const check = cartItems.some((cartItem) => cartItem.checked);
+    if (!check) alert("최소 1개 이상 담아주세요");
+    else this.props.history.push("/payment");
+  };
   render() {
-    const { totalPrice } = this.props;
+    const { totalPrice, discountTotalPrice } = this.props;
     return (
       <div className="CartItems">
         <div className="cart-items-header">
@@ -39,14 +56,14 @@ class CartItems extends Component {
         <div className="price-result-container">
           <div className="initial-price">
             <span className="initial-price-text">상품금액</span>
-            <span className="initial-price-number">
-              {numberWithCommas(totalPrice)} 원
-            </span>
+            <span className="initial-price-number">{totalPrice} 원</span>
           </div>
           <span>&#8722;</span>
           <div className="discount-amount">
             <span className="discount-amount-text">상품할인금액</span>
-            <span className="discount-amount-number">-18,000 원</span>
+            <span className="discount-amount-number">
+              {discountTotalPrice} 원
+            </span>
           </div>
           <span>&#43;</span>
           <div className="delivery-fee">
@@ -57,10 +74,11 @@ class CartItems extends Component {
           <div className="price-result">
             <span className="price-result-text">결제예정금액</span>
             <span className="price-result-number">
-              {numberWithCommas(totalPrice - 18000)} 원
+              {+(totalPrice - discountTotalPrice).toLocaleString()} 원
             </span>
             <span className="mileage-point-info">
-              구매시 {numberWithCommas((totalPrice - 18000) / 10)}원 적립
+              구매시 {((totalPrice - discountTotalPrice) / 10).toLocaleString()}
+              원 적립
             </span>
           </div>
           <div className="price-result-additonal-info">
@@ -68,7 +86,12 @@ class CartItems extends Component {
           </div>
         </div>
         <div className="goto-order-page">
-          <button className="goto-order-page-button">주문하기</button>
+          <button
+            className="goto-order-page-button"
+            onClick={this.checkGoToPayment}
+          >
+            주문하기
+          </button>
         </div>
         <div className="warning">
           <span className="warning-text-top">
@@ -84,15 +107,19 @@ class CartItems extends Component {
   }
 }
 
-const mapStateToProps = ({ cart }) => ({
+const mapStateToProps = ({ cart, user }) => ({
   totalPrice: cart.selectedItemsTotalPrice,
   cartItems: cart.cartItems,
+  discountTotalPrice: cart.discountTotalPrice,
+  userToken: user.userToken,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
-  getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
-  checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartItems);
+export default withRouter(
+  connect(mapStateToProps, {
+    selectedItemsTotalPrice,
+    getSelectedItemsAmount,
+    checkStatusAllSelectCheckBox,
+    getCartItems,
+    checkDiscountTotalPrice,
+  })(CartItems)
+);

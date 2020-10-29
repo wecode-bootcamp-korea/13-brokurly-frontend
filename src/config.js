@@ -22,3 +22,5 @@ export const PRODUCT_REVIEW = "http://3.35.53.241:8000/user/product/5/reviews";
 export const USER_SEARCH_PASSWORD = "http://3.35.53.241:8000/user/findpassword";
 export const USER_SEARCH_ID = "http://3.35.53.241:8000/user/findid";
 export const SIGNIN = "http://3.35.53.241:8000/user/signin";
+export const SIGNUP = "http://3.35.53.241:8000/user/checkid";
+export const SIGNUP_CHECK_EMAIL = "http://3.35.53.241:8000/user/checkemail";
