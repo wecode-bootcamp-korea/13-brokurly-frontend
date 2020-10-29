@@ -4,8 +4,10 @@ import { withRouter } from "react-router-dom";
 class PaymentButton extends Component {
   callback = (response) => {
     const { success, error_msg } = response;
+    const { history } = this.props;
     if (success) {
       alert("결제성공");
+      history.push("/");
     } else {
       alert(`결제 실패: ${error_msg}`);
     }
