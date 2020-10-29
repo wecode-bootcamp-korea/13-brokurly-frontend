@@ -16,7 +16,6 @@ class SpecialProductsSet extends Component {
   }
 
   componentDidMount = () => {
-    // this.getAPIData();
     const { sectionId } = this.props;
     fetch(this.getAPI())
       .then((res) => res.json())

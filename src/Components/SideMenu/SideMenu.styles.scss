@@ -9,7 +9,7 @@ $container-count: 2;
   width: 80px;
   overflow: hidden;
   position: fixed;
-  top: 66%;
+  top: 70%;
   right: 0.5%;
   z-index: 10;
   transition: all 1000ms ease-in;
@@ -140,6 +140,16 @@ $container-count: 2;
           margin: 2px 0;
           text-align: center;
           background-color: #e3e3e3;
+          position: relative;
+          overflow: hidden;
+
+          .item-img.full-width {
+            width: 120%;
+          }
+
+          .item-img.full-height {
+            height: 120%;
+          }
         }
       }
     }

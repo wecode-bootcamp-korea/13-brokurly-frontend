@@ -6,11 +6,12 @@ import cartReducer from "./cart/cart.reducer";
 import frequentlyPurchaseReducer from "./frequentlyPurchase/frequentlyPurchase.reducer";
 import purchaseReducer from "./purchase/purchase.reducer";
 import userReducer from "./user/user.reducer";
+import recentlySeenReducer from "./recentlySeen/recentlySeen.reducer";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart", "user", "purchase", "frequentlyPurchase"],
+  whitelist: ["cart", "user", "purchase", "frequentlyPurchase", "recentlySeen"],
 };
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   purchase: purchaseReducer,
   frequentlyPurchase: frequentlyPurchaseReducer,
+  recentlySeen: recentlySeenReducer,
 });
 
 const enhancedReducer = persistReducer(persistConfig, rootReducer);

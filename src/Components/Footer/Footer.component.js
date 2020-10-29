@@ -39,7 +39,7 @@ class Footer extends Component {
           <div className="left-side info">
             <img
               className="logo"
-              src="./Images/Team/brokurly_logo.png"
+              src="https://media.vlpt.us/images/dhlee91/post/5785ee4c-f5bc-4ca9-9b96-f6c5aed3ffc3/brokurly_logo.png"
               alt="logo"
             />
             <a
@@ -102,12 +102,12 @@ class Footer extends Component {
             <div className="right-side front image-stack">
               <img
                 className="team-pic 1"
-                src="./Images/Team/bros1.jpg"
+                src="https://media.vlpt.us/images/dhlee91/post/dc708ad9-4a26-4ad8-9cd8-140553337c14/bros1.jpg"
                 alt="bros"
               />
               <img
                 className="team-pic 2"
-                src="./Images/Team/bros2.jpg"
+                src="https://media.vlpt.us/images/dhlee91/post/001137eb-5950-4596-8fe1-153bbbdfd6a7/bros2.jpg"
                 alt="bros"
               />
             </div>

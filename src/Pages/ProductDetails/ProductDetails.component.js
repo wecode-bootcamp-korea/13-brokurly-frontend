@@ -7,6 +7,9 @@ import ProductDetailsMain from "./ProductDetailsMain/ProductDetailsMain.componen
 import ProductDetailsRequest from "./ProductDetailsRequest/ProductDetailsRequest.component";
 import { PRODUCT_REVIEW_LIST, PRODUCT_ITEM } from "../../config";
 
+import { connect } from "react-redux";
+import { push } from "../../redux/recentlySeen/recentlySeen.actions";
+
 import "./ProductDetails.styles.scss";
 
 class ProductDetails extends Component {
@@ -58,9 +61,14 @@ class ProductDetails extends Component {
     }
   };
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     let id = this.props.match.params.id;
-    this.getProductDetails(id);
+    const { pushToList } = this.props;
+    await this.getProductDetails(id);
+    const { productDetail } = this.state;
+    console.log(productDetail);
+    pushToList({ id: productDetail.id, imageUrl: productDetail.imageUrl });
+
     this.getBoardCnt();
   };
 
@@ -136,4 +144,15 @@ class ProductDetails extends Component {
   }
 }
 
-export default ProductDetails;
+// export default ProductDetails;
+
+const mapStateToProps = ({ recentlySeen }) => ({
+  recentlySeenList: recentlySeen.recentlySeenList,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  pushToList: (item) => dispatch(push(item)),
+  // popFromList: () => dispatch(pop()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
