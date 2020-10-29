@@ -20,7 +20,6 @@
 
   .relation-cardlist {
     display: flex;
-    flex-direction: row;
     margin-top: 20px;
 
     & button {
@@ -48,7 +47,6 @@
 
       & ul {
         display: flex;
-        flex-direction: row;
       }
     }
   }

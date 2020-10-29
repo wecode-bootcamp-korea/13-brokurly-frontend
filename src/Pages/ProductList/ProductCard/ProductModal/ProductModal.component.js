@@ -1,59 +1,43 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { addItemToCart } from "../../../../redux/cart/cart.actions";
 
 import "./ProductModal.styles.scss";
 import { GET_SHOPPINGBASKET_API } from "../../../../config";
 
 class ProductModal extends Component {
-  state = {
-    isMinusAmount: true,
-  };
+  constructor(props) {
+    super(props);
+    const { discountPrice, originalPrice, id } = this.props.product;
+    this.state = {
+      rootPrice: discountPrice ? discountPrice : originalPrice,
+      totalPrice: discountPrice ? discountPrice : originalPrice,
+      totalAmount: 1,
+      productId: id,
+    };
+  }
 
-  getNumberWithCommas = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
-
-  getRealPrice = (material) => {
-    return material.discountPrice
-      ? material.discountPrice
-      : material.originalPrice;
-  };
-
-  getTotalPrice = () => {
-    const { totalAmount, rootPrice } = this.state;
-    const newTotalPrice = totalAmount * rootPrice;
-    this.setState({
-      totalPrice: newTotalPrice,
-    });
-  };
-
-  handleAmount = async (e) => {
+  handleAmount = (e) => {
     const { name } = e.target;
-    // declare issue!
-    const { totalAmount } = this.state;
+    const { totalAmount, rootPrice } = this.state;
+    const calcConfirm = name === "minus" ? -1 : 1;
+    const nextCount = totalAmount + calcConfirm;
 
-    await this.setState({
-      totalAmount:
-        (name === "plus" && totalAmount + 1) ||
-        (name === "minus" && totalAmount - 1),
+    this.setState({
+      totalAmount: nextCount,
+      totalPrice: nextCount * rootPrice,
     });
-
-    // NOTE reason using this.state.totalAmount not totalAmount upper is both two things is different.
-    await this.setState({
-      isMinusAmount: this.state.totalAmount < 1,
-    });
-
-    console.log(this.state.totalAmount, this.state.isMinusAmount);
-    this.getTotalPrice();
   };
 
   sendShoppingList = async () => {
     try {
       const { productId, totalAmount } = this.state;
+      const { addItemToCart, userToken } = this.props;
       const response = await fetch(GET_SHOPPINGBASKET_API, {
         method: "POST",
         headers: {
-          Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+          Authorization: userToken,
         },
         body: JSON.stringify({
           product_id: productId,
@@ -65,24 +49,15 @@ class ProductModal extends Component {
       }
       const result = await response.json();
       console.log(result);
+      addItemToCart({ product_id: productId, quantity: totalAmount });
     } catch (err) {
       console.log("!! error alert !!");
     }
   };
 
-  componentDidMount = () => {
-    const { product } = this.props;
-    this.setState({
-      rootPrice: this.getRealPrice(product),
-      totalPrice: this.getRealPrice(product),
-      totalAmount: 1,
-      productId: product.id,
-    });
-  };
-
   render() {
     const { product, isShoppingBasketClicked, closeModal } = this.props;
-    const { totalPrice, totalAmount, isMinusAmount } = this.state;
+    const { totalPrice, totalAmount, rootPrice } = this.state;
     return (
       <div
         className={`ProductModal ${
@@ -102,16 +77,16 @@ class ProductModal extends Component {
               <li>
                 <div className="product-name">{product.name}</div>
                 <div className="product-price">
-                  <span>{this.getRealPrice(product)}원</span>
+                  <span>{rootPrice.toLocaleString()}원</span>
                   <div>
                     <button
                       onClick={this.handleAmount}
                       name="minus"
-                      disabled={isMinusAmount}
+                      disabled={totalAmount < 1}
                     >
                       -
                     </button>
-                    <input type="number" name="" defaultValue={totalAmount} />
+                    <input type="number" name="" value={totalAmount} />
                     <button onClick={this.handleAmount} name="plus">
                       +
                     </button>
@@ -123,7 +98,7 @@ class ProductModal extends Component {
           <div className="modal-total-price">
             <span>합계</span>
             <div>
-              <span>{this.getNumberWithCommas(+totalPrice)}</span>
+              <span>{totalPrice.toLocaleString()}</span>
               <span>원</span>
             </div>
           </div>
@@ -141,4 +116,8 @@ class ProductModal extends Component {
   }
 }
 
-export default ProductModal;
+const mapStateToProps = ({ user }) => ({
+  userToken: user.userToken,
+});
+
+export default connect(mapStateToProps, { addItemToCart })(ProductModal);

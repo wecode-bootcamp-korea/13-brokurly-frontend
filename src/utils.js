@@ -1,3 +1,4 @@
-export const RESIZE_IMAGE = (e) => {
-  return e.target.naturalWidth >= e.target.naturalHeight;
+export const RESIZE_IMAGE = (e, that) => {
+  const sizeCheck = e.target.naturalWidth >= e.target.naturalHeight;
+  that.setState({ isWidthBiggerThanHeight: sizeCheck });
 };

@@ -1,7 +1,10 @@
+@import "../../../../Styles/Mix.styles.scss";
+
 .ProductDetailsCard {
   min-width: 180px;
   margin-right: 10px;
   border: 1px solid #ddd;
+  @include resizeSet;
 
   .relation-card-thumb {
     height: 230px;
@@ -12,19 +15,12 @@
     height: 90px;
     min-height: 75px;
     padding: 10px;
+    color: black;
     line-height: 18px;
     font-size: 14px;
-    color: black;
 
     & div:last-child {
       padding: 5px 0;
     }
-  }
-  .full-width {
-    width: 100%;
-  }
-
-  .full-height {
-    height: 100% !important;
   }
 }

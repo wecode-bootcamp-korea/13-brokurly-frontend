@@ -1,0 +1,46 @@
+{
+  "user_name": "고나리",
+  "phone": "01064282666",
+  "email": "john2451@gmail.com",
+  "products": [
+    {
+      "id": 0,
+      "categoryId": 0,
+      "name": "GAP 오이 2입",
+      "content": "수분이 가득한 여름 채소",
+      "imageUrl": "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+      "quantity": 4,
+      "discountPercent": 0,
+      "discountName": 0,
+      "discountContent": "",
+      "discountPrice": 0,
+      "originalPrice": 3490
+    },
+    {
+      "id": 1,
+      "categoryId": 0,
+      "name": "양배추 2종",
+      "content": "달큰 아삭 하게 즐기는 양배추",
+      "imageUrl": "https://images.unsplash.com/photo-1510627498534-cf7e9002facc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+      "quantity": 4,
+      "discountPercent": 0,
+      "discountName": 0,
+      "discountContent": "",
+      "discountPrice": 0,
+      "originalPrice": 2980
+    },
+    {
+      "id": 2,
+      "categoryId": 0,
+      "name": "애호박 1개",
+      "content": "믿고 먹을 수 있는 상품을 합리적인 가격에",
+      "imageUrl": "https://images.unsplash.com/photo-1570586437263-ab629fccc818?ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80",
+      "quantity": 4,
+      "discountPercent": 25,
+      "discountName": "SAVE",
+      "discountContent": "25%",
+      "discountPrice": 750,
+      "originalPrice": 1000
+    }
+  ]
+}

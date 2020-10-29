@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
+import { withRouter } from "react-router-dom";
+
 import "./NavCategoryAllBarSub.styles.scss";
-
 import { GET_CATEGORY_API } from "../../config";
-
 class NavCategoryAllBarSub extends Component {
   constructor() {
     super();
@@ -13,11 +13,9 @@ class NavCategoryAllBarSub extends Component {
       showSubCategoryList: [],
     };
   }
-
   componentDidMount() {
     this.getCategoryList();
   }
-
   getCategoryList = async () => {
     try {
       await fetch(GET_CATEGORY_API)
@@ -45,7 +43,6 @@ class NavCategoryAllBarSub extends Component {
       console.log(error);
     }
   };
-
   showRightSubMenu = (idx) => {
     const { subCategoryList, categoryList } = this.state;
     this.setState({
@@ -56,7 +53,6 @@ class NavCategoryAllBarSub extends Component {
     );
     elementImage[idx].src = categoryList[idx][2];
   };
-
   render() {
     const { categoryList, showSubCategoryList } = this.state;
     return (
@@ -66,6 +62,7 @@ class NavCategoryAllBarSub extends Component {
             className="all-bar-sub-left-element"
             key={idx}
             onMouseEnter={() => this.showRightSubMenu(idx)}
+            onClick={() => this.props.history.push("/productList/vegetables")}
           >
             <img src={category[2]} alt="category" />
             <span>{category[0]}</span>
@@ -82,5 +79,4 @@ class NavCategoryAllBarSub extends Component {
     );
   }
 }
-
-export default NavCategoryAllBarSub;
+export default withRouter(NavCategoryAllBarSub);

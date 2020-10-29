@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
 import { checkDiscountTotalPrice } from "../../redux/cart/cart.actions";
-
 import {
   GET_SHOPPINGBASKET_API,
   SEND_RECENT_ITEM_SELECTED_API,
 } from "../../config";
-
 import {
   increaseItemAmount,
   decreaseItemAmount,
@@ -17,9 +14,7 @@ import {
   selectedItemsTotalPrice,
   getSelectedItemsAmount,
 } from "../../redux/cart/cart.actions";
-
 import "./CartItem.styles.scss";
-
 class CartItem extends Component {
   toggleCheckBox = async (e) => {
     e.persist();
@@ -49,7 +44,6 @@ class CartItem extends Component {
       console.error(error);
     }
   };
-
   checkTotalPriceAndAmount = () => {
     const {
       checkStatusAllSelectCheckBox,
@@ -62,7 +56,6 @@ class CartItem extends Component {
     getSelectedItemsAmount();
     checkDiscountTotalPrice();
   };
-
   amountChangeIncreaseOrDecrease = (isIncrease) => {
     const {
       cartItemInfo,
@@ -90,7 +83,6 @@ class CartItem extends Component {
     selectedItemsTotalPrice();
     checkDiscountTotalPrice();
   };
-
   clearItemButtonClick = () => {
     const {
       cartItemInfo,
@@ -101,7 +93,6 @@ class CartItem extends Component {
       checkDiscountTotalPrice,
       userToken,
     } = this.props;
-
     clearItemFromCart(cartItemInfo);
     selectedItemsTotalPrice();
     checkStatusAllSelectCheckBox();
@@ -118,7 +109,6 @@ class CartItem extends Component {
       }),
     });
   };
-
   render() {
     const { cartItemInfo, checked } = this.props;
     const {
@@ -189,12 +179,10 @@ class CartItem extends Component {
     );
   }
 }
-
 const mapStateToProps = ({ cart, user }) => ({
   allSelect: cart.allSelect,
   userToken: user.userToken,
 });
-
 export default connect(mapStateToProps, {
   increaseItemAmount,
   decreaseItemAmount,

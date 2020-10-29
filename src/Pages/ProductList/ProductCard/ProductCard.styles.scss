@@ -1,11 +1,4 @@
-@mixin flexSet($arg...) {
-  display: flex;
-  justify-content: #{nth($arg, 1)};
-  align-items: #{nth($arg, 2)};
-  @if length($arg) == 3 {
-    flex-direction: #{nth($arg, 3)};
-  }
-}
+@import "../../../Styles/Mix.styles.scss";
 
 .ProductCard {
   margin: 25px 28px 0 0;
@@ -134,13 +127,7 @@
     }
   }
 
-  .full-width {
-    width: 100%;
-  }
-
-  .full-height {
-    height: 100% !important;
-  }
+  @include resizeSet;
 }
 
 // for dinamic class usage

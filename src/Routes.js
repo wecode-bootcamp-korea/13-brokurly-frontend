@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import ProductList from "./Pages/ProductList/ProductList.component";
 import ProductDetails from "./Pages/ProductDetails/ProductDetails.component";
 import SignupComponent from "./Pages/Signup/Signup.component";
@@ -11,6 +12,7 @@ import SearchId from "./Pages/Login/SearchId/SearchId.component";
 import SearchPwd from "./Pages/Login/SearchPwd/SearchPwd.component";
 import Login from "./Pages/Login/Login.component";
 import Signup from "./Pages/Signup/Signup.component";
+import Payment from "./Pages/Payment/Payment.component";
 import MyPage from "./Pages/MyPage/MyPage.component";
 import SideMenu from "./Components/SideMenu/SideMenu.component";
 import "./Routes.scss";
@@ -103,7 +105,7 @@ class Routes extends Component {
           <Switch>
             <Route exact path="/" component={Main} />
             <Route exact path="/cartItems" component={CartItems} />
-            <Route exact path="/productlist" component={ProductList} />
+            <Route exact path="/productlist/:name" component={ProductList} />
             <Route
               exact
               path="/productdetails/:id"
@@ -114,6 +116,7 @@ class Routes extends Component {
             <Route exact path="/searchpwd" component={SearchPwd} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/payment" component={Payment} />
             <Route exact path="/mypage" component={MyPage} />
           </Switch>
         </div>
@@ -123,5 +126,4 @@ class Routes extends Component {
     );
   }
 }
-
 export default Routes;

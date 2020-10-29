@@ -1,20 +1,15 @@
 import React, { Component } from "react";
-
 import { connect } from "react-redux";
-
 import { getCartItems } from "../../redux/cart/cart.actions";
 import { getFrequentlyPurchaseItems } from "../../redux/frequentlyPurchase/frequentlyPurchase.actions";
 import { getPurchaseList } from "../../redux/purchase/purchase.actions";
-
 import {
   GET_SHOPPINGBASKET_API,
   GET_FREQUENTLY_PRODUCT_API,
   GET_PURHCASE_LIST_API,
 } from "../../config";
-
 import MainBanner from "./MainBanner/MainBanner.component";
 import SectionRender from "./SectionRender/SectionRender.component";
-
 import "./Main.styles.scss";
 
 class Main extends Component {
@@ -37,7 +32,6 @@ class Main extends Component {
       getFrequentlyPurchaseItems,
       getPurchaseList,
     } = this.props;
-
     try {
       userToken &&
         (await fetch(GET_SHOPPINGBASKET_API, {
@@ -49,7 +43,6 @@ class Main extends Component {
           .then((res) => res.json())
           .then((data) => data.shopping_list)
           .then((cartItems) => getCartItems(cartItems)));
-
       userToken &&
         (await fetch(GET_FREQUENTLY_PRODUCT_API, {
           headers: {
@@ -63,7 +56,6 @@ class Main extends Component {
             (product_list) =>
               product_list.length && getFrequentlyPurchaseItems(product_list)
           ));
-
       userToken &&
         (await fetch(GET_PURHCASE_LIST_API, {
           headers: {
@@ -105,11 +97,9 @@ class Main extends Component {
     );
   }
 }
-
 const mapStateToProps = ({ user }) => ({
   userToken: user.userToken,
 });
-
 export default connect(mapStateToProps, {
   getCartItems,
   getFrequentlyPurchaseItems,
