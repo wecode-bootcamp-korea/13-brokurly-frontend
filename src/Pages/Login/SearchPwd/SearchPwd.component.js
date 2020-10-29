@@ -21,7 +21,10 @@ class SearchPwd extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+
     const { user_name, user_id, email } = this.state;
+    const pwdCondition = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
+
     if (
       Object.keys(this.state).every((element) => this.state[element] !== "")
     ) {
@@ -40,11 +43,7 @@ class SearchPwd extends Component {
             let newPwd = prompt(
               "10자 이상의 영문,숫자,특수문자 각각 1개 이상의 조합으로 새로 작성해주세요"
             );
-            while (
-              !newPwd.match(
-                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/
-              )
-            ) {
+            while (!newPwd.match(pwdCondition)) {
               newPwd = prompt(
                 "10자 이상의 영문,숫자,특수문자 각각 1개 이상의 조합으로 새로 작성해주세요"
               );

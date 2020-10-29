@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import SignupInputForm from "./SignupInputForm/SignupInputForm.component";
 import OverlapCheckText from "./SignupInputForm/OverlapCheckText/OverlapCheckText.component";
 
-import { SIGNUP, SIGNUP_CHECK_EMAIL } from "../../config";
+import { SIGNUP, SIGNUP_CHECK_ID, SIGNUP_CHECK_EMAIL } from "../../config";
 
 import "./Signup.styles.scss";
 import "./SignupInputForm/SignupInputForm.styles.scss";
@@ -30,7 +30,7 @@ class Signup extends Component {
       is_email_agreed: false,
       passwordCheck: false,
       address: "",
-      gender: "",
+      gender: "3",
       recommender: "",
       event: "",
       userPwdCheck: "",
@@ -73,19 +73,23 @@ class Signup extends Component {
   };
 
   handleWriteData = (e) => {
-    if (e.target.name === "user_id") {
-      this.setState({ [e.target.name]: e.target.value, userIdCheck: false });
-    } else if (e.target.name === "email") {
-      this.setState({ [e.target.name]: e.target.value, userEmailCheck: false });
+    const { name, value } = e.target;
+    if (name === "user_id") {
+      this.setState({ [name]: value, userIdCheck: false });
+    } else if (name === "email") {
+      this.setState({ [name]: value, userEmailCheck: false });
     } else {
-      this.setState({ [e.target.name]: e.target.value });
+      this.setState({ [name]: value });
     }
   };
 
+  // this.setState({[name]:value , userIdCheck: name})
+
   checkId = () => {
     const { user_id } = this.state;
-    if (user_id.match(/[A-Za-z0-9]\w{5,}/)) {
-      fetch(SIGNUP, {
+    const idCondition = /[A-Za-z0-9]\w{5,}/;
+    if (user_id.match(idCondition)) {
+      fetch(SIGNUP_CHECK_ID, {
         method: "POST",
         body: JSON.stringify({
           user_id,
@@ -108,11 +112,8 @@ class Signup extends Component {
 
   checkEmail = () => {
     const { email } = this.state;
-    if (
-      email.match(
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-      )
-    ) {
+    const emailCondition = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (email.match(emailCondition)) {
       fetch(SIGNUP_CHECK_EMAIL, {
         method: "POST",
         body: JSON.stringify({
@@ -240,12 +241,11 @@ class Signup extends Component {
       userPwdCheck,
     } = this.state;
     e.preventDefault();
+    const pwdCondition = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
     const userNecessaryinfo = Object.keys(this.state).slice(0, 10);
     const isFull = userNecessaryinfo.every(
       (info) =>
-        password.match(
-          /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/
-        ) &&
+        password.match(pwdCondition) &&
         password === userPwdCheck &&
         this.state[info] !== false
     );
@@ -267,8 +267,25 @@ class Signup extends Component {
           is_sms_agreed,
           is_email_agreed,
         }),
-      }).then((response) => response.json());
-      alert("가입이 완료되었습니다.");
+      })
+        .then((response) => response.json())
+        .then((result) => console.log(`결과=> ${result.message}`));
+      console.log(
+        user_id,
+        password,
+        user_name,
+        email,
+        phone,
+        address,
+        gender,
+        recommender,
+        event,
+        `${birthdayYYYY}-${birthdayMM}-${birthdayDD}`,
+        is_privacy_policy,
+        is_sms_agreed,
+        is_email_agreed
+      );
+      // alert("가입이 완료되었습니다.");
       this.goToMain();
     } else {
       alert("필수사항을 다시 살펴보세요");
