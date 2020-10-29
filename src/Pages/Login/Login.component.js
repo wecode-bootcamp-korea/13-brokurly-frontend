@@ -7,11 +7,7 @@ import { getCartItems } from "../../redux/cart/cart.actions";
 import { getFrequentlyPurchaseItems } from "../../redux/frequentlyPurchase/frequentlyPurchase.actions";
 import { getPurchaseList } from "../../redux/purchase/purchase.actions";
 
-import {
-  GET_SHOPPINGBASKET_API,
-  GET_PURHCASE_LIST_API,
-  GET_FREQUENTLY_PRODUCT_API,
-} from "../../config";
+import { SIGNIN } from "../../config";
 
 import "./Login.styles.scss";
 
@@ -45,7 +41,7 @@ class Login extends Component {
       userToken,
     } = this.props;
     if (user_id !== "" && password !== "") {
-      await fetch("http://10.58.6.216:8000/user/signin", {
+      await fetch(SIGNIN, {
         method: "POST",
         body: JSON.stringify({
           user_id,
@@ -126,13 +122,12 @@ const mapStateToProps = ({ user }) => ({
   userToken: user.userToken,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getToken: (token) => dispatch(getToken(token)),
-  getCurrentUser: (user) => dispatch(getCurrentUser(user)),
-  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
-  getFrequentlyPurchaseItems: (purchaseItems) =>
-    dispatch(getFrequentlyPurchaseItems(purchaseItems)),
-  getPurchaseList: (purchaseItems) => dispatch(getPurchaseList(purchaseItems)),
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
+export default withRouter(
+  connect(mapStateToProps, {
+    getToken,
+    getCurrentUser,
+    getCartItems,
+    getFrequentlyPurchaseItems,
+    getPurchaseList,
+  })(Login)
+);

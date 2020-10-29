@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
 import MyKurlyAside from "../MyKurlyAside/MyKurlyAside.component";
-import MyKurlyMain from "../MyKurlyMain/MyKurlyMain.component";
+
+import Purchase from "../Purchase/Purchase.component";
+import FrequentlyPurchase from "../FrequentlyPurchase/FrequentlyPurchase.component";
 
 import "./MyKurly.styles.scss";
 
@@ -21,7 +23,10 @@ class MyKurly extends Component {
       <div className="MyKurly">
         <div className="my-kurly-container">
           <MyKurlyAside changePage={this.changeCategoryPage} />
-          <MyKurlyMain showCategoryNumber={myKurlyCategoryNumber} />
+          <main>
+            {myKurlyCategoryNumber === 0 && <Purchase />}
+            {myKurlyCategoryNumber === 1 && <FrequentlyPurchase />}
+          </main>
         </div>
       </div>
     );

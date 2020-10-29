@@ -18,8 +18,8 @@ class FrequentlyPurchaseElement extends Component {
         Authorization: userToken,
       },
       body: JSON.stringify({
-        product_id: product_id,
-        quantity: quantity,
+        product_id,
+        quantity,
       }),
     });
   };
@@ -36,7 +36,7 @@ class FrequentlyPurchaseElement extends Component {
     return (
       <div className="FrequentlyPurchaseElement">
         <div className="bottom">
-          <img src={image_url} />
+          <img src={image_url} alt="frequently-purchase-element" />
           <div className="purchase-information">
             <span>{name}</span>
             <span>{price.toLocaleString()}원</span>
@@ -58,15 +58,10 @@ class FrequentlyPurchaseElement extends Component {
   }
 }
 
-const mapStateToProps = ({ frequentlyPurchase, user }) => ({
+const mapStateToProps = ({ user }) => ({
   userToken: user.userToken,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  addItemToCart: (item) => dispatch(addItemToCart(item)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FrequentlyPurchaseElement);
+export default connect(mapStateToProps, {
+  addItemToCart,
+})(FrequentlyPurchaseElement);

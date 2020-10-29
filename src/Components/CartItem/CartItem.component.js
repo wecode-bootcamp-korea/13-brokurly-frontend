@@ -32,7 +32,6 @@ class CartItem extends Component {
     const { id } = cartItemInfo;
     try {
       await toggleSelectedItemCheckBox(id);
-      // e.target.checked = cartItemInfo.checked;
       await this.checkTotalPriceAndAmount();
       await fetch(SEND_RECENT_ITEM_SELECTED_API, {
         method: "PATCH",
@@ -123,11 +122,7 @@ class CartItem extends Component {
   render() {
     const { cartItemInfo, checked } = this.props;
     const {
-      id,
       quantity,
-      user_id,
-      product_id,
-      option,
       name,
       price,
       sold_out,
@@ -145,12 +140,6 @@ class CartItem extends Component {
           />
         </div>
         <div className="cart-item-info">
-          {/* {option_name && (
-            <div className="cart-item-info-top">
-              <span>{name}</span>
-              <span>{parseInt(price).toLocaleString()}원</span>
-            </div>
-          )} */}
           <div className="cart-item-info-bottom">
             <div className="cart-item-photo">
               <img src={image_url} alt="item" />
@@ -158,13 +147,12 @@ class CartItem extends Component {
             <div className="specific-info-container">
               <div className="cart-item-name-and-price">
                 <div className="cart-item-name">
-                  {/* {<span>{option_name ? option_name : name}</span>} */}
                   <span>{name}</span>
                   {sold_out && <span className="sold-out">품절</span>}
                 </div>
                 <div className="cart-item-price">
-                  <span>{parseInt(price).toLocaleString()}원</span>
-                  <span>{parseInt(discount_price).toLocaleString()}원</span>
+                  <span>{+price.toLocaleString()}원</span>
+                  <span>{+discount_price.toLocaleString()}원</span>
                 </div>
               </div>
               <div className="cart-item-quantity">
@@ -208,15 +196,13 @@ const mapStateToProps = ({ cart, user }) => ({
   userToken: user.userToken,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  increaseItemAmount: (item) => dispatch(increaseItemAmount(item)),
-  decreaseItemAmount: (item) => dispatch(decreaseItemAmount(item)),
-  clearItemFromCart: (item) => dispatch(clearItemFromCart(item)),
-  toggleSelectedItemCheckBox: (id) => dispatch(toggleSelectedItemCheckBox(id)),
-  checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
-  selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
-  getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
-  checkDiscountTotalPrice: () => dispatch(checkDiscountTotalPrice()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartItem);
+export default connect(mapStateToProps, {
+  increaseItemAmount,
+  decreaseItemAmount,
+  clearItemFromCart,
+  toggleSelectedItemCheckBox,
+  checkStatusAllSelectCheckBox,
+  selectedItemsTotalPrice,
+  getSelectedItemsAmount,
+  checkDiscountTotalPrice,
+})(CartItem);

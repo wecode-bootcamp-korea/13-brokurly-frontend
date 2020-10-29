@@ -189,14 +189,12 @@ const mapStateToProps = ({ cart, user }) => ({
   userToken: user.userToken,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  toggleAllSelectCheckBox: () => dispatch(toggleAllSelectCheckBox()),
-  deleteSelectedItems: () => dispatch(deleteSelectedItems()),
-  selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
-  checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
-  getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
-  filterOutSoldoutItems: () => dispatch(filterOutSoldoutItems()),
-  checkDiscountTotalPrice: () => dispatch(checkDiscountTotalPrice()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ViewCart);
+export default connect(mapStateToProps, {
+  toggleAllSelectCheckBox,
+  deleteSelectedItems,
+  selectedItemsTotalPrice,
+  checkStatusAllSelectCheckBox,
+  getSelectedItemsAmount,
+  filterOutSoldoutItems,
+  checkDiscountTotalPrice,
+})(ViewCart);

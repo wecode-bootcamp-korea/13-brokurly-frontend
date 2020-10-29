@@ -8,12 +8,9 @@
 
   > div {
     width: 95%;
-    // border: 1px solid #000;
   }
 
   .bottom {
-    // border: 1px solid #000;
-    // padding-top: 15px;
     height: 79px;
     display: flex;
 
@@ -24,7 +21,6 @@
     }
 
     .purchase-information {
-      // border: 1px solid #000;
       width: 75%;
       height: 100%;
       padding: 5px 0;
@@ -41,11 +37,9 @@
           font-size: 12px;
         }
       }
-
     }
 
     .option-buttons {
-      // border: 1px solid #000;
       width: calc(25% - 77px);
       display: flex;
       flex-direction: column;

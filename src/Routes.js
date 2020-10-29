@@ -13,26 +13,10 @@ import SearchPwd from "./Pages/Login/SearchPwd/SearchPwd.component";
 import Login from "./Pages/Login/Login.component";
 import Signup from "./Pages/Signup/Signup.component";
 import MyPage from "./Pages/MyPage/MyPage.component";
-import { logOutClearCart } from "./redux/cart/cart.actions";
-import { logoutClearPurchaseList } from "./redux/purchase/purchase.actions";
-import { clearFrequentlyPurchaseItemList } from "./redux/frequentlyPurchase/frequentlyPurchase.actions";
-import { userLogout, clearToken } from "./redux/user/user.actions";
-import "./App.scss";
-class App extends Component {
-  componentDidMount() {
-    const {
-      logOutClearCart,
-      logoutClearPurchaseList,
-      clearFrequentlyPurchaseItemList,
-      userLogout,
-      clearToken,
-    } = this.props;
-    logOutClearCart();
-    logoutClearPurchaseList();
-    clearFrequentlyPurchaseItemList();
-    userLogout();
-    clearToken();
-  }
+
+import "./Routes.scss";
+
+class Routes extends Component {
   render() {
     return (
       <Router>
@@ -60,14 +44,5 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
-  userToken: user.userToken,
-});
-export default connect(mapStateToProps, {
-  logOutClearCart,
-  clearFrequentlyPurchaseItemList,
-  logoutClearPurchaseList,
-  userLogout,
-  clearToken,
-})(App);
+
+export default Routes;

@@ -13,8 +13,9 @@ class NavCategoryBar extends Component {
     const { userToken } = this.props;
     if (!userToken) {
       alert("로그인을 해 주세요!");
-      this.props.history.push("/login");
-    } else this.props.history.push("/cartItems");
+      return this.props.history.push("/login");
+    }
+    this.props.history.push("/cartItems");
   };
 
   render() {
@@ -45,7 +46,7 @@ class NavCategoryBar extends Component {
               alt="cart-icon"
               onClick={this.checkCartItemPageAccess}
             />
-            {cartItems.length ? <span>{cartItems.length}</span> : ""}
+            {!!cartItems.length && <span>{cartItems.length}</span>}
           </div>
         </div>
       </div>

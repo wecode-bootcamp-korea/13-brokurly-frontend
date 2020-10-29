@@ -90,15 +90,12 @@ const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(userLogout()),
-  logOutClearCart: () => dispatch(logOutClearCart()),
-  clearToken: () => dispatch(clearToken()),
-  logoutClearPurchaseList: () => dispatch(logoutClearPurchaseList()),
-  clearFrequentlyPurchaseItemList: () =>
-    dispatch(clearFrequentlyPurchaseItemList()),
-});
-
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(NavUserMenu)
+  connect(mapStateToProps, {
+    userLogout,
+    logOutClearCart,
+    clearToken,
+    logoutClearPurchaseList,
+    clearFrequentlyPurchaseItemList,
+  })(NavUserMenu)
 );

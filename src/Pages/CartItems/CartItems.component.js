@@ -74,7 +74,7 @@ class CartItems extends Component {
           <div className="price-result">
             <span className="price-result-text">결제예정금액</span>
             <span className="price-result-number">
-              {parseInt(totalPrice - discountTotalPrice).toLocaleString()} 원
+              {+(totalPrice - discountTotalPrice).toLocaleString()} 원
             </span>
             <span className="mileage-point-info">
               구매시 {((totalPrice - discountTotalPrice) / 10).toLocaleString()}
@@ -106,19 +106,20 @@ class CartItems extends Component {
     );
   }
 }
+
 const mapStateToProps = ({ cart, user }) => ({
   totalPrice: cart.selectedItemsTotalPrice,
   cartItems: cart.cartItems,
   discountTotalPrice: cart.discountTotalPrice,
   userToken: user.userToken,
 });
-const mapDispatchToProps = (dispatch) => ({
-  selectedItemsTotalPrice: () => dispatch(selectedItemsTotalPrice()),
-  getSelectedItemsAmount: () => dispatch(getSelectedItemsAmount()),
-  checkStatusAllSelectCheckBox: () => dispatch(checkStatusAllSelectCheckBox()),
-  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
-  checkDiscountTotalPrice: () => dispatch(checkDiscountTotalPrice()),
-});
+
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(CartItems)
+  connect(mapStateToProps, {
+    selectedItemsTotalPrice,
+    getSelectedItemsAmount,
+    checkStatusAllSelectCheckBox,
+    getCartItems,
+    checkDiscountTotalPrice,
+  })(CartItems)
 );

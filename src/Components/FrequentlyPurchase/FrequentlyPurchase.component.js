@@ -30,7 +30,7 @@ class FrequentlyPurchase extends Component {
           quantity: frequentlyPurchaseItem.quantity,
         }),
       });
-      addItemToCart(frequentlyPurchaseItem);
+      return addItemToCart(frequentlyPurchaseItem);
     });
   };
 
@@ -69,12 +69,8 @@ const mapStateToProps = ({ frequentlyPurchase, user }) => ({
   userToken: user.userToken,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  clearFrequentlyPurchaseItemList: () =>
-    dispatch(clearFrequentlyPurchaseItemList()),
-  frequentlyPurchaseItemToCartList: (item) =>
-    dispatch(frequentlyPurchaseItemToCartList(item)),
-  addItemToCart: (item) => dispatch(addItemToCart(item)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FrequentlyPurchase);
+export default connect(mapStateToProps, {
+  clearFrequentlyPurchaseItemList,
+  frequentlyPurchaseItemToCartList,
+  addItemToCart,
+})(FrequentlyPurchase);
