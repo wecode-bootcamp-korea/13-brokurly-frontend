@@ -7,7 +7,6 @@ import SignupComponent from "./Pages/Signup/Signup.component";
 import Nav from "./Components/Nav/Nav.component";
 import Main from "./Pages/Main/Main.component";
 import Footer from "./Components/Footer/Footer.component";
-import ProductDetails from "./Pages/ProductDetails/ProductDetails.component";
 import CartItems from "./Pages/CartItems/CartItems.component";
 import SearchId from "./Pages/Login/SearchId/SearchId.component";
 import SearchPwd from "./Pages/Login/SearchPwd/SearchPwd.component";
