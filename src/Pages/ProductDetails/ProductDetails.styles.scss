@@ -1,3 +1,5 @@
+@import "../../Styles/Mix.styles.scss";
+
 .ProductDetails {
   top: 200px;
 
@@ -14,30 +16,33 @@
         border-bottom: 1px solid #bfbfbf;
 
         & li {
-          border: 1px solid #bfbfbf;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-size: 14px;
-          border-left: 0px;
-          width: 170px;
-          height: 47px;
-          line-height: 46px;
-          background-color: #f0f0f0;
           position: relative;
           top: 1px;
+          width: 170px;
+          height: 47px;
+          background-color: #f0f0f0;
+          border: 1px solid #bfbfbf;
+          line-height: 46px;
+          font-size: 14px;
+          border-left: 0px;
           cursor: pointer;
+          transition: 0.3s ease;
+          @include flexSet(center, center);
 
           &:first-child {
             border-left: 1px solid #bfbfbf;
+          }
+
+          &:hover {
+            background-color: #fff;
           }
         }
       }
     }
   }
   .categories-actived {
-    border-bottom: 0px !important;
     background-color: #fff !important;
+    border-bottom: 0px !important;
   }
 }
 

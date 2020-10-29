@@ -17,7 +17,7 @@ import Signup from "./Pages/Signup/Signup.component";
 import { getCartItems } from "./redux/cart/cart.actions";
 
 import { GET_SHOPPINGBASKET_API } from "./config";
-import { USER_TOKEN } from "./config";
+// import { USER_TOKEN } from "./config";
 
 import "./App.scss";
 
@@ -29,33 +29,33 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    this.addScrollEventAndFetchCartItemList();
-  }
+  // componentDidMount() {
+  //   this.addScrollEventAndFetchCartItemList();
+  // }
 
-  scrollNavBarChange = () => {
-    const currentScrollTop = window.scrollY;
-    if (currentScrollTop > 50 && this.state.hidden === false)
-      this.setState({ hidden: true });
+  // scrollNavBarChange = () => {
+  //   const currentScrollTop = window.scrollY;
+  //   if (currentScrollTop > 50 && this.state.hidden === false)
+  //     this.setState({ hidden: true });
 
-    if (currentScrollTop < 50 && this.state.hidden === true)
-      this.setState({ hidden: false });
-  };
+  //   if (currentScrollTop < 50 && this.state.hidden === true)
+  //     this.setState({ hidden: false });
+  // };
 
-  addScrollEventAndFetchCartItemList = () => {
-    const { getCartItems, currentUser } = this.props;
-    window.addEventListener("scroll", this.scrollNavBarChange);
-    Object.keys(currentUser).length &&
-      fetch(GET_SHOPPINGBASKET_API, {
-        headers: {
-          "content-type": "application/json",
-          Authorization: USER_TOKEN,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => data["shopping_list"])
-        .then((cartItems) => getCartItems(cartItems));
-  };
+  // addScrollEventAndFetchCartItemList = () => {
+  //   const { getCartItems, currentUser } = this.props;
+  //   window.addEventListener("scroll", this.scrollNavBarChange);
+  //   Object.keys(currentUser).length &&
+  //     fetch(GET_SHOPPINGBASKET_API, {
+  //       headers: {
+  //         "content-type": "application/json",
+  //         Authorization: USER_TOKEN,
+  //       },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => data["shopping_list"])
+  //       .then((cartItems) => getCartItems(cartItems));
+  // };
 
   render() {
     const { hidden } = this.state;
@@ -66,7 +66,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Main} />
             <Route exact path="/cartItems" component={CartItems} />
-            <Route exact path="/productlist" component={ProductList} />
+            <Route exact path="/productlist/:name" component={ProductList} />
             <Route
               exact
               path="/productdetails/:id"
@@ -85,7 +85,7 @@ class App extends Component {
   }
 }
 const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+  // currentUser: user.currentUser,
 });
 
 export default connect(mapStateToProps, { getCartItems })(App);

@@ -3,43 +3,30 @@ import { GET_SHOPPINGBASKET_API } from "../../../config";
 import { RESIZE_IMAGE } from "../../../utils";
 
 import "./ProductDetailsHeader.styles.scss";
-let cnt = 1;
 
 class ProductDetailsHeader extends Component {
   constructor(props) {
     super(props);
-    const { productDetail } = props;
+    const { id, discountPrice, originalPrice } = props.productDetail;
     this.state = {
       isWidthBiggerThanHeight: false,
-      isMinusAmount: true,
-      rootPrice: this.getRealPrice(productDetail),
-      totalPrice: this.getRealPrice(productDetail),
-      productId: productDetail.id,
+      rootPrice: discountPrice ? discountPrice : originalPrice,
+      totalPrice: discountPrice ? discountPrice : originalPrice,
+      productId: id,
+      totalAmount: 1,
     };
   }
 
-  resizeImage = (e) => {
-    this.setState({ isWidthBiggerThanHeight: RESIZE_IMAGE(e) });
-  };
-
-  getNumberWithCommas = (price) => {
-    return price.toLocaleString();
-  };
-
-  getRealPrice = ({ discountPrice, originalPrice }) => {
-    return discountPrice ? discountPrice : originalPrice;
-  };
-
   handleAmount = (e) => {
+    const { totalAmount, rootPrice } = this.state;
     const { name } = e.target;
-    const { rootPrice } = this.state;
-    name === "plus" && cnt++;
-    name === "minus" && cnt--;
+
+    const setCalc = name === "minus" ? -1 : 1;
+    const nextCount = totalAmount + setCalc;
 
     this.setState({
-      totalAmount: cnt,
-      totalPrice: cnt * rootPrice,
-      isMinusAmount: cnt < 1,
+      totalAmount: nextCount,
+      totalPrice: nextCount * rootPrice,
     });
   };
 
@@ -67,12 +54,6 @@ class ProductDetailsHeader extends Component {
     }
   };
 
-  componentDidMount = () => {
-    this.setState({
-      totalAmount: 1,
-    });
-  };
-
   render() {
     const {
       name,
@@ -86,12 +67,7 @@ class ProductDetailsHeader extends Component {
       otherInformation,
     } = this.props.productDetail;
 
-    const {
-      totalPrice,
-      totalAmount,
-      isMinusAmount,
-      isWidthBiggerThanHeight,
-    } = this.state;
+    const { totalPrice, totalAmount, isWidthBiggerThanHeight } = this.state;
 
     return (
       <div className="ProductDetailsHeader">
@@ -99,7 +75,7 @@ class ProductDetailsHeader extends Component {
           <img
             src={imageUrl}
             className={isWidthBiggerThanHeight ? "full-height" : "full-width"}
-            onLoad={this.resizeImage}
+            onLoad={(e) => RESIZE_IMAGE(e, this)}
             alt=""
           />
         </figure>
@@ -118,8 +94,8 @@ class ProductDetailsHeader extends Component {
             <div className="sale-price">
               <span>
                 {discountPrice
-                  ? this.getNumberWithCommas(discountPrice)
-                  : this.getNumberWithCommas(originalPrice)}
+                  ? discountPrice.toLocaleString()
+                  : originalPrice.toLocaleString()}
               </span>
               <span>원</span>
               <span>{discountContent}</span>
@@ -158,11 +134,11 @@ class ProductDetailsHeader extends Component {
                 <button
                   onClick={this.handleAmount}
                   name="minus"
-                  disabled={isMinusAmount}
+                  disabled={totalAmount < 1}
                 >
                   -
                 </button>
-                <input type="number" name="" defaultValue={totalAmount} />
+                <input type="number" name="" value={totalAmount} />
                 <button onClick={this.handleAmount} name="plus">
                   +
                 </button>
@@ -172,7 +148,7 @@ class ProductDetailsHeader extends Component {
           <div className="order-total">
             <div>
               <span>총 상품금액:</span>
-              <span>{this.getNumberWithCommas(+totalPrice)}</span>
+              <span>{totalPrice.toLocaleString()}</span>
               <span>원</span>
             </div>
             <div>
