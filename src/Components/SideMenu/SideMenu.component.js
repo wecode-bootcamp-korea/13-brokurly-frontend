@@ -57,7 +57,7 @@ class SideMenu extends Component {
       isBottomButtonVisible,
     } = this.state;
     const { position } = this.props;
-    let itemsTranslation = {
+    const itemsTranslation = {
       transform: `translate(0, ${listYcoordinate}px)`,
       transition: `transform 600ms`,
     };

@@ -12,6 +12,7 @@ import SearchId from "./Pages/Login/SearchId/SearchId.component";
 import SearchPwd from "./Pages/Login/SearchPwd/SearchPwd.component";
 import Login from "./Pages/Login/Login.component";
 import Signup from "./Pages/Signup/Signup.component";
+import SideMenu from "./Components/SideMenu/SideMenu.component";
 
 import { getCartItems } from "./redux/cart/cart.actions";
 
@@ -25,11 +26,16 @@ class App extends Component {
     super();
     this.state = {
       hidden: false,
+      lastScrollY: 0,
+      position: -2,
+      sideMenuTranslateY: 0,
     };
+    this.container = React.createRef();
   }
 
   componentDidMount() {
     this.addScrollEventAndFetchCartItemList();
+    this.addSideMenuScrollEvent();
   }
 
   scrollNavBarChange = () => {
@@ -56,12 +62,76 @@ class App extends Component {
         .then((cartItems) => getCartItems(cartItems));
   };
 
+  addSideMenuScrollEvent = () => {
+    window.addEventListener("scroll", this.toggleSideMenuPosition);
+    this.setState({
+      lastScrollY: window.scrollY,
+    });
+  };
+
+  onScrollDown = () => {
+    this.setState(
+      {
+        position: -1,
+      },
+      () => {
+        setTimeout(() => {
+          const scrollY = window.scrollY;
+          this.setState({ position: scrollY > 5650 ? 2 : 0 });
+        }, 200);
+      }
+    );
+  };
+
+  onScrollUp = () => {
+    this.setState(
+      {
+        position: 1,
+      },
+      () => {
+        setTimeout(() => {
+          const scrollY = window.scrollY;
+          this.setState({ position: scrollY === 0 ? -2 : 0 });
+        }, 200);
+      }
+    );
+  };
+
+  toggleSideMenuPosition = () => {
+    const scrollY = window.scrollY;
+    const posToDefaultCondition = scrollY >= 240;
+    const posToInitialCondition = scrollY < 240;
+    const posOnScrollDownCondition =
+      scrollY >= 240 && scrollY > this.state.lastScrollY;
+    const posOnScrollUpCondition =
+      scrollY >= 240 && scrollY < this.state.lastScrollY;
+    let position = -2;
+    this.setState({
+      lastScrollY: scrollY,
+    });
+    if (posToDefaultCondition) position = 0;
+    if (posToInitialCondition) position = -2;
+    if (posOnScrollDownCondition) {
+      this.onScrollDown();
+    } else if (posOnScrollUpCondition) {
+      this.onScrollUp();
+    } else {
+      this.setState({
+        position,
+      });
+    }
+  };
+
   render() {
-    const { hidden } = this.state;
+    const { hidden, position } = this.state;
     return (
       <Router>
         <Nav hidden={hidden} />
-        <div className="container">
+        <div
+          className="container"
+          ref={this.container}
+          onScroll={this.toggleSideMenuPosition}
+        >
           <Switch>
             <Route exact path="/" component={Main} />
             <Route exact path="/cartItems" component={CartItems} />
@@ -73,6 +143,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
           </Switch>
         </div>
+        <SideMenu position={position} />
         <Footer />
       </Router>
     );
