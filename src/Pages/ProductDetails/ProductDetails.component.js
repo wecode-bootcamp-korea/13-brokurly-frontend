@@ -51,10 +51,16 @@ class ProductDetails extends Component {
       const { product_detail } = await productDetails.json();
       const { related_products } = await relatedProducts.json();
       // console.log(realted_products);
-      this.setState({
-        productDetail: product_detail,
-        relatedProducts: related_products,
+      await this.setState({
+        isLoading: true,
       });
+      setTimeout(() => {
+        this.setState({
+          isLoading: false,
+          productDetail: product_detail,
+          relatedProducts: related_products,
+        });
+      }, 2000);
     } catch (err) {
       console.log("!!error alert!!");
     }
