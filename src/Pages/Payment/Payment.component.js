@@ -77,7 +77,7 @@ class Payment extends Component {
                   <span>상품 정보</span>
                   <span>상품 금액</span>
                 </div>
-                <ul className={`order-products`}>
+                <ul className="order-products">
                   {orderingItems.map((product, idx) => (
                     <OrderProductList
                       name={product.name}
