@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 import "./PaymentMethod.styles.scss";
 
-import kakaopay from "../../../Images/kakaopay.png";
-import american from "../../../Images/american.png";
+import kakaopay from "./kakaopay.png";
+import american from "./american.png";
 
 class PaymentMethod extends Component {
   render() {
