@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { PRODUCT_REVIEW_POST, PRODUCT_REVIEW } from "../../../config";
+import { connect } from "react-redux";
 
 import "./ProductDetailsReview.styles.scss";
 
@@ -16,12 +17,12 @@ class ProductDetailsReview extends Component {
 
   postNewReview = async (id) => {
     const { newReviewContent, newReviewTitle } = this.state;
+    const { userToken } = this.props;
     try {
       const response = await fetch(PRODUCT_REVIEW_POST, {
         method: "POST",
         headers: {
-          Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiaGFydW0ifQ.nMUcgev8vz4rbQY-3z2F0tFFSKQjBMgwCVWOOTm91Qw",
+          Authorization: userToken,
         },
         body: JSON.stringify({
           title: newReviewTitle,
@@ -37,11 +38,12 @@ class ProductDetailsReview extends Component {
     }
   };
 
-  postReviewCount = async (id) => {
+  postReviewCount = async (reviewId) => {
+    const { id } = this.props.productDetail;
     try {
-      const response = await fetch(PRODUCT_REVIEW, {
+      const response = await fetch(`${PRODUCT_REVIEW}/${id}/reviews`, {
         method: "POST",
-        body: JSON.stringify({ review_id: id }),
+        body: JSON.stringify({ review_id: reviewId }),
       });
       const result = await response.json();
       console.log(result);
@@ -63,11 +65,12 @@ class ProductDetailsReview extends Component {
   };
 
   getPage = async (e) => {
+    const { id } = this.props.productDetail;
     const index = e?.target.dataset.idx;
     const offset = index * 10;
     const limit = offset + 10;
     const response = await fetch(
-      `${PRODUCT_REVIEW}?offset=${offset}&limit=${limit}`,
+      `${PRODUCT_REVIEW}/${id}/reviews?offset=${offset}&limit=${limit}`,
       { method: "GET" }
     );
     const { review_list } = await response.json();
@@ -80,7 +83,7 @@ class ProductDetailsReview extends Component {
   getPageByArrow = async (e) => {
     const { totalPages, activeReviewList } = this.state;
     const name = e?.target.dataset.name;
-    console.log(name);
+    const { id } = this.props.productDetail;
     let page = 0;
     name === "first" && (page = 0);
     name === "last" && (page = totalPages[totalPages.length - 2]);
@@ -88,11 +91,10 @@ class ProductDetailsReview extends Component {
     name === "next" &&
       activeReviewList < totalPages[totalPages.length - 2] &&
       (page = activeReviewList + 1);
-    console.log(page);
     let offset = page * 10;
     let limit = offset + 10;
     const response = await fetch(
-      `${PRODUCT_REVIEW}?offset=${offset}&limit=${limit}`,
+      `${PRODUCT_REVIEW}/${id}/reviews?offset=${offset}&limit=${limit}`,
       { method: "GET" }
     );
     console.log(response);
@@ -103,11 +105,11 @@ class ProductDetailsReview extends Component {
     });
   };
 
-  getRequestData = async () => {
+  getReviewData = async (id) => {
     const OFFSET = 0;
     const LIMIT = 10;
     const response = await fetch(
-      `${PRODUCT_REVIEW}?offset=${OFFSET}&limit=${LIMIT}`,
+      `${PRODUCT_REVIEW}/${id}/reviews?offset=${OFFSET}&limit=${LIMIT}`,
       { method: "GET" }
     );
     const { review_list, total_count } = await response.json();
@@ -127,9 +129,10 @@ class ProductDetailsReview extends Component {
     });
   };
 
-  componentDidMount() {
-    this.getRequestData();
-  }
+  componentDidMount = () => {
+    const { id } = this.props.productDetail;
+    this.getReviewData(id);
+  };
 
   render() {
     const {
@@ -140,7 +143,6 @@ class ProductDetailsReview extends Component {
       newReviewContent,
     } = this.state;
     const { productDetail } = this.props;
-
     return (
       <div className="ProductDetailsRequest">
         <div className="review-header">
@@ -256,4 +258,8 @@ class ProductDetailsReview extends Component {
   }
 }
 
-export default ProductDetailsReview;
+const mapStateToProps = ({ user }) => ({
+  userToken: user.userToken,
+});
+
+export default connect(mapStateToProps)(ProductDetailsReview);

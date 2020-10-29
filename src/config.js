@@ -13,12 +13,13 @@ export const EARLY_DELIVERY_INFO =
 export const CART = "https://res.kurly.com/pc/ico/1908/ico_cart_x2_v2.png";
 export const NEW_USER =
   "https://res.kurly.com/pc/service/common/1904/ico_new_20x20.png";
-export const PRODUCT_VEGE_LIST = "http://3.35.53.241:8000/products?main=2";
 export const PRODUCT_LIST = "http://3.35.53.241:8000/products";
 export const PRODUCT_REVIEW_LIST = "http://3.35.53.241:8000/user/product";
 export const PRODUCT_ITEM = "http://3.35.53.241:8000/products";
 export const PRODUCT_REVIEW_POST = "http://3.35.53.241:8000/user/user-review";
-export const PRODUCT_REVIEW = "http://3.35.53.241:8000/user/product/5/reviews";
+export const PRODUCT_REVIEW = "http://3.35.53.241:8000/user/product";
+export const PRODUCT_FAVORITE =
+  "http://3.35.53.241:8000/user/frequentlyproduct";
 export const USER_SEARCH_PASSWORD = "http://3.35.53.241:8000/user/findpassword";
 export const USER_SEARCH_ID = "http://3.35.53.241:8000/user/findid";
 export const SIGNIN = "http://3.35.53.241:8000/user/signin";

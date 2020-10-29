@@ -11,6 +11,7 @@ class ProductList extends Component {
     activeSorting: 0,
     activeCategory: 0,
     isLoading: true,
+    isBlur: false,
   };
 
   handleCategory = async (e) => {
@@ -27,7 +28,10 @@ class ProductList extends Component {
         throw new Error("cannot fetch the data");
       }
       const { products } = await response.json();
-      this.setState({ products, activeCategory: id });
+      await this.setState({ isLoading: true });
+      setTimeout(() => {
+        this.setState({ isLoading: false, products, activeCategory: id });
+      }, 2000);
     } catch (err) {
       console.log("!! error alert !!");
     }
@@ -54,7 +58,10 @@ class ProductList extends Component {
         throw new Error("cannot fetch the data");
       }
       const { products } = await response.json();
-      this.setState({ products, activeSorting: id });
+      await this.setState({ isLoading: true });
+      setTimeout(() => {
+        this.setState({ isLoading: false, products, activeSorting: id });
+      }, 2000);
     } catch (err) {
       console.log("!!error alert!!");
     }
@@ -87,11 +94,24 @@ class ProductList extends Component {
     }
   };
 
+  activeBlur = () => {
+    this.setState({ isBlur: true });
+  };
+
   componentDidMount = () => {
     const { name } = this.props.match.params;
     this.getProductList(menusToAPI[name]);
-    this.setState({ isLoading: false });
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+    }, 2000);
   };
+
+  componentDidUpdate(prevProps) {
+    const { name } = this.props.match.params;
+    if (this.props.location !== prevProps.location) {
+      this.getProductList(menusToAPI[name]);
+    }
+  }
 
   render() {
     const {
@@ -106,7 +126,27 @@ class ProductList extends Component {
     } = this.state;
 
     return isLoading ? (
-      <section className="ProductList loading"></section>
+      <section className="loading">
+        <div>
+          <svg
+            class="spinner"
+            width="65px"
+            height="65px"
+            viewBox="0 0 66 66"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              class="path"
+              fill="none"
+              stroke-width="6"
+              stroke-linecap="round"
+              cx="33"
+              cy="33"
+              r="30"
+            ></circle>
+          </svg>
+        </div>
+      </section>
     ) : (
       <section className="ProductList">
         <div className="category-nav">
@@ -166,7 +206,13 @@ class ProductList extends Component {
           <ul>
             {products &&
               products.map((product) => {
-                return <ProductCard product={product} key={product.id} />;
+                return (
+                  <ProductCard
+                    product={product}
+                    key={product.id}
+                    blur={() => this.activeBlur()}
+                  />
+                );
               })}
           </ul>
         </div>

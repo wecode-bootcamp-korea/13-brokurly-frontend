@@ -12,6 +12,7 @@ import "./ProductDetails.styles.scss";
 class ProductDetails extends Component {
   state = {
     activeMenu: 0,
+    isLoading: true,
   };
 
   activeMenu = (e) => {
@@ -23,10 +24,11 @@ class ProductDetails extends Component {
   };
 
   getBoardCnt = async () => {
+    let id = this.props.match.params.id;
     const OFFSET = 0;
     const LIMIT = 10;
     const request = await fetch(
-      `${PRODUCT_REVIEW_LIST}/5/reviews?offset=${OFFSET}&limit=${LIMIT}`,
+      `${PRODUCT_REVIEW_LIST}/${id}/reviews?offset=${OFFSET}&limit=${LIMIT}`,
       { method: "GET" }
     );
     const { total_count } = await request.json();
@@ -62,6 +64,9 @@ class ProductDetails extends Component {
     let id = this.props.match.params.id;
     this.getProductDetails(id);
     this.getBoardCnt();
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+    }, 2000);
   };
 
   componentDidUpdate(prevProps) {
@@ -77,6 +82,7 @@ class ProductDetails extends Component {
       activeMenu,
       relatedProducts,
       totalReviewCount,
+      isLoading,
     } = this.state;
     const detailMenus = {
       0: <ProductDetailsMain productDetail={productDetail} />,
@@ -93,7 +99,29 @@ class ProductDetails extends Component {
         />
       ),
     };
-    return (
+    return isLoading ? (
+      <section className="loading">
+        <div>
+          <svg
+            class="spinner"
+            width="65px"
+            height="65px"
+            viewBox="0 0 66 66"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              class="path"
+              fill="none"
+              stroke-width="6"
+              stroke-linecap="round"
+              cx="33"
+              cy="33"
+              r="30"
+            ></circle>
+          </svg>
+        </div>
+      </section>
+    ) : (
       <section className="ProductDetails">
         <div className="product-screen">
           {productDetail && (
