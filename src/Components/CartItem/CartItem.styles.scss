@@ -23,22 +23,6 @@
     display: flex;
     flex-direction: column;
 
-    .cart-item-info-top {
-      width: 100%;
-      border-bottom: 2px solid #dbdbdb;
-      flex: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      span {
-        font-size: 12px;
-        font-weight: 700;
-        width: 12%;
-        text-align: end;
-      }
-    }
-
     .cart-item-info-bottom {
       width: 100%;
       flex: 4;
@@ -99,6 +83,11 @@
             span {
               font-size: 12px;
               padding-left: 2px;
+
+              &:first-child {
+                text-decoration: line-through;
+                margin-right: 10px;
+              }
             }
           }
         }
@@ -175,9 +164,10 @@
           span {
             position: absolute;
             top: 50%;
-            transform: translateY(-50%);
-            left: 55px;
+            transform: translate(-50%, -50%);
+            left: 50%;
             font-weight: bold;
+            width: 80%;
           }
         }
 

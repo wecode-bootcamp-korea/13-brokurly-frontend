@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-import { userLogout } from "../../redux/user/user.actions";
+import { userLogout, clearToken } from "../../redux/user/user.actions";
+import { logOutClearCart } from "../../redux/cart/cart.actions";
+import { logoutClearPurchaseList } from "../../redux/purchase/purchase.actions";
+import { clearFrequentlyPurchaseItemList } from "../../redux/frequentlyPurchase/frequentlyPurchase.actions";
 
 import { EARLY_DELIVERY_INFO, NEW_USER } from "../../config";
 
@@ -9,8 +13,25 @@ import "./NavUserMenu.styles.scss";
 
 class NavUserMenu extends Component {
   render() {
-    const { currentUser, logout } = this.props;
+    const { currentUser, history } = this.props;
     const { user_name, user_rank } = currentUser;
+
+    const logoutButtonClick = () => {
+      const {
+        logOutClearCart,
+        clearToken,
+        logoutClearPurchaseList,
+        clearFrequentlyPurchaseItemList,
+        userLogout,
+      } = this.props;
+      logOutClearCart();
+      clearToken();
+      logoutClearPurchaseList();
+      clearFrequentlyPurchaseItemList();
+      userLogout();
+      history.push("/");
+    };
+
     return (
       <div className="NavUserMenu">
         <div>
@@ -27,19 +48,23 @@ class NavUserMenu extends Component {
                   <i className="fas fa-caret-down"></i>
                 </span>
                 <div className="current-user-sub">
-                  <span>주문 내역</span>
+                  <span onClick={() => history.push("/mypage")}>주문 내역</span>
                   <span>늘 사는 것</span>
                   <span>상품후기</span>
                   <span>적립금</span>
                   <span>쿠폰</span>
                   <span>개인 정보 수정</span>
-                  <span onClick={logout}>로그아웃</span>
+                  <span onClick={logoutButtonClick}>로그아웃</span>
                 </div>
               </div>
             ) : (
               <>
-                <div className="signup">회원가입</div>
-                <div className="login">로그인</div>
+                <div className="signup" onClick={() => history.push("/signup")}>
+                  회원가입
+                </div>
+                <div className="login" onClick={() => history.push("/login")}>
+                  로그인
+                </div>
               </>
             )}
             <div className="help">
@@ -65,8 +90,12 @@ const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(userLogout()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavUserMenu);
+export default withRouter(
+  connect(mapStateToProps, {
+    userLogout,
+    logOutClearCart,
+    clearToken,
+    logoutClearPurchaseList,
+    clearFrequentlyPurchaseItemList,
+  })(NavUserMenu)
+);

@@ -144,24 +144,23 @@ $container-count: 2;
       }
     }
   }
+}
+.SideMenu.default {
+  top: 20%;
+  transition: all 500ms ease-in;
+}
 
-  .SideMenu.default {
-    top: 20%;
-    transition: all 500ms ease-in;
-  }
+.SideMenu.on-scroll-down {
+  top: 40%;
+  transition: all 300ms ease-in;
+}
 
-  .SideMenu.on-scroll-down {
-    top: 40%;
-    transition: all 300ms ease-in;
-  }
+.SideMenu.on-scroll-up {
+  top: 3%;
+  transition: all 300ms ease-in;
+}
 
-  .SideMenu.on-scroll-up {
-    top: 3%;
-    transition: all 300ms ease-in;
-  }
-
-  .SideMenu.scroll-end {
-    top: -20%;
-    transition: all 800ms ease-in;
-  }
+.SideMenu.scroll-end {
+  top: -20%;
+  transition: all 800ms ease-in;
 }

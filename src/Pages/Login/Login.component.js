@@ -1,5 +1,13 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { getToken, getCurrentUser } from "../../redux/user/user.actions";
+import { getCartItems } from "../../redux/cart/cart.actions";
+import { getFrequentlyPurchaseItems } from "../../redux/frequentlyPurchase/frequentlyPurchase.actions";
+import { getPurchaseList } from "../../redux/purchase/purchase.actions";
+
+import { SIGNIN } from "../../config";
 
 import "./Login.styles.scss";
 
@@ -21,12 +29,19 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  handleLoginButton = (e) => {
+  handleLoginButton = async (e) => {
     e.preventDefault();
     const { user_id, password } = this.state;
+    const {
+      getToken,
+      getCurrentUser,
+      getCartItems,
+      getFrequentlyPurchaseItems,
+      getPurchaseList,
+      userToken,
+    } = this.props;
     if (user_id !== "" && password !== "") {
-      console.log(`${user_id} // ${password}`);
-      fetch("http://10.58.6.216:8000/user/signin", {
+      await fetch(SIGNIN, {
         method: "POST",
         body: JSON.stringify({
           user_id,
@@ -36,15 +51,16 @@ class Login extends Component {
         .then((response) => response.json())
         .then((result) => {
           if (result.message === "SUCCESS") {
-            alert("쓸거면 팍팍써라, 많이 먹는다고 안 죽는다.");
-            localStorage.setItem("authorization", result.authorization);
+            alert("로그인 성공");
+            getToken(result.authorization);
+            getCurrentUser(result.user);
             this.goToMain();
           } else {
             alert("잘못된 아이디 혹은 비밀번호입니다.");
           }
         });
     } else {
-      alert("밥먹고 싶으면 제대로 써라!");
+      alert("로그인 실패!");
     }
   };
 
@@ -102,4 +118,16 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+const mapStateToProps = ({ user }) => ({
+  userToken: user.userToken,
+});
+
+export default withRouter(
+  connect(mapStateToProps, {
+    getToken,
+    getCurrentUser,
+    getCartItems,
+    getFrequentlyPurchaseItems,
+    getPurchaseList,
+  })(Login)
+);

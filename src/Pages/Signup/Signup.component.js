@@ -268,9 +268,7 @@ class Signup extends Component {
           is_sms_agreed,
           is_email_agreed,
         }),
-      })
-        .then((response) => response.json())
-        .then((result) => console.log("결과", result));
+      }).then((response) => response.json());
       alert("가입이 완료되었습니다.");
       this.goToMain();
     } else {
@@ -289,7 +287,6 @@ class Signup extends Component {
       is_email_agreed,
       six,
     } = this.state;
-    console.log(this.state);
     return (
       <div className="Signup">
         <div className="container">
