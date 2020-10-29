@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { connect } from "react-redux";
 import ProductList from "./Pages/ProductList/ProductList.component";
 import ProductDetails from "./Pages/ProductDetails/ProductDetails.component";
 import SignupComponent from "./Pages/Signup/Signup.component";

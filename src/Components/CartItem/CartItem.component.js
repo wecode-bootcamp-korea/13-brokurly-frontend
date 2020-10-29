@@ -129,7 +129,7 @@ class CartItem extends Component {
       discount_price,
       image_url,
     } = cartItemInfo;
-
+    console.log(discount_price);
     return (
       <div className="CartItem">
         <div className="cart-item-select">
@@ -151,8 +151,8 @@ class CartItem extends Component {
                   {sold_out && <span className="sold-out">품절</span>}
                 </div>
                 <div className="cart-item-price">
-                  <span>{+price.toLocaleString()}원</span>
-                  <span>{+discount_price.toLocaleString()}원</span>
+                  <span>{Number(price).toLocaleString()}원</span>
+                  <span>{Number(discount_price).toLocaleString()}원</span>
                 </div>
               </div>
               <div className="cart-item-quantity">
