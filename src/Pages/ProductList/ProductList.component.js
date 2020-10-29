@@ -1,39 +1,36 @@
 import React, { Component } from "react";
-// import { NavLink } from "react-router-dom";
 
 import "./ProductList.styles.scss";
 import ProductCard from "./ProductCard/ProductCard.component";
-
-// Mock data
-const API = "http://localhost:3000/data/productlist/productlist_0.json";
-// Backend API
-// const API = "http://10.58.4.20:8000/product?productList=1&sort_type=0";
+import { PRODUCT_VEGE_LIST } from "../../config";
 
 class ProductList extends Component {
   state = {
-    isCategoryClick: true,
     isSortingClick: false,
-    categories: [
-      "전체보기",
-      "기본채소",
-      "쌈·샐러드·간편채소",
-      "브로콜리·특수채소",
-      "콩나물·버섯류",
-      "시금치·부추·나물",
-      "양파·마늘·생강·파",
-      "파프리카·피망·고추",
-    ],
-    products: [],
-    sortings: [],
     activeSorting: 0,
     activeCategory: 0,
   };
 
-  handleCategory = (e) => {
-    const { id } = e.target;
-    const { isCategoryClick } = this.state;
-    console.log(id);
-    this.setState({ isCategoryClick: !isCategoryClick, activeCategory: id });
+  handleCategory = async (e) => {
+    let response;
+    try {
+      const { id } = e.target;
+      const { activeSorting } = this.state;
+      +id !== 0
+        ? (response = await fetch(
+            `${PRODUCT_VEGE_LIST}&sub=${id}&ordering=${activeSorting}`
+          ))
+        : (response = await fetch(
+            `${PRODUCT_VEGE_LIST}&sub=1&ordering=${activeSorting}`
+          ));
+      if (response.state === 200) {
+        throw new Error("cannot fetch the data");
+      }
+      const { products } = await response.json();
+      this.setState({ products, activeCategory: id });
+    } catch (err) {
+      console.log("!! error alert !!");
+    }
   };
 
   handleSorting = () => {
@@ -46,14 +43,12 @@ class ProductList extends Component {
   sortingList = async (e) => {
     try {
       const { id } = e.target;
-      //local test
+      const { activeCategory } = this.state;
       const response = await fetch(
-        `http://localhost:3000/data/productlist/productlist_${id}.json`
+        !!+activeCategory
+          ? `${PRODUCT_VEGE_LIST}&sub=${activeCategory}&ordering=${id}`
+          : `${PRODUCT_VEGE_LIST}&sub=1&ordering=${id}`
       );
-      //backend API
-      // const response = await fetch(
-      //   `http://10.58.4.20:8000/product?productList=1&sort_type=${id}`
-      // );
       if (response.status !== 200) {
         throw new Error("cannot fetch the data");
       }
@@ -66,12 +61,24 @@ class ProductList extends Component {
 
   getProductList = async () => {
     try {
-      const response = await fetch(API);
+      const response = await fetch(`${PRODUCT_VEGE_LIST}&ordering=0`);
       if (response.status !== 200) {
         throw new Error("cannot fetch the data");
       }
-      const { products, available_sort } = await response.json();
-      this.setState({ products, sortings: available_sort });
+      const {
+        products,
+        mainCategories,
+        subCategories,
+        sortings,
+      } = await response.json();
+      // whole list
+      subCategories.unshift({ id: 0, name: "전체보기" });
+      this.setState({
+        products,
+        mainCategories,
+        subCategories,
+        sortings,
+      });
     } catch (err) {
       console.log("!!error alert!!");
     }
@@ -83,28 +90,39 @@ class ProductList extends Component {
 
   render() {
     const {
-      // isCategoryClick,
       isSortingClick,
-      categories,
       products,
+      mainCategories,
+      subCategories,
       sortings,
       activeSorting,
-      // activeCategory,
+      activeCategory,
     } = this.state;
 
     return (
       <section className="ProductList">
         <div className="category-nav">
-          <div className="category-title">
-            <i className="far fa-carrot" />
-            <span>채소</span>
-          </div>
+          {mainCategories && (
+            <div className="category-title">
+              <img src={mainCategories.imageUrl} alt="" />
+              <span>{mainCategories.name}</span>
+            </div>
+          )}
           <div className="category-list">
             <ul>
-              {categories.length &&
-                categories.map((category, id) => (
-                  <li key={id} id={id}>
-                    {category}{" "}
+              {subCategories &&
+                subCategories.map((subCategory) => (
+                  <li
+                    key={subCategory.id}
+                    id={subCategory.id}
+                    className={
+                      +activeCategory === subCategory.id
+                        ? "active-category"
+                        : ""
+                    }
+                    onClick={this.handleCategory}
+                  >
+                    {subCategory.name}
                   </li>
                 ))}
             </ul>
@@ -112,7 +130,7 @@ class ProductList extends Component {
               className={`sort-trigger ${isSortingClick && "active-color"}`}
               onClick={this.handleSorting}
             >
-              <span>{sortings[activeSorting]}</span>
+              <span>{sortings && sortings[activeSorting].name}</span>
               <i
                 className={`fas fa-chevron-${isSortingClick ? "up" : "down"}`}
               ></i>
@@ -122,18 +140,23 @@ class ProductList extends Component {
               onClick={this.handleSorting}
             >
               <ul>
-                {sortings.map((sortName, sortId) => (
-                  <li key={sortId} id={sortId} onClick={this.sortingList}>
-                    {sortName}
-                  </li>
-                ))}
+                {sortings &&
+                  sortings.map((sorting) => (
+                    <li
+                      key={sorting.id}
+                      id={sorting.id}
+                      onClick={this.sortingList}
+                    >
+                      {sorting.name}
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
         </div>
         <div className="card-list">
           <ul>
-            {products.length &&
+            {products &&
               products.map((product) => {
                 return <ProductCard product={product} key={product.id} />;
               })}

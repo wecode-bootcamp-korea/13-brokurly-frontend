@@ -20,11 +20,12 @@
 
     img {
       left: 50%;
-      transform: translateX(-66px);
+      transform: translateX(-25%);
       object-fit: fill;
       transition: ease 0.5s;
+
       &:hover {
-        transform: scale(1.05) translateX(-66px);
+        transform: scale(1.05) translateX(-25%);
       }
     }
 
@@ -61,9 +62,19 @@
     z-index: 1;
     @include flexSet(center, center);
 
-    i {
-      color: #fff;
-      font-size: 18px;
+    button {
+      background-color: transparent;
+      border: 0;
+      cursor: pointer;
+
+      &:focus {
+        outline: 0;
+      }
+
+      i {
+        color: #fff;
+        font-size: 18px;
+      }
     }
   }
 
@@ -122,17 +133,17 @@
       font-size: 13px;
     }
   }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .full-height {
+    height: 100% !important;
+  }
 }
 
 // for dinamic class usage
-
-.full-width {
-  width: 100%;
-}
-
-.full-height {
-  height: 100% !important;
-}
 
 .visibility-hidden {
   visibility: hidden;
