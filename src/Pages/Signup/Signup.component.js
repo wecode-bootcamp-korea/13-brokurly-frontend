@@ -83,8 +83,6 @@ class Signup extends Component {
     }
   };
 
-  // this.setState({[name]:value , userIdCheck: name})
-
   checkId = () => {
     const { user_id } = this.state;
     const idCondition = /[A-Za-z0-9]\w{5,}/;
@@ -267,25 +265,8 @@ class Signup extends Component {
           is_sms_agreed,
           is_email_agreed,
         }),
-      })
-        .then((response) => response.json())
-        .then((result) => console.log(`결과=> ${result.message}`));
-      console.log(
-        user_id,
-        password,
-        user_name,
-        email,
-        phone,
-        address,
-        gender,
-        recommender,
-        event,
-        `${birthdayYYYY}-${birthdayMM}-${birthdayDD}`,
-        is_privacy_policy,
-        is_sms_agreed,
-        is_email_agreed
-      );
-      // alert("가입이 완료되었습니다.");
+      }).then((response) => response.json());
+      alert("가입이 완료되었습니다.");
       this.goToMain();
     } else {
       alert("필수사항을 다시 살펴보세요");

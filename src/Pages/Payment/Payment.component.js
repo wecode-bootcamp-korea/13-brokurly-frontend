@@ -39,7 +39,6 @@ class Payment extends Component {
       .then((res) => res.json())
       .then((data) => data.shopping_list)
       .then((cartItems) => getCartItems(cartItems))
-      // .then((data) => console.log(data))
       .catch((error) => console.log(error));
   };
 
@@ -51,8 +50,6 @@ class Payment extends Component {
       (acc, curVal) => acc + curVal.discount_price * curVal.quantity,
       0
     );
-    console.log(cartItems);
-    console.log(orderingItems);
     return (
       <div className="Payment">
         <div className="payment-container">

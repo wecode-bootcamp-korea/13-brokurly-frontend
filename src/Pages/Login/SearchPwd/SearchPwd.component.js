@@ -38,7 +38,6 @@ class SearchPwd extends Component {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log("결과=>", result.message);
           if (result.message === "SUCCESS") {
             let newPwd = prompt(
               "10자 이상의 영문,숫자,특수문자 각각 1개 이상의 조합으로 새로 작성해주세요"
