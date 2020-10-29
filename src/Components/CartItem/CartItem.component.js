@@ -129,7 +129,6 @@ class CartItem extends Component {
       discount_price,
       image_url,
     } = cartItemInfo;
-    console.log(discount_price);
     return (
       <div className="CartItem">
         <div className="cart-item-select">
