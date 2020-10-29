@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { withRouter } from "react-router-dom";
+
 import "./NavCategoryAllBarSub.styles.scss";
 
 import { GET_CATEGORY_API } from "../../config";
@@ -66,6 +68,7 @@ class NavCategoryAllBarSub extends Component {
             className="all-bar-sub-left-element"
             key={idx}
             onMouseEnter={() => this.showRightSubMenu(idx)}
+            onClick={() => this.props.history.push("/productList/vegetables")}
           >
             <img src={category[2]} alt="category" />
             <span>{category[0]}</span>
@@ -83,4 +86,4 @@ class NavCategoryAllBarSub extends Component {
   }
 }
 
-export default NavCategoryAllBarSub;
+export default withRouter(NavCategoryAllBarSub);

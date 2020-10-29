@@ -74,10 +74,11 @@ class CartItems extends Component {
           <div className="price-result">
             <span className="price-result-text">결제예정금액</span>
             <span className="price-result-number">
-              {+(totalPrice - discountTotalPrice).toLocaleString()} 원
+              {Number(totalPrice - discountTotalPrice).toLocaleString()} 원
             </span>
             <span className="mileage-point-info">
-              구매시 {((totalPrice - discountTotalPrice) / 10).toLocaleString()}
+              구매시{" "}
+              {(Number(totalPrice - discountTotalPrice) / 10).toLocaleString()}
               원 적립
             </span>
           </div>
