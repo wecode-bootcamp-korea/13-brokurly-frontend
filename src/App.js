@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-
 import ProductList from "./Pages/ProductList/ProductList.component";
+import ProductDetails from "./Pages/ProductDetails/ProductDetails.component";
 import SignupComponent from "./Pages/Signup/Signup.component";
 import Nav from "./Components/Nav/Nav.component";
 import Main from "./Pages/Main/Main.component";
@@ -13,98 +13,26 @@ import SearchPwd from "./Pages/Login/SearchPwd/SearchPwd.component";
 import Login from "./Pages/Login/Login.component";
 import Signup from "./Pages/Signup/Signup.component";
 import MyPage from "./Pages/MyPage/MyPage.component";
-
-import { getCartItems } from "./redux/cart/cart.actions";
-import { getPurchaseList } from "./redux/purchase/purchase.actions";
-import { getFrequentlyPurchaseItems } from "./redux/frequentlyPurchase/frequentlyPurchase.actions";
-
-import {
-  GET_SHOPPINGBASKET_API,
-  GET_PURHCASE_LIST_API,
-  GET_FREQUENTLY_PRODUCT_API,
-} from "./config";
-
+import { logOutClearCart } from "./redux/cart/cart.actions";
+import { logoutClearPurchaseList } from "./redux/purchase/purchase.actions";
+import { clearFrequentlyPurchaseItemList } from "./redux/frequentlyPurchase/frequentlyPurchase.actions";
+import { userLogout, clearToken } from "./redux/user/user.actions";
 import "./App.scss";
-
 class App extends Component {
-  // componentDidUpdate() {
-  //   const { userToken } = this.props;
-  //   userToken && this.getCurrentUserCartAndProductData();
-  // }
-
-  // getCurrentUserCartAndProductData = () => {
-  //   const {
-  //     getCartItems,
-  //     userToken,
-  //     getPurchaseList,
-  //     getFrequentlyPurchaseItems,
-  //   } = this.props;
-
-  //   fetch(GET_SHOPPINGBASKET_API, {
-  //     headers: {
-  //       "content-type": "application/json",
-  //       Authorization: userToken,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => data["shopping_list"])
-  //     .then((cartItems) => getCartItems(cartItems));
-
-  //   fetch(GET_FREQUENTLY_PRODUCT_API, {
-  //     headers: {
-  //       "content-type": "application/json",
-  //       Authorization: userToken,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => data.product_list)
-  //     .then((product_list) => getFrequentlyPurchaseItems(product_list))
-  //     .catch((error) => console.log(error));
-
-  //   fetch(GET_PURHCASE_LIST_API, {
-  //     headers: {
-  //       "content-type": "application/json",
-  //       Authorization: userToken,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => data.order_list)
-  //     .then((purchaseList) => getPurchaseList(purchaseList))
-  //     .catch((error) => console.log(error));
-  // };
-
-  // componentDidMount() {
-  //   this.addScrollEventAndFetchCartItemList();
-  // }
-
-  // scrollNavBarChange = () => {
-  //   const currentScrollTop = window.scrollY;
-  //   if (currentScrollTop > 50 && this.state.hidden === false) {
-  //     this.setState({ hidden: true });
-  //     console.log("changed1");
-  //   }
-
-  //   if (currentScrollTop < 50 && this.state.hidden === true) {
-  //     this.setState({ hidden: false });
-  //     console.log("changed2");
-  //   }
-  // };
-
-  // addScrollEventAndFetchCartItemList = () => {
-  //   const { getCartItems, currentUser, userToken } = this.props;
-  //   window.addEventListener("scroll", this.scrollNavBarChange);
-  //   Object.keys(currentUser).length &&
-  //     fetch(GET_SHOPPINGBASKET_API, {
-  //       headers: {
-  //         "content-type": "application/json",
-  //         Authorization: userToken,
-  //       },
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => data["shopping_list"])
-  //       .then((cartItems) => getCartItems(cartItems));
-  // };
-
+  componentDidMount() {
+    const {
+      logOutClearCart,
+      logoutClearPurchaseList,
+      clearFrequentlyPurchaseItemList,
+      userLogout,
+      clearToken,
+    } = this.props;
+    logOutClearCart();
+    logoutClearPurchaseList();
+    clearFrequentlyPurchaseItemList();
+    userLogout();
+    clearToken();
+  }
   render() {
     return (
       <Router>
@@ -114,6 +42,11 @@ class App extends Component {
             <Route exact path="/" component={Main} />
             <Route exact path="/cartItems" component={CartItems} />
             <Route exact path="/productlist" component={ProductList} />
+            <Route
+              exact
+              path="/productdetails/:id"
+              component={ProductDetails}
+            />
             <Route exact path="/signup" component={SignupComponent} />
             <Route exact path="/searchid" component={SearchId} />
             <Route exact path="/searchpwd" component={SearchPwd} />
@@ -131,9 +64,10 @@ const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
   userToken: user.userToken,
 });
-
 export default connect(mapStateToProps, {
-  getCartItems,
-  getPurchaseList,
-  getFrequentlyPurchaseItems,
+  logOutClearCart,
+  clearFrequentlyPurchaseItemList,
+  logoutClearPurchaseList,
+  userLogout,
+  clearToken,
 })(App);
