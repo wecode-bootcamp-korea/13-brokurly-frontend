@@ -25,3 +25,5 @@ export const SIGNIN = "http://3.35.53.241:8000/user/signin";
 export const SIGNUP = "http://3.35.53.241:8000/user/signup";
 export const SIGNUP_CHECK_ID = "http://3.35.53.241:8000/user/checkid";
 export const SIGNUP_CHECK_EMAIL = "http://3.35.53.241:8000/user/checkemail";
+export const SEND_SMS = "http://3.35.53.241:8000/user/sendsms";
+export const CHECK_SMS = "http://3.35.53.241:8000/user/checksms";

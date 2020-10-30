@@ -17,19 +17,25 @@ class OverlapCheckText extends Component {
         "가입 이후, 수정이 불가합니다.",
         "대소문자 및 띄어쓰기에 유의해주세요.",
       ],
+      phoneCheckText: ["핸드폰 인증 확인"],
     };
   }
 
-  // 경우에 따라서 샛별 배송 span을 여기 만든다.
-
   render() {
-    const { idCheck, pwdCheck, pwdDubleCheck, addInfo } = this.state;
+    const {
+      idCheck,
+      pwdCheck,
+      pwdDubleCheck,
+      addInfo,
+      phoneCheckText,
+    } = this.state;
     const {
       user_id,
       userIdCheck,
       password,
       userPwdCheck,
       recommendCheck,
+      phoneCheck,
     } = this.props.onData;
     const idCondition = /[A-Za-z0-9]\w{5,}/;
     const pwdCondition = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$/;
@@ -81,6 +87,13 @@ class OverlapCheckText extends Component {
               }`}
             >
               {pwdDubleCheck[0]}
+            </span>
+          </>
+        )}
+        {this.props.onOffCount === "phoneCheck" && (
+          <>
+            <span className={`initial ${phoneCheck ? "correct" : "incorrect"}`}>
+              {phoneCheckText[0]}
             </span>
           </>
         )}

@@ -6,7 +6,7 @@ class OverlapCheck extends Component {
   render() {
     return (
       <p className="OverlapCheck" onClick={this.props.onCheckOverlap}>
-        중복확인
+        {this.props.content}
       </p>
     );
   }
