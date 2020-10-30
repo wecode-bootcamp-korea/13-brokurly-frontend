@@ -16,7 +16,7 @@ class MyKurlyAside extends Component {
             <i className="fal fa-greater-than" />
           </div>
           <div onClick={() => changePage(1)}>
-            <span>늘 사는 것</span>
+            <span>늘 사는 거</span>
             <i className="fal fa-greater-than" />
           </div>
           <div>

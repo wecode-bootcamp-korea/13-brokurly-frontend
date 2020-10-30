@@ -162,7 +162,7 @@ class Payment extends Component {
               <div className="payment-price">
                 <div>
                   <span>주문 금액</span>
-                  <span>{totalAmount.toLocaleString()}</span>
+                  <span>{totalAmount.toLocaleString()}원</span>
                 </div>
                 <div>
                   <span className="product-price-sales">상품 금액</span>
@@ -183,7 +183,7 @@ class Payment extends Component {
                 <div>
                   <span>최종 결제 금액</span>
                   <span className="total-price">
-                    {totalAmount.toLocaleString()}
+                    {totalAmount.toLocaleString()}원
                   </span>
                 </div>
               </div>
@@ -200,6 +200,7 @@ class Payment extends Component {
               ordererPhone={String(currentUser.phone)}
               email={currentUser.email}
               address={currentUser.address}
+              totalAmount={totalAmount}
             />
           </section>
         </div>
@@ -214,10 +215,4 @@ const mapStateToProps = ({ user, cart }) => ({
   cartItems: cart.cartItems,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getCartItems: (cartItems) => dispatch(getCartItems(cartItems)),
-});
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Payment)
-);
+export default withRouter(connect(mapStateToProps, { getCartItems })(Payment));

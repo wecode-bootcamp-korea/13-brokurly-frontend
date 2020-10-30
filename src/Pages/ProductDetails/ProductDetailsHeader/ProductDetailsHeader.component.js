@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
 
 import { GET_SHOPPINGBASKET_API, PRODUCT_FAVORITE } from "../../../config";
 import { RESIZE_IMAGE } from "../../../utils";
-
 import { addItemToCart } from "../../../redux/cart/cart.actions";
+import { frequentlyPurchaseItemToCartList } from "../../../redux/frequentlyPurchase/frequentlyPurchase.actions";
 
 import "./ProductDetailsHeader.styles.scss";
-
 class ProductDetailsHeader extends Component {
   constructor(props) {
     super(props);
@@ -20,24 +20,21 @@ class ProductDetailsHeader extends Component {
       totalAmount: 1,
     };
   }
-
   handleAmount = (e) => {
     const { totalAmount, rootPrice } = this.state;
     const { name } = e.target;
-
     const setCalc = name === "minus" ? -1 : 1;
     const nextCount = totalAmount + setCalc;
-
     this.setState({
       totalAmount: nextCount,
       totalPrice: nextCount * rootPrice,
     });
   };
-
   sendFavorite = async () => {
     try {
       const { productId } = this.state;
-      const { userToken } = this.props;
+      const { userToken, frequentlyPurchaseItemToCartList } = this.props;
+      const { name, imageUrl, originalPrice, id } = this.props.productDetail;
       const response = await fetch(PRODUCT_FAVORITE, {
         method: "POST",
         headers: {
@@ -50,6 +47,20 @@ class ProductDetailsHeader extends Component {
       if (response.state === 200) {
         throw new Error("cannot fetch the data");
       }
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "늘 사는 거에 담겼습니다",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      frequentlyPurchaseItemToCartList({
+        name,
+        price: originalPrice,
+        image_url: imageUrl,
+        product_id: id,
+        quantity: 1,
+      });
       const result = await response.json();
       console.log(result);
     } catch (error) {
@@ -76,12 +87,18 @@ class ProductDetailsHeader extends Component {
       }
       const result = await response.json();
       console.log(result);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "장바구니에 담겼습니다",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       addItemToCart({ product_id: productId, quantity: totalAmount });
     } catch (err) {
       console.log("!! error alert !!");
     }
   };
-
   render() {
     const {
       name,
@@ -203,11 +220,11 @@ class ProductDetailsHeader extends Component {
     );
   }
 }
-
 const mapStateToProps = ({ user }) => ({
   userToken: user.userToken,
 });
 
-export default connect(mapStateToProps, { addItemToCart })(
-  ProductDetailsHeader
-);
+export default connect(mapStateToProps, {
+  addItemToCart,
+  frequentlyPurchaseItemToCartList,
+})(ProductDetailsHeader);

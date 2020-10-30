@@ -30,3 +30,6 @@ export const SIGNIN = "http://3.35.53.241:8000/user/signin";
 export const SIGNUP = "http://3.35.53.241:8000/user/signup";
 export const SIGNUP_CHECK_ID = "http://3.35.53.241:8000/user/checkid";
 export const SIGNUP_CHECK_EMAIL = "http://3.35.53.241:8000/user/checkemail";
+
+export const LOGO_IMG =
+  "https://images.velog.io/images/kho5420/post/121ee3b0-9ad9-43c5-87bb-23fb6c172f8a/image.png";

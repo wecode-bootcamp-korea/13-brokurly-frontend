@@ -6,7 +6,7 @@ import "./UserInfo.styles.scss";
 
 class UserInfo extends Component {
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, userMileage } = this.props;
     const { user_rank, user_name } = currentUser;
     return (
       <div className="UserInfo">
@@ -36,7 +36,7 @@ class UserInfo extends Component {
             </div>
             <div className="point-info">
               <p>
-                0 원<span>&#62;</span>
+                {userMileage} 원<span>&#62;</span>
               </p>
               <p>소멸예정 0원</p>
             </div>
@@ -69,6 +69,7 @@ class UserInfo extends Component {
 
 const mapStateToProps = ({ user }) => ({
   currentUser: user.currentUser,
+  userMileage: user.userMileage,
 });
 
 export default connect(mapStateToProps)(UserInfo);

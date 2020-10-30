@@ -3,6 +3,7 @@ import UserActionTypes from "./user.types";
 const INITIAL_STATE = {
   currentUser: {},
   userToken: "",
+  userMileage: 0,
 };
 
 const userReducer = (state = INITIAL_STATE, { type, payload }) => {
@@ -26,6 +27,16 @@ const userReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         userToken: "",
+      };
+    case UserActionTypes.ADD_MILEAGE:
+      return {
+        ...state,
+        userMileage: state.userMileage + payload,
+      };
+    case UserActionTypes.CLEAR_MILEAGE:
+      return {
+        ...state,
+        userMileage: 0,
       };
     default:
       return state;

@@ -1,4 +1,5 @@
 import FrequentlyPurchaseActionTypes from "./frequentlyPurhcase.types";
+import { checkFrequentlyPurchaseItem } from "./frequentlyPurchase.utils";
 
 const INITIAL_STATE = {
   frequentlyPurchaseList: [],
@@ -21,8 +22,14 @@ const frequentlyPurchaseReducer = (
       };
     case FrequentlyPurchaseActionTypes.FREQUENTLY_PURCHASE_ITEMS_ORDER_ALL:
       return state;
-    case FrequentlyPurchaseActionTypes.ADD_TO_CARTLIST:
-      return state;
+    case FrequentlyPurchaseActionTypes.FRQUENTLY_ITEM_ADD_TO_CARTLIST:
+      return {
+        ...state,
+        frequentlyPurchaseList: checkFrequentlyPurchaseItem(
+          state.frequentlyPurchaseList,
+          payload
+        ),
+      };
     default:
       return state;
   }

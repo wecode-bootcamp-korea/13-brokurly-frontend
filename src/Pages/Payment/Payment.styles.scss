@@ -36,7 +36,7 @@
 
       .user-info-container {
         padding: 18px 0;
-        border-top: 2px solid black;
+        border-top: 2px solid var(--primary-color);
         border-bottom: 1px solid #ccc;
         font-size: 12px;
 
@@ -73,7 +73,7 @@
 
       .delivery-container {
         padding: 18px 0 8px 0;
-        border-top: 2px solid black;
+        border-top: 2px solid var(--primary-color);
         border-bottom: 1px solid #ccc;
         font-size: 12px;
 
@@ -169,7 +169,7 @@
       }
       .product-info-container {
         padding: 18px 0;
-        border-top: 2px solid black;
+        border-top: 2px solid var(--primary-color);
         font-size: 12px;
         .products-list-bar {
           display: flex;
@@ -216,7 +216,7 @@
       margin-bottom: 60px;
       flex: 3;
       .payment-method {
-        border-top: 1px solid black;
+        border-top: 2px solid var(--primary-color);
         font-size: 12px;
       }
     }
