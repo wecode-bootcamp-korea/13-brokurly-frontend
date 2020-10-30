@@ -1,6 +1,5 @@
 const recentlySeenActionTypes = {
   PUSH: "PUSH",
-  POP: "POP",
   CLEAR: "CLEAR",
 };
 
