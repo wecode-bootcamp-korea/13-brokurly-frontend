@@ -47,7 +47,9 @@ class Routes extends Component {
       () => {
         setTimeout(() => {
           const scrollY = window.scrollY;
-          this.setState({ position: scrollY > 5650 ? 2 : 0 });
+          const scrollHeight = this.container.current.scrollHeight + 400 + 175;
+          const scrollTotal = scrollHeight - window.innerHeight - 250;
+          this.setState({ position: scrollY > scrollTotal ? 2 : 0 });
         }, 200);
       }
     );
@@ -69,12 +71,12 @@ class Routes extends Component {
 
   toggleSideMenuPosition = () => {
     const scrollY = window.scrollY;
-    const posToDefaultCondition = scrollY >= 240;
-    const posToInitialCondition = scrollY < 240;
+    const posToDefaultCondition = scrollY >= 100;
+    const posToInitialCondition = scrollY < 100;
     const posOnScrollDownCondition =
-      scrollY >= 240 && scrollY > this.state.lastScrollY;
+      scrollY >= 100 && scrollY > this.state.lastScrollY;
     const posOnScrollUpCondition =
-      scrollY >= 240 && scrollY < this.state.lastScrollY;
+      scrollY >= 100 && scrollY < this.state.lastScrollY;
     let position = -2;
     this.setState({
       lastScrollY: scrollY,
@@ -97,11 +99,7 @@ class Routes extends Component {
     return (
       <Router>
         <Nav hidden={hidden} />
-        <div
-          className="container"
-          ref={this.container}
-          onScroll={this.toggleSideMenuPosition}
-        >
+        <div className="container" ref={this.container}>
           <Switch>
             <Route exact path="/" component={Main} />
             <Route exact path="/cartItems" component={CartItems} />

@@ -1,18 +1,35 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+
 import "./SideMenu.styles.scss";
 
 class SideMenu extends Component {
   constructor() {
     super();
     this.state = {
-      itemsList: [1, 2, 3, 4, 5, 6, 7],
-      itemsCount: 7,
+      itemsCount: 0,
       listYcoordinate: 0,
       isTopButtonVisible: false,
       isBottomButtonVisible: true,
+      isImgVertical: true,
     };
   }
+
+  componentDidMount = () => {
+    const { recentlySeenList } = this.props;
+    this.setState({
+      itemsCount: recentlySeenList.length,
+    });
+  };
+
+  resizeImage = (e) => {
+    console.log("height: " + e.target.naturalHeight);
+    console.log("width: " + e.target.naturalWidth);
+    this.setState({
+      isImgVertical: e.target.naturalHeight > e.target.naturalWidth,
+    });
+  };
 
   slideList = (e) => {
     const { itemsCount, listYcoordinate } = this.state;
@@ -51,12 +68,12 @@ class SideMenu extends Component {
 
   render() {
     const {
-      itemsList,
       listYcoordinate,
       isTopButtonVisible,
       isBottomButtonVisible,
+      isImgVertical,
     } = this.state;
-    const { position } = this.props;
+    const { position, recentlySeenList } = this.props;
     const itemsTranslation = {
       transform: `translate(0, ${listYcoordinate}px)`,
       transition: `transform 600ms`,
@@ -103,7 +120,7 @@ class SideMenu extends Component {
           >
             <img
               className="button-arrow-img top"
-              src="./Images/SideMenu/button_arrow.png"
+              src="https://media.vlpt.us/images/dhlee91/post/6fa24700-bf3d-4ef4-9371-d9ff3f03bdbe/button_arrow.png"
               alt="recent list top button"
             />
           </button>
@@ -118,15 +135,32 @@ class SideMenu extends Component {
           >
             <img
               className="button-arrow-img bottom"
-              src="./Images/SideMenu/button_arrow.png"
+              src="https://media.vlpt.us/images/dhlee91/post/6fa24700-bf3d-4ef4-9371-d9ff3f03bdbe/button_arrow.png"
               alt="recent list bottom button"
             />
           </button>
           <p>최근 본 상품</p>
           <div className="recently-seen-container">
             <ul style={itemsTranslation}>
-              {itemsList.map((item) => (
-                <li key={item}>{item}</li>
+              {recentlySeenList.reverse().map((item) => (
+                <li
+                  key={item.id}
+                  onClick={() =>
+                    this.props.history.push(`/productdetails/${item.id}`)
+                  }
+                >
+                  <img
+                    className={
+                      isImgVertical
+                        ? "item-img full-width"
+                        : "item-img full-height"
+                    }
+                    src={item.imageUrl}
+                    alt="recently seen product"
+                    id={item.id}
+                    onLoad={this.resizeImage}
+                  />
+                </li>
               ))}
             </ul>
           </div>
@@ -136,4 +170,8 @@ class SideMenu extends Component {
   }
 }
 
-export default SideMenu;
+const mapStateToProps = ({ recentlySeen }) => ({
+  recentlySeenList: recentlySeen.recentlySeenList,
+});
+
+export default withRouter(connect(mapStateToProps)(SideMenu));
