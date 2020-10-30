@@ -10,6 +10,7 @@ import {
 import { logOutClearCart } from "../../redux/cart/cart.actions";
 import { logoutClearPurchaseList } from "../../redux/purchase/purchase.actions";
 import { clearFrequentlyPurchaseItemList } from "../../redux/frequentlyPurchase/frequentlyPurchase.actions";
+import { clearRecentlySeenList } from "../../redux/recentlySeen/recentlySeen.actions";
 
 import { EARLY_DELIVERY_INFO, NEW_USER } from "../../config";
 
@@ -28,6 +29,7 @@ class NavUserMenu extends Component {
         clearFrequentlyPurchaseItemList,
         userLogout,
         clearMileage,
+        clearRecentlySeenList,
       } = this.props;
       logOutClearCart();
       clearToken();
@@ -35,6 +37,7 @@ class NavUserMenu extends Component {
       clearFrequentlyPurchaseItemList();
       userLogout();
       clearMileage();
+      clearRecentlySeenList();
       history.push("/");
     };
 
@@ -104,5 +107,6 @@ export default withRouter(
     logoutClearPurchaseList,
     clearFrequentlyPurchaseItemList,
     clearMileage,
+    clearRecentlySeenList,
   })(NavUserMenu)
 );

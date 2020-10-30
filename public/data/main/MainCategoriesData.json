@@ -2,67 +2,83 @@
   "categories": [
     {
       "id": 1,
-      "name": "채소"
+      "name": "채소",
+      "name_eng": "vegetables"
     },
     {
       "id": 2,
-      "name": "과일 견과 쌀"
+      "name": "과일 견과 쌀",
+      "name_eng": "fruits"
     },
     {
       "id": 3,
-      "name": "수산 해산 건어물"
+      "name": "수산 해산 건어물",
+      "name_eng": "seafood"
     },
     {
       "id": 4,
-      "name": "정육 계란"
+      "name": "정육 계란",
+      "name_eng": "meat"
     },
     {
       "id": 5,
-      "name": "국 반찬 메인요리"
+      "name": "국 반찬 메인요리",
+      "name_eng": "sidedish"
     },
     {
       "id": 6,
-      "name": "샐러드 간편식"
+      "name": "샐러드 간편식",
+      "name_eng": "salad"
     },
     {
       "id": 7,
-      "name": "면 양념 오일"
+      "name": "면 양념 오일",
+      "name_eng": "noodles"
     },
     {
       "id": 8,
-      "name": "음료 우유 떡 간식"
+      "name": "음료 우유 떡 간식",
+      "name_eng": "drinks"
     },
     {
       "id": 9,
-      "name": "베이커리 치즈 델리"
+      "name": "베이커리 치즈 델리",
+      "name_eng": "deli"
     },
     {
       "id": 10,
-      "name": "건강식품"
+      "name": "건강식품",
+      "name_eng": "health"
     },
     {
       "id": 11,
-      "name": "생활용품 리빙"
+      "name": "생활용품 리빙",
+      "name_eng": "living"
     },
     {
       "id": 12,
-      "name": "뷰티 바디케어"
+      "name": "뷰티 바디케어",
+      "name_eng": "beauty"
     },
     {
       "id": 13,
-      "name": "주방용품"
+      "name": "주방용품",
+      "name_eng": "kitchen"
     },
     {
       "id": 14,
-      "name": "가전제품"
+      "name": "가전제품",
+      "name_eng": "electronics"
     },
     {
       "id": 15,
-      "name": "베이비 키즈"
+      "name": "베이비 키즈",
+      "name_eng": "baby"
     },
     {
       "id": 16,
-      "name": "반려동물"
+      "name": "반려동물",
+      "name_eng": "pet"
     }
   ]
 }

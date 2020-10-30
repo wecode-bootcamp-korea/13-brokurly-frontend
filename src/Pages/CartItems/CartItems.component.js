@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
+
 import ViewCart from "../../Components/ViewCart/ViewCart.component";
 import { checkDiscountTotalPrice } from "../../redux/cart/cart.actions";
 import { GET_SHOPPINGBASKET_API } from "../../config";
@@ -39,8 +41,15 @@ class CartItems extends Component {
   checkGoToPayment = () => {
     const { cartItems } = this.props;
     const check = cartItems.some((cartItem) => cartItem.checked);
-    if (!check) alert("최소 1개 이상 담아주세요");
-    else this.props.history.push("/payment");
+    if (!check) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "최소 1개 이상 선택하셔야합니다",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    } else this.props.history.push("/payment");
   };
   render() {
     const { totalPrice, discountTotalPrice } = this.props;

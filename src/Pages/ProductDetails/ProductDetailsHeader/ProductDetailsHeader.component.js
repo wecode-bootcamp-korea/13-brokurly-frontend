@@ -34,7 +34,6 @@ class ProductDetailsHeader extends Component {
     try {
       const { productId } = this.state;
       const { userToken, frequentlyPurchaseItemToCartList } = this.props;
-      console.log(this.props.productDetail);
       const { name, imageUrl, originalPrice, id } = this.props.productDetail;
       const response = await fetch(PRODUCT_FAVORITE, {
         method: "POST",
@@ -68,6 +67,7 @@ class ProductDetailsHeader extends Component {
       console.log("!! error alert !!");
     }
   };
+
   sendShoppingList = async () => {
     try {
       const { productId, totalAmount } = this.state;

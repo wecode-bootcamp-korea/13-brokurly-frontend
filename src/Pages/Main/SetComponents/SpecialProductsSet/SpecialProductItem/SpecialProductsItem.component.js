@@ -57,7 +57,9 @@ class SpecialProductsItem extends Component {
               : `${originalPrice.toLocaleString("en-US")}원`}
           </p>
           <p
-            className={discountPrice ? "original-price" : "original-price hide"}
+            className={
+              discountPercent ? "original-price" : "original-price hide"
+            }
           >
             {`${originalPrice.toLocaleString("en-US")}원`}
           </p>

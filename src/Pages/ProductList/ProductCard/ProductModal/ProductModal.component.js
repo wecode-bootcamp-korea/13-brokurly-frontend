@@ -64,7 +64,12 @@ class ProductModal extends Component {
   };
 
   render() {
-    const { product, isShoppingBasketClicked, closeModal } = this.props;
+    const {
+      product,
+      isShoppingBasketClicked,
+      closeModal,
+      userToken,
+    } = this.props;
     const { totalPrice, totalAmount, rootPrice } = this.state;
     return (
       <div
@@ -72,51 +77,57 @@ class ProductModal extends Component {
           isShoppingBasketClicked ? "" : "display-none"
         }`}
       >
-        <div className="modal-title">
-          <span>상품 선택</span>
-          <button onClick={closeModal}>
-            <i className="fas fa-times"></i>
-          </button>
-        </div>
-        <div className="modal-content">
-          <div className="modal-cart">{product.name}</div>
-          <div className="modal-list">
-            <ul>
-              <li>
-                <div className="product-name">{product.name}</div>
-                <div className="product-price">
-                  <span>{rootPrice.toLocaleString()}원</span>
-                  <div>
-                    <button
-                      onClick={this.handleAmount}
-                      name="minus"
-                      disabled={totalAmount < 1}
-                    >
-                      -
-                    </button>
-                    <input type="number" name="" value={totalAmount} />
-                    <button onClick={this.handleAmount} name="plus">
-                      +
-                    </button>
+        <div className="modal-background">
+          <div className="modal-title">
+            <span>상품 선택</span>
+            <button onClick={closeModal}>
+              <i className="fas fa-times"></i>
+            </button>
+          </div>
+          <div className="modal-content">
+            <div className="modal-cart">{product.name}</div>
+            <div className="modal-list">
+              <ul>
+                <li>
+                  <div className="product-name">{product.name}</div>
+                  <div className="product-price">
+                    <span>{rootPrice.toLocaleString()}원</span>
+                    <div>
+                      <button
+                        onClick={this.handleAmount}
+                        name="minus"
+                        disabled={totalAmount < 1}
+                      >
+                        -
+                      </button>
+                      <input type="number" name="" value={totalAmount} />
+                      <button onClick={this.handleAmount} name="plus">
+                        +
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div className="modal-total-price">
-            <span>합계</span>
-            <div>
-              <span>{totalPrice.toLocaleString()}</span>
-              <span>원</span>
+                </li>
+              </ul>
             </div>
-          </div>
-          <div className="modal-discount">
-            <span>적립</span>
-            <span>로그인 후, 적립혜택 제공</span>
-          </div>
-          <div className="modal-button">
-            <button onClick={closeModal}>취소</button>
-            <button onClick={this.sendShoppingList}>장바구니 담기</button>
+            <div className="modal-total-price">
+              <span>합계</span>
+              <div>
+                <span>{totalPrice.toLocaleString()}</span>
+                <span>원</span>
+              </div>
+            </div>
+            {userToken ? (
+              ""
+            ) : (
+              <div className="modal-discount">
+                <span>적립</span>
+                <span> 로그인 후, 적립혜택 제공</span>
+              </div>
+            )}
+            <div className="modal-button">
+              <button onClick={closeModal}>취소</button>
+              <button onClick={this.sendShoppingList}>장바구니 담기</button>
+            </div>
           </div>
         </div>
       </div>
