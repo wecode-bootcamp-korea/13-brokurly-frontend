@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
+
 import ViewCart from "../../Components/ViewCart/ViewCart.component";
 import { checkDiscountTotalPrice } from "../../redux/cart/cart.actions";
 import { GET_SHOPPINGBASKET_API } from "../../config";
@@ -39,8 +41,15 @@ class CartItems extends Component {
   checkGoToPayment = () => {
     const { cartItems } = this.props;
     const check = cartItems.some((cartItem) => cartItem.checked);
-    if (!check) alert("최소 1개 이상 담아주세요");
-    else this.props.history.push("/payment");
+    if (!check) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "최소 1개 이상 선택하셔야합니다",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    } else this.props.history.push("/payment");
   };
   render() {
     const { totalPrice, discountTotalPrice } = this.props;
@@ -56,13 +65,15 @@ class CartItems extends Component {
         <div className="price-result-container">
           <div className="initial-price">
             <span className="initial-price-text">상품금액</span>
-            <span className="initial-price-number">{totalPrice} 원</span>
+            <span className="initial-price-number">
+              {totalPrice.toLocaleString()} 원
+            </span>
           </div>
           <span>&#8722;</span>
           <div className="discount-amount">
             <span className="discount-amount-text">상품할인금액</span>
             <span className="discount-amount-number">
-              {discountTotalPrice} 원
+              {discountTotalPrice.toLocaleString()} 원
             </span>
           </div>
           <span>&#43;</span>

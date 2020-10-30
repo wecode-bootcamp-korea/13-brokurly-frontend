@@ -7,11 +7,15 @@ import ProductDetailsMain from "./ProductDetailsMain/ProductDetailsMain.componen
 import ProductDetailsRequest from "./ProductDetailsRequest/ProductDetailsRequest.component";
 import { PRODUCT_REVIEW_LIST, PRODUCT_ITEM } from "../../config";
 
+import { connect } from "react-redux";
+import { push } from "../../redux/recentlySeen/recentlySeen.actions";
+
 import "./ProductDetails.styles.scss";
 
 class ProductDetails extends Component {
   state = {
     activeMenu: 0,
+    isLoading: true,
   };
 
   activeMenu = (e) => {
@@ -23,10 +27,12 @@ class ProductDetails extends Component {
   };
 
   getBoardCnt = async () => {
+    // const { id } = this.props.match.params;
+    const id = this.state.reviewId;
     const OFFSET = 0;
     const LIMIT = 10;
     const request = await fetch(
-      `${PRODUCT_REVIEW_LIST}/5/reviews?offset=${OFFSET}&limit=${LIMIT}`,
+      `${PRODUCT_REVIEW_LIST}/${id}/reviews?offset=${OFFSET}&limit=${LIMIT}`,
       { method: "GET" }
     );
     const { total_count } = await request.json();
@@ -49,19 +55,34 @@ class ProductDetails extends Component {
       const { product_detail } = await productDetails.json();
       const { related_products } = await relatedProducts.json();
       // console.log(realted_products);
-      this.setState({
+      await this.setState({
+        isLoading: true,
+        reviewId: postId,
         productDetail: product_detail,
         relatedProducts: related_products,
       });
+      setTimeout(() => {
+        this.setState({
+          isLoading: false,
+        });
+      }, 2000);
     } catch (err) {
       console.log("!!error alert!!");
     }
   };
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     let id = this.props.match.params.id;
-    this.getProductDetails(id);
+    const { pushToList } = this.props;
+    await this.getProductDetails(id);
+    const { productDetail } = this.state;
+    console.log(productDetail);
+    pushToList({ id: productDetail.id, imageUrl: productDetail.imageUrl });
+
     this.getBoardCnt();
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+    }, 2000);
   };
 
   componentDidUpdate(prevProps) {
@@ -77,6 +98,7 @@ class ProductDetails extends Component {
       activeMenu,
       relatedProducts,
       totalReviewCount,
+      isLoading,
     } = this.state;
     const detailMenus = {
       0: <ProductDetailsMain productDetail={productDetail} />,
@@ -93,7 +115,29 @@ class ProductDetails extends Component {
         />
       ),
     };
-    return (
+    return isLoading ? (
+      <section className="loading">
+        <div>
+          <svg
+            className="spinner"
+            width="65px"
+            height="65px"
+            viewBox="0 0 66 66"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              className="path"
+              fill="none"
+              stroke-width="6"
+              stroke-linecap="round"
+              cx="33"
+              cy="33"
+              r="30"
+            ></circle>
+          </svg>
+        </div>
+      </section>
+    ) : (
       <section className="ProductDetails">
         <div className="product-screen">
           {productDetail && (
@@ -136,4 +180,15 @@ class ProductDetails extends Component {
   }
 }
 
-export default ProductDetails;
+// export default ProductDetails;
+
+const mapStateToProps = ({ recentlySeen }) => ({
+  recentlySeenList: recentlySeen.recentlySeenList,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  pushToList: (item) => dispatch(push(item)),
+  // popFromList: () => dispatch(pop()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

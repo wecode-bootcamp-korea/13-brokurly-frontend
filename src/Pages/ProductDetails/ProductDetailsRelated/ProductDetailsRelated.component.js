@@ -47,6 +47,14 @@ class ProductDetailsRelated extends Component {
     });
   };
 
+  componentDidMount() {
+    const { itemsCount } = this.state;
+    const containerCountLimit = 5;
+    this.setState({
+      isRightButtonVisible: !(containerCountLimit === itemsCount),
+    });
+  }
+
   render() {
     const itemsTranslation = {
       transform: `translate(${this.state.listXcoordinate}px, 0)`,

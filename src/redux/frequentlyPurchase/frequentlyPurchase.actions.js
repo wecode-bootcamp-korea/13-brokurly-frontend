@@ -10,6 +10,6 @@ export const getFrequentlyPurchaseItems = (purchaseItemList) => ({
 });
 
 export const frequentlyPurchaseItemToCartList = (item) => ({
-  type: FrequentlyPurchaseActionTypes.ADD_TO_CARTLIST,
+  type: FrequentlyPurchaseActionTypes.FRQUENTLY_ITEM_ADD_TO_CARTLIST,
   payload: item,
 });

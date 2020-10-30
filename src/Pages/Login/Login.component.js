@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
 
 import { getToken, getCurrentUser } from "../../redux/user/user.actions";
 
@@ -41,16 +42,34 @@ class Login extends Component {
         .then((response) => response.json())
         .then((result) => {
           if (result.message === "SUCCESS") {
-            alert("로그인 성공");
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "로그인 성공",
+              showConfirmButton: false,
+              timer: 2000,
+            });
             getToken(result.authorization);
             getCurrentUser(result.user);
             this.goToMain();
           } else {
-            alert("잘못된 아이디 혹은 비밀번호입니다.");
+            Swal.fire({
+              position: "center",
+              icon: "warning",
+              title: "잘못된 아이디 혹은 비밀번호입니다",
+              showConfirmButton: false,
+              timer: 2000,
+            });
           }
         });
     } else {
-      alert("로그인 실패!");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "로그인 실패",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
   };
 

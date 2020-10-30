@@ -1,29 +1,23 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import Swal from "sweetalert2";
 
-import { GET_SHOPPINGBASKET_API, GET_PURHCASE_LIST_API } from "../../../config";
+import { addMileage } from "../../../redux/user/user.actions";
+import { GET_PURHCASE_LIST_API } from "../../../config";
 
 class PaymentButton extends Component {
   callback = (response) => {
     const { success, error_msg } = response;
-    const { history, userToken, cartItems } = this.props;
+    const { history, userToken, addMileage, totalAmount } = this.props;
     if (success) {
-      const checkedCartItems = cartItems.filter((cartItem) => cartItem.checked);
-      alert("결제성공");
-      for (let cartItem of checkedCartItems) {
-        const { id } = cartItem;
-        fetch(GET_SHOPPINGBASKET_API, {
-          method: "DELETE",
-          headers: {
-            "content-type": "application/json",
-            Authorization: userToken,
-          },
-          body: JSON.stringify({
-            shopbasket_id: id,
-          }),
-        });
-      }
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "결제 완료하였습니다",
+        showConfirmButton: false,
+        timer: 2000,
+      });
       fetch(GET_PURHCASE_LIST_API, {
         method: "POST",
         headers: {
@@ -31,6 +25,7 @@ class PaymentButton extends Component {
           Authorization: userToken,
         },
       });
+      addMileage(totalAmount / 10);
       history.push("/");
     } else {
       alert(`결제 실패: ${error_msg}`);
@@ -79,4 +74,6 @@ const mapStateToProps = ({ user, cart }) => ({
   cartItems: cart.cartItems,
 });
 
-export default connect(mapStateToProps)(withRouter(PaymentButton));
+export default connect(mapStateToProps, { addMileage })(
+  withRouter(PaymentButton)
+);

@@ -11,12 +11,10 @@ import "./Styles/Common.styles.scss";
 import "./Styles/Reset.styles.scss";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <Routes />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <Routes />
+    </PersistGate>
+  </Provider>,
   document.getElementById("root")
 );

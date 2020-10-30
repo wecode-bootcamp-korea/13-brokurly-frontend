@@ -1,0 +1,49 @@
+{
+  "message": "SUCCESS",
+  "back": [
+    {
+      "dev": "back",
+      "name": "김동현(PM)",
+      "incharge": "Products",
+      "githubId": "daphne-dev",
+      "githubUrl": "https://github.com/Daphne-dev"
+    },
+    {
+      "dev": "back",
+      "name": "김형욱",
+      "incharge": "Accounts/Login",
+      "githubId": "kho5420",
+      "githubUrl": "https://github.com/kho5420"
+    }
+  ],
+  "front": [
+    {
+      "dev": "front",
+      "name": "강수명",
+      "incharge": "Product lists, Product details",
+      "githubId": "VannsKang",
+      "githubUrl": "https://github.com/VannsKang"
+    },
+    {
+      "dev": "front",
+      "name": "김제형",
+      "incharge": "Nav, Cart, MyPage",
+      "githubId": "Muscardinus94",
+      "githubUrl": "https://github.com/Muscardinus94"
+    },
+    {
+      "dev": "front",
+      "name": "이동훈",
+      "incharge": "Main page, Side menu, Footer",
+      "githubId": "pdl39",
+      "githubUrl": "https://github.com/pdl39"
+    },
+    {
+      "dev": "front",
+      "name": "허덕형",
+      "incharge": "Login/Register, Payments",
+      "githubId": "deokyeong93",
+      "githubUrl": "https://github.com/deokyeong93"
+    }
+  ]
+}

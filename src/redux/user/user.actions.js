@@ -17,3 +17,12 @@ export const getToken = (token) => ({
 export const clearToken = () => ({
   type: UserActionTypes.CLEAR_TOKEN,
 });
+
+export const addMileage = (mileage) => ({
+  type: UserActionTypes.ADD_MILEAGE,
+  payload: mileage,
+});
+
+export const clearMileage = () => ({
+  type: UserActionTypes.CLEAR_MILEAGE,
+});
