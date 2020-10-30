@@ -17,6 +17,7 @@ class SignupInputForm extends Component {
       onOffCount,
       onCheckId,
       onCheckEmail,
+      onCheckPhone,
     } = this.props;
     return (
       <>
@@ -33,10 +34,22 @@ class SignupInputForm extends Component {
             onChange={this.handleWriteData}
           />
           {onOffCount === "idCheck" && (
-            <OverlapCheck onCheckOverlap={onCheckId} />
+            <OverlapCheck
+              onCheckOverlap={onCheckId}
+              content={this.props.checkName}
+            />
           )}
           {onOffCount === "emailCheck" && (
-            <OverlapCheck onCheckOverlap={onCheckEmail} />
+            <OverlapCheck
+              onCheckOverlap={onCheckEmail}
+              content={this.props.checkName}
+            />
+          )}
+          {onOffCount === "phoneCheck" && (
+            <OverlapCheck
+              onCheckOverlap={onCheckPhone}
+              content={this.props.checkName}
+            />
           )}
         </div>
         <OverlapCheckText

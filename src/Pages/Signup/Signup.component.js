@@ -4,7 +4,13 @@ import { withRouter } from "react-router-dom";
 import SignupInputForm from "./SignupInputForm/SignupInputForm.component";
 import OverlapCheckText from "./SignupInputForm/OverlapCheckText/OverlapCheckText.component";
 
-import { SIGNUP, SIGNUP_CHECK_ID, SIGNUP_CHECK_EMAIL } from "../../config";
+import {
+  SIGNUP,
+  SIGNUP_CHECK_ID,
+  SIGNUP_CHECK_EMAIL,
+  CHECK_SMS,
+  SEND_SMS,
+} from "../../config";
 
 import "./Signup.styles.scss";
 import "./SignupInputForm/SignupInputForm.styles.scss";
@@ -41,6 +47,7 @@ class Signup extends Component {
       birthdayYYYY: "",
       birthdayMM: "",
       birthdayDD: "",
+      phoneCheck: false,
     };
   }
 
@@ -78,6 +85,8 @@ class Signup extends Component {
       this.setState({ [name]: value, userIdCheck: false });
     } else if (name === "email") {
       this.setState({ [name]: value, userEmailCheck: false });
+    } else if (name === "phone") {
+      this.setState({ [name]: value, phoneCheck: false });
     } else {
       this.setState({ [name]: value });
     }
@@ -131,6 +140,30 @@ class Signup extends Component {
     } else {
       alert("올바른 이메일 주소를 작성해주시기 바랍니다.");
     }
+  };
+
+  checkPhone = () => {
+    fetch(SEND_SMS, {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.message === "SUCCESS") {
+          const access_number = prompt("인증번호를 입력하세요");
+          fetch(CHECK_SMS, {
+            method: "POST",
+            body: JSON.stringify({
+              access_number,
+            }),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              if (result.message === "SUCCESS") {
+                this.setState({ phoneCheck: true });
+              }
+            });
+        }
+      });
   };
 
   allCheck = (e) => {
@@ -300,6 +333,7 @@ class Signup extends Component {
               name="user_id"
               onOffCount="idCheck"
               writeHolder="6자 이상의 영문 혹은 영문과 숫자를 조합"
+              checkName="중복확인"
               onCheckId={this.checkId}
               onWriteData={this.handleWriteData}
               checkData={this.state}
@@ -346,6 +380,9 @@ class Signup extends Component {
               textType="text"
               name="phone"
               writeHolder="숫자만 입력해주세요"
+              checkName="인증확인"
+              onOffCount="phoneCheck"
+              onCheckPhone={this.checkPhone}
               onWriteData={this.handleWriteData}
               checkData={this.state}
             />

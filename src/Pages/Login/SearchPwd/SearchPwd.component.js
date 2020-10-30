@@ -42,10 +42,11 @@ class SearchPwd extends Component {
             let newPwd = prompt(
               "10자 이상의 영문,숫자,특수문자 각각 1개 이상의 조합으로 새로 작성해주세요"
             );
-            while (!newPwd.match(pwdCondition)) {
+            while (newPwd === null || !newPwd.match(pwdCondition)) {
               newPwd = prompt(
                 "10자 이상의 영문,숫자,특수문자 각각 1개 이상의 조합으로 새로 작성해주세요"
               );
+              console.log(newPwd);
             }
             fetch(USER_SEARCH_PASSWORD, {
               method: "PATCH",
