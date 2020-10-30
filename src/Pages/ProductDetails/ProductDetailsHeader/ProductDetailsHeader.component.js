@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { GET_SHOPPINGBASKET_API } from "../../../config";
+import { GET_SHOPPINGBASKET_API, PRODUCT_FAVORITE } from "../../../config";
 import { RESIZE_IMAGE } from "../../../utils";
 
 import { addItemToCart } from "../../../redux/cart/cart.actions";
@@ -32,6 +32,29 @@ class ProductDetailsHeader extends Component {
       totalAmount: nextCount,
       totalPrice: nextCount * rootPrice,
     });
+  };
+
+  sendFavorite = async () => {
+    try {
+      const { productId } = this.state;
+      const { userToken } = this.props;
+      const response = await fetch(PRODUCT_FAVORITE, {
+        method: "POST",
+        headers: {
+          Authorization: userToken,
+        },
+        body: JSON.stringify({
+          product_id: productId,
+        }),
+      });
+      if (response.state === 200) {
+        throw new Error("cannot fetch the data");
+      }
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.log("!! error alert !!");
+    }
   };
 
   sendShoppingList = async () => {
@@ -71,7 +94,7 @@ class ProductDetailsHeader extends Component {
       salesUnit,
       otherInformation,
     } = this.props.productDetail;
-
+    const { userToken } = this.props;
     const { totalPrice, totalAmount, isWidthBiggerThanHeight } = this.state;
     return (
       <div className="ProductDetailsHeader">
@@ -89,7 +112,7 @@ class ProductDetailsHeader extends Component {
               <span>{name}</span>
               <span>{content}</span>
             </div>
-            <button>
+            <button className="display-none">
               <i className="far fa-share-alt" />
             </button>
           </div>
@@ -105,13 +128,19 @@ class ProductDetailsHeader extends Component {
               <span>{discountContent}</span>
             </div>
             <div
-              className={`original-price ${!discountPrice && "display-none"}`}
+              className={`original-price ${
+                discountPrice === originalPrice && "display-none"
+              }`}
             >
               <span>{originalPrice}</span>
               <span>원</span>
               <i className="far fa-question-circle" />
             </div>
-            <div>로그인 후, 회원할인가와 적립혜택이 제공됩니다.</div>
+            {userToken ? (
+              ""
+            ) : (
+              <div>로그인 후, 회원할인가와 적립혜택이 제공됩니다.</div>
+            )}
           </div>
           <div className="order-info">
             <dl>
@@ -155,14 +184,18 @@ class ProductDetailsHeader extends Component {
               <span>{totalPrice.toLocaleString()}</span>
               <span>원</span>
             </div>
-            <div>
-              <div>적립</div>
-              <span>로그인 후, 회원할인가와 적립혜택 제공</span>
-            </div>
+            {userToken ? (
+              ""
+            ) : (
+              <div>
+                <div>적립</div>
+                <span>로그인 후, 회원할인가와 적립혜택 제공</span>
+              </div>
+            )}
           </div>
           <div className="order-button">
             <button>재입고 알림</button>
-            <button>늘 사는 거</button>
+            <button onClick={this.sendFavorite}>늘 사는 거</button>
             <button onClick={this.sendShoppingList}>장바구니 담기</button>
           </div>
         </div>

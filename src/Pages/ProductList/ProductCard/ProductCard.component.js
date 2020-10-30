@@ -14,9 +14,11 @@ class ProductCard extends Component {
 
   toggleBaksetModal = (e) => {
     const { isShoppingBasketClicked } = this.state;
+    const { blur } = this.props;
     this.setState({
       isShoppingBasketClicked: !isShoppingBasketClicked,
     });
+    blur();
   };
 
   render() {
@@ -56,7 +58,12 @@ class ProductCard extends Component {
             <div className="card-content">
               <span className="card-title">{product.name}</span>
               <div className="card-price">
-                <div className={`${!product.discountPrice && "display-none"}`}>
+                <div
+                  className={`${
+                    product.discountPrice === product.originalPrice &&
+                    "display-none"
+                  }`}
+                >
                   <span>{product.originalPrice.toLocaleString()}원 </span>
                   <i className="fas fa-long-arrow-alt-right" />
                 </div>
