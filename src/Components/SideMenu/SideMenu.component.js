@@ -142,7 +142,7 @@ class SideMenu extends Component {
           <p>최근 본 상품</p>
           <div className="recently-seen-container">
             <ul style={itemsTranslation}>
-              {recentlySeenList.reverse().map((item) => (
+              {recentlySeenList.map((item) => (
                 <li
                   key={item.id}
                   onClick={() =>

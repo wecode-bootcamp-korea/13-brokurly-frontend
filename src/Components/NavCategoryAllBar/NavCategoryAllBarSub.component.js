@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import "./NavCategoryAllBarSub.styles.scss";
 import { GET_CATEGORY_API } from "../../config";
+import { APIToMenus } from "../../categories";
 class NavCategoryAllBarSub extends Component {
   constructor() {
     super();
@@ -62,7 +63,10 @@ class NavCategoryAllBarSub extends Component {
             className="all-bar-sub-left-element"
             key={idx}
             onMouseEnter={() => this.showRightSubMenu(idx)}
-            onClick={() => this.props.history.push("/productList/vegetables")}
+            // onClick={() => this.props.history.push("/productList/vegetables")}
+            onClick={() =>
+              this.props.history.push(`/productList/${APIToMenus[idx + 1]}`)
+            }
           >
             <img src={category[2]} alt="category" />
             <span>{category[0]}</span>
