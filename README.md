@@ -64,6 +64,10 @@ https://www.youtube.com/watch?v=PfhrUruCmWU
 ### Navbar
 + 카테고리 상세 메뉴 구현
 ### 회원가입 & 로그인 (SignUp & SignIn)
++ 회원가입 아이디 / 비밀번호 유효성 검사
++ 필수 사항 / 선택 사항을 분리 구현
++ JWT를 이용한 로그인
++ 아이디 찾기 / 비밀번호 재등록 구현
 ### 장바구니
 + 상품 최종 금액 및 할인 금액 적용
 + 적립금 적용
@@ -71,6 +75,7 @@ https://www.youtube.com/watch?v=PfhrUruCmWU
 + 늘 사는 것 (찜목록) 장바구니 등록
 + 적립금 반영
 ### 주문서
++ Iamport 결제API를 이용하여 결제창 구현
 ### :man-boy: Back End
 ### 메인페이지
 + Setion 별 상품 리스트 API
