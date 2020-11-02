@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import Swal from "sweetalert2";
 
 import { addMileage } from "../../../redux/user/user.actions";
-import { GET_PURHCASE_LIST_API } from "../../../config";
+import { getCartItems } from "../../../redux/cart/cart.actions";
+import { GET_PURHCASE_LIST_API, GET_SHOPPINGBASKET_API } from "../../../config";
 
 class PaymentButton extends Component {
   callback = (response) => {
@@ -26,6 +27,15 @@ class PaymentButton extends Component {
         },
       });
       addMileage(totalAmount / 10);
+      fetch(GET_SHOPPINGBASKET_API, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: userToken,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => data.shopping_list)
+        .then((cartItems) => getCartItems(cartItems));
       history.push("/");
     } else {
       alert(`결제 실패: ${error_msg}`);
@@ -74,6 +84,6 @@ const mapStateToProps = ({ user, cart }) => ({
   cartItems: cart.cartItems,
 });
 
-export default connect(mapStateToProps, { addMileage })(
+export default connect(mapStateToProps, { addMileage, getCartItems })(
   withRouter(PaymentButton)
 );

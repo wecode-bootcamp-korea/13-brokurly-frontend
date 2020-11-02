@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Swal from "sweetalert2";
 
 import "./SearchId.styles.scss";
 
@@ -34,13 +35,31 @@ class SearchId extends Component {
         .then((response) => response.json())
         .then((result) => {
           if (result.message === "SUCCESS") {
-            alert(`찾으시는 아이디는 ${result.user_id}입니다.`);
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `찾으시는 아이디는 ${result.user_id}입니다.`,
+              showConfirmButton: false,
+              timer: 2000,
+            });
           } else {
-            alert(`입력한 정보를 다시 확인해주세요`);
+            Swal.fire({
+              position: "center",
+              icon: "warning",
+              title: "입력한 정보를 다시 확인해주세요.",
+              showConfirmButton: false,
+              timer: 2000,
+            });
           }
         });
     } else {
-      alert(`입력칸을 확인해주세요.`);
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "입력한 정보를 다시 확인해주세요.",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
   };
 
