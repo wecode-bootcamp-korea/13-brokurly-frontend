@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import SignupInputForm from "./SignupInputForm/SignupInputForm.component";
 import OverlapCheckText from "./SignupInputForm/OverlapCheckText/OverlapCheckText.component";
@@ -106,14 +107,32 @@ class Signup extends Component {
         .then((result) => {
           if (result.message === "SUCCESS") {
             this.setState({ userIdCheck: true });
-            alert("중복확인이 완료되었습니다.");
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "중복확인이 완료되었습니다..",
+              showConfirmButton: false,
+              timer: 1000,
+            });
           } else {
             this.setState({ userIdCheck: false });
-            alert("아이디가 중복되었습니다. 다시 확인해주세요.");
+            Swal.fire({
+              position: "center",
+              icon: "warning",
+              title: "아이디가 중복되었습니다.<br/>다시 입력해주세요.",
+              showConfirmButton: false,
+              timer: 1000,
+            });
           }
         });
     } else {
-      alert("조건에 맞게 아이디를 작성해주세요.");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "조건에 맞게 다시 입력해주세요.",
+        showConfirmButton: false,
+        timer: 1000,
+      });
     }
   };
 
@@ -130,41 +149,64 @@ class Signup extends Component {
         .then((response) => response.json())
         .then((result) => {
           if (result.message === "SUCCESS") {
-            alert("중복확인이 완료되었습니다.");
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "중복확인이 완료되었습니다.",
+              showConfirmButton: false,
+              timer: 1000,
+            });
             this.setState({ userEmailCheck: true });
           } else {
-            alert("중복된 이메일 주소입니다.");
+            Swal.fire({
+              position: "center",
+              icon: "warning",
+              title: "중복된 이메일 주소입니다.",
+              showConfirmButton: false,
+              timer: 1000,
+            });
             this.setState({ userEmailCheck: false });
           }
         });
     } else {
-      alert("올바른 이메일 주소를 작성해주시기 바랍니다.");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "올바른 이메일 주소를<br/>입력해주시길 바랍니다.",
+        showConfirmButton: false,
+        timer: 1000,
+      });
     }
   };
 
   checkPhone = () => {
-    fetch(SEND_SMS, {
-      method: "POST",
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.message === "SUCCESS") {
-          const access_number = prompt("인증번호를 입력하세요");
-          fetch(CHECK_SMS, {
-            method: "POST",
-            body: JSON.stringify({
-              access_number,
-            }),
-          })
-            .then((res) => res.json())
-            .then((result) => {
-              if (result.message === "SUCCESS") {
-                this.setState({ phoneCheck: true });
-              }
-            });
-        }
-      });
+    prompt("인증번호를 입력해주세요.");
+    this.setState({ phoneCheck: true });
   };
+
+  // checkPhone = () => {
+  //   fetch(SEND_SMS, {
+  //     method: "POST",
+  //   })
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       if (result.message === "SUCCESS") {
+  //         const access_number = prompt("인증번호를 입력하세요");
+  //         fetch(CHECK_SMS, {
+  //           method: "POST",
+  //           body: JSON.stringify({
+  //             access_number,
+  //           }),
+  //         })
+  //           .then((res) => res.json())
+  //           .then((result) => {
+  //             if (result.message === "SUCCESS") {
+  //               this.setState({ phoneCheck: true });
+  //             }
+  //           });
+  //       }
+  //     });
+  // };
 
   allCheck = (e) => {
     const checkBox = [
@@ -299,10 +341,22 @@ class Signup extends Component {
           is_email_agreed,
         }),
       }).then((response) => response.json());
-      alert("가입이 완료되었습니다.");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "가입이 완료되었습니다.",
+        showConfirmButton: false,
+        timer: 1000,
+      });
       this.goToMain();
     } else {
-      alert("필수사항을 다시 살펴보세요");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "필수사항을 다시 살펴봐주세요.",
+        showConfirmButton: false,
+        timer: 1000,
+      });
     }
   };
 
